@@ -1,0 +1,463 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Lesson 2: Linear encoding models" href="lesson2.html" /><link rel="prev" title="Tutorial" href="index.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+        <title>Lesson 1: Encoding models - Braincoder documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Braincoder  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">Braincoder  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Tutorial</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorial</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Lesson 1: Encoding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lesson2.html">Lesson 2: Linear encoding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lesson3.html">Lesson 3: Building the likelihood (by fitting the covariance matrix)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lesson4.html">Lesson 4: From neural responses to stimulus features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lesson5.html">Lesson 5: Decoding noisy neural data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../auto_examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_examples/00_encodingdecoding/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/fit_residuals.html">Fit the residual covariance matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/linear_encoding_model.html">Linear encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="lesson-1-encoding-models">
+<span id="tutorial-lesson1"></span><h1>Lesson 1: Encoding models<a class="headerlink" href="#lesson-1-encoding-models" title="Link to this heading">#</a></h1>
+<section id="encoding-models">
+<h2>Encoding models<a class="headerlink" href="#encoding-models" title="Link to this heading">#</a></h2>
+<p>Standard encoding models, like 2D PRF models that are used
+in retinotopic mapping, but also models of numerosity
+and Gabor orientations define <strong>determinsitic one-to-one mapping</strong> from
+<strong>stimulus space</strong> to <strong>BOLD response space</strong>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[f(x; \theta): s \mapsto x\]</div>
+</div>
+<dl class="simple">
+<dt>Here:</dt><dd><ul class="simple">
+<li><p>The stimulus <span class="math notranslate nohighlight">\(s\)</span> is some point in a n-dimensional feature space. For example, <span class="math notranslate nohighlight">\(s\)</span> could be the <em>numerosity</em> of a stimulus array, the <em>orientation</em> of a Gabor patch, or a <em>2D image</em>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x\)</span> is a BOLD activation pattern <em>in a single voxel</em>. This could both be a single-trial estimate, or the actual activity pattern on a given timepoint <span class="math notranslate nohighlight">\(t\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta\)</span> is a set of parameters tha define the particular mapping of a particular voxel. For example, the center and dispersion of a 2D PRF, or the preferred orientation of a Gabor patch. In some cases, <span class="math notranslate nohighlight">\(\theta\)</span> is fitted to data. In other cases, it is fixed.</p></li>
+</ul>
+</dd>
+</dl>
+<section id="concrete-example">
+<h3>Concrete example<a class="headerlink" href="#concrete-example" title="Link to this heading">#</a></h3>
+<p>One standard encoding model is the <strong>1D Gaussian PRF</strong>. This is simply the probability density
+of a 1D Gaussian distribution, centered at <span class="math notranslate nohighlight">\(\mu\)</span> and with dispersion <span class="math notranslate nohighlight">\(\sigma\)</span>, evaluated at
+<span class="math notranslate nohighlight">\(x\)</span>, multiplied by an amplitude <span class="math notranslate nohighlight">\(a\)</span>: and added to a baseline <span class="math notranslate nohighlight">\(b\)</span>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[f(x; \mu, \sigma, a, b) = a \cdot \mathcal{N}(x; \mu, \sigma) + b\]</div>
+</div>
+</section>
+<section id="simulate-data">
+<h3>Simulate data<a class="headerlink" href="#simulate-data" title="Link to this heading">#</a></h3>
+<p>This model is implemented in the <code class="docutils literal notranslate"><span class="pre">GaussianPRF</span></code> class in <code class="docutils literal notranslate"><span class="pre">braincoder.models</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">braincoder.models</span> <span class="kn">import</span> <span class="n">GaussianPRF</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># We set up two PRFS, one centered at 1 and one centered at -2</span>
+<span class="c1"># The first one has a sd of 1 and the second one has a sd of 1.5</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
+              <span class="p">{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span>
+              <span class="p">]</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;voxel 1&#39;</span><span class="p">,</span> <span class="s1">&#39;voxel 2&#39;</span><span class="p">])</span>
+
+<span class="c1"># We have a virtual experimental paradigm where we go from -5 to 5</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Set up the model.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+
+<span class="c1"># Extract and plot the predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
+<span class="n">predictions</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Stimulus value&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+</pre></div>
+</div>
+<p class="centered">
+<strong><img alt="prf_timeseries" src="../_images/sphx_glr_encoding_model_001.png" /></strong></p><p>We can also simulate noisy data and try to estimate back the generating parameters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="centered">
+<strong><img alt="noisy_prf_timeseries" src="../_images/sphx_glr_encoding_model_002.png" /></strong></p></section>
+<section id="estimate-parameters">
+<h3>Estimate parameters<a class="headerlink" href="#estimate-parameters" title="Link to this heading">#</a></h3>
+<p>Then we can try to estimate back the generating parameters using a grid search.
+This code automatically picks, for each voxel, the parameters that maximize the
+<strong>correlation</strong> between the predicted and actual BOLD response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># the paradigm, and the model</span>
+<span class="kn">from</span> <span class="nn">braincoder.optimize</span> <span class="kn">import</span> <span class="n">ParameterFitter</span>
+<span class="kn">from</span> <span class="nn">braincoder.utils</span> <span class="kn">import</span> <span class="n">get_rsq</span>
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">ParameterFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
+
+<span class="c1"># Set up a grid search over the parameters</span>
+<span class="n">possible_mus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">possible_sds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># For the grid search we use a correlation cost function, so we can fit</span>
+<span class="c1"># the amplitude an baseline later using OLS</span>
+<span class="n">possible_amplitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span>
+<span class="n">possible_baselines</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span>
+
+<span class="c1"># Fit the grid</span>
+<span class="n">grid_pars</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">fit_grid</span><span class="p">(</span><span class="n">possible_mus</span><span class="p">,</span> <span class="n">possible_sds</span><span class="p">,</span> <span class="n">possible_amplitudes</span><span class="p">,</span> <span class="n">possible_baselines</span><span class="p">,</span> <span class="n">use_correlation_cost</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Show the results</span>
+<span class="n">grid_pars</span>
+</pre></div>
+</div>
+<p>The grid search only optimized for the center and dispersion of the Gaussian,
+but we also want to optimize for the amplitude and baseline,
+using ordinary least squares (note that this is computationally much cheaper than adding
+<code class="docutils literal notranslate"><span class="pre">amplitude</span></code> and <code class="docutils literal notranslate"><span class="pre">baseline</span></code> to the grid search).
+Now we minimize the sum of squared errors between the predicted and actual BOLD response
+<strong>R2</strong>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grid_pars</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">refine_baseline_and_amplitude</span><span class="p">(</span><span class="n">grid_pars</span><span class="p">)</span>
+
+<span class="c1"># Show the fitted timeseries</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()</span>
+<span class="n">grid_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">)</span>
+
+<span class="c1"># See how well the predictions align with the data</span>
+<span class="c1"># using the explained variance statistic</span>
+<span class="n">r2_grid</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Grid prediction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;R2 = </span><span class="si">{</span><span class="n">r2_grid</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>This grid-optimized parameters already fit the data pretty well.
+Note how we can use <code class="docutils literal notranslate"><span class="pre">get_rsq</span></code> to calculate the <em>fraction of explained variance R2</em>
+between the predicted and actual BOLD response. This is the exact same R2 that is used
+to optimize the parameters on.</p>
+<p class="centered">
+<strong><img alt="grid_fit" src="../_images/sphx_glr_encoding_model_003.png" /></strong></p><p>We can do even better using <em>gradient descent</em> optimisation. Note that because <cite>braincoder</cite> uses
+<cite>tensorflow</cite>, it uses autodiff-calculated exact gradients, as well as the GPU to speed up the
+computation. This is especially useful for more complex models. <cite>braincoder</cite> is under some
+circumstances multiple orders of magnitude faster than other PRF libraries.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gd_pars</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gd_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">gd_pars</span><span class="p">)</span>
+
+<span class="n">r2_gd</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Grid prediction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient descent prediction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;R2 = </span><span class="si">{</span><span class="n">r2_gd</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p class="centered">
+<strong><img alt="gd_fit" src="../_images/sphx_glr_encoding_model_004.png" /></strong></p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The complete Python script its output can be found <a class="reference internal" href="../auto_examples/00_encodingdecoding/encoding_model.html#sphx-glr-auto-examples-00-encodingdecoding-encoding-model-py"><span class="std std-ref">here</span></a>.</p>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<dl class="simple">
+<dt>In this lesson we have seen:</dt><dd><ul class="simple">
+<li><p>Encoding models define a deterministic mapping from stimulus space to BOLD response space</p></li>
+<li><p><cite>braincoder</cite> allows us to define all kins of encoding models, and to fit them to data</p></li>
+<li><p><cite>braincoder</cite> uses tensorflow to speed up the computation, and to allow for gradient descent optimisation</p></li>
+<li><p>Fitting encoding models usually take the following steps:
+* Set up a grid of possible non-linear parameter values, and find best-fitting ones (<code class="docutils literal notranslate"><span class="pre">optimizer.fit_grid()</span></code>)
+* Fit linear parameters using ordinary least squares (<code class="docutils literal notranslate"><span class="pre">optimizer.refine_amplitude_baseline()</span></code>)
+* Finialize fit using gradient descent (<code class="docutils literal notranslate"><span class="pre">optimizer.fit()</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<p>In the <a class="reference internal" href="lesson2.html#tutorial-lesson2"><span class="std std-ref">next lesson</span></a>, we will see how we can fit <em>linear</em> encoding models.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="lesson2.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Lesson 2: Linear encoding models</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Tutorial</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Gilles de Hollander
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Lesson 1: Encoding models</a><ul>
+<li><a class="reference internal" href="#encoding-models">Encoding models</a><ul>
+<li><a class="reference internal" href="#concrete-example">Concrete example</a></li>
+<li><a class="reference internal" href="#simulate-data">Simulate data</a></li>
+<li><a class="reference internal" href="#estimate-parameters">Estimate parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>
