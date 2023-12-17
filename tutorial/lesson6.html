@@ -264,7 +264,7 @@ to indicate we want to model both orientation and amplitudes.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">stimulus</span><span class="o">.</span><span class="n">dimension_labels</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x292401900&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x28fe95bd0&gt;
 [&#39;x (radians)&#39;, &#39;amplitude&#39;]
 </pre></div>
 </div>
@@ -540,7 +540,7 @@ is equivalent to taking the average over the unit circle in the complex plane.</
 
 <span class="c1"># Circular correlations:</span>
 <span class="kn">import</span> <span class="nn">pingouin</span> <span class="k">as</span> <span class="nn">pg</span>
-<span class="n">posterior_stats</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pg</span><span class="o">.</span><span class="n">circ_corrcc</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;ground_truth&#39;</span><span class="p">]),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]))</span>
+<span class="n">posterior_stats</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pg</span><span class="o">.</span><span class="n">circ_corrcc</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;ground_truth&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]))</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -574,13 +574,13 @@ is equivalent to taking the average over the unit circle in the complex plane.</
   <tbody>
     <tr>
       <th>attended</th>
-      <td>0.900397</td>
-      <td>6.119627e-15</td>
+      <td>0.929009</td>
+      <td>6.035704e-15</td>
     </tr>
     <tr>
       <th>unattended</th>
-      <td>-0.006309</td>
-      <td>9.465374e-01</td>
+      <td>0.636113</td>
+      <td>6.042336e-10</td>
     </tr>
   </tbody>
 </table>

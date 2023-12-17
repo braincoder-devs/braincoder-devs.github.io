@@ -259,7 +259,7 @@ such as expectation and attention.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">stimulus</span><span class="o">.</span><span class="n">dimension_labels</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x292401900&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x28fe95bd0&gt;
 [&#39;x (radians)&#39;, &#39;amplitude&#39;]
 </pre></div>
 </div>
@@ -278,8 +278,8 @@ such as expectation and attention.</p>
 <span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">resid_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.4721664786338806, 0.5605770349502563
-WWT max: 16.191341400146484
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.4579647481441498, 0.5479546189308167
+WWT max: 16.206178665161133
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we set up an experimental paradigm with two conditions</span>
@@ -307,7 +307,7 @@ WWT max: 16.191341400146484
 <span class="n">g</span><span class="o">.</span><span class="n">add_legend</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode2d_001.png" srcset="../../_images/sphx_glr_decode2d_001.png" alt="unit = 0, unit = 1, unit = 2, unit = 3, unit = 4, unit = 5, unit = 6, unit = 7" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x2942e5150&gt;
+<img src="../../_images/sphx_glr_decode2d_001.png" srcset="../../_images/sphx_glr_decode2d_001.png" alt="unit = 0, unit = 1, unit = 2, unit = 3, unit = 4, unit = 5, unit = 6, unit = 7" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x292c23fd0&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we can calculate the 2D likelihood/posterior of different orientations+amplitudes for the data</span>
@@ -408,7 +408,7 @@ WWT max: 16.191341400146484
 /Users/gdehol/git/braincoder/examples/00_encodingdecoding/decode2d.py:160: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
   orientations_posterior = ll.groupby(&#39;x (radians)&#39;, axis=1).sum()
 
-&lt;seaborn.axisgrid.FacetGrid object at 0x2935e6e60&gt;
+&lt;seaborn.axisgrid.FacetGrid object at 0x292c60190&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the ground truth amplitude to improve the orientation posterior</span>
@@ -430,7 +430,7 @@ WWT max: 16.191341400146484
 <span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;coolwarm_r&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode2d_005.png" srcset="../../_images/sphx_glr_decode2d_005.png" alt="frame = 0.0, frame = 1.0, frame = 2.0, frame = 3.0, frame = 4.0, frame = 5.0, frame = 6.0, frame = 7.0, frame = 8.0" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x295383e80&gt;
+<img src="../../_images/sphx_glr_decode2d_005.png" srcset="../../_images/sphx_glr_decode2d_005.png" alt="frame = 0.0, frame = 1.0, frame = 2.0, frame = 3.0, frame = 4.0, frame = 5.0, frame = 6.0, frame = 7.0, frame = 8.0" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x291cdd7b0&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Intro to complex numbers</span>
@@ -489,7 +489,7 @@ WWT max: 16.191341400146484
 
 <span class="c1"># Circular correlations:</span>
 <span class="kn">import</span> <span class="nn">pingouin</span> <span class="k">as</span> <span class="nn">pg</span>
-<span class="n">posterior_stats</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pg</span><span class="o">.</span><span class="n">circ_corrcc</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;ground_truth&#39;</span><span class="p">]),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]))</span>
+<span class="n">posterior_stats</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pg</span><span class="o">.</span><span class="n">circ_corrcc</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;ground_truth&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]))</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -523,13 +523,13 @@ WWT max: 16.191341400146484
   <tbody>
     <tr>
       <th>attended</th>
-      <td>0.900397</td>
-      <td>6.119627e-15</td>
+      <td>0.929009</td>
+      <td>6.035704e-15</td>
     </tr>
     <tr>
       <th>unattended</th>
-      <td>-0.006309</td>
-      <td>9.465374e-01</td>
+      <td>0.636113</td>
+      <td>6.042336e-10</td>
     </tr>
   </tbody>
 </table>
@@ -576,10 +576,10 @@ WWT max: 16.191341400146484
 <span class="c1"># %%</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode2d_008.png" srcset="../../_images/sphx_glr_decode2d_008.png" alt="decode2d" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x297d27670&gt;
+<img src="../../_images/sphx_glr_decode2d_008.png" srcset="../../_images/sphx_glr_decode2d_008.png" alt="decode2d" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x2963b3bb0&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.389 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 15.464 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-decode2d-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0dace58778215ca8db018287d509ecd5/decode2d.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">decode2d.ipynb</span></code></a></p>

@@ -64,7 +64,7 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x292401900>
+    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x28fe95bd0>
     ['x (radians)', 'amplitude']
 
 
@@ -97,8 +97,8 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    init_tau: 0.4721664786338806, 0.5605770349502563
-    WWT max: 16.191341400146484
+    init_tau: 0.4579647481441498, 0.5479546189308167
+    WWT max: 16.206178665161133
 
 
 
@@ -158,7 +158,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x2942e5150>
+    <seaborn.axisgrid.FacetGrid object at 0x292c23fd0>
 
 
 
@@ -313,7 +313,7 @@ such as expectation and attention.
     /Users/gdehol/git/braincoder/examples/00_encodingdecoding/decode2d.py:160: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
       orientations_posterior = ll.groupby('x (radians)', axis=1).sum()
 
-    <seaborn.axisgrid.FacetGrid object at 0x2935e6e60>
+    <seaborn.axisgrid.FacetGrid object at 0x292c60190>
 
 
 
@@ -354,7 +354,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x295383e80>
+    <seaborn.axisgrid.FacetGrid object at 0x291cdd7b0>
 
 
 
@@ -435,7 +435,7 @@ such as expectation and attention.
 
     # Circular correlations:
     import pingouin as pg
-    posterior_stats.groupby('condition').apply(lambda d: pd.Series(pg.circ_corrcc(d['E'], d['ground_truth']), index=['rho', 'p']))
+    posterior_stats.groupby('condition').apply(lambda d: pd.Series(pg.circ_corrcc(d['E'], d['ground_truth'], True), index=['rho', 'p']))
 
 
 
@@ -475,13 +475,13 @@ such as expectation and attention.
       <tbody>
         <tr>
           <th>attended</th>
-          <td>0.900397</td>
-          <td>6.119627e-15</td>
+          <td>0.929009</td>
+          <td>6.035704e-15</td>
         </tr>
         <tr>
           <th>unattended</th>
-          <td>-0.006309</td>
-          <td>9.465374e-01</td>
+          <td>0.636113</td>
+          <td>6.042336e-10</td>
         </tr>
       </tbody>
     </table>
@@ -562,14 +562,14 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x297d27670>
+    <seaborn.axisgrid.FacetGrid object at 0x2963b3bb0>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 12.389 seconds)
+   **Total running time of the script:** (0 minutes 15.464 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_decode2d.py:

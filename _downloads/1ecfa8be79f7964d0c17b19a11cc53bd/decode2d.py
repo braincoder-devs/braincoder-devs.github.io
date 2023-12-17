@@ -249,7 +249,7 @@ posterior_stats = get_posterior_stats(conditional_orientation_ll, ground_truth=e
 
 # Circular correlations:
 import pingouin as pg
-posterior_stats.groupby('condition').apply(lambda d: pd.Series(pg.circ_corrcc(d['E'], d['ground_truth']), index=['rho', 'p']))
+posterior_stats.groupby('condition').apply(lambda d: pd.Series(pg.circ_corrcc(d['E'], d['ground_truth'], True), index=['rho', 'p']))
 
 # %%
 

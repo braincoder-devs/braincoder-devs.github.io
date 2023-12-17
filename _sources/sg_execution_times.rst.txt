@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:12.389** total execution time for 6 files **from all galleries**:
+**00:15.464** total execution time for 6 files **from all galleries**:
 
 .. container::
 
@@ -33,7 +33,7 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py` (``../examples/00_encodingdecoding/decode2d.py``)
-     - 00:12.389
+     - 00:15.464
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py` (``../examples/00_encodingdecoding/decode.py``)
      - 00:00.000
