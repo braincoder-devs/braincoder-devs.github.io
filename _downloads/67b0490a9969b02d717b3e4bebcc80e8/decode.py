@@ -88,7 +88,10 @@ g.set(xlabel='Stimulus value', ylabel='Posterior probability density')
 # %%
 
 # Let's look at the summary statistics of the posteriors posteriors
-def get_posterior_stats(posterior):
+def get_posterior_stats(posterior, normalize=True):
+    posterior = posterior.copy()
+    posterior = posterior.div(np.trapz(posterior, posterior.columns,axis=1), axis=0)
+
     # Take integral over the posterior to get to the expectation (mean posterior)
     E = np.trapz(posterior*posterior.columns.values[np.newaxis,:], posterior.columns, axis=1)
     

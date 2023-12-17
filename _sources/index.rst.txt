@@ -19,3 +19,4 @@ Quick start
 
    tutorial/index.rst
    auto_examples/index.rst
+   bibliography.rst

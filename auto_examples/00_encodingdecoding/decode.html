@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="prev" title="Invert encoding model" href="invert_model.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Decoding 2D stimuli from neural data" href="decode2d.html" /><link rel="prev" title="Invert encoding model" href="invert_model.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Decoding of stimuli from neural data - Braincoder documentation</title>
@@ -171,6 +171,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson3.html">Lesson 3: Building the likelihood (by fitting the covariance matrix)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson4.html">Lesson 4: From neural responses to stimulus features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson5.html">Lesson 5: Decoding noisy neural data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html">Lesson 6: Decoding two-dimensional stimulus spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#decode-the-marginal-probability-distribution">Decode the marginal probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -180,10 +184,12 @@
 <li class="toctree-l3"><a class="reference internal" href="encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Decoding of stimuli from neural data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decode2d.html">Decoding 2D stimuli from neural data</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">General bibliography</a></li>
 </ul>
 
 </div>
@@ -254,11 +260,6 @@ to download the full example code</p>
 <span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[61. 60. 59. 34. 20. 14. 74. 14. 13.  4. 22. 66. 64. 53. 95. 79. 17. 56.
- 92. 52. 27. 39. 14. 81. 29.  4. 88.  6. 78. 11. 91. 79. 33. 53. 63. 42.
- 61. 82. 32. 20.  2. 58. 92. 78. 92. 67. 99. 45.  6. 16.]
-</pre></div>
-</div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we fit back the PRF parameters</span>
 <span class="kn">from</span> <span class="nn">braincoder.optimize</span> <span class="kn">import</span> <span class="n">ParameterFitter</span><span class="p">,</span> <span class="n">ResidualFitter</span>
 <span class="n">fitter</span> <span class="o">=</span> <span class="n">ParameterFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">paradigm</span><span class="p">)</span>
@@ -281,24 +282,17 @@ to download the full example code</p>
 Using correlation cost!
 
   0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00,  5.97it/s]
-100%|██████████| 1/1 [00:00&lt;00:00,  5.96it/s]
-Original mean r2: -0.6047407984733582
-100.00% of time lines improved
-New mean r2 after OLS: 0.30944448709487915
-Original mean r2: 0.30944448709487915
-0.00% of time lines improved
-New mean r2 after OLS: 0.30944448709487915
-Correlation grid-fitted parameter and ground truth for *mu*: 0.88
-Correlation grid-fitted parameter and ground truth for *sd*: 0.52
-Correlation grid-fitted parameter and ground truth for *amplitude*: 0.83
-Correlation grid-fitted parameter and ground truth for *baseline*: 0.83
+100%|██████████| 1/1 [00:00&lt;00:00, 11.24it/s]
+Correlation grid-fitted parameter and ground truth for *mu*: 0.81
+Correlation grid-fitted parameter and ground truth for *sd*: 0.68
+Correlation grid-fitted parameter and ground truth for *amplitude*: 0.90
+Correlation grid-fitted parameter and ground truth for *baseline*: 0.89
 Number of problematic voxels (mask): 0
 Number of voxels remaining (mask): 20
-Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.88
-Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.52
-Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.83
-Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.83
+Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.81
+Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.68
+Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.90
+Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.89
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we fit the covariance matrix</span>
@@ -309,9 +303,9 @@ Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0
 <span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">resid_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.7912291884422302, 1.1512037515640259
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.798433780670166, 1.1159507036209106
 USING A PSEUDO-WWT!
-WWT max: 838.3524169921875
+WWT max: 1356.8245849609375
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we simulate unseen test data:</span>
@@ -320,12 +314,6 @@ WWT max: 838.3524169921875
 
 <span class="c1"># And decode the test paradigm</span>
 <span class="n">posterior</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_stimulus_pdf</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">stimulus_range</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="n">dof</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[13. 99. 23. 56. 98. 89. 14. 28. 79. 49. 29. 66. 56. 41. 99.  8. 15. 25.
- 26. 10. 72. 11. 46.  2. 86. 51. 88. 51. 12.  5.  4. 60. 91. 49. 94. 18.
-  8. 95. 69. 67. 49. 26. 33. 83. 25. 12. 23. 42. 96. 52.]
-(99,)
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Finally, we make some plots to see how well the decoder did</span>
@@ -344,11 +332,14 @@ WWT max: 838.3524169921875
 <span class="n">g</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Stimulus value&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Posterior probability density&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode_001.png" srcset="../../_images/sphx_glr_decode_001.png" alt="frame = 0, frame = 1, frame = 2, frame = 3, frame = 4, frame = 5, frame = 6, frame = 7, frame = 8" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x2d0982470&gt;
+<img src="../../_images/sphx_glr_decode_001.png" srcset="../../_images/sphx_glr_decode_001.png" alt="frame = 0, frame = 1, frame = 2, frame = 3, frame = 4, frame = 5, frame = 6, frame = 7, frame = 8" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x2c3985f30&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s look at the summary statistics of the posteriors posteriors</span>
-<span class="k">def</span> <span class="nf">get_posterior_stats</span><span class="p">(</span><span class="n">posterior</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_posterior_stats</span><span class="p">(</span><span class="n">posterior</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">posterior</span><span class="p">,</span> <span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
     <span class="c1"># Take integral over the posterior to get to the expectation (mean posterior)</span>
     <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">posterior</span><span class="o">*</span><span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:],</span> <span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
@@ -407,30 +398,30 @@ WWT max: 838.3524169921875
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_decode_004.png" srcset="../../_images/sphx_glr_decode_004.png" alt="decode" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1000 [00:00&lt;?, ?it/s]
-  0%|          | 1/1000 [00:00&lt;02:43,  6.11it/s]
-  5%|▌         | 53/1000 [00:00&lt;00:03, 243.81it/s]
- 11%|█         | 108/1000 [00:00&lt;00:02, 364.52it/s]
- 17%|█▋        | 167/1000 [00:00&lt;00:01, 444.28it/s]
- 22%|██▏       | 223/1000 [00:00&lt;00:01, 481.61it/s]
- 28%|██▊       | 282/1000 [00:00&lt;00:01, 515.91it/s]
- 34%|███▍      | 341/1000 [00:00&lt;00:01, 538.57it/s]
- 40%|████      | 401/1000 [00:00&lt;00:01, 556.04it/s]
- 46%|████▌     | 459/1000 [00:00&lt;00:00, 563.36it/s]
- 52%|█████▏    | 519/1000 [00:01&lt;00:00, 572.40it/s]
- 58%|█████▊    | 578/1000 [00:01&lt;00:00, 575.29it/s]
- 64%|██████▎   | 636/1000 [00:01&lt;00:00, 574.99it/s]
- 69%|██████▉   | 694/1000 [00:01&lt;00:00, 569.49it/s]
- 75%|███████▌  | 754/1000 [00:01&lt;00:00, 576.23it/s]
- 82%|████████▏ | 815/1000 [00:01&lt;00:00, 583.61it/s]
- 87%|████████▋ | 874/1000 [00:01&lt;00:00, 579.71it/s]
- 93%|█████████▎| 933/1000 [00:01&lt;00:00, 581.38it/s]
- 99%|█████████▉| 992/1000 [00:01&lt;00:00, 579.61it/s]
-100%|██████████| 1000/1000 [00:01&lt;00:00, 525.81it/s]
+  0%|          | 1/1000 [00:00&lt;02:40,  6.21it/s]
+  5%|▌         | 54/1000 [00:00&lt;00:03, 251.92it/s]
+ 11%|█         | 110/1000 [00:00&lt;00:02, 374.36it/s]
+ 17%|█▋        | 167/1000 [00:00&lt;00:01, 443.83it/s]
+ 23%|██▎       | 226/1000 [00:00&lt;00:01, 492.84it/s]
+ 28%|██▊       | 285/1000 [00:00&lt;00:01, 524.48it/s]
+ 34%|███▍      | 343/1000 [00:00&lt;00:01, 541.33it/s]
+ 40%|████      | 401/1000 [00:00&lt;00:01, 552.05it/s]
+ 46%|████▌     | 459/1000 [00:00&lt;00:00, 559.32it/s]
+ 52%|█████▏    | 516/1000 [00:01&lt;00:00, 552.49it/s]
+ 57%|█████▊    | 575/1000 [00:01&lt;00:00, 560.87it/s]
+ 63%|██████▎   | 632/1000 [00:01&lt;00:00, 558.05it/s]
+ 69%|██████▉   | 689/1000 [00:01&lt;00:00, 560.25it/s]
+ 75%|███████▍  | 747/1000 [00:01&lt;00:00, 565.42it/s]
+ 81%|████████  | 806/1000 [00:01&lt;00:00, 572.28it/s]
+ 86%|████████▋ | 864/1000 [00:01&lt;00:00, 572.99it/s]
+ 92%|█████████▏| 922/1000 [00:01&lt;00:00, 571.77it/s]
+ 98%|█████████▊| 981/1000 [00:01&lt;00:00, 577.05it/s]
+100%|██████████| 1000/1000 [00:01&lt;00:00, 522.24it/s]
 
-&lt;matplotlib.legend.Legend object at 0x2ce22c370&gt;
+&lt;matplotlib.legend.Legend object at 0x2c5f931f0&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 14.345 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.040 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-decode-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6617c088d7d027febee4c331aef6d1fa/decode.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">decode.ipynb</span></code></a></p>
@@ -447,7 +438,15 @@ WWT max: 838.3524169921875
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="decode2d.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Decoding 2D stimuli from neural data</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="invert_model.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">

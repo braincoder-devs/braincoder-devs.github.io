@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Examples" href="../auto_examples/index.html" /><link rel="prev" title="Lesson 4: From neural responses to stimulus features" href="lesson4.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Lesson 6: Decoding two-dimensional stimulus spaces" href="lesson6.html" /><link rel="prev" title="Lesson 4: From neural responses to stimulus features" href="lesson4.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Lesson 5: Decoding noisy neural data - Braincoder documentation</title>
@@ -171,6 +171,10 @@
 <li class="toctree-l2"><a class="reference internal" href="lesson3.html">Lesson 3: Building the likelihood (by fitting the covariance matrix)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lesson4.html">Lesson 4: From neural responses to stimulus features</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Lesson 5: Decoding noisy neural data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lesson6.html">Lesson 6: Decoding two-dimensional stimulus spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lesson6.html#decode-the-marginal-probability-distribution">Decode the marginal probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lesson6.html#the-complex-plane">The complex plane</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../auto_examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -180,10 +184,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/decode2d.html">Decoding 2D stimuli from neural data</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">General bibliography</a></li>
 </ul>
 
 </div>
@@ -280,24 +286,17 @@ parameters, for each parameter seperately.</p>
 Using correlation cost!
 
   0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00,  5.97it/s]
-100%|██████████| 1/1 [00:00&lt;00:00,  5.96it/s]
-Original mean r2: -0.6047407984733582
-100.00% of time lines improved
-New mean r2 after OLS: 0.30944448709487915
-Original mean r2: 0.30944448709487915
-0.00% of time lines improved
-New mean r2 after OLS: 0.30944448709487915
-Correlation grid-fitted parameter and ground truth for *mu*: 0.88
-Correlation grid-fitted parameter and ground truth for *sd*: 0.52
-Correlation grid-fitted parameter and ground truth for *amplitude*: 0.83
-Correlation grid-fitted parameter and ground truth for *baseline*: 0.83
+100%|██████████| 1/1 [00:00&lt;00:00, 11.24it/s]
+Correlation grid-fitted parameter and ground truth for *mu*: 0.81
+Correlation grid-fitted parameter and ground truth for *sd*: 0.68
+Correlation grid-fitted parameter and ground truth for *amplitude*: 0.90
+Correlation grid-fitted parameter and ground truth for *baseline*: 0.89
 Number of problematic voxels (mask): 0
 Number of voxels remaining (mask): 20
-Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.88
-Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.52
-Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.83
-Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.83
+Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.81
+Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.68
+Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.90
+Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.89
 </pre></div>
 </div>
 <p>Note how some parameters (e.g., <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">amplitude</span></code>) are easier
@@ -379,7 +378,10 @@ expected stimulus :math:<code class="docutils literal notranslate"><span class="
 <div class="math notranslate nohighlight">
 \[\mathbb{E}[d] = \int \|s - \mathbb{E}[s]\| \cdot p(s|x) ds\]</div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_posterior_stats</span><span class="p">(</span><span class="n">posterior</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_posterior_stats</span><span class="p">(</span><span class="n">posterior</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">posterior</span><span class="p">,</span> <span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
     <span class="c1"># Take integral over the posterior to get to the expectation (mean posterior)</span>
     <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">posterior</span><span class="o">*</span><span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:],</span> <span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     
@@ -462,7 +464,15 @@ use a grid search to find a good starting point for the optimisation.</p>
 </pre></div>
 </div>
 <p class="centered">
-<strong><img alt="estimates_vs_groundtruth" src="../_images/sphx_glr_decode_004.png" /></strong></p></section>
+<strong><img alt="estimates_vs_groundtruth" src="../_images/sphx_glr_decode_004.png" /></strong></p><p>Note how in this example, the MAP and mean posterior estimates are almost identical.
+However, the mean posterior, where we take into account uncertainty in all stimulus
+posterior dimensions, has theoretical advantages, in particular when the stimulus dimensionality
+is high (here it is only 1-dimensional).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The complete Python script and its output can be found <a class="reference internal" href="../auto_examples/00_encodingdecoding/decode.html#sphx-glr-auto-examples-00-encodingdecoding-decode-py"><span class="std std-ref">here</span></a>.</p>
+</div>
+</section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p>In this tutorial, we have seen how to decode stimuli from neural data
@@ -472,11 +482,14 @@ in a more realistic setting.</p>
 <li><p>Fit the parameters of the encoding model</p></li>
 <li><p>Estimate the covariance matrix of the noise</p></li>
 <li><p>Apply the likelihood model to get a posterior over stimuli</p></li>
-<li><p>Use numerical integration to get the expected stimulus :math:<code class="docutils literal notranslate"><span class="pre">E[s]</span></code></p></li>
-<li><p>Use numerical integration to get the expected distance between the real and expected stimulus</p></li>
+<li><p>Use numerical integration to get the expected stimulus <span class="math notranslate nohighlight">\(E[s]\)</span></p></li>
+<li><p>Use numerical integration to get the expected distance between the real and expected stimulus (the standard deviation of the posterior)</p></li>
+<li><p>Use grid+gradient descent optimisation to get the most likely stimulus</p></li>
 </ul>
 </dd>
 </dl>
+<p>In the <a class="reference internal" href="lesson6.html#tutorial-lesson6"><span class="std std-ref">next tutorial</span></a>, we will see how to do the same thing, but in a two-dimensional
+stimulus space!</p>
 </section>
 </section>
 
@@ -485,12 +498,12 @@ in a more realistic setting.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../auto_examples/index.html">
+          <a class="next-page" href="lesson6.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Examples</div>
+                <div class="title">Lesson 6: Decoding two-dimensional stimulus spaces</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

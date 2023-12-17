@@ -1,4 +1,3 @@
-
 .. _tutorial_lesson5:
 
 ====================================================
@@ -173,6 +172,16 @@ And then plot how well we did.
 .. |estimates_vs_groundtruth| image:: ../auto_examples/00_encodingdecoding/images/sphx_glr_decode_004.png
 .. centered:: |estimates_vs_groundtruth|
 
+
+Note how in this example, the MAP and mean posterior estimates are almost identical.
+However, the mean posterior, where we take into account uncertainty in all stimulus
+posterior dimensions, has theoretical advantages, in particular when the stimulus dimensionality
+is high (here it is only 1-dimensional).
+
+.. note::
+
+    The complete Python script and its output can be found :ref:`here<sphx_glr_auto_examples_00_encodingdecoding_decode.py>`.
+
 Summary
 #######
 In this tutorial, we have seen how to decode stimuli from neural data
@@ -182,7 +191,9 @@ The concrete steps were:
  * Fit the parameters of the encoding model
  * Estimate the covariance matrix of the noise
  * Apply the likelihood model to get a posterior over stimuli
- * Use numerical integration to get the expected stimulus :math:``E[s]``
- * Use numerical integration to get the expected distance between the real and expected stimulus
+ * Use numerical integration to get the expected stimulus :math:`E[s]`
+ * Use numerical integration to get the expected distance between the real and expected stimulus (the standard deviation of the posterior)
+ * Use grid+gradient descent optimisation to get the most likely stimulus
 
- 
+In the :ref:`next tutorial <tutorial_lesson6>`, we will see how to do the same thing, but in a two-dimensional 
+stimulus space!

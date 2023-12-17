@@ -101,6 +101,23 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Here, we are decoding oriented stimuli from neural data that have an extra dimension: amplitude...">
+
+.. only:: html
+
+  .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode2d_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Decoding 2D stimuli from neural data</div>
+    </div>
+
+
+.. raw:: html
+
     </div>
 
 
@@ -112,4 +129,5 @@ Some introduction to the encoding/decoding framework.
    /auto_examples/00_encodingdecoding/encoding_model
    /auto_examples/00_encodingdecoding/invert_model
    /auto_examples/00_encodingdecoding/decode
+   /auto_examples/00_encodingdecoding/decode2d
 
