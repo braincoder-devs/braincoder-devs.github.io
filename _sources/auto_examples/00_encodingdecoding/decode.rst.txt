@@ -93,23 +93,17 @@ Here we will simulate neural data given a ground truth encoding model
 
     Working with chunk size of 666666
     Using correlation cost!
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00,  5.94it/s]    100%|██████████| 1/1 [00:00<00:00,  5.93it/s]
-    Original mean r2: -0.6969831585884094
-    100.00% of time lines improved
-    New mean r2 after OLS: 0.29442742466926575
-    Original mean r2: 0.29442742466926575
-    5.00% of time lines improved
-    New mean r2 after OLS: 0.29442742466926575
-    Correlation grid-fitted parameter and ground truth for *mu*: 0.73
-    Correlation grid-fitted parameter and ground truth for *sd*: 0.12
-    Correlation grid-fitted parameter and ground truth for *amplitude*: 0.95
-    Correlation grid-fitted parameter and ground truth for *baseline*: 0.85
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 11.24it/s]
+    Correlation grid-fitted parameter and ground truth for *mu*: 0.81
+    Correlation grid-fitted parameter and ground truth for *sd*: 0.68
+    Correlation grid-fitted parameter and ground truth for *amplitude*: 0.90
+    Correlation grid-fitted parameter and ground truth for *baseline*: 0.89
     Number of problematic voxels (mask): 0
     Number of voxels remaining (mask): 20
-    Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.73
-    Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.12
-    Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.95
-    Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.85
+    Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.81
+    Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.68
+    Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.90
+    Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.89
 
 
 
@@ -134,9 +128,9 @@ Here we will simulate neural data given a ground truth encoding model
 
  .. code-block:: none
 
-    init_tau: 0.7796974182128906, 1.056628942489624
+    init_tau: 0.798433780670166, 1.1159507036209106
     USING A PSEUDO-WWT!
-    WWT max: 808.079345703125
+    WWT max: 1356.8245849609375
 
 
 
@@ -160,7 +154,7 @@ Here we will simulate neural data given a ground truth encoding model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-87
+.. GENERATED FROM PYTHON SOURCE LINES 72-88
 
 .. code-block:: Python
 
@@ -171,19 +165,20 @@ Here we will simulate neural data given a ground truth encoding model
 
     tmp = posterior.set_index(pd.Series(test_paradigm, name='ground truth'), append=True).loc[:8].stack().to_frame('p')
 
-    g = sns.FacetGrid(tmp.reset_index(), col='time', col_wrap=3)
+    g = sns.FacetGrid(tmp.reset_index(), col='frame', col_wrap=3)
 
     g.map(plt.plot, 'stimulus', 'p', color='k')
-    # g.map(lambda data, **kwargs: plt.axvline(data, color='r'), 'ground truth')
+
     def test(data, **kwargs):
         plt.axvline(data.mean(), c='k', ls='--', **kwargs)
     g.map(test, 'ground truth')
+    g.set(xlabel='Stimulus value', ylabel='Posterior probability density')
 
 
 
 
 .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_decode_001.png
-   :alt: time = 0, time = 1, time = 2, time = 3, time = 4, time = 5, time = 6, time = 7, time = 8
+   :alt: frame = 0, frame = 1, frame = 2, frame = 3, frame = 4, frame = 5, frame = 6, frame = 7, frame = 8
    :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_decode_001.png
    :class: sphx-glr-single-img
 
@@ -193,17 +188,20 @@ Here we will simulate neural data given a ground truth encoding model
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x2c4e3b970>
+    <seaborn.axisgrid.FacetGrid object at 0x2c3985f30>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-117
+.. GENERATED FROM PYTHON SOURCE LINES 89-124
 
 .. code-block:: Python
 
 
     # Let's look at the summary statistics of the posteriors posteriors
-    def get_posterior_stats(posterior):
+    def get_posterior_stats(posterior, normalize=True):
+        posterior = posterior.copy()
+        posterior = posterior.div(np.trapz(posterior, posterior.columns,axis=1), axis=0)
+
         # Take integral over the posterior to get to the expectation (mean posterior)
         E = np.trapz(posterior*posterior.columns.values[np.newaxis,:], posterior.columns, axis=1)
     
@@ -215,12 +213,15 @@ Here we will simulate neural data given a ground truth encoding model
         return stats
 
     posterior_stats = get_posterior_stats(posterior)
+
+    # Let's see how far the posterior mean is from the ground truth
     plt.errorbar(test_paradigm, posterior_stats['E'],posterior_stats['sd'], fmt='o',)
     plt.plot([0, 100], [0,100], c='k', ls='--')
 
     plt.xlabel('Ground truth')
     plt.ylabel('Mean posterior')
 
+    # Let's see how the error depends on the standard deviation of the posterior
     error = test_paradigm - posterior_stats['E']
     error_abs = np.abs(error)
     error_abs.name = 'error'
@@ -230,7 +231,7 @@ Here we will simulate neural data given a ground truth encoding model
     plt.xlabel('Standard deviation of posterior')
     plt.ylabel('Objective error')
 
-    # %%
+
 
 
 .. rst-class:: sphx-glr-horizontal
@@ -260,10 +261,64 @@ Here we will simulate neural data given a ground truth encoding model
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 125-134
+
+.. code-block:: Python
+
+
+
+    # Now, let's try to find the MAP estimate using gradient descent
+    from braincoder.optimize import StimulusFitter
+    stimulus_fitter = StimulusFitter(model=model, data=test_data, omega=omega)
+
+    # We start with a very coarse grid search, so we are sure we are in the right ballpark
+    estimated_stimuli_grid = stimulus_fitter.fit_grid(np.arange(1, 100, 5))
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 135-146
+
+.. code-block:: Python
+
+
+
+    # We can then refine the estimate using gradient descent
+    estimated_stimuli_gd = stimulus_fitter.fit(init_pars=estimated_stimuli_grid, progressbar=False)
+
+    # Let's see how well we did
+    plt.scatter(test_paradigm, estimated_stimuli_grid, alpha=.5, label='MAP (grid search)')
+    plt.scatter(test_paradigm, estimated_stimuli_gd, alpha=.5, label='MAP (gradient descent)')
+    plt.scatter(test_paradigm, posterior_stats['E'], alpha=.5, label='Mean posterior')
+    plt.plot([0, 100], [0,100], c='k', ls='--', label='Identity line')
+    plt.legend()
+    # %%
+
+
+.. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_decode_004.png
+   :alt: decode
+   :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_decode_004.png
+   :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+      0%|          | 0/1000 [00:00<?, ?it/s]      0%|          | 1/1000 [00:00<02:40,  6.21it/s]      5%|▌         | 54/1000 [00:00<00:03, 251.92it/s]     11%|█         | 110/1000 [00:00<00:02, 374.36it/s]     17%|█▋        | 167/1000 [00:00<00:01, 443.83it/s]     23%|██▎       | 226/1000 [00:00<00:01, 492.84it/s]     28%|██▊       | 285/1000 [00:00<00:01, 524.48it/s]     34%|███▍      | 343/1000 [00:00<00:01, 541.33it/s]     40%|████      | 401/1000 [00:00<00:01, 552.05it/s]     46%|████▌     | 459/1000 [00:00<00:00, 559.32it/s]     52%|█████▏    | 516/1000 [00:01<00:00, 552.49it/s]     57%|█████▊    | 575/1000 [00:01<00:00, 560.87it/s]     63%|██████▎   | 632/1000 [00:01<00:00, 558.05it/s]     69%|██████▉   | 689/1000 [00:01<00:00, 560.25it/s]     75%|███████▍  | 747/1000 [00:01<00:00, 565.42it/s]     81%|████████  | 806/1000 [00:01<00:00, 572.28it/s]     86%|████████▋ | 864/1000 [00:01<00:00, 572.99it/s]     92%|█████████▏| 922/1000 [00:01<00:00, 571.77it/s]     98%|█████████▊| 981/1000 [00:01<00:00, 577.05it/s]    100%|██████████| 1000/1000 [00:01<00:00, 522.24it/s]
+
+    <matplotlib.legend.Legend object at 0x2c5f931f0>
+
+
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 44.125 seconds)
+   **Total running time of the script:** (0 minutes 12.040 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_decode.py:

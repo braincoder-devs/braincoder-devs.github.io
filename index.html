@@ -171,6 +171,10 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson3.html">Lesson 3: Building the likelihood (by fitting the covariance matrix)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson4.html">Lesson 4: From neural responses to stimulus features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson5.html">Lesson 5: Decoding noisy neural data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html">Lesson 6: Decoding two-dimensional stimulus spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-marginal-probability-distribution">Decode the marginal probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="auto_examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -180,10 +184,12 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode2d.html">Decoding 2D stimuli from neural data</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">General bibliography</a></li>
 </ul>
 
 </div>
@@ -221,7 +227,7 @@
           <section id="tutorial">
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading">#</a></h1>
 <p>For an in-depth introduction to encoding/decoding models and
-the <code class="docutils literal notranslate"><span class="pre">braincoder</span></code>-package <a class="reference internal" href="tutorial/index.html"><span class="doc">Tutorial</span></a>.</p>
+the <code class="docutils literal notranslate"><span class="pre">braincoder</span></code>-package follow the <a class="reference internal" href="tutorial/index.html"><span class="doc">Tutorial</span></a>.</p>
 </section>
 <section id="quick-start">
 <h1>Quick start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h1>
@@ -230,83 +236,41 @@ the <code class="docutils literal notranslate"><span class="pre">braincoder</spa
 <p><strong>Braincoder</strong> is a package to fit encoding models to neural data (for now fMRI) and
 to then <em>invert</em> those model to decode stimulus information from neural data.</p>
 </section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<section id="important-links">
+<h2>Important links<a class="headerlink" href="#important-links" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Official source code repo: <a class="reference external" href="https://github.com/Gilles86/braincoder/tree/main">https://github.com/Gilles86/braincoder/tree/main</a></p></li>
+<li><p>HTML documentation (stable release): <a class="reference external" href="https://braincoder-devs.github.io/">https://braincoder-devs.github.io/</a></p></li>
+</ul>
+</section>
 <section id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h3>
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <p>Note that you need a environment with both <cite>tensorflow-probability</cite> and
 <cite>tensorflow</cite>.</p>
-<p>I reccomend to use <cite>miniforge &lt;https://github.com/conda-forge/miniforge&gt;</cite>,
-make sure you use the <cite>mamba</cite>-solver strict !</p>
+<section id="set-up-miniforge">
+<h3>Set up miniforge<a class="headerlink" href="#set-up-miniforge" title="Link to this heading">#</a></h3>
+<p>(Only do this if you don’t have conda installed)
+I reccomend to use <a class="reference external" href="https://github.com/conda-forge/miniforge">miniforge</a>,
+make sure you use the <code class="docutils literal notranslate"><span class="pre">mamba</span></code>-solver and set <code class="docutils literal notranslate"><span class="pre">channel-priority</span></code> to <code class="docutils literal notranslate"><span class="pre">strict</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install mamba solver and set channel priority</span>
 conda<span class="w"> </span>install<span class="w"> </span>mamba<span class="w"> </span>-n<span class="w"> </span>base<span class="w"> </span>-c<span class="w"> </span>conda-forge
 conda<span class="w"> </span>config<span class="w"> </span>--set<span class="w"> </span>channel_priority<span class="w"> </span>strict.
 </pre></div>
 </div>
+</section>
+<section id="install-braincoder">
+<h3>Install braincoder<a class="headerlink" href="#install-braincoder" title="Link to this heading">#</a></h3>
 <p>Here we create a new environment called <cite>braincoder</cite> with the required packages:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>braincoder<span class="w"> </span>tensorflow-probability<span class="w"> </span>tensorflow<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
 </div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/index.html#lessons">Lessons</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tutorial/lesson1.html">Lesson 1: Encoding models</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson1.html#encoding-models">Encoding models</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson1.html#concrete-example">Concrete example</a></li>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson1.html#simulate-data">Simulate data</a></li>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson1.html#estimate-parameters">Estimate parameters</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson1.html#summary">Summary</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial/lesson2.html">Lesson 2: Linear encoding models</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson2.html#a-linear-encoding-approach">A linear encoding approach</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson2.html#setting-up-a-linear-encoding-model-in-braincoder">Setting up a linear encoding model in <code class="docutils literal notranslate"><span class="pre">braincoder</span></code></a><ul>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson2.html#set-up-a-von-mises-model">Set up a von Mises model</a></li>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson2.html#fit-a-linear-encoding-model-using-regularised-ols">Fit a linear encoding model using (regularised) OLS</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson2.html#summary">Summary</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial/lesson3.html">Lesson 3: Building the likelihood (by fitting the covariance matrix)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson3.html#inverting-the-encoding-models">Inverting the encoding models</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson3.html#a-multivariate-likelihood-function">A multivariate likelihood function</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson3.html#estimating-sigma">Estimating <span class="math notranslate nohighlight">\(\Sigma\)</span></a><ul>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson3.html#the-problem-with-high-dimensional-covariance-matrices">The problem with high-dimensional covariance matrices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson3.html#regularizing-the-covariance-matrix">Regularizing the covariance matrix</a></li>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson3.html#accounting-for-shared-noise-due-to-shared-neural-populations">Accounting for shared noise due to shared neural populations</a></li>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson3.html#using-the-sample-covariance">Using the sample covariance</a></li>
-<li class="toctree-l5"><a class="reference internal" href="tutorial/lesson3.html#using-the-anatomical-distance">Using the anatomical distance</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson3.html#fitting-sigma">Fitting <span class="math notranslate nohighlight">\(\Sigma\)</span></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson3.html#summary">Summary</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial/lesson4.html">Lesson 4: From neural responses to stimulus features</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson4.html#summary">Summary</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="tutorial/lesson5.html">Lesson 5: Decoding noisy neural data</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson5.html#simulate-data">Simulate data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson5.html#estimate-parameters-of-encoding-model-theta">Estimate parameters of encoding model <span class="math notranslate nohighlight">\(\theta\)</span></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorial/lesson5.html#estimate-the-covariance-matrix-sigma">Estimate the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="auto_examples/index.html#id1">Examples</a></li>
-</ul>
-</li>
-</ul>
-</div>
 </section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<p>Please have a look at the <a class="reference external" href="https://braincoder-devs.github.io/tutorial/index.html">tutorials</a> to get started.</p>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 </section>
 
