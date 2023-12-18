@@ -114,6 +114,40 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Recontruct a 2D visual stimulus from real fMRI data">
+
+.. only:: html
+
+  .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode_v1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_v1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Recontruct a 2D visual stimulus from real fMRI data</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here we fit a 2D PRF model to data from the Szinte (2024)-dataset.">
+
+.. only:: html
+
+  .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_fit_prf_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Fit a 2D PRF model</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Here, we are decoding oriented stimuli from neural data that have an extra dimension: amplitude...">
 
 .. only:: html

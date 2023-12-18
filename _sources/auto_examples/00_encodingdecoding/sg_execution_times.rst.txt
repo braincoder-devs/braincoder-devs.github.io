@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:15.464** total execution time for 6 files **from auto_examples/00_encodingdecoding**:
+**07:12.682** total execution time for 8 files **from auto_examples/00_encodingdecoding**:
 
 .. container::
 
@@ -32,13 +32,19 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py` (``decode2d.py``)
-     - 00:15.464
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_v1.py` (``decode_v1.py``)
+     - 07:12.682
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py` (``decode.py``)
      - 00:00.000
      - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py` (``decode2d.py``)
+     - 00:00.000
+     - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_encoding_model.py` (``encoding_model.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py` (``fit_prf.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_residuals.py` (``fit_residuals.py``)
