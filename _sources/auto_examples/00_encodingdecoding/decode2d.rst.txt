@@ -64,7 +64,7 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x28fe95bd0>
+    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x2d2b6dd20>
     ['x (radians)', 'amplitude']
 
 
@@ -97,8 +97,8 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    init_tau: 0.4579647481441498, 0.5479546189308167
-    WWT max: 16.206178665161133
+    init_tau: 0.47485795617103577, 0.5606476664543152
+    WWT max: 16.49216651916504
 
 
 
@@ -158,7 +158,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x292c23fd0>
+    <seaborn.axisgrid.FacetGrid object at 0x2d94f8d30>
 
 
 
@@ -313,7 +313,7 @@ such as expectation and attention.
     /Users/gdehol/git/braincoder/examples/00_encodingdecoding/decode2d.py:160: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
       orientations_posterior = ll.groupby('x (radians)', axis=1).sum()
 
-    <seaborn.axisgrid.FacetGrid object at 0x292c60190>
+    <seaborn.axisgrid.FacetGrid object at 0x2d447f5b0>
 
 
 
@@ -354,7 +354,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x291cdd7b0>
+    <seaborn.axisgrid.FacetGrid object at 0x2d09b9930>
 
 
 
@@ -475,13 +475,13 @@ such as expectation and attention.
       <tbody>
         <tr>
           <th>attended</th>
-          <td>0.929009</td>
-          <td>6.035704e-15</td>
+          <td>0.965557</td>
+          <td>1.010416e-16</td>
         </tr>
         <tr>
           <th>unattended</th>
-          <td>0.636113</td>
-          <td>6.042336e-10</td>
+          <td>0.471372</td>
+          <td>4.337842e-07</td>
         </tr>
       </tbody>
     </table>
@@ -562,14 +562,14 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x2963b3bb0>
+    <seaborn.axisgrid.FacetGrid object at 0x2d14a65c0>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 15.464 seconds)
+   **Total running time of the script:** (0 minutes 7.677 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_decode2d.py:

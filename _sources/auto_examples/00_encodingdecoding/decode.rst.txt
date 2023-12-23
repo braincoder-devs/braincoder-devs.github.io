@@ -93,17 +93,17 @@ Here we will simulate neural data given a ground truth encoding model
 
     Working with chunk size of 666666
     Using correlation cost!
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 11.24it/s]
-    Correlation grid-fitted parameter and ground truth for *mu*: 0.81
-    Correlation grid-fitted parameter and ground truth for *sd*: 0.68
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00,  8.90it/s]    100%|██████████| 1/1 [00:00<00:00,  8.85it/s]
+    Correlation grid-fitted parameter and ground truth for *mu*: 0.96
+    Correlation grid-fitted parameter and ground truth for *sd*: 0.67
     Correlation grid-fitted parameter and ground truth for *amplitude*: 0.90
-    Correlation grid-fitted parameter and ground truth for *baseline*: 0.89
+    Correlation grid-fitted parameter and ground truth for *baseline*: 0.72
     Number of problematic voxels (mask): 0
     Number of voxels remaining (mask): 20
-    Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.81
-    Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.68
+    Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.96
+    Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.67
     Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.90
-    Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.89
+    Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.72
 
 
 
@@ -128,9 +128,9 @@ Here we will simulate neural data given a ground truth encoding model
 
  .. code-block:: none
 
-    init_tau: 0.798433780670166, 1.1159507036209106
+    init_tau: 0.7828128933906555, 1.15021812915802
     USING A PSEUDO-WWT!
-    WWT max: 1356.8245849609375
+    WWT max: 1122.9664306640625
 
 
 
@@ -188,7 +188,7 @@ Here we will simulate neural data given a ground truth encoding model
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x2c3985f30>
+    <seaborn.axisgrid.FacetGrid object at 0x2bf534400>
 
 
 
@@ -257,7 +257,7 @@ Here we will simulate neural data given a ground truth encoding model
  .. code-block:: none
 
 
-    Text(29.0, 0.5, 'Objective error')
+    Text(28.999999999999986, 0.5, 'Objective error')
 
 
 
@@ -309,16 +309,16 @@ Here we will simulate neural data given a ground truth encoding model
 
  .. code-block:: none
 
-      0%|          | 0/1000 [00:00<?, ?it/s]      0%|          | 1/1000 [00:00<02:40,  6.21it/s]      5%|▌         | 54/1000 [00:00<00:03, 251.92it/s]     11%|█         | 110/1000 [00:00<00:02, 374.36it/s]     17%|█▋        | 167/1000 [00:00<00:01, 443.83it/s]     23%|██▎       | 226/1000 [00:00<00:01, 492.84it/s]     28%|██▊       | 285/1000 [00:00<00:01, 524.48it/s]     34%|███▍      | 343/1000 [00:00<00:01, 541.33it/s]     40%|████      | 401/1000 [00:00<00:01, 552.05it/s]     46%|████▌     | 459/1000 [00:00<00:00, 559.32it/s]     52%|█████▏    | 516/1000 [00:01<00:00, 552.49it/s]     57%|█████▊    | 575/1000 [00:01<00:00, 560.87it/s]     63%|██████▎   | 632/1000 [00:01<00:00, 558.05it/s]     69%|██████▉   | 689/1000 [00:01<00:00, 560.25it/s]     75%|███████▍  | 747/1000 [00:01<00:00, 565.42it/s]     81%|████████  | 806/1000 [00:01<00:00, 572.28it/s]     86%|████████▋ | 864/1000 [00:01<00:00, 572.99it/s]     92%|█████████▏| 922/1000 [00:01<00:00, 571.77it/s]     98%|█████████▊| 981/1000 [00:01<00:00, 577.05it/s]    100%|██████████| 1000/1000 [00:01<00:00, 522.24it/s]
+      0%|          | 0/1000 [00:00<?, ?it/s]      0%|          | 1/1000 [00:00<03:13,  5.17it/s]      5%|▌         | 54/1000 [00:00<00:04, 226.69it/s]     11%|█         | 109/1000 [00:00<00:02, 347.44it/s]     17%|█▋        | 166/1000 [00:00<00:01, 424.50it/s]     22%|██▏       | 219/1000 [00:00<00:01, 458.39it/s]     27%|██▋       | 272/1000 [00:00<00:01, 480.19it/s]     32%|███▏      | 323/1000 [00:00<00:01, 484.06it/s]     37%|███▋      | 374/1000 [00:00<00:01, 484.83it/s]     42%|████▏     | 424/1000 [00:01<00:01, 485.14it/s]     47%|████▋     | 474/1000 [00:01<00:01, 474.21it/s]     52%|█████▏    | 523/1000 [00:01<00:01, 472.40it/s]     57%|█████▋    | 573/1000 [00:01<00:00, 479.54it/s]     62%|██████▏   | 622/1000 [00:01<00:00, 481.28it/s]     67%|██████▋   | 672/1000 [00:01<00:00, 485.35it/s]     72%|███████▏  | 721/1000 [00:01<00:00, 486.43it/s]     77%|███████▋  | 771/1000 [00:01<00:00, 490.15it/s]     82%|████████▏ | 821/1000 [00:01<00:00, 488.91it/s]     87%|████████▋ | 870/1000 [00:01<00:00, 471.81it/s]     92%|█████████▏| 918/1000 [00:02<00:00, 464.80it/s]     96%|█████████▋| 965/1000 [00:02<00:00, 462.06it/s]    100%|██████████| 1000/1000 [00:02<00:00, 448.41it/s]
 
-    <matplotlib.legend.Legend object at 0x2c5f931f0>
+    <matplotlib.legend.Legend object at 0x2c93ddfc0>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 12.040 seconds)
+   **Total running time of the script:** (0 minutes 16.515 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_decode.py:

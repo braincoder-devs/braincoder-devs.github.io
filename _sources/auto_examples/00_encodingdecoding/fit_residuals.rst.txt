@@ -67,8 +67,7 @@ simulated data from a ``VonMisesPRF``-model.
 
  .. code-block:: none
 
-    (50, 3)
-    /Users/gdehol/mambaforge/lib/python3.10/site-packages/scipy/stats/_multivariate.py:657: RuntimeWarning: covariance is not positive-semidefinite.
+    /Users/gdehol/mambaforge/lib/python3.10/site-packages/scipy/stats/_multivariate.py:758: RuntimeWarning: covariance is not symmetric positive-semidefinite.
       out = random_state.multivariate_normal(mean, cov, size)
 
 
@@ -98,13 +97,11 @@ simulated data from a ``VonMisesPRF``-model.
 
  .. code-block:: none
 
-    (50, 3)
-    init_tau: 0.717453122138977, 0.8030033707618713
-    USING A PSEUDO-WWT!
+    init_tau: 0.5883835554122925, 0.9530800580978394
     WWT max: 4.0
-    [[0.5844659  0.12335697 0.18236224]
-     [0.12335697 0.751479   0.1024456 ]
-     [0.18236224 0.1024456  0.5217994 ]]
+    [[0.3484391  0.05987196 0.07491002]
+     [0.05987195 0.60535425 0.09866075]
+     [0.07491002 0.09866075 0.9463547 ]]
 
 
 
@@ -112,7 +109,7 @@ simulated data from a ``VonMisesPRF``-model.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 6.874 seconds)
+   **Total running time of the script:** (0 minutes 1.791 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fit_residuals.py:

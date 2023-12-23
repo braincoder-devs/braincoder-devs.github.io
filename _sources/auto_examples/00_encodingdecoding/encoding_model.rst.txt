@@ -61,12 +61,6 @@ We also simulate data and then estimate back the generating parameters.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    (100, 2)
-
 
 
 
@@ -91,9 +85,8 @@ We also simulate data and then estimate back the generating parameters.
 
  .. code-block:: none
 
-    (1, 100, 2)
 
-    <Axes: xlabel='time'>
+    <Axes: xlabel='frame'>
 
 
 
@@ -133,7 +126,7 @@ We also simulate data and then estimate back the generating parameters.
 
     Working with chunk size of 3333333
     Using correlation cost!
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00,  6.18it/s]    100%|██████████| 1/1 [00:00<00:00,  6.17it/s]
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 11.42it/s]
 
 
 .. raw:: html
@@ -161,6 +154,13 @@ We also simulate data and then estimate back the generating parameters.
           <th>sd</th>
           <th>amplitude</th>
           <th>baseline</th>
+        </tr>
+        <tr>
+          <th>source</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -211,7 +211,7 @@ We also simulate data and then estimate back the generating parameters.
 
 
 .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_003.png
-   :alt: R2 = 0.70
+   :alt: R2 = 0.68
    :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_003.png
    :class: sphx-glr-single-img
 
@@ -220,21 +220,8 @@ We also simulate data and then estimate back the generating parameters.
 
  .. code-block:: none
 
-    (100, 2)
-    Original mean r2: 0.6969510316848755
-    (100, 2)
-    100.00% of time lines improved
-    (100, 2)
-    New mean r2 after OLS: 0.701209306716919
-    (100, 2)
-    Original mean r2: 0.701209306716919
-    (100, 2)
-    0.00% of time lines improved
-    (100, 2)
-    New mean r2 after OLS: 0.701209306716919
-    (100, 2)
 
-    Text(0.5, 1.0, 'R2 = 0.70')
+    Text(0.5, 1.0, 'R2 = 0.68')
 
 
 
@@ -269,8 +256,6 @@ We also simulate data and then estimate back the generating parameters.
 
     Number of problematic voxels (mask): 0
     Number of voxels remaining (mask): 2
-    (100, 2)
-    (100, 2)
 
     Text(0.5, 1.0, 'R2 = 0.76')
 
@@ -279,7 +264,7 @@ We also simulate data and then estimate back the generating parameters.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 17.417 seconds)
+   **Total running time of the script:** (0 minutes 6.255 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_encoding_model.py:

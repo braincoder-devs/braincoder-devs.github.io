@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.006** total execution time for 1 file **from auto_examples**:
+**00:00.000** total execution time for 0 files **from auto_examples**:
 
 .. container::
 
@@ -32,6 +32,6 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_decode_v1.py` (``decode_v1.py``)
-     - 00:00.006
-     - 0.0
+   * - N/A
+     - N/A
+     - N/A

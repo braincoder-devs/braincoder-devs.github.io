@@ -64,7 +64,7 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x290894640>
+    <matplotlib.legend.Legend object at 0x2d92625c0>
 
 
 
@@ -172,7 +172,7 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x2ac0acac0>
+    <matplotlib.legend.Legend object at 0x2ce5a0940>
 
 
 
@@ -225,7 +225,7 @@ Here we invert different encoding models
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 6.182 seconds)
+   **Total running time of the script:** (0 minutes 0.531 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_invert_model.py:

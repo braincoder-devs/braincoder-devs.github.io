@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="General bibliography" href="../../bibliography.html" /><link rel="prev" title="Fit a 2D PRF model" href="fit_prf.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="General bibliography" href="../../bibliography.html" /><link rel="prev" title="Different flavors of visual population receptive field models" href="fit_prf.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Decoding 2D stimuli from neural data - Braincoder documentation</title>
@@ -185,7 +185,10 @@
 <li class="toctree-l3"><a class="reference internal" href="invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decode.html">Decoding of stimuli from neural data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fit_prf.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fit_prf.html">Different flavors of visual population receptive field models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fit_prf.html#decoded-stimulus-dn-model">Decoded stimulus: DN model</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Decoding 2D stimuli from neural data</a></li>
 </ul>
 </li>
@@ -261,7 +264,7 @@ such as expectation and attention.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">stimulus</span><span class="o">.</span><span class="n">dimension_labels</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x28fe95bd0&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x2d2b6dd20&gt;
 [&#39;x (radians)&#39;, &#39;amplitude&#39;]
 </pre></div>
 </div>
@@ -280,8 +283,8 @@ such as expectation and attention.</p>
 <span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">resid_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.4579647481441498, 0.5479546189308167
-WWT max: 16.206178665161133
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.47485795617103577, 0.5606476664543152
+WWT max: 16.49216651916504
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we set up an experimental paradigm with two conditions</span>
@@ -309,7 +312,7 @@ WWT max: 16.206178665161133
 <span class="n">g</span><span class="o">.</span><span class="n">add_legend</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode2d_001.png" srcset="../../_images/sphx_glr_decode2d_001.png" alt="unit = 0, unit = 1, unit = 2, unit = 3, unit = 4, unit = 5, unit = 6, unit = 7" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x292c23fd0&gt;
+<img src="../../_images/sphx_glr_decode2d_001.png" srcset="../../_images/sphx_glr_decode2d_001.png" alt="unit = 0, unit = 1, unit = 2, unit = 3, unit = 4, unit = 5, unit = 6, unit = 7" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x2d94f8d30&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we can calculate the 2D likelihood/posterior of different orientations+amplitudes for the data</span>
@@ -410,7 +413,7 @@ WWT max: 16.206178665161133
 /Users/gdehol/git/braincoder/examples/00_encodingdecoding/decode2d.py:160: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
   orientations_posterior = ll.groupby(&#39;x (radians)&#39;, axis=1).sum()
 
-&lt;seaborn.axisgrid.FacetGrid object at 0x292c60190&gt;
+&lt;seaborn.axisgrid.FacetGrid object at 0x2d447f5b0&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the ground truth amplitude to improve the orientation posterior</span>
@@ -432,7 +435,7 @@ WWT max: 16.206178665161133
 <span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;coolwarm_r&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode2d_005.png" srcset="../../_images/sphx_glr_decode2d_005.png" alt="frame = 0.0, frame = 1.0, frame = 2.0, frame = 3.0, frame = 4.0, frame = 5.0, frame = 6.0, frame = 7.0, frame = 8.0" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x291cdd7b0&gt;
+<img src="../../_images/sphx_glr_decode2d_005.png" srcset="../../_images/sphx_glr_decode2d_005.png" alt="frame = 0.0, frame = 1.0, frame = 2.0, frame = 3.0, frame = 4.0, frame = 5.0, frame = 6.0, frame = 7.0, frame = 8.0" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x2d09b9930&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Intro to complex numbers</span>
@@ -525,13 +528,13 @@ WWT max: 16.206178665161133
   <tbody>
     <tr>
       <th>attended</th>
-      <td>0.929009</td>
-      <td>6.035704e-15</td>
+      <td>0.965557</td>
+      <td>1.010416e-16</td>
     </tr>
     <tr>
       <th>unattended</th>
-      <td>0.636113</td>
-      <td>6.042336e-10</td>
+      <td>0.471372</td>
+      <td>4.337842e-07</td>
     </tr>
   </tbody>
 </table>
@@ -578,10 +581,10 @@ WWT max: 16.206178665161133
 <span class="c1"># %%</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode2d_008.png" srcset="../../_images/sphx_glr_decode2d_008.png" alt="decode2d" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x2963b3bb0&gt;
+<img src="../../_images/sphx_glr_decode2d_008.png" srcset="../../_images/sphx_glr_decode2d_008.png" alt="decode2d" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x2d14a65c0&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 15.464 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 7.677 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-decode2d-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0dace58778215ca8db018287d509ecd5/decode2d.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">decode2d.ipynb</span></code></a></p>
@@ -614,7 +617,7 @@ WWT max: 16.206178665161133
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Fit a 2D PRF model</div>
+                <div class="title">Different flavors of visual population receptive field models</div>
                 
               </div>
             </a>
