@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**41:29.022** total execution time for 9 files **from all galleries**:
+**00:39.358** total execution time for 11 files **from all galleries**:
 
 .. container::
 
@@ -32,8 +32,8 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py` (``../examples/00_encodingdecoding/fit_prf.py``)
-     - 41:29.022
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fisher_information.py` (``../examples/00_encodingdecoding/fisher_information.py``)
+     - 00:39.358
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py` (``../examples/00_encodingdecoding/decode.py``)
      - 00:00.000
@@ -50,6 +50,9 @@ Computation times
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_encoding_model.py` (``../examples/00_encodingdecoding/encoding_model.py``)
      - 00:00.000
      - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py` (``../examples/00_encodingdecoding/fit_prf.py``)
+     - 00:00.000
+     - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_residuals.py` (``../examples/00_encodingdecoding/fit_residuals.py``)
      - 00:00.000
      - 0.0
@@ -57,5 +60,8 @@ Computation times
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_linear_encoding_model.py` (``../examples/00_encodingdecoding/linear_encoding_model.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_masked_stimulus_decoding.py` (``../examples/00_encodingdecoding/masked_stimulus_decoding.py``)
      - 00:00.000
      - 0.0

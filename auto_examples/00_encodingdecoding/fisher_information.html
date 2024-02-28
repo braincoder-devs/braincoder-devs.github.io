@@ -1,0 +1,592 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Different flavors of visual population receptive field models" href="fit_prf.html" /><link rel="prev" title="Fit a 2D PRF model" href="decode_visual.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+        <title>Fisher information to estimate precision of encoding parameters across stimulus space - Braincoder documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">Braincoder  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">Braincoder  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorial</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson2.html">Lesson 2: Linear encoding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson3.html">Lesson 3: Building the likelihood (by fitting the covariance matrix)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson4.html">Lesson 4: From neural responses to stimulus features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson5.html">Lesson 5: Decoding noisy neural data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html">Lesson 6: Decoding two-dimensional stimulus spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#decode-the-marginal-probability-distribution">Decode the marginal probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson7.html">Lesson 7: Fitting PRF models to visual space</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fit_residuals.html">Fit the residual covariance matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="masked_stimulus_decoding.html">Stimulus decoding using stimulus mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="linear_encoding_model.html">Linear encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="invert_model.html">Invert encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decode.html">Decoding of stimuli from neural data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fit_prf.html">Different flavors of visual population receptive field models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fit_prf.html#decoded-stimulus-dn-model">Decoded stimulus: DN model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decode2d.html">Decoding 2D stimuli from neural data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bibliography.html">General bibliography</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-examples-00-encodingdecoding-fisher-information-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="fisher-information-to-estimate-precision-of-encoding-parameters-across-stimulus-space">
+<span id="sphx-glr-auto-examples-00-encodingdecoding-fisher-information-py"></span><h1>Fisher information to estimate precision of encoding parameters across stimulus space<a class="headerlink" href="#fisher-information-to-estimate-precision-of-encoding-parameters-across-stimulus-space" title="Link to this heading">#</a></h1>
+<p>Fisher information is defined as the expected value of the square of the derivative of the log-likelihood
+with respect to some parameter.</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[I(\theta) = E[ (\frac{\partial}{\partial \theta} \log f(X; \theta) )^2 ]\]</div>
+</div>
+<p>In our case, the parameter $theta$ might be the stimulus (dimension) we are interested in. What the Fisher information
+now gives us, _given a fitted encoding <em>and</em> noise model_, is the expected precision of the estimated
+parameter across the stimulus space.</p>
+<p>In other words, using the Fisher information, we can already estimate how well we can estimate the stimulus
+at different locations in stimulus space without actually doing any decoding.</p>
+<p>Notably, Fisher information also plays a crucial role in efficient coding theory. In general, the expected
+squared error of a likelihood function, given a limited ‘information budget’,
+can be minimized by using a likelihood function where the Fisher information is proportional
+to the derivative of the cummulative prior distribution (<span id="id1"></span>).</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
+<span class="kn">from</span> <span class="nn">braincoder.models</span> <span class="kn">import</span> <span class="n">GaussianPRF</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">ss</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+<section id="set-up-generating-model">
+<h2>Set up generating model<a class="headerlink" href="#set-up-generating-model" title="Link to this heading">#</a></h2>
+<p>Let’s set up a Gaussian PRF on the line that generates some data.
+We put the centers of the PRFs equally across the line, using a
+the quantiles of a <em>uniform prior distribution</em>
+(i.e. the quantiles of a uniform distribution are equally spaced).
+%</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 8 points on the uniform distribution between 0 and 10</span>
+<span class="n">mus</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">10.</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="n">mus</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})[[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">]]</span>
+
+<span class="c1"># Let&#39;s go over the entire line from 0 to 10</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+<span class="c1"># For now let&#39;s assume the noise is spherical</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;strength&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">set_names</span><span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;strength&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_fisher_information_001.png" srcset="../../_images/sphx_glr_fisher_information_001.png" alt="fisher information" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/gdehol/git/braincoder/examples/00_encodingdecoding/fisher_information.py:58: UserWarning:
+The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
+  sns.lineplot(data=data.reset_index(), x=&#39;stimulus&#39;, y=&#39;strength&#39;, hue=&#39;rf&#39;, palette=[&#39;k&#39;], alpha=0.5, legend=False)
+</pre></div>
+</div>
+</section>
+<section id="calculate-fisher-information">
+<h2>Calculate Fisher Information<a class="headerlink" href="#calculate-fisher-information" title="Link to this heading">#</a></h2>
+<p>Now that we have the generating model, we can calculate the Fisher information
+for each stimulus point. We can do this by taking the expectation of the
+second derivative of the log-likelihood with respect to the stimulus.
+the fucntion <cite>Model.get_fisher_information</cite> does this for us by sampling
+from the noise distribution defined by <cite>omega</cite> and calculating the second
+derivative of the log-likelihood with respect to the stimulus using autodiff.
+%</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">fisher_information</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_fisher_information</span><span class="p">(</span><span class="n">stimuli</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Fisher information&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fisher_information</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_fisher_information_002.png" srcset="../../_images/sphx_glr_fisher_information_002.png" alt="fisher information" class = "sphx-glr-single-img"/><p>We can see that the Fisher information is largest at the center of the PRFs and
+decreases towards the edges. This is because the PRFs are more overlapping at the
+center and less overlapping at the edges. This is also reflected in the Fisher
+information, which is a measure of the expected precision of the estimated stimulus
+at each point in stimulus space.
+Outside of the receptive fields, the Fisher information is 0: when stimuli occur
+outside of the receptive fields, the likelihood function is flat and the Fisher
+information is 0.
+%%</p>
+<p>Note that if we include some correlation in the errors
+of the receptive fields, under some conditions,
+the Fisher information is higher.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">omega_correlated</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">+</span> <span class="mf">.5</span> <span class="o">-</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">))</span>
+
+<span class="n">fisher_information_uncorrelated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_fisher_information</span><span class="p">(</span><span class="n">stimuli</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">dof</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">fisher_information_correlated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_fisher_information</span><span class="p">(</span><span class="n">stimuli</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega_correlated</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">dof</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+<span class="n">fisher_information</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">fisher_information_uncorrelated</span><span class="p">,</span> <span class="n">fisher_information_correlated</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;uncorrelated&#39;</span><span class="p">,</span> <span class="s1">&#39;correlated&#39;</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;correlation&#39;</span><span class="p">])</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Fisher information&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fisher_information</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;correlation&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_fisher_information_003.png" srcset="../../_images/sphx_glr_fisher_information_003.png" alt="fisher information" class = "sphx-glr-single-img"/><p>We can also validate the Fisher information by decoding and looking
+at the errors of the decoded stimuli. The Fisher information should
+be inversely proportional to the expected squared error of the decoded
+stimuli.
+%%</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">simulated_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">omega</span><span class="p">)</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+
+
+<span class="n">pdf</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_stimulus_pdf</span><span class="p">(</span><span class="n">simulated_data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">)</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">pdf</span><span class="o">*</span><span class="n">pdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:],</span> <span class="n">x</span><span class="o">=</span><span class="n">pdf</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">paradigm</span> <span class="o">-</span> <span class="n">E</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">error</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Objective decoding error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_fisher_information_004.png" srcset="../../_images/sphx_glr_fisher_information_004.png" alt="Objective decoding error" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Objective decoding error&#39;)
+</pre></div>
+</div>
+<p>same goes for the variance of the decoded posterior</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">posterior_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">pdf</span><span class="o">*</span><span class="p">(</span><span class="n">pdf</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">E</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">pdf</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">error</span><span class="p">[</span><span class="s1">&#39;posterior sd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">posterior_variance</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;posterior sd&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">error</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Posterior std.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_fisher_information_005.png" srcset="../../_images/sphx_glr_fisher_information_005.png" alt="Posterior std." class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Posterior std.&#39;)
+</pre></div>
+</div>
+</section>
+<section id="fisher-information-for-different-rf-distributions">
+<h2>Fisher information for different RF distributions<a class="headerlink" href="#fisher-information-for-different-rf-distributions" title="Link to this heading">#</a></h2>
+<p>Let’s calculate the Fisher information for different RF structures
+%</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Centered distribution around 5.</span>
+<span class="n">mus1</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mi">10</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># 8 points on the uniform distribution between 0 and 10</span>
+<span class="n">mus2</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mi">10</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">parameters_sets</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="n">mus1</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                   <span class="p">{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="n">mus2</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                   <span class="p">{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="n">mus2</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">.75</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                   <span class="p">{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="n">mus2</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">.5</span><span class="p">}]</span>
+
+<span class="n">parameter_sets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">p</span><span class="p">)[[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters_sets</span><span class="p">],</span> <span class="n">keys</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="s1">&#39;parameter&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="n">set_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Unequally distributed mus&#39;</span><span class="p">,</span> <span class="s1">&#39;Equally distributed mus&#39;</span><span class="p">,</span> <span class="s1">&#39;Smaller dispersion&#39;</span><span class="p">,</span> <span class="s1">&#39;Smaller amplitude (vs noise)&#39;</span> <span class="p">]</span>
+
+
+<span class="c1"># Make predictions</span>
+<span class="n">preds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="nb">set</span><span class="p">,</span> <span class="n">pars</span> <span class="ow">in</span> <span class="n">parameter_sets</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">))</span>
+    <span class="n">preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+
+<span class="n">preds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">set_labels</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;set&#39;</span><span class="p">])</span>
+
+<span class="c1"># Calculate Fisher information</span>
+<span class="n">fis</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">stimuli</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="k">for</span> <span class="nb">set</span><span class="p">,</span> <span class="n">pars</span> <span class="ow">in</span> <span class="n">parameter_sets</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pars</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">fi</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_fisher_information</span><span class="p">(</span><span class="n">stimuli</span><span class="o">=</span><span class="n">stimuli</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">&quot;fisher information&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">stimuli</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">))</span>
+    <span class="n">fis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fi</span><span class="p">)</span>
+
+<span class="n">fis</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">fis</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">set_labels</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;set&#39;</span><span class="p">])</span>
+
+
+<span class="c1"># Plot the receptive fields and the Fisher information</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;strength&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fis</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">col_order</span><span class="o">=</span><span class="n">set_labels</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">,</span> <span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="s1">&#39;strength&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;parameter&#39;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_titles</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{col_name}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Receptive field distributions&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">.9</span><span class="p">)</span>
+
+<span class="n">g2</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fis</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">col_order</span><span class="o">=</span><span class="n">set_labels</span><span class="p">)</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">,</span> <span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="s1">&#39;fisher information&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">add_legend</span><span class="p">()</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">set_titles</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{col_name}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Fisher information&#39;</span><span class="p">)</span>
+<span class="n">g2</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">.9</span><span class="p">)</span>
+
+<span class="n">g3</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">hue</span><span class="o">=</span><span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fis</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">g3</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">,</span> <span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="s1">&#39;fisher information&#39;</span><span class="p">)</span>
+<span class="n">g3</span><span class="o">.</span><span class="n">add_legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../../_images/sphx_glr_fisher_information_006.png" srcset="../../_images/sphx_glr_fisher_information_006.png" alt="Receptive field distributions, Unequally distributed mus, Equally distributed mus, Smaller dispersion, Smaller amplitude (vs noise)" class = "sphx-glr-multi-img"/></li>
+<li><img src="../../_images/sphx_glr_fisher_information_007.png" srcset="../../_images/sphx_glr_fisher_information_007.png" alt="Fisher information, Unequally distributed mus, Equally distributed mus, Smaller dispersion, Smaller amplitude (vs noise)" class = "sphx-glr-multi-img"/></li>
+<li><img src="../../_images/sphx_glr_fisher_information_008.png" srcset="../../_images/sphx_glr_fisher_information_008.png" alt="fisher information" class = "sphx-glr-multi-img"/></li>
+</ul>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>WARNING:tensorflow:5 out of the last 7 calls to &lt;function EncodingModel._predict at 0x2c80ee560&gt; triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to &lt;function EncodingModel._predict at 0x11c2ba5f0&gt; triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:5 out of the last 7 calls to &lt;function EncodingModel._likelihood at 0x2bff04b80&gt; triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 8 calls to &lt;function EncodingModel._likelihood at 0x2bff05000&gt; triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+/Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning:
+The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
+  func(*plot_args, **plot_kwargs)
+/Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning:
+The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
+  func(*plot_args, **plot_kwargs)
+/Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning:
+The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
+  func(*plot_args, **plot_kwargs)
+/Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning:
+The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
+  func(*plot_args, **plot_kwargs)
+
+&lt;seaborn.axisgrid.FacetGrid object at 0x2bd2010c0&gt;
+</pre></div>
+</div>
+<p>Another intersting phenomenon we can now study is how different
+basis functions/receptive fields modulate the Fisher information.
+For example, it is well-known that numerical receptive fields in
+parietal cortex are shaped as a log-normal distribution. We can
+now study how the Fisher information is modulated by the shape of
+the receptive fields.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">braincoder.models</span> <span class="kn">import</span> <span class="n">LogGaussianPRF</span>
+<span class="n">mus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="n">mus</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">25.</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})[[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">]]</span>
+
+<span class="c1"># Set up model and paradigm and plot the receptive fields</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogGaussianPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
+
+<span class="n">y</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Receptive fields&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate Fisher information</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">fisher_information</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_fisher_information</span><span class="p">(</span><span class="n">stimuli</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+<span class="n">fisher_information</span><span class="p">[</span><span class="s1">&#39;sqrt(fi)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">fisher_information</span><span class="p">[</span><span class="s1">&#39;Fisher information&#39;</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;sqrt(fi)&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">fisher_information</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Square root of Fisher information&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../../_images/sphx_glr_fisher_information_009.png" srcset="../../_images/sphx_glr_fisher_information_009.png" alt="Receptive fields" class = "sphx-glr-multi-img"/></li>
+<li><img src="../../_images/sphx_glr_fisher_information_010.png" srcset="../../_images/sphx_glr_fisher_information_010.png" alt="Square root of Fisher information" class = "sphx-glr-multi-img"/></li>
+</ul>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Square root of Fisher information&#39;)
+</pre></div>
+</div>
+<p>Somewhat consistent with the literature, the Fisher information
+behaves roughly like 1/x now, where x is the stimulus. This means that the
+precision of the estimated stimulus decreases with increasing
+stimulus value.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 39.358 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-fisher-information-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/63d506f48bb4c5a0da7e8a34c526c251/fisher_information.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">fisher_information.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/8e33294051eb9be2c1aeb6e44dbc7416/fisher_information.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">fisher_information.py</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="fit_prf.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Different flavors of visual population receptive field models</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="decode_visual.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Fit a 2D PRF model</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Gilles de Hollander
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Fisher information to estimate precision of encoding parameters across stimulus space</a><ul>
+<li><a class="reference internal" href="#set-up-generating-model">Set up generating model</a></li>
+<li><a class="reference internal" href="#calculate-fisher-information">Calculate Fisher Information</a></li>
+<li><a class="reference internal" href="#fisher-information-for-different-rf-distributions">Fisher information for different RF distributions</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

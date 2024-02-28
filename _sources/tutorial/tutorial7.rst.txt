@@ -1,8 +1,3 @@
 .. _tutorial_lesson7:
 
-====================================================
-Lesson 7: Fitting visual PRF model to simulated data
-====================================================
-
-In this lesson, we will fit a visual PRF model to simulated data. We will
-then compare the estimated parameters to the ground truth parameters used to
+.. literalinclude:: /../examples/00_encodingdecoding/fit_prf.py
