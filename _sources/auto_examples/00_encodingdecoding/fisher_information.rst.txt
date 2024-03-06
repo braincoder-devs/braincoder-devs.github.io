@@ -379,10 +379,10 @@ Let's calculate the Fisher information for different RF structures
 
  .. code-block:: none
 
-    WARNING:tensorflow:5 out of the last 7 calls to <function EncodingModel._predict at 0x2c80ee560> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-    WARNING:tensorflow:6 out of the last 8 calls to <function EncodingModel._predict at 0x11c2ba5f0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-    WARNING:tensorflow:5 out of the last 7 calls to <function EncodingModel._likelihood at 0x2bff04b80> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-    WARNING:tensorflow:6 out of the last 8 calls to <function EncodingModel._likelihood at 0x2bff05000> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+    WARNING:tensorflow:5 out of the last 7 calls to <function EncodingModel._predict at 0x2a31baf80> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+    WARNING:tensorflow:6 out of the last 8 calls to <function EncodingModel._predict at 0x1170b92d0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+    WARNING:tensorflow:5 out of the last 7 calls to <function EncodingModel._likelihood at 0x2a5015870> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+    WARNING:tensorflow:6 out of the last 8 calls to <function EncodingModel._likelihood at 0x2a5015870> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
     /Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
@@ -396,7 +396,7 @@ Let's calculate the Fisher information for different RF structures
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
 
-    <seaborn.axisgrid.FacetGrid object at 0x2bd2010c0>
+    <seaborn.axisgrid.FacetGrid object at 0x2c2317070>
 
 
 
@@ -470,7 +470,7 @@ the receptive fields.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 239-243
+.. GENERATED FROM PYTHON SOURCE LINES 239-244
 
 Somewhat consistent with the literature, the Fisher information
 behaves roughly like 1/x now, where x is the stimulus. This means that the
@@ -478,9 +478,67 @@ precision of the estimated stimulus decreases with increasing
 stimulus value. 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 244-267
+
+.. code-block:: Python
+
+
+    # %
+    # Another interesting corner case is a single receptive field with a log-normal
+    # kernel.
+    from braincoder.models import LogGaussianPRF
+    mus = [25.]
+
+    parameters = pd.DataFrame({'mu':mus, 'sd':25., 'baseline':0.0, 'amplitude':1.0})[['mu', 'sd', 'amplitude', 'baseline']]
+
+    # Set up model and paradigm and plot the receptive fields
+    paradigm = np.linspace(0, 100, 100, dtype=np.float32)
+    model = LogGaussianPRF(parameters=parameters, paradigm=paradigm)
+    y = model.predict(paradigm=paradigm)
+
+    y.plot(c='k', legend=False)
+
+    # Calculate Fisher information
+    omega = np.identity(len(parameters)).astype(np.float32)
+    fisher_information = model.get_fisher_information(stimuli=np.linspace(5, 100, 1000).astype(np.float32), omega=omega, n=5000).to_frame()
+
+    fisher_information['sqrt(fi)'] = np.sqrt(fisher_information['Fisher information'])
+
+    plt.figure()
+    sns.lineplot(x='stimulus', y='sqrt(fi)', data=fisher_information.reset_index(), color='k')
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_fisher_information_011.png
+         :alt: fisher information
+         :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_fisher_information_011.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_fisher_information_012.png
+         :alt: fisher information
+         :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_fisher_information_012.png
+         :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+
+    <Axes: xlabel='stimulus', ylabel='sqrt(fi)'>
+
+
+
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 39.358 seconds)
+   **Total running time of the script:** (0 minutes 50.139 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fisher_information.py:

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:39.358** total execution time for 11 files **from auto_examples/00_encodingdecoding**:
+**00:50.139** total execution time for 11 files **from auto_examples/00_encodingdecoding**:
 
 .. container::
 
@@ -33,7 +33,7 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fisher_information.py` (``fisher_information.py``)
-     - 00:39.358
+     - 00:50.139
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py` (``decode.py``)
      - 00:00.000

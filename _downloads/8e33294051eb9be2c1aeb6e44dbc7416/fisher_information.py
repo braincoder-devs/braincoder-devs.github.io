@@ -241,3 +241,27 @@ plt.title('Square root of Fisher information')
 # precision of the estimated stimulus decreases with increasing
 # stimulus value. 
 # 
+
+# %
+# Another interesting corner case is a single receptive field with a log-normal
+# kernel.
+from braincoder.models import LogGaussianPRF
+mus = [25.]
+
+parameters = pd.DataFrame({'mu':mus, 'sd':25., 'baseline':0.0, 'amplitude':1.0})[['mu', 'sd', 'amplitude', 'baseline']]
+
+# Set up model and paradigm and plot the receptive fields
+paradigm = np.linspace(0, 100, 100, dtype=np.float32)
+model = LogGaussianPRF(parameters=parameters, paradigm=paradigm)
+y = model.predict(paradigm=paradigm)
+
+y.plot(c='k', legend=False)
+
+# Calculate Fisher information
+omega = np.identity(len(parameters)).astype(np.float32)
+fisher_information = model.get_fisher_information(stimuli=np.linspace(5, 100, 1000).astype(np.float32), omega=omega, n=5000).to_frame()
+
+fisher_information['sqrt(fi)'] = np.sqrt(fisher_information['Fisher information'])
+
+plt.figure()
+sns.lineplot(x='stimulus', y='sqrt(fi)', data=fisher_information.reset_index(), color='k')
