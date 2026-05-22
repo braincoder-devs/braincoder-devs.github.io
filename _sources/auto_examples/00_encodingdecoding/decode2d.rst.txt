@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_00_encodingdecoding_decode2d.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -64,7 +64,7 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x2d2b6dd20>
+    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x179935250>
     ['x (radians)', 'amplitude']
 
 
@@ -97,13 +97,13 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    init_tau: 0.47485795617103577, 0.5606476664543152
-    WWT max: 16.49216651916504
+    init_tau: 0.4727478325366974, 0.5595152378082275
+    WWT max: 15.28452205657959
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-70
+.. GENERATED FROM PYTHON SOURCE LINES 53-72
 
 .. code-block:: Python
 
@@ -122,6 +122,8 @@ such as expectation and attention.
     # Amplitudes have some noise
     experimental_paradigm['amplitude'] = np.where(experimental_paradigm.index.get_level_values('condition') == 'attended', ss.norm(1.5, 0.1).rvs(n), ss.norm(.5, 0.1).rvs(n))
     experimental_data = model.simulate(paradigm=experimental_paradigm, noise=noise)
+    # Restore the MultiIndex (simulate() flattens it to a single 'stimulus' level)
+    experimental_data.index = experimental_paradigm.index
 
 
 
@@ -131,7 +133,7 @@ such as expectation and attention.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-80
+.. GENERATED FROM PYTHON SOURCE LINES 73-82
 
 .. code-block:: Python
 
@@ -158,11 +160,11 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x2d94f8d30>
+    <seaborn.axisgrid.FacetGrid object at 0x17992e870>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-96
+.. GENERATED FROM PYTHON SOURCE LINES 83-99
 
 .. code-block:: Python
 
@@ -179,7 +181,8 @@ such as expectation and attention.
     potential_stimuli = pd.MultiIndex.from_product([potential_orientations, potential_amplitudes], names=['x (radians)', 'amplitude']).to_frame(index=False)
 
     # Now we get, for each data point, the likelihood of each possible stimulus
-    ll = model.get_stimulus_pdf(experimental_data, potential_stimuli)
+    ll = model.get_stimulus_pdf(experimental_data, potential_stimuli, omega=omega, dof=dof,
+                                include_multidimensional_stimulus_index=True)
 
 
 
@@ -188,7 +191,7 @@ such as expectation and attention.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-151
+.. GENERATED FROM PYTHON SOURCE LINES 100-154
 
 .. code-block:: Python
 
@@ -270,7 +273,7 @@ such as expectation and attention.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-173
+.. GENERATED FROM PYTHON SOURCE LINES 155-176
 
 .. code-block:: Python
 
@@ -278,12 +281,12 @@ such as expectation and attention.
     # Now we can calculate the 1D posterior for specific orientations _or_ amplitudes
 
     # Marginalize out orientations
-    amplitudes_posterior = ll.groupby('amplitude', axis=1).sum()
-    amplitudes_posterior = amplitudes_posterior.div(np.trapz(amplitudes_posterior, amplitudes_posterior.columns, axis=1), axis=0) # This is the same as normalizing the posterior
+    amplitudes_posterior = ll.T.groupby(level='amplitude').sum().T
+    amplitudes_posterior = amplitudes_posterior.div(np.trapezoid(amplitudes_posterior, amplitudes_posterior.columns, axis=1), axis=0) # This is the same as normalizing the posterior
 
     # Marginalize out amplitudes
-    orientations_posterior = ll.groupby('x (radians)', axis=1).sum()
-    orientations_posterior = orientations_posterior.div(np.trapz(orientations_posterior, orientations_posterior.columns, axis=1), axis=0)
+    orientations_posterior = ll.T.groupby(level='x (radians)').sum().T
+    orientations_posterior = orientations_posterior.div(np.trapezoid(orientations_posterior, orientations_posterior.columns, axis=1), axis=0)
 
     # Plot orientation posteriors
     tmp = orientations_posterior.stack().loc[:8].to_frame('p')
@@ -308,16 +311,12 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    /Users/gdehol/git/braincoder/examples/00_encodingdecoding/decode2d.py:156: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
-      amplitudes_posterior = ll.groupby('amplitude', axis=1).sum()
-    /Users/gdehol/git/braincoder/examples/00_encodingdecoding/decode2d.py:160: FutureWarning: DataFrame.groupby with axis=1 is deprecated. Do `frame.T.groupby(...)` without axis instead.
-      orientations_posterior = ll.groupby('x (radians)', axis=1).sum()
 
-    <seaborn.axisgrid.FacetGrid object at 0x2d447f5b0>
+    <seaborn.axisgrid.FacetGrid object at 0x1795def30>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-193
+.. GENERATED FROM PYTHON SOURCE LINES 177-196
 
 .. code-block:: Python
 
@@ -331,7 +330,7 @@ such as expectation and attention.
                                             names=['condition']).swaplevel(0, 1).sort_index()
 
     # Normalize!
-    conditional_orientation_ll = conditional_orientation_ll.div(np.trapz(conditional_orientation_ll, conditional_orientation_ll.columns, axis=1), axis=0)
+    conditional_orientation_ll = conditional_orientation_ll.div(np.trapezoid(conditional_orientation_ll, conditional_orientation_ll.columns, axis=1), axis=0)
     tmp = conditional_orientation_ll.stack().loc[:8].to_frame('p')
 
     g = sns.FacetGrid(tmp.reset_index(), col='frame', col_wrap=3, hue='condition', palette='coolwarm_r')
@@ -354,11 +353,11 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x2d09b9930>
+    <seaborn.axisgrid.FacetGrid object at 0x177e51970>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-216
+.. GENERATED FROM PYTHON SOURCE LINES 197-219
 
 .. code-block:: Python
 
@@ -396,7 +395,7 @@ such as expectation and attention.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 217-254
+.. GENERATED FROM PYTHON SOURCE LINES 220-257
 
 .. code-block:: Python
 
@@ -411,7 +410,7 @@ such as expectation and attention.
 
         # Take integral over the posterior to get to the expectation (mean posterior)
         # In this case a complex number that we convert back to an angle between 0 and 2pi
-        E = from_complex(np.trapz(posterior*complex_grid[np.newaxis,:], axis=1))
+        E = from_complex(np.trapezoid(posterior*complex_grid[np.newaxis,:], axis=1))
     
         # Take the integral over the posterior to get the expectation of the distance to the 
         # mean posterior (i.e., standard deviation)
@@ -420,7 +419,7 @@ such as expectation and attention.
         # Wrap the angle to be between 0 and pi, the error can never be larger than pi (180 degrees)
         relative_error = wrap_angle(relative_error)
         absolute_error = np.abs(relative_error)
-        sd = np.trapz(absolute_error * posterior, posterior.columns, axis=1)
+        sd = np.trapezoid(absolute_error * posterior, posterior.columns, axis=1)
 
         stats = pd.DataFrame({'E':E, 'sd':sd}, index=posterior.index)
 
@@ -475,13 +474,13 @@ such as expectation and attention.
       <tbody>
         <tr>
           <th>attended</th>
-          <td>0.965557</td>
-          <td>1.010416e-16</td>
+          <td>0.869551</td>
+          <td>1.522951e-13</td>
         </tr>
         <tr>
           <th>unattended</th>
-          <td>0.471372</td>
-          <td>4.337842e-07</td>
+          <td>0.372083</td>
+          <td>2.915933e-04</td>
         </tr>
       </tbody>
     </table>
@@ -490,7 +489,7 @@ such as expectation and attention.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 255-289
+.. GENERATED FROM PYTHON SOURCE LINES 258-292
 
 .. code-block:: Python
 
@@ -540,7 +539,7 @@ such as expectation and attention.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 290-294
+.. GENERATED FROM PYTHON SOURCE LINES 293-297
 
 .. code-block:: Python
 
@@ -562,14 +561,14 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x2d14a65c0>
+    <seaborn.axisgrid.FacetGrid object at 0x17cd8aae0>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 7.677 seconds)
+   **Total running time of the script:** (0 minutes 15.907 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_decode2d.py:
@@ -585,6 +584,10 @@ such as expectation and attention.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: decode2d.py <decode2d.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: decode2d.zip <decode2d.zip>`
 
 
 .. only:: html

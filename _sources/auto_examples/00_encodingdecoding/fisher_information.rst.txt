@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_00_encodingdecoding_fisher_information.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -216,7 +216,7 @@ stimuli.
 
 
     pdf = model.get_stimulus_pdf(simulated_data, np.linspace(-5, 15, 100), omega=omega)
-    E = np.trapz(pdf*pdf.columns.values[np.newaxis, :], x=pdf.columns, axis=1)
+    E = np.trapezoid(pdf*pdf.columns.values[np.newaxis, :], x=pdf.columns, axis=1)
     error = np.sqrt((paradigm - E)**2)
     error = pd.Series(error, index=pd.Index(paradigm, name='stimulus')).to_frame('error')
     sns.lineplot(x='stimulus', y='error', data=error)
@@ -251,7 +251,7 @@ same goes for the variance of the decoded posterior
 
 .. code-block:: Python
 
-    posterior_variance = np.trapz(pdf*(pdf.columns.values[np.newaxis, :] - E[:, np.newaxis])**2, x=pdf.columns, axis=1)
+    posterior_variance = np.trapezoid(pdf*(pdf.columns.values[np.newaxis, :] - E[:, np.newaxis])**2, x=pdf.columns, axis=1)
 
     error['posterior sd'] = np.sqrt(posterior_variance)
     plt.figure()
@@ -379,24 +379,20 @@ Let's calculate the Fisher information for different RF structures
 
  .. code-block:: none
 
-    WARNING:tensorflow:5 out of the last 7 calls to <function EncodingModel._predict at 0x2a31baf80> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-    WARNING:tensorflow:6 out of the last 8 calls to <function EncodingModel._predict at 0x1170b92d0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-    WARNING:tensorflow:5 out of the last 7 calls to <function EncodingModel._likelihood at 0x2a5015870> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-    WARNING:tensorflow:6 out of the last 8 calls to <function EncodingModel._likelihood at 0x2a5015870> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-    /Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/lib/python3.10/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
 
-    <seaborn.axisgrid.FacetGrid object at 0x2c2317070>
+    <seaborn.axisgrid.FacetGrid object at 0x30d000d40>
 
 
 
@@ -538,7 +534,7 @@ stimulus value.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 50.139 seconds)
+   **Total running time of the script:** (0 minutes 29.429 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fisher_information.py:
@@ -554,6 +550,10 @@ stimulus value.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: fisher_information.py <fisher_information.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: fisher_information.zip <fisher_information.zip>`
 
 
 .. only:: html

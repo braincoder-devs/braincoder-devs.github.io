@@ -10,6 +10,9 @@ Examples
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -26,17 +29,18 @@ Some introduction to the encoding/decoding framework.
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we fit a residual noise covariance matrix to simulated data from a VonMisesPRF...">
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we fit a residual noise covariance matrix to simulated data from a VonMisesPRF-model.">
 
 .. only:: html
 
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_fit_residuals_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_residuals.py`
+  :doc:`/auto_examples/00_encodingdecoding/fit_residuals`
 
 .. raw:: html
 
@@ -46,14 +50,14 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="It can be helpful to _constrain_ the decoding of a stimulus. For example, we might no be intere...">
+    <div class="sphx-glr-thumbcontainer" tooltip="It can be helpful to _constrain_ the decoding of a stimulus. For example, we might no be interested in decoding the location of the stimulus, but, rather, want to know which part of the stimulus show most drive.">
 
 .. only:: html
 
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_masked_stimulus_decoding_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_masked_stimulus_decoding.py`
+  :doc:`/auto_examples/00_encodingdecoding/masked_stimulus_decoding`
 
 .. raw:: html
 
@@ -63,14 +67,14 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="When it comes to fitting encoding models to fMRI data, the most common approach is to use a lin...">
+    <div class="sphx-glr-thumbcontainer" tooltip="When it comes to fitting encoding models to fMRI data, the most common approach is to use a linear encoding model, were the predicted BOLD response is a linear combination of different neural populations with predefined tuning properties.">
 
 .. only:: html
 
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_linear_encoding_model_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_linear_encoding_model.py`
+  :doc:`/auto_examples/00_encodingdecoding/linear_encoding_model`
 
 .. raw:: html
 
@@ -80,14 +84,14 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we create a Gaussian PRF model and plot the predictions. We also simulate data...">
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we create a Gaussian PRF model and plot the predictions. We also simulate data and then estimate back the generating parameters.">
 
 .. only:: html
 
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_encoding_model_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_encoding_model.py`
+  :doc:`/auto_examples/00_encodingdecoding/encoding_model`
 
 .. raw:: html
 
@@ -104,7 +108,7 @@ Some introduction to the encoding/decoding framework.
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_invert_model_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_invert_model.py`
+  :doc:`/auto_examples/00_encodingdecoding/invert_model`
 
 .. raw:: html
 
@@ -114,14 +118,14 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Here we will simulate neural data given a ground truth encoding model  and try to decode the st...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Here we will simulate neural data given a ground truth encoding model  and try to decode the stimulus from the data.">
 
 .. only:: html
 
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py`
+  :doc:`/auto_examples/00_encodingdecoding/decode`
 
 .. raw:: html
 
@@ -138,7 +142,7 @@ Some introduction to the encoding/decoding framework.
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode_v1_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_v1.py`
+  :doc:`/auto_examples/00_encodingdecoding/decode_v1`
 
 .. raw:: html
 
@@ -155,7 +159,7 @@ Some introduction to the encoding/decoding framework.
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode_visual_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_visual.py`
+  :doc:`/auto_examples/00_encodingdecoding/decode_visual`
 
 .. raw:: html
 
@@ -165,14 +169,14 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Fisher information is defined as the expected value of the square of the derivative of the log-...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Fisher information is defined as the expected value of the square of the derivative of the log-likelihood with respect to some parameter.">
 
 .. only:: html
 
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_fisher_information_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_fisher_information.py`
+  :doc:`/auto_examples/00_encodingdecoding/fisher_information`
 
 .. raw:: html
 
@@ -182,14 +186,14 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="In this example script we will try out increasingly complex models for visual population recept...">
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example script we will try out increasingly complex models for visual population receptive fields (PRFs). We will start with a simple Gaussian PRF model, and then add more complexity step by step.">
 
 .. only:: html
 
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_fit_prf_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py`
+  :doc:`/auto_examples/00_encodingdecoding/fit_prf`
 
 .. raw:: html
 
@@ -199,20 +203,105 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Here, we are decoding oriented stimuli from neural data that have an extra dimension: amplitude...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Here, we are decoding oriented stimuli from neural data that have an extra dimension: amplitude.">
 
 .. only:: html
 
   .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode2d_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py`
+  :doc:`/auto_examples/00_encodingdecoding/decode2d`
 
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Decoding 2D stimuli from neural data</div>
     </div>
 
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+######################################
+End-to-end decoding pipeline on real data
+######################################
+
+Three connected examples that walk through a full encoding-model decoding
+pipeline on a small extract of single-trial fMRI data (numerosity task,
+right numerosity-tuned parietal cortex):
+
+1. Select responsive voxels from whole-brain R² by fitting a 2-component
+   mixture and picking a threshold (FDR or posterior).
+2. Decode trial-wise stimulus posteriors using a noise model whose
+   covariance is regularised by *geodesic* distance on the cortical surface.
+3. Quantify *expected* decoding uncertainty by simulating from the fitted
+   model and re-decoding.
+
+Each example is self-contained but share the same demo dataset, which is
+downloaded on first run via ``braincoder.utils.data.load_dehollander2024_npc``.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="When you fit an encoding model to whole-brain fMRI data, most voxels are genuinely noise — they don&#x27;t tune to the stimulus dimension you&#x27;re modelling. Almost every downstream analysis (decoding, Fisher information, expected uncertainty) needs a way to select voxels that actually carry signal, without hand-picking an arbitrary R² cutoff.">
+
+.. only:: html
+
+  .. image:: /auto_examples/01_decoding_pipeline/images/thumb/sphx_glr_01_voxel_selection_fdr_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/01_decoding_pipeline/01_voxel_selection_fdr`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Voxel selection via a 2-component R² mixture model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Fisher information gives a local lower bound on the variance of any unbiased estimator of a stimulus from a fitted encoding model. It&#x27;s quick to compute and useful as a theoretical bound, but it ignores two things you usually care about in practice:">
+
+.. only:: html
+
+  .. image:: /auto_examples/01_decoding_pipeline/images/thumb/sphx_glr_03_expected_uncertainty_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/01_decoding_pipeline/03_expected_uncertainty`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Expected decoding uncertainty via simulate + decode</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="For Bayesian decoding from an encoding model, the noise covariance \Omega between voxels matters as much as the tuning curves themselves. The simplest assumption is uncorrelated isotropic noise (diagonal \Omega), but real fMRI noise has substantial spatially-structured correlations — voxels that sit near each other on the cortical sheet share more noise than distant ones.">
+
+.. only:: html
+
+  .. image:: /auto_examples/01_decoding_pipeline/images/thumb/sphx_glr_02_geodesic_decoder_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/01_decoding_pipeline/02_geodesic_decoder`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Geodesic-regularised noise model for trial-wise decoding</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -225,6 +314,7 @@ Some introduction to the encoding/decoding framework.
 
 
    /auto_examples/00_encodingdecoding/index.rst
+   /auto_examples/01_decoding_pipeline/index.rst
 
 
 .. only:: html

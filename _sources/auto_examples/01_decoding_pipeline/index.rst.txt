@@ -1,0 +1,95 @@
+
+
+.. _sphx_glr_auto_examples_01_decoding_pipeline:
+
+######################################
+End-to-end decoding pipeline on real data
+######################################
+
+Three connected examples that walk through a full encoding-model decoding
+pipeline on a small extract of single-trial fMRI data (numerosity task,
+right numerosity-tuned parietal cortex):
+
+1. Select responsive voxels from whole-brain R² by fitting a 2-component
+   mixture and picking a threshold (FDR or posterior).
+2. Decode trial-wise stimulus posteriors using a noise model whose
+   covariance is regularised by *geodesic* distance on the cortical surface.
+3. Quantify *expected* decoding uncertainty by simulating from the fitted
+   model and re-decoding.
+
+Each example is self-contained but share the same demo dataset, which is
+downloaded on first run via ``braincoder.utils.data.load_dehollander2024_npc``.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="When you fit an encoding model to whole-brain fMRI data, most voxels are genuinely noise — they don&#x27;t tune to the stimulus dimension you&#x27;re modelling. Almost every downstream analysis (decoding, Fisher information, expected uncertainty) needs a way to select voxels that actually carry signal, without hand-picking an arbitrary R² cutoff.">
+
+.. only:: html
+
+  .. image:: /auto_examples/01_decoding_pipeline/images/thumb/sphx_glr_01_voxel_selection_fdr_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/01_decoding_pipeline/01_voxel_selection_fdr`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Voxel selection via a 2-component R² mixture model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Fisher information gives a local lower bound on the variance of any unbiased estimator of a stimulus from a fitted encoding model. It&#x27;s quick to compute and useful as a theoretical bound, but it ignores two things you usually care about in practice:">
+
+.. only:: html
+
+  .. image:: /auto_examples/01_decoding_pipeline/images/thumb/sphx_glr_03_expected_uncertainty_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/01_decoding_pipeline/03_expected_uncertainty`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Expected decoding uncertainty via simulate + decode</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="For Bayesian decoding from an encoding model, the noise covariance \Omega between voxels matters as much as the tuning curves themselves. The simplest assumption is uncorrelated isotropic noise (diagonal \Omega), but real fMRI noise has substantial spatially-structured correlations — voxels that sit near each other on the cortical sheet share more noise than distant ones.">
+
+.. only:: html
+
+  .. image:: /auto_examples/01_decoding_pipeline/images/thumb/sphx_glr_02_geodesic_decoder_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/01_decoding_pipeline/02_geodesic_decoder`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Geodesic-regularised noise model for trial-wise decoding</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/01_decoding_pipeline/01_voxel_selection_fdr
+   /auto_examples/01_decoding_pipeline/03_expected_uncertainty
+   /auto_examples/01_decoding_pipeline/02_geodesic_decoder
+

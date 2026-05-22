@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_00_encodingdecoding_invert_model.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -45,7 +45,7 @@ Here we invert different encoding models
     plt.scatter(1./8.*np.pi, y, c='k')
     plt.scatter(7./8.*np.pi, y, c='k')
 
-    plt.xticks([0.0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], ['0', '1/2 $\pi$', '$\pi$', '1.5 $\pi$', '2 $\pi$'])
+    plt.xticks([0.0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], [r'0', r'$\frac{1}{2}\pi$', r'$\pi$', r'$\frac{3}{2}\pi$', r'$2\pi$'])
     sns.despine()
 
     plt.legend()
@@ -64,7 +64,7 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x2d92625c0>
+    <matplotlib.legend.Legend object at 0x158babd70>
 
 
 
@@ -105,7 +105,7 @@ Here we invert different encoding models
     # And plot it..
     plt.figure()
     plt.plot(orientations, likelihood.T, c='k')
-    plt.xticks([0.0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], ['0', '1/2 $\pi$', '$\pi$', '1.5 $\pi$', '2 $\pi$'])
+    plt.xticks([0.0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], [r'0', r'$\frac{1}{2}\pi$', r'$\pi$', r'$\frac{3}{2}\pi$', r'$2\pi$'])
 
     sns.despine()
     plt.xlabel('Orientation')
@@ -124,7 +124,7 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    Text(15.972222222222216, 0.5, 'Likelihood')
+    Text(16.347222222222214, 0.5, 'Likelihood')
 
 
 
@@ -154,7 +154,7 @@ Here we invert different encoding models
     plt.fill_between(x, y1-0.025, y1+0.025, alpha=.25, color=palette[0], label='Measured activity RF1')
     plt.fill_between(x, y2-0.025, y2+0.025, alpha=.25, color=palette[1], label='Measured activity RF2')
 
-    plt.xticks([0.0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], ['0', '1/2 $\pi$', '$\pi$', '1.5 $\pi$', '2 $\pi$'])
+    plt.xticks([0.0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], [r'0', r'$\frac{1}{2}\pi$', r'$\pi$', r'$\frac{3}{2}\pi$', r'$2\pi$'])
     sns.despine()
     plt.legend()
 
@@ -172,7 +172,7 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x2ce5a0940>
+    <matplotlib.legend.Legend object at 0x177c83230>
 
 
 
@@ -199,7 +199,7 @@ Here we invert different encoding models
     likelihood = model.likelihood(orientations, data, parameters, None, omega)
 
     plt.plot(orientations, likelihood.T, c='k')
-    plt.xticks([0.0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], ['0', '1/2 $\pi$', '$\pi$', '1.5 $\pi$', '2 $\pi$'])
+    plt.xticks([0.0, .5*np.pi, np.pi, 1.5*np.pi, 2*np.pi], [r'0', r'$\frac{1}{2}\pi$', r'$\pi$', r'$\frac{3}{2}\pi$', r'$2\pi$'])
 
     sns.despine()
     plt.xlabel('Orientation')
@@ -218,14 +218,14 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    Text(24.847222222222214, 0.5, 'Likelihood')
+    Text(25.097222222222214, 0.5, 'Likelihood')
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.531 seconds)
+   **Total running time of the script:** (0 minutes 10.903 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_invert_model.py:
@@ -241,6 +241,10 @@ Here we invert different encoding models
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: invert_model.py <invert_model.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: invert_model.zip <invert_model.zip>`
 
 
 .. only:: html
