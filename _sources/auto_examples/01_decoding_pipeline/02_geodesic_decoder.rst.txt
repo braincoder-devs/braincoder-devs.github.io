@@ -180,42 +180,102 @@ numerosity), sd (tuning width), amplitude, baseline.
 
  .. code-block:: none
 
-    Working with chunk size of 23894
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 38.27it/s]
-    Number of problematic voxels (mask): 0
-    Number of voxels remaining (mask): 155
-    *** Fitting: ***
-     * mu
-     * sd
-     * amplitude
-     * baseline
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 31.19it/s]
     Train R² — median 0.115, p90 0.174
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-127
+.. GENERATED FROM PYTHON SOURCE LINES 120-174
 
-Build the geodesic distance matrix
+From an fmriprep folder to a geodesic distance matrix
 -----------------------------------------------------------------
-The demo bundle ships a cropped cortical-mesh patch (right hemisphere
-white-matter surface), plus a per-voxel "nearest patch vertex" index.
-``geodesic_distance_matrix`` runs Dijkstra along mesh edges and
-returns the pairwise distance between only the seed vertices we ask
-for.
+In a real project the cortical mesh comes straight from fmriprep,
+which writes a triangulated white-matter surface per hemisphere in
+the subject's T1w (anatomical) space:
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-138
+.. code-block:: text
+
+    derivatives/fmriprep/sub-XX/anat/sub-XX_hemi-L_white.surf.gii
+    derivatives/fmriprep/sub-XX/anat/sub-XX_hemi-R_white.surf.gii
+
+Both are GIfTI files: the first data array holds vertex
+coordinates in mm (``n_vertices × 3``), the second holds the
+integer triangle indices (``n_faces × 3``). Because they live in
+T1w space they line up directly with any volumetric mask you also
+resampled to T1w (which is the default for fmriprep ``space-T1w``
+BOLDs).
+
+The full recipe — written here against an imaginary fmriprep
+folder so you can lift it into your own project unchanged — is:
+
+.. code-block:: python
+
+    import nibabel as nib
+    from scipy.spatial import cKDTree
+    from braincoder.utils.cortex import geodesic_distance_matrix
+
+    # 1) Load the white-matter surface (right hemi here).
+    gii = nib.load('derivatives/fmriprep/sub-XX/anat/'
+                   'sub-XX_hemi-R_white.surf.gii')
+    vertices = gii.darrays[0].data.astype(np.float32)
+    faces    = gii.darrays[1].data.astype(np.int32)
+
+    # 2) Get voxel-centroid mm coordinates from your ROI mask
+    #    (T1w-space NIfTI; assumes you already have a NiftiMasker
+    #    or just an ROI boolean array + the mask image).
+    mask_img = nib.load('roi_mask_space-T1w.nii.gz')
+    ijk = np.argwhere(mask_img.get_fdata().astype(bool))
+    voxel_xyz = nib.affines.apply_affine(mask_img.affine, ijk).astype(np.float32)
+
+    # 3) Snap each voxel centroid to its nearest mesh vertex.
+    tree = cKDTree(vertices)
+    dist, nearest_vertex = tree.query(voxel_xyz)
+
+    # 4) Geodesic distance matrix between those vertices.
+    #    Dijkstra along mesh edges; expensive on the full hemisphere,
+    #    cheap if you crop to a neighbourhood of your ROI first.
+    D = geodesic_distance_matrix(vertices, faces,
+                                 source_indices=nearest_vertex)
+
+That's the whole pipeline. The demo bundle below ships a
+pre-cropped right-hemisphere patch (so we don't have to lug around
+a ~150 k-vertex full hemisphere) together with the per-voxel mm
+coordinates — but otherwise the steps are exactly the same.
+
+.. GENERATED FROM PYTHON SOURCE LINES 176-181
+
+Build the geodesic distance matrix (against the bundled patch)
+-----------------------------------------------------------------
+We re-do steps 3 and 4 from the recipe above against the bundle's
+data, so this is real, runnable code that mirrors what you'd do on
+your own fmriprep outputs.
+
+.. GENERATED FROM PYTHON SOURCE LINES 181-205
 
 .. code-block:: Python
 
 
-    voxel_to_vertex = bundle['voxel_to_vertex'].loc[keep, 'vertex'].values
-    D = geodesic_distance_matrix(
-        bundle['surface_vertices'],
-        bundle['surface_faces'],
-        source_indices=voxel_to_vertex,
-        progressbar=False,
-    )
+    from scipy.spatial import cKDTree  # noqa: E402
+
+    vertices = bundle['surface_vertices']  # (n_patch_vertices × 3) float32, mm
+    faces    = bundle['surface_faces']     # (n_patch_faces × 3) int32
+
+    # Voxel-centroid mm coordinates inside NPCr (pre-computed in the bundle,
+    # but the same thing you'd build with apply_affine on your own NIfTI).
+    voxel_xyz = bundle['voxel_coords_mm'].loc[keep, ['x', 'y', 'z']].values
+
+    # Snap each NPCr voxel to its nearest white-matter vertex.
+    tree = cKDTree(vertices)
+    snap_dist, nearest_vertex = tree.query(voxel_xyz)
+    print(f'Voxel→vertex snap distance: '
+          f'median {np.median(snap_dist):.2f} mm, '
+          f'p95 {np.percentile(snap_dist, 95):.2f} mm')
+
+    # Pairwise geodesic distance between the snapped vertices.
+    D = geodesic_distance_matrix(vertices, faces,
+                                  source_indices=nearest_vertex,
+                                  progressbar=False)
     print(f'Distance matrix: {D.shape}, '
           f'median pairwise distance {np.median(D[np.triu_indices_from(D, k=1)]):.1f} mm')
 
@@ -227,19 +287,20 @@ for.
 
  .. code-block:: none
 
+    Voxel→vertex snap distance: median 1.09 mm, p95 2.63 mm
     Distance matrix: (155, 155), median pairwise distance 32.9 mm
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-143
+.. GENERATED FROM PYTHON SOURCE LINES 206-210
 
 Fit two noise models
 -----------------------------------------------------------------
 Each :class:`ResidualFitter` is fit to the same residuals; the only
 difference is whether we pass the geodesic distance matrix.
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-172
+.. GENERATED FROM PYTHON SOURCE LINES 210-239
 
 .. code-block:: Python
 
@@ -294,7 +355,7 @@ difference is whether we pass the geodesic distance matrix.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-179
+.. GENERATED FROM PYTHON SOURCE LINES 240-246
 
 Decode the held-out trials with each Ω
 -----------------------------------------------------------------
@@ -303,7 +364,7 @@ over a stimulus grid, given the data, fitted parameters, and noise
 model. We compute it for each held-out trial under both Ωs and
 compare the posterior means.
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-206
+.. GENERATED FROM PYTHON SOURCE LINES 246-273
 
 .. code-block:: Python
 
@@ -347,12 +408,12 @@ compare the posterior means.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 207-209
+.. GENERATED FROM PYTHON SOURCE LINES 274-276
 
 Visualise
 -----------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-224
+.. GENERATED FROM PYTHON SOURCE LINES 276-291
 
 .. code-block:: Python
 
@@ -383,7 +444,7 @@ Visualise
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 225-231
+.. GENERATED FROM PYTHON SOURCE LINES 292-298
 
 Inspect Ω structure
 -----------------------------------------------------------------
@@ -392,7 +453,7 @@ the implied covariance row. The geodesic-regularised :math:`\\Omega`
 should drop off smoothly with distance, while the standard fit can
 show high correlations regardless of distance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 231-247
+.. GENERATED FROM PYTHON SOURCE LINES 298-314
 
 .. code-block:: Python
 
@@ -427,7 +488,7 @@ show high correlations regardless of distance.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 33.447 seconds)
+   **Total running time of the script:** (0 minutes 44.455 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_02_geodesic_decoder.py:

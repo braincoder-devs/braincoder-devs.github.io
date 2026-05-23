@@ -203,6 +203,7 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -400,40 +401,93 @@ numerosity), sd (tuning width), amplitude, baseline.</p>
       <span class="sa">f</span><span class="s1">&#39;p90 </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">train_r2</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Working with chunk size of 23894
-
-  0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00, 38.27it/s]
-Number of problematic voxels (mask): 0
-Number of voxels remaining (mask): 155
-*** Fitting: ***
- * mu
- * sd
- * amplitude
- * baseline
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
+100%|██████████| 1/1 [00:00&lt;00:00, 31.19it/s]
 Train R² — median 0.115, p90 0.174
 </pre></div>
 </div>
 </section>
-<section id="build-the-geodesic-distance-matrix">
-<h2>Build the geodesic distance matrix<a class="headerlink" href="#build-the-geodesic-distance-matrix" title="Link to this heading">¶</a></h2>
-<p>The demo bundle ships a cropped cortical-mesh patch (right hemisphere
-white-matter surface), plus a per-voxel “nearest patch vertex” index.
-<code class="docutils literal notranslate"><span class="pre">geodesic_distance_matrix</span></code> runs Dijkstra along mesh edges and
-returns the pairwise distance between only the seed vertices we ask
-for.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">voxel_to_vertex</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;voxel_to_vertex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">keep</span><span class="p">,</span> <span class="s1">&#39;vertex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">D</span> <span class="o">=</span> <span class="n">geodesic_distance_matrix</span><span class="p">(</span>
-    <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;surface_vertices&#39;</span><span class="p">],</span>
-    <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;surface_faces&#39;</span><span class="p">],</span>
-    <span class="n">source_indices</span><span class="o">=</span><span class="n">voxel_to_vertex</span><span class="p">,</span>
-    <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
+<section id="from-an-fmriprep-folder-to-a-geodesic-distance-matrix">
+<h2>From an fmriprep folder to a geodesic distance matrix<a class="headerlink" href="#from-an-fmriprep-folder-to-a-geodesic-distance-matrix" title="Link to this heading">¶</a></h2>
+<p>In a real project the cortical mesh comes straight from fmriprep,
+which writes a triangulated white-matter surface per hemisphere in
+the subject’s T1w (anatomical) space:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>derivatives/fmriprep/sub-XX/anat/sub-XX_hemi-L_white.surf.gii
+derivatives/fmriprep/sub-XX/anat/sub-XX_hemi-R_white.surf.gii
+</pre></div>
+</div>
+<p>Both are GIfTI files: the first data array holds vertex
+coordinates in mm (<code class="docutils literal notranslate"><span class="pre">n_vertices</span> <span class="pre">×</span> <span class="pre">3</span></code>), the second holds the
+integer triangle indices (<code class="docutils literal notranslate"><span class="pre">n_faces</span> <span class="pre">×</span> <span class="pre">3</span></code>). Because they live in
+T1w space they line up directly with any volumetric mask you also
+resampled to T1w (which is the default for fmriprep <code class="docutils literal notranslate"><span class="pre">space-T1w</span></code>
+BOLDs).</p>
+<p>The full recipe — written here against an imaginary fmriprep
+folder so you can lift it into your own project unchanged — is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial</span><span class="w"> </span><span class="kn">import</span> <span class="n">cKDTree</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.utils.cortex</span><span class="w"> </span><span class="kn">import</span> <span class="n">geodesic_distance_matrix</span>
+
+<span class="c1"># 1) Load the white-matter surface (right hemi here).</span>
+<span class="n">gii</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;derivatives/fmriprep/sub-XX/anat/&#39;</span>
+               <span class="s1">&#39;sub-XX_hemi-R_white.surf.gii&#39;</span><span class="p">)</span>
+<span class="n">vertices</span> <span class="o">=</span> <span class="n">gii</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">faces</span>    <span class="o">=</span> <span class="n">gii</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+<span class="c1"># 2) Get voxel-centroid mm coordinates from your ROI mask</span>
+<span class="c1">#    (T1w-space NIfTI; assumes you already have a NiftiMasker</span>
+<span class="c1">#    or just an ROI boolean array + the mask image).</span>
+<span class="n">mask_img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;roi_mask_space-T1w.nii.gz&#39;</span><span class="p">)</span>
+<span class="n">ijk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">mask_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">))</span>
+<span class="n">voxel_xyz</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">affines</span><span class="o">.</span><span class="n">apply_affine</span><span class="p">(</span><span class="n">mask_img</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">ijk</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># 3) Snap each voxel centroid to its nearest mesh vertex.</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">cKDTree</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
+<span class="n">dist</span><span class="p">,</span> <span class="n">nearest_vertex</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">voxel_xyz</span><span class="p">)</span>
+
+<span class="c1"># 4) Geodesic distance matrix between those vertices.</span>
+<span class="c1">#    Dijkstra along mesh edges; expensive on the full hemisphere,</span>
+<span class="c1">#    cheap if you crop to a neighbourhood of your ROI first.</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">geodesic_distance_matrix</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span>
+                             <span class="n">source_indices</span><span class="o">=</span><span class="n">nearest_vertex</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That’s the whole pipeline. The demo bundle below ships a
+pre-cropped right-hemisphere patch (so we don’t have to lug around
+a ~150 k-vertex full hemisphere) together with the per-voxel mm
+coordinates — but otherwise the steps are exactly the same.</p>
+</section>
+<section id="build-the-geodesic-distance-matrix-against-the-bundled-patch">
+<h2>Build the geodesic distance matrix (against the bundled patch)<a class="headerlink" href="#build-the-geodesic-distance-matrix-against-the-bundled-patch" title="Link to this heading">¶</a></h2>
+<p>We re-do steps 3 and 4 from the recipe above against the bundle’s
+data, so this is real, runnable code that mirrors what you’d do on
+your own fmriprep outputs.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial</span><span class="w"> </span><span class="kn">import</span> <span class="n">cKDTree</span>  <span class="c1"># noqa: E402</span>
+
+<span class="n">vertices</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;surface_vertices&#39;</span><span class="p">]</span>  <span class="c1"># (n_patch_vertices × 3) float32, mm</span>
+<span class="n">faces</span>    <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;surface_faces&#39;</span><span class="p">]</span>     <span class="c1"># (n_patch_faces × 3) int32</span>
+
+<span class="c1"># Voxel-centroid mm coordinates inside NPCr (pre-computed in the bundle,</span>
+<span class="c1"># but the same thing you&#39;d build with apply_affine on your own NIfTI).</span>
+<span class="n">voxel_xyz</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;voxel_coords_mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">keep</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Snap each NPCr voxel to its nearest white-matter vertex.</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">cKDTree</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
+<span class="n">snap_dist</span><span class="p">,</span> <span class="n">nearest_vertex</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">voxel_xyz</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Voxel→vertex snap distance: &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;median </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">snap_dist</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> mm, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;p95 </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">snap_dist</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> mm&#39;</span><span class="p">)</span>
+
+<span class="c1"># Pairwise geodesic distance between the snapped vertices.</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">geodesic_distance_matrix</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span>
+                              <span class="n">source_indices</span><span class="o">=</span><span class="n">nearest_vertex</span><span class="p">,</span>
+                              <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distance matrix: </span><span class="si">{</span><span class="n">D</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, &#39;</span>
       <span class="sa">f</span><span class="s1">&#39;median pairwise distance </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> mm&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Distance matrix: (155, 155), median pairwise distance 32.9 mm
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Voxel→vertex snap distance: median 1.09 mm, p95 2.63 mm
+Distance matrix: (155, 155), median pairwise distance 32.9 mm
 </pre></div>
 </div>
 </section>
@@ -561,7 +615,7 @@ show high correlations regardless of distance.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_02_geodesic_decoder_002.png" srcset="../../_images/sphx_glr_02_geodesic_decoder_002.png" alt="Covariance falloff with cortical distance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 33.447 seconds)</p>
+<img src="../../_images/sphx_glr_02_geodesic_decoder_002.png" srcset="../../_images/sphx_glr_02_geodesic_decoder_002.png" alt="Covariance falloff with cortical distance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 44.455 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-decoding-pipeline-02-geodesic-decoder-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/86e11760cc7362684e86556351143429/02_geodesic_decoder.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02_geodesic_decoder.ipynb</span></code></a></p>
@@ -635,7 +689,8 @@ show high correlations regardless of distance.</p>
 <li><a class="reference internal" href="#">Geodesic-regularised noise model for trial-wise decoding</a><ul>
 <li><a class="reference internal" href="#load-the-demo-bundle-and-select-responsive-voxels">Load the demo bundle and select responsive voxels</a></li>
 <li><a class="reference internal" href="#fit-a-log-gaussian-prf-per-voxel">Fit a Log-Gaussian PRF per voxel</a></li>
-<li><a class="reference internal" href="#build-the-geodesic-distance-matrix">Build the geodesic distance matrix</a></li>
+<li><a class="reference internal" href="#from-an-fmriprep-folder-to-a-geodesic-distance-matrix">From an fmriprep folder to a geodesic distance matrix</a></li>
+<li><a class="reference internal" href="#build-the-geodesic-distance-matrix-against-the-bundled-patch">Build the geodesic distance matrix (against the bundled patch)</a></li>
 <li><a class="reference internal" href="#fit-two-noise-models">Fit two noise models</a></li>
 <li><a class="reference internal" href="#decode-the-held-out-trials-with-each">Decode the held-out trials with each Ω</a></li>
 <li><a class="reference internal" href="#visualise">Visualise</a></li>

@@ -203,6 +203,7 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -316,7 +317,6 @@ demo dataset.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogGaussianPRF</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParameterFitter</span><span class="p">,</span> <span class="n">ResidualFitter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_pratcarrabin2025_npc</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.utils.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_expected_value</span><span class="p">,</span> <span class="n">get_sd_posterior</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.utils.stats</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">fit_r2_mixture</span><span class="p">,</span>
     <span class="n">get_rsq</span><span class="p">,</span>
@@ -376,17 +376,8 @@ calculation only needs <code class="docutils literal notranslate"><span class="p
       <span class="sa">f</span><span class="s1">&#39;p90 </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">train_r2</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Working with chunk size of 17921
-
-  0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00, 22.30it/s]
-Number of problematic voxels (mask): 0
-Number of voxels remaining (mask): 155
-*** Fitting: ***
- * mu
- * sd
- * amplitude
- * baseline
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
+100%|██████████| 1/1 [00:00&lt;00:00, 16.24it/s]
 Train R² — median 0.137, p90 0.198
 </pre></div>
 </div>
@@ -414,58 +405,53 @@ Fitted dof: 8.0
 </pre></div>
 </div>
 </section>
-<section id="simulate-from-the-fitted-model-and-re-decode">
-<h2>Simulate from the fitted model and re-decode<a class="headerlink" href="#simulate-from-the-fitted-model-and-re-decode" title="Link to this heading">¶</a></h2>
-<p>For every numerosity in the stimulus grid we draw <code class="docutils literal notranslate"><span class="pre">n_repeats</span></code>
-noise-perturbed response patterns, then push them through
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_stimulus_pdf()</span></code> to recover the posterior over numerosity.
-The posterior mean <code class="docutils literal notranslate"><span class="pre">E</span></code> is a per-trial estimate of the stimulus.</p>
+<section id="simulate-decode-and-aggregate-in-one-call">
+<h2>Simulate, decode, and aggregate in one call<a class="headerlink" href="#simulate-decode-and-aggregate-in-one-call" title="Link to this heading">¶</a></h2>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_expected_uncertainty()</span></code> wraps the whole
+pipeline — for every stimulus in <code class="docutils literal notranslate"><span class="pre">stim_grid</span></code> it (1) simulates
+<code class="docutils literal notranslate"><span class="pre">n_simulations</span></code> noise-perturbed response vectors from
+<code class="docutils literal notranslate"><span class="pre">(parameters,</span> <span class="pre">omega,</span> <span class="pre">dof)</span></code>, (2) decodes each via
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_stimulus_pdf()</span></code>, (3) computes the posterior mean, and (4)
+aggregates per true stimulus. It returns a DataFrame with
+<code class="docutils literal notranslate"><span class="pre">mean_E,</span> <span class="pre">var_E,</span> <span class="pre">mean_error,</span> <span class="pre">mean_abs_error,</span> <span class="pre">n_sims</span></code>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">n_repeats</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Simulating </span><span class="si">{</span><span class="n">n_repeats</span><span class="si">}</span><span class="s1"> trials per numerosity &#39;</span>
       <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">stim_grid</span><span class="p">)</span><span class="si">}</span><span class="s1"> numerosities) …&#39;</span><span class="p">)</span>
-<span class="n">sim</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">stim_grid</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">,</span>
-                      <span class="n">noise</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="n">dof</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="n">n_repeats</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Simulated data: </span><span class="si">{</span><span class="n">sim</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="c1"># Decode every simulated trial through the same model + noise.</span>
-<span class="n">posterior</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_stimulus_pdf</span><span class="p">(</span>
-    <span class="n">sim</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="n">dof</span><span class="p">,</span>
-    <span class="n">stimulus_range</span><span class="o">=</span><span class="n">stim_grid</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_expected_uncertainty</span><span class="p">(</span>
+    <span class="n">stim_grid</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+    <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="n">dof</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">,</span>
+    <span class="n">n_simulations</span><span class="o">=</span><span class="n">n_repeats</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
-
-<span class="n">E</span> <span class="o">=</span> <span class="n">get_expected_value</span><span class="p">(</span><span class="n">posterior</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;E_decoded&#39;</span><span class="p">)</span>
-<span class="n">E</span><span class="p">[</span><span class="s1">&#39;true_n&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">stim_grid</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">n_repeats</span><span class="p">)</span>
-<span class="n">E</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">E</span><span class="p">[</span><span class="s1">&#39;E_decoded&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">E</span><span class="p">[</span><span class="s1">&#39;true_n&#39;</span><span class="p">]</span>
-<span class="n">sd_post</span> <span class="o">=</span> <span class="n">get_sd_posterior</span><span class="p">(</span><span class="n">posterior</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="n">E</span><span class="p">[</span><span class="s1">&#39;E_decoded&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">E</span><span class="p">[</span><span class="s1">&#39;posterior_sd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sd_post</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># Add convenience columns the plot below reads off directly.</span>
+<span class="n">summary</span><span class="p">[</span><span class="s1">&#39;std_decoded&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;var_E&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Simulating 200 trials per numerosity (31 numerosities) …
-Simulated data: (6200, 155)
+  [stim 0:31/31] 6200 simulated trials
+       mean_E   var_E  mean_error  mean_abs_error  n_sims  std_decoded
+value
+10.0   18.098  39.582       8.098           8.098     200        6.291
+11.0   20.499  27.407       9.499           9.499     200        5.235
+12.0   21.845  20.755       9.845           9.845     200        4.556
+13.0   21.669  20.223       8.669           8.711     200        4.497
+14.0   21.761  16.735       7.761           7.773     200        4.091
 </pre></div>
 </div>
 </section>
-<section id="aggregate-and-plot">
-<h2>Aggregate and plot<a class="headerlink" href="#aggregate-and-plot" title="Link to this heading">¶</a></h2>
-<p>Per true numerosity, take the mean and standard deviation of the
-decoded <span class="math notranslate nohighlight">\(\\hat{s}\)</span> across simulated repeats — these are the
-<strong>bias</strong> and <strong>expected uncertainty</strong> curves.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">E</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;true_n&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
-    <span class="n">mean_decoded</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;E_decoded&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
-    <span class="n">std_decoded</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;E_decoded&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">),</span>
-    <span class="n">mean_error</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
-    <span class="n">mean_posterior_sd</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;posterior_sd&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+<section id="plot-bias-expected-uncertainty">
+<h2>Plot bias + expected uncertainty<a class="headerlink" href="#plot-bias-expected-uncertainty" title="Link to this heading">¶</a></h2>
+<p>Per true numerosity: the bias of the posterior-mean estimator
+(<code class="docutils literal notranslate"><span class="pre">mean_E</span> <span class="pre">-</span> <span class="pre">true</span></code>) and the spread of the posterior mean across
+repeats (<code class="docutils literal notranslate"><span class="pre">√var_E</span></code>).</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_decoded&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_E&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span>
          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mean decoded&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
-                 <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_decoded&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;std_decoded&#39;</span><span class="p">],</span>
-                 <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_decoded&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;std_decoded&#39;</span><span class="p">],</span>
+                 <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_E&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;std_decoded&#39;</span><span class="p">],</span>
+                 <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_E&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;std_decoded&#39;</span><span class="p">],</span>
                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;± std across repeats&#39;</span><span class="p">)</span>
 <span class="n">lim</span> <span class="o">=</span> <span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -478,9 +464,9 @@ decoded <span class="math notranslate nohighlight">\(\\hat{s}\)</span> across si
 
 <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;std_decoded&#39;</span><span class="p">],</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SD of decoded across repeats&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_posterior_sd&#39;</span><span class="p">],</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mean posterior SD&#39;</span><span class="p">)</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\sqrt{\mathrm</span><span class="si">{Var}</span><span class="s1">[\hat</span><span class="si">{s}</span><span class="s1">]}$ across repeats&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean_abs_error&#39;</span><span class="p">],</span> <span class="s1">&#39;s--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\mathrm</span><span class="si">{mean}</span><span class="s1">|\hat</span><span class="si">{s}</span><span class="s1"> - s|$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;True numerosity&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Expected uncertainty&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Decoding precision vs. stimulus&#39;</span><span class="p">)</span>
@@ -490,34 +476,31 @@ decoded <span class="math notranslate nohighlight">\(\\hat{s}\)</span> across si
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_03_expected_uncertainty_001.png" srcset="../../_images/sphx_glr_03_expected_uncertainty_001.png" alt="Bias of posterior mean, Decoding precision vs. stimulus" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>        mean_decoded  std_decoded  mean_error  mean_posterior_sd
-true_n
-10.0       18.976000        5.974       8.976              7.748
-11.0       19.596001        5.145       8.596              7.850
-12.0       21.056000        4.870       9.056              7.994
-13.0       21.833000        4.209       8.833              7.849
-14.0       21.833000        3.833       7.833              7.564
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_03_expected_uncertainty_001.png" srcset="../../_images/sphx_glr_03_expected_uncertainty_001.png" alt="Bias of posterior mean, Decoding precision vs. stimulus" class = "sphx-glr-single-img"/></section>
 <section id="interpretation">
 <h2>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>The <strong>bias</strong> curve (left) shows whether the model systematically
-over- or under-estimates the true stimulus. A flat identity-line
+over- or under-estimates the true stimulus. A flat identity line
 means no bias. Deviations often appear near the edges of the
 stimulus range (the encoding model can’t extrapolate beyond what
 it was fit on).</p></li>
-<li><p>The <strong>expected uncertainty</strong> curve (right) compares two flavours:
-the SD of the posterior <em>mean</em> across repeats (sampling
-uncertainty) and the mean <em>posterior SD</em> within a single decode
-(model-implied uncertainty). They tend to track each other but
-not match perfectly; large gaps point at mis-specification.</p></li>
-<li><p>Compared to Fisher information, this estimator captures realistic
-bias and prior effects at the cost of being slower (we have to
-simulate + decode <span class="math notranslate nohighlight">\(\\sim 10^3\)</span>–<span class="math notranslate nohighlight">\(10^4\)</span> trials).</p></li>
+<li><p>The <strong>expected uncertainty</strong> curve (right) shows two flavours:
+<span class="math notranslate nohighlight">\(\sqrt{\mathrm{Var}[\hat{s}]}\)</span> across repeats (sampling
+uncertainty of the posterior mean) and the mean absolute error
+<span class="math notranslate nohighlight">\(\mathrm{mean}|\hat{s} - s|\)</span>. They tend to track each other;
+a gap means the estimator is biased (the MAE picks up bias, the SD
+doesn’t).</p></li>
+<li><p>Under the Cramér–Rao bound the variance of an unbiased estimator
+is at least <span class="math notranslate nohighlight">\(1 / \mathcal{I}(s)\)</span>, so far from the boundary
+<span class="math notranslate nohighlight">\(\mathrm{Var}[\hat{s}] \approx 1 /\)</span> Fisher information.
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_expected_uncertainty()</span></code> and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_fisher_information()</span></code> are the two ends of
+that bound — see <a class="reference internal" href="../../fisher_information.html"><span class="doc">Fisher information and expected uncertainty</span></a> for the head-to-head.</p></li>
+<li><p>Cost: simulate + decode <span class="math notranslate nohighlight">\(\sim 10^3\)</span>–<span class="math notranslate nohighlight">\(10^4\)</span> trials per
+stimulus; use <code class="docutils literal notranslate"><span class="pre">batch_stimuli=</span></code> to bound memory for large grids.</p></li>
 </ul>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 25.870 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 30.836 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-decoding-pipeline-03-expected-uncertainty-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/717ad0989787a2827301233853249f3c/03_expected_uncertainty.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_expected_uncertainty.ipynb</span></code></a></p>
@@ -592,8 +575,8 @@ simulate + decode <span class="math notranslate nohighlight">\(\\sim 10^3\)</spa
 <li><a class="reference internal" href="#load-the-demo-select-voxels">Load the demo + select voxels</a></li>
 <li><a class="reference internal" href="#fit-the-encoding-model-on-all-trials">Fit the encoding model on <em>all</em> trials</a></li>
 <li><a class="reference internal" href="#fit-the-noise-model">Fit the noise model</a></li>
-<li><a class="reference internal" href="#simulate-from-the-fitted-model-and-re-decode">Simulate from the fitted model and re-decode</a></li>
-<li><a class="reference internal" href="#aggregate-and-plot">Aggregate and plot</a></li>
+<li><a class="reference internal" href="#simulate-decode-and-aggregate-in-one-call">Simulate, decode, and aggregate in one call</a></li>
+<li><a class="reference internal" href="#plot-bias-expected-uncertainty">Plot bias + expected uncertainty</a></li>
 <li><a class="reference internal" href="#interpretation">Interpretation</a></li>
 </ul>
 </li>
