@@ -91,17 +91,28 @@ print(f'Train R² — median {np.nanmedian(train_r2):.3f}, '
 # %%
 # Fit the noise model
 # -----------------------------------------------------------------
-# Same Student-t noise model as notebook 2 (without geodesic
-# regularisation here, to keep the example focused). ``init_pseudoWWT``
-# computes the W Wᵀ template over the stimulus grid we'll later use
-# for decoding.
+# We use a **spherical** Student-t noise model here — each voxel gets
+# its own variance (τ²) but voxels are treated as independent (the
+# off-diagonal ρ·ττᵀ and σ²·WWᵀ terms are dropped). With a small ROI
+# like NPCr (≲ a few hundred voxels) and modestly noisy single-trial
+# betas, the full structured Ω can tie voxels together so strongly
+# that the decoder collapses toward the population-mean preferred
+# numerosity, hiding the encoding model's real informativeness.
+# Spherical noise gives a cleaner read on how well the *tuning curves
+# alone* can support stimulus decoding. See notebook 2 for the
+# trade-off in the other direction (structured Ω with geodesic
+# regularisation when you need cross-voxel correlations).
+#
+# ``init_pseudoWWT`` is still called: even though the spherical
+# variant doesn't use WWᵀ in the loss, the underlying model API
+# requires it to be initialised before any decoding call.
 
 stim_grid = pd.DataFrame({'n': np.arange(10, 41, 1, dtype=np.float32)})
 stim_grid.index.name = 'stimulus'
 model.init_pseudoWWT(stim_grid, pars)
 
 resid_fitter = ResidualFitter(model, data, paradigm[['n']], parameters=pars)
-omega, dof = resid_fitter.fit(method='t', init_dof=10.0,
+omega, dof = resid_fitter.fit(method='t', spherical=True, init_dof=10.0,
                                 max_n_iterations=600, progressbar=False)
 print(f'Fitted dof: {dof:.1f}')
 
@@ -169,22 +180,42 @@ plt.show()
 # %%
 # Interpretation
 # -----------------------------------------------------------------
-# * The **bias** curve (left) shows whether the model systematically
-#   over- or under-estimates the true stimulus. A flat identity line
-#   means no bias. Deviations often appear near the edges of the
-#   stimulus range (the encoding model can't extrapolate beyond what
-#   it was fit on).
-# * The **expected uncertainty** curve (right) shows two flavours:
-#   :math:`\sqrt{\mathrm{Var}[\hat{s}]}` across repeats (sampling
-#   uncertainty of the posterior mean) and the mean absolute error
-#   :math:`\mathrm{mean}|\hat{s} - s|`. They tend to track each other;
-#   a gap means the estimator is biased (the MAE picks up bias, the SD
-#   doesn't).
+# With the spherical noise model the two curves recover the
+# textbook signatures of a log-Gaussian numerosity code:
+#
+# * The **bias** curve (left) is essentially flat through the bulk
+#   of the stimulus range, with the identity line falling inside the
+#   ± std band. A small negative bias appears near the upper edge
+#   (n ≳ 35), where the encoding model is sparsely sampled —
+#   relatively few voxels have preferred numerosities there, so
+#   decoding regresses gently toward the bulk of the population.
+# * The **expected uncertainty** curve (right) grows monotonically
+#   with stimulus magnitude through most of the range. That's the
+#   Weber-law fingerprint: a log-Gaussian population code has wider
+#   tuning curves at larger n, so any unit of neural noise translates
+#   into a larger uncertainty interval on n. The curve dips again at
+#   the very upper edge for the same reason as the bias — fewer
+#   voxels supporting that region.
+# * The blue solid curve (:math:`\sqrt{\mathrm{Var}[\hat{s}]}`) and
+#   the green dashed curve (:math:`\mathrm{mean}|\hat{s} - s|`) lie
+#   nearly on top of each other through the middle of the range,
+#   confirming the decoder is near-unbiased. They separate at the
+#   upper edge where the bias appears — mean absolute error picks up
+#   bias, the SD across repeats doesn't.
+# * **Why spherical?** A full Ω fit on this ROI ties voxels together
+#   through ρ·ττᵀ and σ²·WWᵀ; with only a few hundred voxels and
+#   modest single-trial SNR, that coupling causes the decoder to
+#   collapse toward the population-mean preferred numerosity, hiding
+#   the encoding model's real informativeness. Spherical noise is the
+#   right default when you want to **read out the encoder itself**;
+#   structured Ω (e.g. with the geodesic regularisation from
+#   notebook 2) is the right default when you want a decoder that
+#   reflects the actual noise structure of the brain.
 # * Under the Cramér–Rao bound the variance of an unbiased estimator
-#   is at least :math:`1 / \mathcal{I}(s)`, so far from the boundary
-#   :math:`\mathrm{Var}[\hat{s}] \approx 1 /` Fisher information.
-#   :meth:`EncodingModel.get_expected_uncertainty` and
-#   :meth:`EncodingModel.get_fisher_information` are the two ends of
-#   that bound — see :doc:`/fisher_information` for the head-to-head.
+#   is at least :math:`1 / \mathcal{I}(s)`, so where the estimator is
+#   roughly unbiased here, :math:`\mathrm{Var}[\hat{s}] \approx 1 /`
+#   Fisher information. :meth:`EncodingModel.get_expected_uncertainty`
+#   and :meth:`EncodingModel.get_fisher_information` are the two ends
+#   of that bound — see :doc:`/fisher_information` for the head-to-head.
 # * Cost: simulate + decode :math:`\sim 10^3`–:math:`10^4` trials per
 #   stimulus; use ``batch_stimuli=`` to bound memory for large grids.

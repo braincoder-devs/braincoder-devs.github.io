@@ -107,8 +107,8 @@ Same voxel-selection step as the first two examples — kept self-contained.
 
  .. code-block:: none
 
-    Kept 155 voxels (within-sample R² ≥ 0.085)
-    Data: (240, 155) (trials × voxels)
+    Kept 294 voxels (within-sample R² ≥ 0.041)
+    Data: (240, 294) (trials × voxels)
 
 
 
@@ -152,22 +152,33 @@ calculation only needs ``parameters`` and the noise model.
 
  .. code-block:: none
 
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 16.24it/s]
-    Train R² — median 0.137, p90 0.198
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 14.08it/s]
+    Train R² — median 0.079, p90 0.154
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-98
+.. GENERATED FROM PYTHON SOURCE LINES 92-109
 
 Fit the noise model
 -----------------------------------------------------------------
-Same Student-t noise model as notebook 2 (without geodesic
-regularisation here, to keep the example focused). ``init_pseudoWWT``
-computes the W Wᵀ template over the stimulus grid we'll later use
-for decoding.
+We use a **spherical** Student-t noise model here — each voxel gets
+its own variance (τ²) but voxels are treated as independent (the
+off-diagonal ρ·ττᵀ and σ²·WWᵀ terms are dropped). With a small ROI
+like NPCr (≲ a few hundred voxels) and modestly noisy single-trial
+betas, the full structured Ω can tie voxels together so strongly
+that the decoder collapses toward the population-mean preferred
+numerosity, hiding the encoding model's real informativeness.
+Spherical noise gives a cleaner read on how well the *tuning curves
+alone* can support stimulus decoding. See notebook 2 for the
+trade-off in the other direction (structured Ω with geodesic
+regularisation when you need cross-voxel correlations).
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-108
+``init_pseudoWWT`` is still called: even though the spherical
+variant doesn't use WWᵀ in the loss, the underlying model API
+requires it to be initialised before any decoding call.
+
+.. GENERATED FROM PYTHON SOURCE LINES 109-119
 
 .. code-block:: Python
 
@@ -177,7 +188,7 @@ for decoding.
     model.init_pseudoWWT(stim_grid, pars)
 
     resid_fitter = ResidualFitter(model, data, paradigm[['n']], parameters=pars)
-    omega, dof = resid_fitter.fit(method='t', init_dof=10.0,
+    omega, dof = resid_fitter.fit(method='t', spherical=True, init_dof=10.0,
                                     max_n_iterations=600, progressbar=False)
     print(f'Fitted dof: {dof:.1f}')
 
@@ -189,15 +200,13 @@ for decoding.
 
  .. code-block:: none
 
-    init_tau: 0.8408144116401672, 0.9756162762641907
-    USING A PSEUDO-WWT!
-    WWT max: 33.33961486816406
-    Fitted dof: 8.0
+    init_tau: 0.884789764881134, 0.9915053248405457
+    Fitted dof: 5.0
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-118
+.. GENERATED FROM PYTHON SOURCE LINES 120-129
 
 Simulate, decode, and aggregate in one call
 -----------------------------------------------------------------
@@ -209,7 +218,7 @@ pipeline — for every stimulus in ``stim_grid`` it (1) simulates
 aggregates per true stimulus. It returns a DataFrame with
 ``mean_E, var_E, mean_error, mean_abs_error, n_sims``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-131
+.. GENERATED FROM PYTHON SOURCE LINES 129-142
 
 .. code-block:: Python
 
@@ -236,18 +245,18 @@ aggregates per true stimulus. It returns a DataFrame with
 
     Simulating 200 trials per numerosity (31 numerosities) …
       [stim 0:31/31] 6200 simulated trials
-           mean_E   var_E  mean_error  mean_abs_error  n_sims  std_decoded
-    value                                                                 
-    10.0   18.098  39.582       8.098           8.098     200        6.291
-    11.0   20.499  27.407       9.499           9.499     200        5.235
-    12.0   21.845  20.755       9.845           9.845     200        4.556
-    13.0   21.669  20.223       8.669           8.711     200        4.497
-    14.0   21.761  16.735       7.761           7.773     200        4.091
+           mean_E  var_E  mean_error  mean_abs_error  n_sims  std_decoded
+    value                                                                
+    10.0   10.220  0.113       0.220           0.220     200        0.337
+    11.0   11.155  0.194       0.155           0.303     200        0.441
+    12.0   12.183  0.276       0.183           0.379     200        0.526
+    13.0   13.024  0.482       0.024           0.441     200        0.694
+    14.0   13.968  0.364      -0.032           0.412     200        0.604
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 132-137
+.. GENERATED FROM PYTHON SOURCE LINES 143-148
 
 Plot bias + expected uncertainty
 -----------------------------------------------------------------
@@ -255,7 +264,7 @@ Per true numerosity: the bias of the posterior-mean estimator
 (``mean_E - true``) and the spread of the posterior mean across
 repeats (``√var_E``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-169
+.. GENERATED FROM PYTHON SOURCE LINES 148-180
 
 .. code-block:: Python
 
@@ -303,34 +312,54 @@ repeats (``√var_E``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-191
+.. GENERATED FROM PYTHON SOURCE LINES 181-222
 
 Interpretation
 -----------------------------------------------------------------
-* The **bias** curve (left) shows whether the model systematically
-  over- or under-estimates the true stimulus. A flat identity line
-  means no bias. Deviations often appear near the edges of the
-  stimulus range (the encoding model can't extrapolate beyond what
-  it was fit on).
-* The **expected uncertainty** curve (right) shows two flavours:
-  :math:`\sqrt{\mathrm{Var}[\hat{s}]}` across repeats (sampling
-  uncertainty of the posterior mean) and the mean absolute error
-  :math:`\mathrm{mean}|\hat{s} - s|`. They tend to track each other;
-  a gap means the estimator is biased (the MAE picks up bias, the SD
-  doesn't).
+With the spherical noise model the two curves recover the
+textbook signatures of a log-Gaussian numerosity code:
+
+* The **bias** curve (left) is essentially flat through the bulk
+  of the stimulus range, with the identity line falling inside the
+  ± std band. A small negative bias appears near the upper edge
+  (n ≳ 35), where the encoding model is sparsely sampled —
+  relatively few voxels have preferred numerosities there, so
+  decoding regresses gently toward the bulk of the population.
+* The **expected uncertainty** curve (right) grows monotonically
+  with stimulus magnitude through most of the range. That's the
+  Weber-law fingerprint: a log-Gaussian population code has wider
+  tuning curves at larger n, so any unit of neural noise translates
+  into a larger uncertainty interval on n. The curve dips again at
+  the very upper edge for the same reason as the bias — fewer
+  voxels supporting that region.
+* The blue solid curve (:math:`\sqrt{\mathrm{Var}[\hat{s}]}`) and
+  the green dashed curve (:math:`\mathrm{mean}|\hat{s} - s|`) lie
+  nearly on top of each other through the middle of the range,
+  confirming the decoder is near-unbiased. They separate at the
+  upper edge where the bias appears — mean absolute error picks up
+  bias, the SD across repeats doesn't.
+* **Why spherical?** A full Ω fit on this ROI ties voxels together
+  through ρ·ττᵀ and σ²·WWᵀ; with only a few hundred voxels and
+  modest single-trial SNR, that coupling causes the decoder to
+  collapse toward the population-mean preferred numerosity, hiding
+  the encoding model's real informativeness. Spherical noise is the
+  right default when you want to **read out the encoder itself**;
+  structured Ω (e.g. with the geodesic regularisation from
+  notebook 2) is the right default when you want a decoder that
+  reflects the actual noise structure of the brain.
 * Under the Cramér–Rao bound the variance of an unbiased estimator
-  is at least :math:`1 / \mathcal{I}(s)`, so far from the boundary
-  :math:`\mathrm{Var}[\hat{s}] \approx 1 /` Fisher information.
-  :meth:`EncodingModel.get_expected_uncertainty` and
-  :meth:`EncodingModel.get_fisher_information` are the two ends of
-  that bound — see :doc:`/fisher_information` for the head-to-head.
+  is at least :math:`1 / \mathcal{I}(s)`, so where the estimator is
+  roughly unbiased here, :math:`\mathrm{Var}[\hat{s}] \approx 1 /`
+  Fisher information. :meth:`EncodingModel.get_expected_uncertainty`
+  and :meth:`EncodingModel.get_fisher_information` are the two ends
+  of that bound — see :doc:`/fisher_information` for the head-to-head.
 * Cost: simulate + decode :math:`\sim 10^3`–:math:`10^4` trials per
   stimulus; use ``batch_stimuli=`` to bound memory for large grids.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 30.836 seconds)
+   **Total running time of the script:** (0 minutes 29.618 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_03_expected_uncertainty.py:

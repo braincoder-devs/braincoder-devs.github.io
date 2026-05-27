@@ -347,8 +347,8 @@ demo dataset.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Data: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> (trials × voxels)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Kept 155 voxels (within-sample R² ≥ 0.085)
-Data: (240, 155) (trials × voxels)
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Kept 294 voxels (within-sample R² ≥ 0.041)
+Data: (240, 294) (trials × voxels)
 </pre></div>
 </div>
 </section>
@@ -377,31 +377,39 @@ calculation only needs <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00, 16.24it/s]
-Train R² — median 0.137, p90 0.198
+100%|██████████| 1/1 [00:00&lt;00:00, 14.08it/s]
+Train R² — median 0.079, p90 0.154
 </pre></div>
 </div>
 </section>
 <section id="fit-the-noise-model">
 <h2>Fit the noise model<a class="headerlink" href="#fit-the-noise-model" title="Link to this heading">¶</a></h2>
-<p>Same Student-t noise model as notebook 2 (without geodesic
-regularisation here, to keep the example focused). <code class="docutils literal notranslate"><span class="pre">init_pseudoWWT</span></code>
-computes the W Wᵀ template over the stimulus grid we’ll later use
-for decoding.</p>
+<p>We use a <strong>spherical</strong> Student-t noise model here — each voxel gets
+its own variance (τ²) but voxels are treated as independent (the
+off-diagonal ρ·ττᵀ and σ²·WWᵀ terms are dropped). With a small ROI
+like NPCr (≲ a few hundred voxels) and modestly noisy single-trial
+betas, the full structured Ω can tie voxels together so strongly
+that the decoder collapses toward the population-mean preferred
+numerosity, hiding the encoding model’s real informativeness.
+Spherical noise gives a cleaner read on how well the <em>tuning curves
+alone</em> can support stimulus decoding. See notebook 2 for the
+trade-off in the other direction (structured Ω with geodesic
+regularisation when you need cross-voxel correlations).</p>
+<p><code class="docutils literal notranslate"><span class="pre">init_pseudoWWT</span></code> is still called: even though the spherical
+variant doesn’t use WWᵀ in the loss, the underlying model API
+requires it to be initialised before any decoding call.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">stim_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)})</span>
 <span class="n">stim_grid</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;stimulus&#39;</span>
 <span class="n">model</span><span class="o">.</span><span class="n">init_pseudoWWT</span><span class="p">(</span><span class="n">stim_grid</span><span class="p">,</span> <span class="n">pars</span><span class="p">)</span>
 
 <span class="n">resid_fitter</span> <span class="o">=</span> <span class="n">ResidualFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">paradigm</span><span class="p">[[</span><span class="s1">&#39;n&#39;</span><span class="p">]],</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">)</span>
-<span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">resid_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">init_dof</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+<span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">resid_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">spherical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">init_dof</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
                                 <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Fitted dof: </span><span class="si">{</span><span class="n">dof</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.8408144116401672, 0.9756162762641907
-USING A PSEUDO-WWT!
-WWT max: 33.33961486816406
-Fitted dof: 8.0
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.884789764881134, 0.9915053248405457
+Fitted dof: 5.0
 </pre></div>
 </div>
 </section>
@@ -429,13 +437,13 @@ aggregates per true stimulus. It returns a DataFrame with
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Simulating 200 trials per numerosity (31 numerosities) …
   [stim 0:31/31] 6200 simulated trials
-       mean_E   var_E  mean_error  mean_abs_error  n_sims  std_decoded
+       mean_E  var_E  mean_error  mean_abs_error  n_sims  std_decoded
 value
-10.0   18.098  39.582       8.098           8.098     200        6.291
-11.0   20.499  27.407       9.499           9.499     200        5.235
-12.0   21.845  20.755       9.845           9.845     200        4.556
-13.0   21.669  20.223       8.669           8.711     200        4.497
-14.0   21.761  16.735       7.761           7.773     200        4.091
+10.0   10.220  0.113       0.220           0.220     200        0.337
+11.0   11.155  0.194       0.155           0.303     200        0.441
+12.0   12.183  0.276       0.183           0.379     200        0.526
+13.0   13.024  0.482       0.024           0.441     200        0.694
+14.0   13.968  0.364      -0.032           0.412     200        0.604
 </pre></div>
 </div>
 </section>
@@ -479,28 +487,47 @@ repeats (<code class="docutils literal notranslate"><span class="pre">√var_E</
 <img src="../../_images/sphx_glr_03_expected_uncertainty_001.png" srcset="../../_images/sphx_glr_03_expected_uncertainty_001.png" alt="Bias of posterior mean, Decoding precision vs. stimulus" class = "sphx-glr-single-img"/></section>
 <section id="interpretation">
 <h2>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">¶</a></h2>
+<p>With the spherical noise model the two curves recover the
+textbook signatures of a log-Gaussian numerosity code:</p>
 <ul class="simple">
-<li><p>The <strong>bias</strong> curve (left) shows whether the model systematically
-over- or under-estimates the true stimulus. A flat identity line
-means no bias. Deviations often appear near the edges of the
-stimulus range (the encoding model can’t extrapolate beyond what
-it was fit on).</p></li>
-<li><p>The <strong>expected uncertainty</strong> curve (right) shows two flavours:
-<span class="math notranslate nohighlight">\(\sqrt{\mathrm{Var}[\hat{s}]}\)</span> across repeats (sampling
-uncertainty of the posterior mean) and the mean absolute error
-<span class="math notranslate nohighlight">\(\mathrm{mean}|\hat{s} - s|\)</span>. They tend to track each other;
-a gap means the estimator is biased (the MAE picks up bias, the SD
-doesn’t).</p></li>
+<li><p>The <strong>bias</strong> curve (left) is essentially flat through the bulk
+of the stimulus range, with the identity line falling inside the
+± std band. A small negative bias appears near the upper edge
+(n ≳ 35), where the encoding model is sparsely sampled —
+relatively few voxels have preferred numerosities there, so
+decoding regresses gently toward the bulk of the population.</p></li>
+<li><p>The <strong>expected uncertainty</strong> curve (right) grows monotonically
+with stimulus magnitude through most of the range. That’s the
+Weber-law fingerprint: a log-Gaussian population code has wider
+tuning curves at larger n, so any unit of neural noise translates
+into a larger uncertainty interval on n. The curve dips again at
+the very upper edge for the same reason as the bias — fewer
+voxels supporting that region.</p></li>
+<li><p>The blue solid curve (<span class="math notranslate nohighlight">\(\sqrt{\mathrm{Var}[\hat{s}]}\)</span>) and
+the green dashed curve (<span class="math notranslate nohighlight">\(\mathrm{mean}|\hat{s} - s|\)</span>) lie
+nearly on top of each other through the middle of the range,
+confirming the decoder is near-unbiased. They separate at the
+upper edge where the bias appears — mean absolute error picks up
+bias, the SD across repeats doesn’t.</p></li>
+<li><p><strong>Why spherical?</strong> A full Ω fit on this ROI ties voxels together
+through ρ·ττᵀ and σ²·WWᵀ; with only a few hundred voxels and
+modest single-trial SNR, that coupling causes the decoder to
+collapse toward the population-mean preferred numerosity, hiding
+the encoding model’s real informativeness. Spherical noise is the
+right default when you want to <strong>read out the encoder itself</strong>;
+structured Ω (e.g. with the geodesic regularisation from
+notebook 2) is the right default when you want a decoder that
+reflects the actual noise structure of the brain.</p></li>
 <li><p>Under the Cramér–Rao bound the variance of an unbiased estimator
-is at least <span class="math notranslate nohighlight">\(1 / \mathcal{I}(s)\)</span>, so far from the boundary
-<span class="math notranslate nohighlight">\(\mathrm{Var}[\hat{s}] \approx 1 /\)</span> Fisher information.
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_expected_uncertainty()</span></code> and
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_fisher_information()</span></code> are the two ends of
-that bound — see <a class="reference internal" href="../../fisher_information.html"><span class="doc">Fisher information and expected uncertainty</span></a> for the head-to-head.</p></li>
+is at least <span class="math notranslate nohighlight">\(1 / \mathcal{I}(s)\)</span>, so where the estimator is
+roughly unbiased here, <span class="math notranslate nohighlight">\(\mathrm{Var}[\hat{s}] \approx 1 /\)</span>
+Fisher information. <code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_expected_uncertainty()</span></code>
+and <code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_fisher_information()</span></code> are the two ends
+of that bound — see <a class="reference internal" href="../../fisher_information.html"><span class="doc">Fisher information and expected uncertainty</span></a> for the head-to-head.</p></li>
 <li><p>Cost: simulate + decode <span class="math notranslate nohighlight">\(\sim 10^3\)</span>–<span class="math notranslate nohighlight">\(10^4\)</span> trials per
 stimulus; use <code class="docutils literal notranslate"><span class="pre">batch_stimuli=</span></code> to bound memory for large grids.</p></li>
 </ul>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 30.836 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 29.618 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-decoding-pipeline-03-expected-uncertainty-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/717ad0989787a2827301233853249f3c/03_expected_uncertainty.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_expected_uncertainty.ipynb</span></code></a></p>

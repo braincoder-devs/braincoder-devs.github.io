@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**01:15.291** total execution time for 3 files **from auto_examples/01_decoding_pipeline**:
+**00:29.618** total execution time for 3 files **from auto_examples/01_decoding_pipeline**:
 
 .. container::
 
@@ -32,12 +32,12 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_01_decoding_pipeline_02_geodesic_decoder.py` (``02_geodesic_decoder.py``)
-     - 00:44.455
-     - 0.0
    * - :ref:`sphx_glr_auto_examples_01_decoding_pipeline_03_expected_uncertainty.py` (``03_expected_uncertainty.py``)
-     - 00:30.836
+     - 00:29.618
      - 0.0
    * - :ref:`sphx_glr_auto_examples_01_decoding_pipeline_01_voxel_selection_fdr.py` (``01_voxel_selection_fdr.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_01_decoding_pipeline_02_geodesic_decoder.py` (``02_geodesic_decoder.py``)
      - 00:00.000
      - 0.0
