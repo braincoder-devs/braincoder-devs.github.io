@@ -289,18 +289,8 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
 <p>Braincoder requires Python 3.10+ and <a class="reference external" href="https://keras.io">Keras 3</a> with at least one
 backend (TensorFlow, JAX, or PyTorch).</p>
-<nav class="contents local" id="on-this-page">
-<p class="topic-title">On this page</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#recommended-conda-editable-install" id="id1">Recommended: conda + editable install</a></p></li>
-<li><p><a class="reference internal" href="#choosing-a-backend" id="id2">Choosing a backend</a></p></li>
-<li><p><a class="reference internal" href="#pip-only-install" id="id3">pip-only install</a></p></li>
-<li><p><a class="reference internal" href="#additional-dependencies" id="id4">Additional dependencies</a></p></li>
-<li><p><a class="reference internal" href="#verifying-the-install" id="id5">Verifying the install</a></p></li>
-</ul>
-</nav>
 <section id="recommended-conda-editable-install">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink">Recommended: conda + editable install</a><a class="headerlink" href="#recommended-conda-editable-install" title="Link to this heading">¶</a></h2>
+<h2>Recommended: conda + editable install<a class="headerlink" href="#recommended-conda-editable-install" title="Link to this heading">¶</a></h2>
 <p>This approach gives you a full development environment with TensorFlow as the backend:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Gilles86/braincoder.git
 <span class="nb">cd</span><span class="w"> </span>braincoder
@@ -312,7 +302,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>braincoder
 mode (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>), so local changes to the source are reflected immediately.</p>
 </section>
 <section id="choosing-a-backend">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">Choosing a backend</a><a class="headerlink" href="#choosing-a-backend" title="Link to this heading">¶</a></h2>
+<h2>Choosing a backend<a class="headerlink" href="#choosing-a-backend" title="Link to this heading">¶</a></h2>
 <p>Keras 3 supports three backends. Set the <code class="docutils literal notranslate"><span class="pre">KERAS_BACKEND</span></code> environment variable before
 importing braincoder:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KERAS_BACKEND</span><span class="o">=</span>tensorflow<span class="w">  </span><span class="c1"># default</span>
@@ -328,7 +318,7 @@ importing braincoder:</p>
 (<code class="docutils literal notranslate"><span class="pre">tensorflow</span></code>, <code class="docutils literal notranslate"><span class="pre">jax[cpu]</span></code>, <code class="docutils literal notranslate"><span class="pre">torch</span></code>), but you can install only the one you need.</p>
 </section>
 <section id="pip-only-install">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">pip-only install</a><a class="headerlink" href="#pip-only-install" title="Link to this heading">¶</a></h2>
+<h2>pip-only install<a class="headerlink" href="#pip-only-install" title="Link to this heading">¶</a></h2>
 <p>If you do not use conda, install braincoder and a backend with pip:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>braincoder<span class="w"> </span>tensorflow<span class="w">   </span><span class="c1"># TensorFlow backend</span>
 <span class="c1"># or</span>
@@ -345,7 +335,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </div>
 </section>
 <section id="additional-dependencies">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">Additional dependencies</a><a class="headerlink" href="#additional-dependencies" title="Link to this heading">¶</a></h2>
+<h2>Additional dependencies<a class="headerlink" href="#additional-dependencies" title="Link to this heading">¶</a></h2>
 <p>Some features require optional packages:</p>
 <ul class="simple">
 <li><p><strong>MCMC sampling</strong>: <code class="docutils literal notranslate"><span class="pre">blackjax</span></code> (JAX backend recommended)</p></li>
@@ -354,7 +344,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </ul>
 </section>
 <section id="verifying-the-install">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Verifying the install</a><a class="headerlink" href="#verifying-the-install" title="Link to this heading">¶</a></h2>
+<h2>Verifying the install<a class="headerlink" href="#verifying-the-install" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import braincoder; print(braincoder.__version__)"</span>
 pytest<span class="w"> </span>tests/
 </pre></div>

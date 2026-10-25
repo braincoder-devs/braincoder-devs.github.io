@@ -290,29 +290,16 @@
 <p>Why the spiky FI curves you may have seen are <em>real</em>, and how to compute
 Fisher information and decoder uncertainty reliably from an
 <a class="reference internal" href="api_reference.html#braincoder.models.EncodingModel" title="braincoder.models.EncodingModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">EncodingModel</span></code></a>.</p>
-<nav class="contents local" id="contents">
-<ul class="simple">
-<li><p><a class="reference internal" href="#two-questions-two-apis" id="id1">Two questions, two APIs</a></p></li>
-<li><p><a class="reference internal" href="#closed-form-fisher-information" id="id2">Closed-form Fisher information</a></p></li>
-<li><p><a class="reference internal" href="#why-fi-curves-can-look-spiky-and-when-it-s-real" id="id3">Why FI curves can look spiky — and when it’s real</a></p></li>
-<li><p><a class="reference internal" href="#api-reference" id="id4">API reference</a></p></li>
-<li><p><a class="reference internal" href="#worked-example" id="id5">Worked example</a></p></li>
-<li><p><a class="reference internal" href="#empirical-audit" id="id6">Empirical audit</a></p></li>
-</ul>
-</nav>
 <section id="two-questions-two-apis">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink">Two questions, two APIs</a><a class="headerlink" href="#two-questions-two-apis" title="Link to this heading">¶</a></h2>
+<h2>Two questions, two APIs<a class="headerlink" href="#two-questions-two-apis" title="Link to this heading">¶</a></h2>
 <p>After fitting an encoding model + noise covariance you typically want one
 of two things:</p>
 <dl class="simple">
 <dt><strong>How much information does the population carry about a stimulus value?</strong></dt><dd><p>→ <code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_fisher_information()</span></code></p>
 </dd>
+<dt><strong>How well will an unbiased decoder recover the true stimulus, averaged over noise draws?</strong></dt><dd><p>→ <code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_expected_uncertainty()</span></code></p>
+</dd>
 </dl>
-<p><strong>How well will an unbiased decoder recover the true stimulus, averaged
-over noise draws?</strong></p>
-<blockquote>
-<div><p>→ <code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_expected_uncertainty()</span></code></p>
-</div></blockquote>
 <p>Both work on the same fitted <code class="docutils literal notranslate"><span class="pre">(parameters,</span> <span class="pre">omega,</span> <span class="pre">dof)</span></code> tuple. The
 Fisher information is the asymptotic lower bound on decoder variance
 (Cramér–Rao); the expected uncertainty is an empirical readout from the
@@ -322,7 +309,7 @@ posterior is multimodal, bounded by the grid edge, or the noise model
 mismatches the data.</p>
 </section>
 <section id="closed-form-fisher-information">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">Closed-form Fisher information</a><a class="headerlink" href="#closed-form-fisher-information" title="Link to this heading">¶</a></h2>
+<h2>Closed-form Fisher information<a class="headerlink" href="#closed-form-fisher-information" title="Link to this heading">¶</a></h2>
 <p>For Gaussian noise the population FI at stimulus <span class="math notranslate nohighlight">\(s\)</span> is</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -345,7 +332,7 @@ except MC noise and an int32 overflow risk at large
 <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">×</span> <span class="pre">n_voxels</span> <span class="pre">×</span> <span class="pre">n_stim</span></code>.</p>
 </section>
 <section id="why-fi-curves-can-look-spiky-and-when-it-s-real">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">Why FI curves can look spiky — and when it’s real</a><a class="headerlink" href="#why-fi-curves-can-look-spiky-and-when-it-s-real" title="Link to this heading">¶</a></h2>
+<h2>Why FI curves can look spiky — and when it’s real<a class="headerlink" href="#why-fi-curves-can-look-spiky-and-when-it-s-real" title="Link to this heading">¶</a></h2>
 <p>Single voxels with Gaussian-like tuning have <span class="math notranslate nohighlight">\(\partial \mu / \partial s = 0\)</span>
 <em>at</em> the preferred stimulus and peaks on the flanks. A population FI is a
 sum of <em>squared</em> per-voxel gradients, so the curve dips at every voxel’s
@@ -381,7 +368,7 @@ cleaner empirical covariance.</p></li>
 </ul>
 </section>
 <section id="api-reference">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">API reference</a><a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h2>
+<h2>API reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.models.</span></span><span class="sig-name descname"><span class="pre">EncodingModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paradigm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span></dt>
@@ -468,7 +455,7 @@ heavy-tailed noise carries less information per voxel.</p>
 
 </section>
 <section id="worked-example">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Worked example</a><a class="headerlink" href="#worked-example" title="Link to this heading">¶</a></h2>
+<h2>Worked example<a class="headerlink" href="#worked-example" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogGaussianPRF</span>
@@ -496,7 +483,7 @@ heavy-tailed noise carries less information per voxel.</p>
 </div>
 </section>
 <section id="empirical-audit">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">Empirical audit</a><a class="headerlink" href="#empirical-audit" title="Link to this heading">¶</a></h2>
+<h2>Empirical audit<a class="headerlink" href="#empirical-audit" title="Link to this heading">¶</a></h2>
 <p>A 100-voxel log-Gaussian population with two mode clusters (centered at
 12 and 32 CHF) was used to compare paths:</p>
 <div class="table-wrapper docutils container">

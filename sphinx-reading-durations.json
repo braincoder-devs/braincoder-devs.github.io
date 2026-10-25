@@ -1,6 +1,7 @@
 {
-    "auto_examples/00_encodingdecoding/fit_prf": 0.034,
-    "auto_examples/00_encodingdecoding/sg_execution_times": 0.013,
-    "noise_models": 0.019,
-    "sg_execution_times": 0.01
+    "auto_examples/00_encodingdecoding/fit_prf": 0.02,
+    "auto_examples/00_encodingdecoding/sg_execution_times": 0.007,
+    "fisher_information": 0.044,
+    "installation": 0.003,
+    "sg_execution_times": 0.009
 }
