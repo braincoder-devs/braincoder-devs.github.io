@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**13:37.291** total execution time for 11 files **from auto_examples/00_encodingdecoding**:
+**07:47.322** total execution time for 11 files **from auto_examples/00_encodingdecoding**:
 
 .. container::
 
@@ -32,36 +32,36 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py` (``fit_prf.py``)
-     - 13:37.291
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py` (``decode.py``)
-     - 00:00.000
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py` (``decode2d.py``)
-     - 00:00.000
-     - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_v1.py` (``decode_v1.py``)
-     - 00:00.000
+     - 02:59.425
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_visual.py` (``decode_visual.py``)
-     - 00:00.000
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_encoding_model.py` (``encoding_model.py``)
-     - 00:00.000
+     - 01:23.225
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fisher_information.py` (``fisher_information.py``)
-     - 00:00.000
+     - 01:18.988
      - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_residuals.py` (``fit_residuals.py``)
-     - 00:00.000
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_invert_model.py` (``invert_model.py``)
-     - 00:00.000
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_linear_encoding_model.py` (``linear_encoding_model.py``)
-     - 00:00.000
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py` (``fit_prf.py``)
+     - 00:35.092
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_masked_stimulus_decoding.py` (``masked_stimulus_decoding.py``)
-     - 00:00.000
+     - 00:33.012
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py` (``decode.py``)
+     - 00:29.323
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py` (``decode2d.py``)
+     - 00:14.787
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_residuals.py` (``fit_residuals.py``)
+     - 00:10.802
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_encoding_model.py` (``encoding_model.py``)
+     - 00:02.393
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_invert_model.py` (``invert_model.py``)
+     - 00:00.181
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_linear_encoding_model.py` (``linear_encoding_model.py``)
+     - 00:00.093
      - 0.0

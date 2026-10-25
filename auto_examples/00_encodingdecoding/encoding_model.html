@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Invert encoding model" href="invert_model.html"><link rel="prev" title="Linear encoding model" href="linear_encoding_model.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Create a simple Gaussian Prf encoding model - Braincoder documentation</title>
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
+        <title>Create a simple Gaussian Prf encoding model - Braincoder 0.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Braincoder  documentation</div></a>
+      <a href="../../index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">Braincoder  documentation</span>
+  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,9 +201,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -226,8 +228,8 @@
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decode.html">Decoding of stimuli from neural data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fisher_information.html">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fit_prf.html">Different flavors of visual population receptive field models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
@@ -236,6 +238,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../01_decoding_pipeline/index.html">End-to-end decoding pipeline on real data</a><input aria-label="Toggle navigation of End-to-end decoding pipeline on real data" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/04_lowrank_noise_calibration.html">Calibrated decoding with a low-rank noise model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
@@ -285,72 +288,66 @@
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-00-encodingdecoding-encoding-model-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="create-a-simple-gaussian-prf-encoding-model">
 <span id="sphx-glr-auto-examples-00-encodingdecoding-encoding-model-py"></span><h1>Create a simple Gaussian Prf encoding model<a class="headerlink" href="#create-a-simple-gaussian-prf-encoding-model" title="Link to this heading">¶</a></h1>
 <p>In this example, we create a Gaussian PRF model and plot the predictions.
 We also simulate data and then estimate back the generating parameters.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianPRF</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># We set up two PRFS, one centered at 1 and one centered at -2</span>
-<span class="c1"># The first one has a sd of 1 and the second one has a sd of 1.5</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
-              <span class="p">{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span>
-              <span class="p">]</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;voxel 1&#39;</span><span class="p">,</span> <span class="s1">&#39;voxel 2&#39;</span><span class="p">])</span>
-
-<span class="c1"># We have a virtual experimental paradigm where we go from -5 to 5</span>
-<span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># Set up the model.</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
-
-<span class="c1"># Extract and plot the predictions</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
-<span class="n">predictions</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Stimulus value&#39;</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Import necessary libraries</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder</span><span class="nn">.</span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class reference internal" href="../../api_reference.html#braincoder.models.EncodingModel" title="braincoder.EncodingModel"><span class="n">GaussianPRF</span></a><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># We set up two PRFS, one centered at 1 and one centered at -2</span><span class="w">
+</span><span class="c1"># The first one has a sd of 1 and the second one has a sd of 1.5</span><span class="w">
+</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="p">{</span><span class="s1">'</span><span class="s1">mu</span><span class="s1">'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'</span><span class="s1">sd</span><span class="s1">'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'</span><span class="s1">amplitude</span><span class="s1">'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'</span><span class="s1">baseline</span><span class="s1">'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>              <span class="p">{</span><span class="s1">'</span><span class="s1">mu</span><span class="s1">'</span><span class="p">:</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="s1">'</span><span class="s1">sd</span><span class="s1">'</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">'</span><span class="s1">amplitude</span><span class="s1">'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'</span><span class="s1">baseline</span><span class="s1">'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="w">
+</span>              <span class="p">]</span><span class="w">
+</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'</span><span class="s1">voxel 1</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">voxel 2</span><span class="s1">'</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># We have a virtual experimental paradigm where we go from -5 to 5</span><span class="w">
+</span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Set up the model.</span><span class="w">
+</span><span class="n">model</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class reference internal" href="../../api_reference.html#braincoder.models.EncodingModel" title="braincoder.EncodingModel"><span class="n">GaussianPRF</span></a><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Extract and plot the predictions</span><span class="w">
+</span><span class="n">predictions</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-method reference internal" href="../../api_reference.html#braincoder.models.EncodingModel.predict" title="braincoder.EncodingModel.predict"><span class="n">model</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">predictions</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'</span><span class="s1">Stimulus value</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_encoding_model_001.png" srcset="../../_images/sphx_glr_encoding_model_001.png" alt="encoding model" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># We simulate data with a bit of noise</span><span class="w">
+</span><span class="n">data</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-method reference internal" href="../../api_reference.html#braincoder.models.EncodingModel.simulate" title="braincoder.EncodingModel.simulate"><span class="n">model</span><span class="o">.</span><span class="n">simulate</span></a><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="w">
+</span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_encoding_model_002.png" srcset="../../_images/sphx_glr_encoding_model_002.png" alt="encoding model" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel='stimulus'&gt;
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_encoding_model_001.png" srcset="../../_images/sphx_glr_encoding_model_001.png" alt="encoding model" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We simulate data with a bit of noise</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-<img src="../../_images/sphx_glr_encoding_model_002.png" srcset="../../_images/sphx_glr_encoding_model_002.png" alt="encoding model" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;frame&#39;&gt;
-</pre></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import and set up a parameter fitter with the (simulated) data,</span>
-<span class="c1"># the paradigm, and the model</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParameterFitter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_rsq</span>
-
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">ParameterFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
-
-<span class="c1"># Set up a grid search over the parameters</span>
-<span class="n">possible_mus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">possible_sds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># For the grid search we use a correlation cost function, so we can fit</span>
-<span class="c1"># the amplitude an baseline later using OLS</span>
-<span class="n">possible_amplitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span>
-<span class="n">possible_baselines</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span>
-
-<span class="c1"># Fit the grid</span>
-<span class="n">grid_pars</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">fit_grid</span><span class="p">(</span><span class="n">possible_mus</span><span class="p">,</span> <span class="n">possible_sds</span><span class="p">,</span> <span class="n">possible_amplitudes</span><span class="p">,</span> <span class="n">possible_baselines</span><span class="p">,</span> <span class="n">use_correlation_cost</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># Show the results</span>
-<span class="n">grid_pars</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Working with chunk size of 3333333
-Using correlation cost!
-
-  0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00, 11.42it/s]
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Import and set up a parameter fitter with the (simulated) data,</span><span class="w">
+</span><span class="c1"># the paradigm, and the model</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder</span><span class="nn">.</span><span class="nn">optimize</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class reference internal" href="../../api_reference.html#braincoder.optimize.ParameterFitter" title="braincoder.ParameterFitter"><span class="n">ParameterFitter</span></a><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder</span><span class="nn">.</span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_rsq</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../api_reference.html#braincoder.optimize.ParameterFitter" title="braincoder.ParameterFitter"><span class="n">optimizer</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class reference internal" href="../../api_reference.html#braincoder.optimize.ParameterFitter" title="braincoder.ParameterFitter"><span class="n">ParameterFitter</span></a><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Set up a grid search over the parameters</span><span class="w">
+</span><span class="n">possible_mus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="w">
+</span><span class="n">possible_sds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># For the grid search we use a correlation cost function, so we can fit</span><span class="w">
+</span><span class="c1"># the amplitude an baseline later using OLS</span><span class="w">
+</span><span class="n">possible_amplitudes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span><span class="w">
+</span><span class="n">possible_baselines</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Fit the grid</span><span class="w">
+</span><span class="n">grid_pars</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../api_reference.html#braincoder.optimize.ParameterFitter" title="braincoder.ParameterFitter"><span class="n">optimizer</span></a><span class="o">.</span><span class="n">fit_grid</span><span class="p">(</span><span class="n">possible_mus</span><span class="p">,</span> <span class="n">possible_sds</span><span class="p">,</span> <span class="n">possible_amplitudes</span><span class="p">,</span> <span class="n">possible_baselines</span><span class="p">,</span> <span class="n">use_correlation_cost</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Show the results</span><span class="w">
+</span><span class="n">grid_pars</span><span class="w">
+</span></pre></div></div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
+100%|██████████| 1/1 [00:00&lt;00:00, 109.34it/s]
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -405,52 +402,50 @@ Using correlation cost!
 </div>
 </div>
 <br />
-<br /><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can now fit the amplitude and baseline using OLS</span>
-<span class="n">grid_pars</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">refine_baseline_and_amplitude</span><span class="p">(</span><span class="n">grid_pars</span><span class="p">)</span>
-
-<span class="c1"># Show the fitted timeseries</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()</span>
-<span class="n">grid_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">)</span>
-
-<span class="c1"># See how well the predictions align with the data</span>
-<span class="c1"># using the explained variance statistic</span>
-<span class="n">r2_grid</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Grid prediction&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;R2 = </span><span class="si">{</span><span class="n">r2_grid</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<br /><div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># We can now fit the amplitude and baseline using OLS</span><span class="w">
+</span><span class="n">grid_pars</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../api_reference.html#braincoder.optimize.ParameterFitter" title="braincoder.ParameterFitter"><span class="n">optimizer</span></a><span class="o">.</span><span class="n">refine_baseline_and_amplitude</span><span class="p">(</span><span class="n">grid_pars</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Show the fitted timeseries</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span><span class="w">
+</span><span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">grid_pred</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-method reference internal" href="../../api_reference.html#braincoder.models.EncodingModel.predict" title="braincoder.EncodingModel.predict"><span class="n">model</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># See how well the predictions align with the data</span><span class="w">
+</span><span class="c1"># using the explained variance statistic</span><span class="w">
+</span><span class="n">r2_grid</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'</span><span class="s1">--</span><span class="s1">'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'</span><span class="s1">k</span><span class="s1">'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'</span><span class="s1">Grid prediction</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">R2 = </span><span class="si">{</span><span class="n">r2_grid</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_encoding_model_003.png" srcset="../../_images/sphx_glr_encoding_model_003.png" alt="R2 = 0.67" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, 'R2 = 0.67')
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_encoding_model_003.png" srcset="../../_images/sphx_glr_encoding_model_003.png" alt="R2 = 0.68" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;R2 = 0.68&#39;)
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Final optimisation using gradient descent:</span><span class="w">
+</span><span class="n">gd_pars</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-method reference internal" href="../../api_reference.html#braincoder.optimize.ParameterFitter.fit" title="braincoder.ParameterFitter.fit"><span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="w">
+</span><span class="n">gd_pred</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-method reference internal" href="../../api_reference.html#braincoder.models.EncodingModel.predict" title="braincoder.EncodingModel.predict"><span class="n">model</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">gd_pars</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">r2_gd</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'</span><span class="s1">--</span><span class="s1">'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'</span><span class="s1">k</span><span class="s1">'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'</span><span class="s1">Grid prediction</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'</span><span class="s1">--</span><span class="s1">'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'</span><span class="s1">k</span><span class="s1">'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'</span><span class="s1">Gradient descent prediction</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">R2 = </span><span class="si">{</span><span class="n">r2_gd</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../../_images/sphx_glr_encoding_model_004.png" srcset="../../_images/sphx_glr_encoding_model_004.png" alt="R2 = 0.74" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, 'R2 = 0.74')
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Final optimisation using gradient descent:</span>
-<span class="n">gd_pars</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">gd_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">gd_pars</span><span class="p">)</span>
-
-<span class="n">r2_gd</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Grid prediction&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient descent prediction&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;R2 = </span><span class="si">{</span><span class="n">r2_gd</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<img src="../../_images/sphx_glr_encoding_model_004.png" srcset="../../_images/sphx_glr_encoding_model_004.png" alt="R2 = 0.76" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Number of problematic voxels (mask): 0
-Number of voxels remaining (mask): 2
-
-Text(0.5, 1.0, &#39;R2 = 0.76&#39;)
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 6.255 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.393 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-encoding-model-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/62f752a377c83603bb70034556f1fbb9/encoding_model.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">encoding_model.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e3380b5d2452a44048d3ee7a4f462b25/encoding_model.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">encoding_model.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/5da1968a86fb29022783cac532627384/encoding_model.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">encoding_model.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -505,9 +500,10 @@ Text(0.5, 1.0, &#39;R2 = 0.76&#39;)
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="../../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
     </body>
 </html>

@@ -3,13 +3,13 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Expected decoding uncertainty via simulate + decode" href="03_expected_uncertainty.html"><link rel="prev" title="End-to-end decoding pipeline on real data" href="index.html">
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Expected decoding uncertainty via simulate + decode" href="03_expected_uncertainty.html"><link rel="prev" title="Calibrated decoding with a low-rank noise model" href="04_lowrank_noise_calibration.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Voxel selection via a 2-component R² mixture model - Braincoder documentation</title>
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
+        <title>Voxel selection via a 2-component R² mixture model - Braincoder 0.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Braincoder  documentation</div></a>
+      <a href="../../index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">Braincoder  documentation</span>
+  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,9 +201,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -226,8 +228,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/fisher_information.html">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/fit_prf.html">Different flavors of visual population receptive field models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../00_encodingdecoding/fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
@@ -236,6 +238,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">End-to-end decoding pipeline on real data</a><input aria-label="Toggle navigation of End-to-end decoding pipeline on real data" checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="04_lowrank_noise_calibration.html">Calibrated decoding with a low-rank noise model</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
@@ -318,19 +321,18 @@ pipeline.</p>
 <p>The demo data is a small bundle (~4 MB) extracted from one subject of
 the numerosity fMRI dataset in Prat-Carrabin et al. (2025, bioRxiv
 10.1101/2025.09.25.675916); it’s downloaded automatically on first run.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_pratcarrabin2025_npc</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.utils.stats</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">fit_r2_mixture</span><span class="p">,</span>
-    <span class="n">r2_fdr_threshold</span><span class="p">,</span>
-    <span class="n">r2_p_signal_threshold</span><span class="p">,</span>
-    <span class="n">plot_r2_mixture</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="w">
+</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder</span><span class="nn">.</span><span class="nn">utils</span><span class="nn">.</span><span class="nn">data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_pratcarrabin2025_npc</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder</span><span class="nn">.</span><span class="nn">utils</span><span class="nn">.</span><span class="nn">stats</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="w">
+</span>    <span class="n">fit_r2_mixture</span><span class="p">,</span><span class="w">
+</span>    <span class="n">r2_fdr_threshold</span><span class="p">,</span><span class="w">
+</span>    <span class="n">r2_p_signal_threshold</span><span class="p">,</span><span class="w">
+</span>    <span class="n">plot_r2_mixture</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <section id="load-the-demo-bundle">
 <h2>Load the demo bundle<a class="headerlink" href="#load-the-demo-bundle" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">load_pratcarrabin2025_npc</span></code> returns a dict with both whole-brain and
@@ -341,25 +343,24 @@ explains on the data it was fit to. That quantity is bounded in
 is the right tool for <em>reporting</em> generalisation, but it can go
 arbitrarily negative when a model overfits — and the mixture loses
 half its data if you drop those voxels.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">bundle</span> <span class="o">=</span> <span class="n">load_pratcarrabin2025_npc</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Subject:&#39;</span><span class="p">,</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;manifest&#39;</span><span class="p">][</span><span class="s1">&#39;subject&#39;</span><span class="p">])</span>
-
-<span class="n">r2_img</span>     <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;r2_wholebrain&#39;</span><span class="p">]</span>         <span class="c1"># nibabel Nifti1Image</span>
-<span class="n">brain_mask</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;brain_mask&#39;</span><span class="p">]</span>            <span class="c1"># nibabel Nifti1Image, T1w</span>
-<span class="n">r2_npcr</span>    <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">]</span>                    <span class="c1"># NPCr-only R² (pd.Series)</span>
-<span class="n">cvr2_npcr</span>  <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;cv_r2&#39;</span><span class="p">]</span>                 <span class="c1"># NPCr-only CV-R² (for sanity)</span>
-
-<span class="n">r2_wb</span> <span class="o">=</span> <span class="n">r2_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
-<span class="n">mask_wb</span> <span class="o">=</span> <span class="n">brain_mask</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
-<span class="n">r2_in_brain</span> <span class="o">=</span> <span class="n">r2_wb</span><span class="p">[</span><span class="n">mask_wb</span><span class="p">]</span>
-<span class="n">r2_in_brain</span> <span class="o">=</span> <span class="n">r2_in_brain</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="p">)]</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;In-brain voxels: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  R²&gt;0:    </span><span class="si">{</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  R²&gt;0.05: </span><span class="si">{</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  R²&gt;0.10: </span><span class="si">{</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.10</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">bundle</span> <span class="o">=</span> <span class="n">load_pratcarrabin2025_npc</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="s1">Subject:</span><span class="s1">'</span><span class="p">,</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'</span><span class="s1">manifest</span><span class="s1">'</span><span class="p">]</span><span class="p">[</span><span class="s1">'</span><span class="s1">subject</span><span class="s1">'</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">r2_img</span>     <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'</span><span class="s1">r2_wholebrain</span><span class="s1">'</span><span class="p">]</span>         <span class="c1"># nibabel Nifti1Image</span><span class="w">
+</span><span class="n">brain_mask</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'</span><span class="s1">brain_mask</span><span class="s1">'</span><span class="p">]</span>            <span class="c1"># nibabel Nifti1Image, T1w</span><span class="w">
+</span><span class="n">r2_npcr</span>    <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'</span><span class="s1">r2</span><span class="s1">'</span><span class="p">]</span>                    <span class="c1"># NPCr-only R² (pd.Series)</span><span class="w">
+</span><span class="n">cvr2_npcr</span>  <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'</span><span class="s1">cv_r2</span><span class="s1">'</span><span class="p">]</span>                 <span class="c1"># NPCr-only CV-R² (for sanity)</span><span class="w">
+</span><span class="w">
+</span><span class="n">r2_wb</span> <span class="o">=</span> <span class="n">r2_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">mask_wb</span> <span class="o">=</span> <span class="n">brain_mask</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span><span class="w">
+</span><span class="n">r2_in_brain</span> <span class="o">=</span> <span class="n">r2_wb</span><span class="p">[</span><span class="n">mask_wb</span><span class="p">]</span><span class="w">
+</span><span class="n">r2_in_brain</span> <span class="o">=</span> <span class="n">r2_in_brain</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="p">)</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">In-brain voxels: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">  R²&gt;0:    </span><span class="si">{</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">  R²&gt;0.05: </span><span class="si">{</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">  R²&gt;0.10: </span><span class="si">{</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.10</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Subject: sub-13
 In-brain voxels: 72,438
   R²&gt;0:    70,201
@@ -373,13 +374,12 @@ In-brain voxels: 72,438
 <p><code class="docutils literal notranslate"><span class="pre">fit_r2_mixture</span></code> internally filters to <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">R²</span> <span class="pre">&lt;</span> <span class="pre">0.99</span></code> and fits a
 2-component Gaussian mixture on the logit-transformed values. The
 return is a dictionary describing both components and the fit.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">fit</span> <span class="o">=</span> <span class="n">fit_r2_mixture</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Noise:  mean R²=</span><span class="si">{</span><span class="n">fit</span><span class="p">[</span><span class="s1">&#39;noise_mean_r2&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">,  &quot;</span>
-      <span class="sa">f</span><span class="s2">&quot;weight=</span><span class="si">{</span><span class="n">fit</span><span class="p">[</span><span class="s1">&#39;noise_weight&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Signal: mean R²=</span><span class="si">{</span><span class="n">fit</span><span class="p">[</span><span class="s1">&#39;signal_mean_r2&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">,  &quot;</span>
-      <span class="sa">f</span><span class="s2">&quot;weight=</span><span class="si">{</span><span class="n">fit</span><span class="p">[</span><span class="s1">&#39;signal_weight&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">fit</span> <span class="o">=</span> <span class="n">fit_r2_mixture</span><span class="p">(</span><span class="n">r2_in_brain</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="s2">Noise:  mean R²=</span><span class="si">{</span><span class="n">fit</span><span class="p">[</span><span class="s1">'</span><span class="s1">noise_mean_r2</span><span class="s1">'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">,  </span><span class="s2">&quot;</span><span class="w">
+</span>      <span class="sa">f</span><span class="s2">&quot;</span><span class="s2">weight=</span><span class="si">{</span><span class="n">fit</span><span class="p">[</span><span class="s1">'</span><span class="s1">noise_weight</span><span class="s1">'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="s2">Signal: mean R²=</span><span class="si">{</span><span class="n">fit</span><span class="p">[</span><span class="s1">'</span><span class="s1">signal_mean_r2</span><span class="s1">'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">,  </span><span class="s2">&quot;</span><span class="w">
+</span>      <span class="sa">f</span><span class="s2">&quot;</span><span class="s2">weight=</span><span class="si">{</span><span class="n">fit</span><span class="p">[</span><span class="s1">'</span><span class="s1">signal_weight</span><span class="s1">'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Noise:  mean R²=0.0023,  weight=0.32
 Signal: mean R²=0.0117,  weight=0.68
 </pre></div>
@@ -392,42 +392,41 @@ strongly separated from noise, so the posterior-based threshold caps
 out somewhere around <span class="math notranslate nohighlight">\(P \\approx 0.85\)</span> and tail-FDR only
 converges at permissive <span class="math notranslate nohighlight">\(\\alpha\)</span>. The noise-tail quantile
 still gives a useful selective cutoff in that regime.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">post_thresholds</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">p</span><span class="p">:</span> <span class="n">r2_p_signal_threshold</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="n">fdr_thresholds</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">a</span><span class="p">:</span> <span class="n">r2_fdr_threshold</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="c1"># Noise-tail cutoff: invert logit at noise_mu + k*noise_sigma.</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">_inv_logit</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
-<span class="n">noise_tail_thresholds</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">k</span><span class="p">:</span> <span class="n">_inv_logit</span><span class="p">(</span><span class="n">fit</span><span class="p">[</span><span class="s1">&#39;noise_mu&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="n">fit</span><span class="p">[</span><span class="s1">&#39;noise_sigma&#39;</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="p">}</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Posterior P(signal | R²) thresholds:&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">thr</span> <span class="ow">in</span> <span class="n">post_thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">txt</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">thr</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">thr</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;∞ (degenerate)&#39;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   P≥</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">   →  R² ≥ </span><span class="si">{</span><span class="n">txt</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Tail-FDR thresholds:&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">thr</span> <span class="ow">in</span> <span class="n">fdr_thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">txt</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">thr</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">thr</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;∞ (degenerate)&#39;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   α=</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">    →  R² ≥ </span><span class="si">{</span><span class="n">txt</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Noise-tail (R² unlikely under noise component):&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">thr</span> <span class="ow">in</span> <span class="n">noise_tail_thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;   μ_n + </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">σ_n →  R² ≥ </span><span class="si">{</span><span class="n">thr</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="c1"># We use the **noise μ + 2σ** cutoff as the operating point. On the</span>
-<span class="c1"># logit scale that&#39;s roughly the 97.5th percentile of the noise</span>
-<span class="c1"># component — i.e. an R² above this is unlikely to come from a</span>
-<span class="c1"># pure-noise voxel.</span>
-<span class="n">threshold</span> <span class="o">=</span> <span class="n">noise_tail_thresholds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Chosen threshold (noise μ+2σ): R² ≥ </span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">post_thresholds</span> <span class="o">=</span> <span class="p">{</span><span class="w">
+</span>    <span class="n">p</span><span class="p">:</span> <span class="n">r2_p_signal_threshold</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">fdr_thresholds</span> <span class="o">=</span> <span class="p">{</span><span class="w">
+</span>    <span class="n">a</span><span class="p">:</span> <span class="n">r2_fdr_threshold</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="c1"># Noise-tail cutoff: invert logit at noise_mu + k*noise_sigma.</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">_inv_logit</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">noise_tail_thresholds</span> <span class="o">=</span> <span class="p">{</span><span class="w">
+</span>    <span class="n">k</span><span class="p">:</span> <span class="n">_inv_logit</span><span class="p">(</span><span class="n">fit</span><span class="p">[</span><span class="s1">'</span><span class="s1">noise_mu</span><span class="s1">'</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="n">fit</span><span class="p">[</span><span class="s1">'</span><span class="s1">noise_sigma</span><span class="s1">'</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Posterior P(signal | R²) thresholds:</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">thr</span> <span class="ow">in</span> <span class="n">post_thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="n">txt</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">thr</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">'</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">thr</span><span class="p">)</span> <span class="k">else</span> <span class="s1">'</span><span class="s1">∞ (degenerate)</span><span class="s1">'</span><span class="w">
+</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">   P≥</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">   →  R² ≥ </span><span class="si">{</span><span class="n">txt</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Tail-FDR thresholds:</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">thr</span> <span class="ow">in</span> <span class="n">fdr_thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="n">txt</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">thr</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">'</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">thr</span><span class="p">)</span> <span class="k">else</span> <span class="s1">'</span><span class="s1">∞ (degenerate)</span><span class="s1">'</span><span class="w">
+</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">   α=</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">    →  R² ≥ </span><span class="si">{</span><span class="n">txt</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Noise-tail (R² unlikely under noise component):</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">thr</span> <span class="ow">in</span> <span class="n">noise_tail_thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">   μ_n + </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">σ_n →  R² ≥ </span><span class="si">{</span><span class="n">thr</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># We use the **noise μ + 2σ** cutoff as the operating point. On the</span><span class="w">
+</span><span class="c1"># logit scale that's roughly the 97.5th percentile of the noise</span><span class="w">
+</span><span class="c1"># component — i.e. an R² above this is unlikely to come from a</span><span class="w">
+</span><span class="c1"># pure-noise voxel.</span><span class="w">
+</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">noise_tail_thresholds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Chosen threshold (noise μ+2σ): R² ≥ </span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Posterior P(signal | R²) thresholds:
    P≥0.50   →  R² ≥ 0.0020
    P≥0.70   →  R² ≥ 0.0040
@@ -453,13 +452,12 @@ Chosen threshold (noise μ+2σ): R² ≥ 0.0847
 <p><code class="docutils literal notranslate"><span class="pre">plot_r2_mixture</span></code> overlays the histogram of <code class="docutils literal notranslate"><span class="pre">logit(R²)</span></code>, the two
 fitted component densities, and the chosen threshold (x-ticks are
 labelled on the raw R² scale).</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_r2_mixture</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="n">r2</span><span class="o">=</span><span class="n">r2_in_brain</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
-                      <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Whole-brain R² mixture (within-sample)&#39;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Within-sample R²&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_r2_mixture</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="n">r2</span><span class="o">=</span><span class="n">r2_in_brain</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span><span class="w">
+</span>                      <span class="n">title</span><span class="o">=</span><span class="s1">'</span><span class="s1">Whole-brain R² mixture (within-sample)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'</span><span class="s1">Within-sample R²</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../../_images/sphx_glr_01_voxel_selection_fdr_001.png" srcset="../../_images/sphx_glr_01_voxel_selection_fdr_001.png" alt="Whole-brain R² mixture (within-sample)" class = "sphx-glr-single-img"/></section>
 <section id="apply-the-threshold-inside-npcr">
 <h2>Apply the threshold inside NPCr<a class="headerlink" href="#apply-the-threshold-inside-npcr" title="Link to this heading">¶</a></h2>
@@ -470,38 +468,37 @@ used by the decoder and uncertainty notebooks. The kept voxels are
 the ones whose tuning curves the encoding model was able to explain;
 their CV-R² (right-hand plot) shows how that signal transfers to
 unseen trials.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">n_npcr</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r2_npcr</span><span class="p">)</span>
-<span class="n">keep</span> <span class="o">=</span> <span class="n">r2_npcr</span> <span class="o">&gt;</span> <span class="n">threshold</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;NPCr voxels: </span><span class="si">{</span><span class="n">n_npcr</span><span class="si">}</span><span class="s1">,  passing threshold: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">keep</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s1"> &#39;</span>
-      <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">keep</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%)&#39;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">r2_npcr</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.7&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;0.4&#39;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;All NPCr (n=</span><span class="si">{</span><span class="n">n_npcr</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">r2_npcr</span><span class="p">[</span><span class="n">keep</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Kept (n=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">keep</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-           <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;R²≥</span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Within-sample R² (NPCr)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number of voxels&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Selection&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cvr2_npcr</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.7&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;0.4&#39;</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;All NPCr&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cvr2_npcr</span><span class="p">[</span><span class="n">keep</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Kept (by within-sample R²)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Cross-validated R² (NPCr)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Generalisation of the kept set&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">n_npcr</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r2_npcr</span><span class="p">)</span><span class="w">
+</span><span class="n">keep</span> <span class="o">=</span> <span class="n">r2_npcr</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">NPCr voxels: </span><span class="si">{</span><span class="n">n_npcr</span><span class="si">}</span><span class="s1">,  passing threshold: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">keep</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="s1">'</span><span class="w">
+</span>      <span class="sa">f</span><span class="s1">'</span><span class="s1">(</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">keep</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="p">)</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">r2_npcr</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'</span><span class="s1">0.7</span><span class="s1">'</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'</span><span class="s1">0.4</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="s1">All NPCr (n=</span><span class="si">{</span><span class="n">n_npcr</span><span class="si">}</span><span class="s1">)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">r2_npcr</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'</span><span class="s1">#d62728</span><span class="s1">'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span><span class="w">
+</span>        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="s1">Kept (n=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">keep</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="si">}</span><span class="s1">)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'</span><span class="s1">k</span><span class="s1">'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'</span><span class="s1">--</span><span class="s1">'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w">
+</span>           <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'</span><span class="s1">R²≥</span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'</span><span class="s1">Within-sample R² (NPCr)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'</span><span class="s1">Number of voxels</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'</span><span class="s1">Selection</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cvr2_npcr</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'</span><span class="s1">0.7</span><span class="s1">'</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'</span><span class="s1">0.4</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>        <span class="n">label</span><span class="o">=</span><span class="s1">'</span><span class="s1">All NPCr</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cvr2_npcr</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'</span><span class="s1">#d62728</span><span class="s1">'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span><span class="w">
+</span>        <span class="n">label</span><span class="o">=</span><span class="s1">'</span><span class="s1">Kept (by within-sample R²)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'</span><span class="s1">k</span><span class="s1">'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'</span><span class="s1">Cross-validated R² (NPCr)</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'</span><span class="s1">Generalisation of the kept set</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../../_images/sphx_glr_01_voxel_selection_fdr_002.png" srcset="../../_images/sphx_glr_01_voxel_selection_fdr_002.png" alt="Selection, Generalisation of the kept set" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NPCr voxels: 852,  passing threshold: 155 (18.2%)
 </pre></div>
 </div>
@@ -512,11 +509,10 @@ unseen trials.</p>
 same mask. We don’t actually persist it here — they refit the
 mixture for self-contained reproducibility — but in your own pipeline
 you’d typically pickle / write a TSV with the selected voxel ids:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">keep_ids</span> <span class="o">=</span> <span class="n">cvr2_npcr</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">keep_ids</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;selected_voxels.tsv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.229 seconds)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span class="n">keep_ids</span> <span class="o">=</span> <span class="n">cvr2_npcr</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">keep</span><span class="p">]</span><span class="w">
+</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">keep_ids</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'</span><span class="s1">selected_voxels.tsv</span><span class="s1">'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.000 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-decoding-pipeline-01-voxel-selection-fdr-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ec517ba09f83867f293534b12153eb4a/01_voxel_selection_fdr.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_voxel_selection_fdr.ipynb</span></code></a></p>
@@ -546,14 +542,14 @@ you’d typically pickle / write a TSV with the selected voxel ids:</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="04_lowrank_noise_calibration.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">End-to-end decoding pipeline on real data</div>
+                <div class="title">Calibrated decoding with a low-rank noise model</div>
                 
               </div>
             </a>
@@ -605,10 +601,11 @@ you’d typically pickle / write a TSV with the selected voxel ids:</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="../../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     </body>
 </html>

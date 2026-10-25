@@ -3,13 +3,13 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Tutorial" href="tutorial/index.html"><link rel="prev" title="Fisher information and expected uncertainty" href="fisher_information.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Tutorial" href="tutorial/index.html"><link rel="prev" title="Noise models for decoding: low-rank Ω and temperature" href="noise_models.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>API Reference - Braincoder documentation</title>
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
+        <title>API Reference - Braincoder 0.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder  documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Braincoder  documentation</span>
+  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,9 +201,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s new</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -226,8 +228,8 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fisher_information.html">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html">Different flavors of visual population receptive field models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
@@ -236,6 +238,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/01_decoding_pipeline/index.html">End-to-end decoding pipeline on real data</a><input aria-label="Toggle navigation of End-to-end decoding pipeline on real data" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/04_lowrank_noise_calibration.html">Calibrated decoding with a low-rank noise model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
@@ -307,9 +310,44 @@ hood.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.EncodingModel.get_stimulus_pdf">
+<span class="sig-name descname"><span class="pre">get_stimulus_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stimulus_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_multidimensional_stimulus_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.EncodingModel.get_stimulus_pdf" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate posterior over stimuli for each time point given data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>DataFrame</em><em> or </em><em>array</em><em> (</em><em>n_timepoints</em><em>, </em><em>n_voxels</em><em>)</em>)</p></li>
+<li><p><strong>stimulus_range</strong> (<em>array</em><em> (</em><em>n_stimuli</em><em>,</em><em>) or </em><em>(</em><em>n_stimuli</em><em>, </em><em>n_dims</em><em>)</em>) – Grid of candidate stimuli (flat prior over the grid).</p></li>
+<li><p><strong>omega</strong> (<em>array</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Dense noise covariance and Student-t degrees of freedom (<code class="docutils literal notranslate"><span class="pre">dof=None</span></code>
+= Gaussian), e.g. from <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code>. Ignored when
+<code class="docutils literal notranslate"><span class="pre">noise_model</span></code> is given.</p></li>
+<li><p><strong>dof</strong> (<em>array</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Dense noise covariance and Student-t degrees of freedom (<code class="docutils literal notranslate"><span class="pre">dof=None</span></code>
+= Gaussian), e.g. from <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code>. Ignored when
+<code class="docutils literal notranslate"><span class="pre">noise_model</span></code> is given.</p></li>
+<li><p><strong>noise_model</strong> (<a class="reference internal" href="#braincoder.noise.LowRankNoise" title="braincoder.noise.LowRankNoise"><em>braincoder.noise.LowRankNoise</em></a><em>, </em><em>optional</em>) – Factored noise model (low-rank + diagonal Ω, Gaussian or
+Student-t). The likelihood is evaluated with the Woodbury identity
+(no dense V × V matrix). Its <code class="docutils literal notranslate"><span class="pre">temperature</span></code> is applied unless
+<code class="docutils literal notranslate"><span class="pre">temperature</span></code> is passed explicitly.</p></li>
+<li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em>) – Likelihood temperature T: posterior ∝ likelihood^(1/T). Default
+<code class="docutils literal notranslate"><span class="pre">None</span></code> = 1 (or the noise model’s own temperature). <code class="docutils literal notranslate"><span class="pre">np.inf</span></code>
+gives a flat posterior.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="braincoder.models.EncodingModel.predict">
 <span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paradigm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.EncodingModel.predict" title="Link to this definition">¶</a></dt>
 <dd><p>Return pandas predictions for the provided paradigm/parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.EncodingModel.predict_stimulus_grid">
+<span class="sig-name descname"><span class="pre">predict_stimulus_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stimulus_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.EncodingModel.predict_stimulus_grid" title="Link to this definition">¶</a></dt>
+<dd><p>Predicted response to every stimulus of a decoding grid.</p>
+<p>Returns a float64 array <code class="docutils literal notranslate"><span class="pre">(n_stimuli,</span> <span class="pre">n_voxels)</span></code>. Uses the same
+batching as <a class="reference internal" href="#braincoder.models.EncodingModel.get_stimulus_pdf" title="braincoder.models.EncodingModel.get_stimulus_pdf"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_stimulus_pdf()</span></code></a> (one batch per grid point).</p>
 </dd></dl>
 
 <dl class="py method">
@@ -439,6 +477,380 @@ over the last <code class="docutils literal notranslate"><span class="pre">lag</
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.optimize.ResidualFitter">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.optimize.</span></span><span class="sig-name descname"><span class="pre">ResidualFitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paradigm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.optimize.ResidualFitter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Fit a parametric noise covariance Ω (and Student-t ν) to residuals.</p>
+<p>Ω = ρ ττᵀ + (1 − ρ) diag(τ²) + σ² WWᵀ (optionally mixed with the sample
+covariance via <code class="docutils literal notranslate"><span class="pre">lambd</span></code>).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ω has a single shared factor. On real single-trial fMRI betas the
+residuals typically need tens of factors, and this Ω underestimates
+held-out noise (held-out Mahalanobis distances ~4× too large on 7T
+data), giving overconfident decoding posteriors. <code class="docutils literal notranslate"><span class="pre">lambd</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> is
+unsafe when n_voxels &gt; n_trials (rank-deficient sample covariance).
+The pseudo-WWᵀ from <code class="docutils literal notranslate"><span class="pre">init_pseudoWWT</span></code> is uncentred. For calibrated
+decoding see <a class="reference internal" href="#braincoder.noise.LowRankNoise" title="braincoder.noise.LowRankNoise"><code class="xref py py-class docutils literal notranslate"><span class="pre">braincoder.noise.LowRankNoise</span></code></a> and the
+“Noise models for decoding” docs page.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.optimize.ResidualFitter.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_sigma2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_n_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resid_dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gauss'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_n_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gauss'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residuals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_WWT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_wwt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spherical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progressbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_consecutive_failures</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.optimize.ResidualFitter.fit" title="Link to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">use_wwt</span></code> (default True): include the <code class="docutils literal notranslate"><span class="pre">σ²</span> <span class="pre">·</span> <span class="pre">WᵀW</span></code> term in
+Ω. When False, Ω is built without the tuning-similarity
+contribution — useful for testing whether <code class="docutils literal notranslate"><span class="pre">WᵀW</span></code> is doing
+real spatial-noise modeling or just creating
+signal-correlation structure that interacts with regularized
+encoding fits. <code class="docutils literal notranslate"><span class="pre">σ²</span></code> stays in the trainable set but has zero
+effect on Ω (gradient → 0; Adam leaves it inert).</p>
+<p>Failure handling: a step whose cost or gradients are non-finite,
+or which raises a numerical error (e.g. a Cholesky failure), is
+rolled back to the best values so far and the learning rate is
+reduced by 10%. <code class="docutils literal notranslate"><span class="pre">max_consecutive_failures</span></code> (default 50) such
+steps in a row raise <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>. Programming errors
+(<code class="docutils literal notranslate"><span class="pre">TypeError</span></code> – including JAX tracer-conversion errors –
+<code class="docutils literal notranslate"><span class="pre">AttributeError</span></code>, <code class="docutils literal notranslate"><span class="pre">NameError</span></code>, …) are re-raised
+immediately. If no step ever produces a finite cost the fit
+raises instead of returning an unfitted Ω. The number of
+rolled-back steps is stored in <code class="docutils literal notranslate"><span class="pre">self.n_failed_steps</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="noise-models-for-decoding">
+<span id="api-noise"></span><h2>Noise models for decoding<a class="headerlink" href="#noise-models-for-decoding" title="Link to this heading">¶</a></h2>
+<p>See <a class="reference internal" href="noise_models.html"><span class="doc">Noise models for decoding: low-rank Ω and temperature</span></a> for the workflow.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.noise.</span></span><span class="sig-name descname"><span class="pre">LowRankNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Low-rank + diagonal (Gaussian or Student-t) noise model for decoding.</p>
+<p>Ω = D (F Fᵀ + Ψ) D, stored in factored form. Construct with
+<a class="reference internal" href="#braincoder.noise.LowRankNoise.fit" title="braincoder.noise.LowRankNoise.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit()</span></code></a> (recommended: chooses <code class="docutils literal notranslate"><span class="pre">k</span></code> and the temperature <code class="docutils literal notranslate"><span class="pre">T</span></code> by
+nested grouped cross-validation on the decoding objective) or
+<a class="reference internal" href="#braincoder.noise.LowRankNoise.from_residuals" title="braincoder.noise.LowRankNoise.from_residuals"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_residuals()</span></code></a> (covariance only, fixed <code class="docutils literal notranslate"><span class="pre">k</span></code>).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.k">
+<span class="sig-name descname"><span class="pre">k</span></span><a class="headerlink" href="#braincoder.noise.LowRankNoise.k" title="Link to this definition">¶</a></dt>
+<dd><p>Number of factors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.temperature">
+<span class="sig-name descname"><span class="pre">temperature</span></span><a class="headerlink" href="#braincoder.noise.LowRankNoise.temperature" title="Link to this definition">¶</a></dt>
+<dd><p>Likelihood temperature applied by <code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> (<code class="docutils literal notranslate"><span class="pre">inf</span></code> =
+flat posterior).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.dof">
+<span class="sig-name descname"><span class="pre">dof</span></span><a class="headerlink" href="#braincoder.noise.LowRankNoise.dof" title="Link to this definition">¶</a></dt>
+<dd><p>Student-t degrees of freedom (<code class="docutils literal notranslate"><span class="pre">None</span></code> = Gaussian).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#braincoder.noise.LowRankNoise.scale" title="Link to this definition">¶</a></dt>
+<dd><p>Per-voxel scale <code class="docutils literal notranslate"><span class="pre">s</span></code> (includes the ML scale factor).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray (V,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.factors">
+<span class="sig-name descname"><span class="pre">factors</span></span><a class="headerlink" href="#braincoder.noise.LowRankNoise.factors" title="Link to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">F</span></code>, loadings on the correlation scale.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray (V, <a class="reference internal" href="#braincoder.noise.LowRankNoise.k" title="braincoder.noise.LowRankNoise.k">k</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.psi">
+<span class="sig-name descname"><span class="pre">psi</span></span><a class="headerlink" href="#braincoder.noise.LowRankNoise.psi" title="Link to this definition">¶</a></dt>
+<dd><p>Diagonal uniquenesses on the correlation scale.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray (V,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.voxels">
+<span class="sig-name descname"><span class="pre">voxels</span></span><a class="headerlink" href="#braincoder.noise.LowRankNoise.voxels" title="Link to this definition">¶</a></dt>
+<dd><p>Voxel labels (columns of the training data), used to align test data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.Index or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.cv_scores_">
+<span class="sig-name descname"><span class="pre">cv_scores_</span></span><a class="headerlink" href="#braincoder.noise.LowRankNoise.cv_scores_" title="Link to this definition">¶</a></dt>
+<dd><p>Cross-validated decoding score for every (k, T): mean held-out log
+posterior probability of the true stimulus per trial, <strong>minus</strong> that
+of a flat posterior (nats; &gt; 0 = better than uniform). Rows = k,
+columns = T.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.fit">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paradigm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stimulus_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fit'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">5,</span> <span class="pre">10,</span> <span class="pre">20,</span> <span class="pre">40,</span> <span class="pre">80)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature_grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(np.float64(0.25),</span> <span class="pre">np.float64(0.29730177875068026),</span> <span class="pre">np.float64(0.3535533905932738),</span> <span class="pre">np.float64(0.42044820762685725),</span> <span class="pre">np.float64(0.5),</span> <span class="pre">np.float64(0.5946035575013605),</span> <span class="pre">np.float64(0.7071067811865476),</span> <span class="pre">np.float64(0.8408964152537145),</span> <span class="pre">np.float64(1.0),</span> <span class="pre">np.float64(1.189207115002721),</span> <span class="pre">np.float64(1.4142135623730951),</span> <span class="pre">np.float64(1.681792830507429),</span> <span class="pre">np.float64(2.0),</span> <span class="pre">np.float64(2.378414230005442),</span> <span class="pre">np.float64(2.8284271247461903),</span> <span class="pre">np.float64(3.363585661014858),</span> <span class="pre">np.float64(4.0),</span> <span class="pre">np.float64(4.756828460010884),</span> <span class="pre">np.float64(5.656854249492381),</span> <span class="pre">np.float64(6.727171322029716),</span> <span class="pre">np.float64(8.0),</span> <span class="pre">np.float64(9.513656920021768),</span> <span class="pre">np.float64(11.313708498984761),</span> <span class="pre">np.float64(13.454342644059432),</span> <span class="pre">np.float64(16.0),</span> <span class="pre">np.float64(19.027313840043536),</span> <span class="pre">np.float64(22.627416997969522),</span> <span class="pre">np.float64(26.908685288118864),</span> <span class="pre">np.float64(32.0),</span> <span class="pre">np.float64(38.05462768008707),</span> <span class="pre">np.float64(45.254833995939045),</span> <span class="pre">np.float64(53.81737057623773),</span> <span class="pre">np.float64(64.0),</span> <span class="pre">np.float64(76.10925536017415),</span> <span class="pre">np.float64(90.50966799187809),</span> <span class="pre">np.float64(107.63474115247546),</span> <span class="pre">np.float64(128.0),</span> <span class="pre">np.float64(152.2185107203483),</span> <span class="pre">np.float64(181.01933598375618),</span> <span class="pre">np.float64(215.2694823049509),</span> <span class="pre">np.float64(256.0),</span> <span class="pre">np.float64(304.4370214406966),</span> <span class="pre">np.float64(362.03867196751236),</span> <span class="pre">np.float64(430.5389646099018),</span> <span class="pre">np.float64(512.0),</span> <span class="pre">np.float64(608.8740428813932),</span> <span class="pre">np.float64(724.0773439350247),</span> <span class="pre">np.float64(861.0779292198037),</span> <span class="pre">np.float64(1024.0),</span> <span class="pre">np.float64(1217.7480857627863),</span> <span class="pre">np.float64(1448.1546878700494),</span> <span class="pre">np.float64(1722.1558584396073),</span> <span class="pre">np.float64(2048.0),</span> <span class="pre">np.float64(2435.4961715255727),</span> <span class="pre">np.float64(2896.309375740099),</span> <span class="pre">np.float64(3444.3117168792146),</span> <span class="pre">np.float64(4096.0),</span> <span class="pre">np.float64(inf))</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psi_floor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_folds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progressbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Fit a low-rank noise model; choose <code class="docutils literal notranslate"><span class="pre">k</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code> by nested CV.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference internal" href="#braincoder.models.EncodingModel" title="braincoder.models.EncodingModel"><em>EncodingModel</em></a>)</p></li>
+<li><p><strong>data</strong> (<em>DataFrame</em><em> (</em><em>n_trials</em><em>, </em><em>V</em><em>)</em>) – <strong>Training</strong> data only (the test data must never be passed here).</p></li>
+<li><p><strong>paradigm</strong> (<em>DataFrame</em><em> or </em><em>array</em><em> (</em><em>n_trials</em><em>, </em><em>n_stim_dims</em><em>)</em>) – True stimulus of every training trial.</p></li>
+<li><p><strong>parameters</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – Encoding parameters (default <code class="docutils literal notranslate"><span class="pre">model.parameters</span></code>).</p></li>
+<li><p><strong>stimulus_range</strong> (<em>array</em><em> (</em><em>n_stimuli</em><em>,</em><em>) or </em><em>(</em><em>n_stimuli</em><em>, </em><em>n_dims</em><em>)</em>) – The decoding grid — use the same grid as for
+<code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>. Required when <code class="docutils literal notranslate"><span class="pre">k</span></code> or <code class="docutils literal notranslate"><span class="pre">temperature</span></code> is
+chosen by CV. True training stimuli are matched to the nearest
+grid point.</p></li>
+<li><p><strong>groups</strong> (<em>array</em><em> (</em><em>n_trials</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – Group label per training trial (e.g. run). Inner CV leaves one
+group out at a time. Strongly recommended: trials within a run
+share noise. Without it, <code class="docutils literal notranslate"><span class="pre">n_folds</span></code> contiguous blocks are used.</p></li>
+<li><p><strong>k</strong> (<em>'cv'</em><em> or </em><em>int</em>)</p></li>
+<li><p><strong>temperature</strong> (‘cv’ or float (<code class="docutils literal notranslate"><span class="pre">np.inf</span></code> = flat posterior))</p></li>
+<li><p><strong>dof</strong> (<em>'fit'</em><em>, </em><em>None</em><em> or </em><em>float</em>) – Student-t ν by ML (‘fit’), Gaussian (<code class="docutils literal notranslate"><span class="pre">None</span></code>) or fixed.</p></li>
+<li><p><strong>k_grid</strong> (<em>sequences</em>) – Candidates for CV. <code class="docutils literal notranslate"><span class="pre">k</span></code> values ≥ the number of inner-training
+trials or voxels are dropped.</p></li>
+<li><p><strong>temperature_grid</strong> (<em>sequences</em>) – Candidates for CV. <code class="docutils literal notranslate"><span class="pre">k</span></code> values ≥ the number of inner-training
+trials or voxels are dropped.</p></li>
+<li><p><strong>inner_parameters</strong> (<em>None</em><em>, </em><em>dict</em><em> or </em><em>callable</em>) – <p>Encoding parameters used inside inner fold <code class="docutils literal notranslate"><span class="pre">g</span></code>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> (default): <code class="docutils literal notranslate"><span class="pre">parameters</span></code> are <strong>held fixed</strong>. The
+inner held-out trials were then part of the data the
+encoding model was fitted on, so their predictions are
+slightly optimistic and the chosen <code class="docutils literal notranslate"><span class="pre">T</span></code> is, if anything,
+too small (posteriors a bit too sharp).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dict</span></code> {group: parameters}: precomputed parameters that did
+not see group <code class="docutils literal notranslate"><span class="pre">g</span></code> (e.g. existing leave-one-run-out fits).</p></li>
+<li><p>callable <code class="docutils literal notranslate"><span class="pre">f(train_data,</span> <span class="pre">train_paradigm,</span> <span class="pre">group)</span> <span class="pre">-&gt;</span> <span class="pre">parameters</span></code>:
+refit the encoding model on the inner-training trials.</p></li>
+</ul>
+<p>In fold <code class="docutils literal notranslate"><span class="pre">g</span></code>, Ω is fitted on the residuals of the inner-training
+trials under these parameters, and the held-out trials are
+decoded with them.</p>
+</p></li>
+<li><p><strong>psi_floor</strong> (<em>float</em>) – Floor on the diagonal uniquenesses (correlation scale).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fitted on <em>all</em> training trials with the chosen <code class="docutils literal notranslate"><span class="pre">k</span></code>; carries
+the chosen <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, <code class="docutils literal notranslate"><span class="pre">cv_scores_</span></code> and <code class="docutils literal notranslate"><span class="pre">cv_info_</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#braincoder.noise.LowRankNoise" title="braincoder.noise.LowRankNoise">LowRankNoise</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The CV objective is the summed held-out log posterior probability of
+the true stimulus on the grid, <code class="docutils literal notranslate"><span class="pre">log</span> <span class="pre">p_T(s*</span> <span class="pre">|</span> <span class="pre">y)</span></code>, under a flat
+prior over the grid. This is the decoding objective; it is <em>not</em> the
+covariance likelihood (which prefers ever larger <code class="docutils literal notranslate"><span class="pre">k</span></code> on fMRI data
+while decoding gets worse). For every inner fold and every <code class="docutils literal notranslate"><span class="pre">k</span></code>,
+Ω(k) and ν are refitted on the inner-training residuals; all <code class="docutils literal notranslate"><span class="pre">T</span></code>
+are evaluated on the same likelihood table at no extra cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.from_residuals">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_residuals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residuals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fit'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psi_floor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_svd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise.from_residuals" title="Link to this definition">¶</a></dt>
+<dd><p>Fit Ω (and ν) to residuals for a fixed rank <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p>
+<p>Principal-factor model of the residual correlation (one closed-form
+step, no iteration): F = first k eigenvectors × √eigenvalues, Ψ =
+1 − diag(F Fᵀ), floored at <code class="docutils literal notranslate"><span class="pre">psi_floor</span></code>; then an overall scale c and
+ν are fitted by maximum likelihood (Student-t; <code class="docutils literal notranslate"><span class="pre">dof=None</span></code> for
+Gaussian, a number to fix ν).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>residuals</strong> (<em>DataFrame</em><em> or </em><em>array</em><em> (</em><em>n_trials</em><em>, </em><em>V</em><em>)</em>)</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – Number of factors (capped at <code class="docutils literal notranslate"><span class="pre">min(n_trials,</span> <span class="pre">V)</span> <span class="pre">−</span> <span class="pre">1</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.grid_log_likelihood">
+<span class="sig-name descname"><span class="pre">grid_log_likelihood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise.grid_log_likelihood" title="Link to this definition">¶</a></dt>
+<dd><p>Log-likelihood table <code class="docutils literal notranslate"><span class="pre">(n_trials,</span> <span class="pre">n_stimuli)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code>: (n_trials, V); <code class="docutils literal notranslate"><span class="pre">predictions</span></code>: (n_stimuli, V), the model
+prediction for every candidate stimulus. Computed as
+d²(t, s) = q(y_t) + q(μ_s) − 2⟨y_t, μ_s⟩ with all terms in factored
+form — one (n_trials × V) · (V × n_stimuli) product, no dense Ω and
+no (n_stimuli × n_trials × V) residual tensor. float64 numpy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.log_prob">
+<span class="sig-name descname"><span class="pre">log_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residuals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise.log_prob" title="Link to this definition">¶</a></dt>
+<dd><p>Log density of each row of <code class="docutils literal notranslate"><span class="pre">residuals</span></code> (numpy, float64).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.log_prob_backend">
+<span class="sig-name descname"><span class="pre">log_prob_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residuals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise.log_prob_backend" title="Link to this definition">¶</a></dt>
+<dd><p>Log density of each row, in Keras ops (float32, differentiable).</p>
+<p>Same factored computation as <a class="reference internal" href="#braincoder.noise.LowRankNoise.log_prob" title="braincoder.noise.LowRankNoise.log_prob"><code class="xref py py-meth docutils literal notranslate"><span class="pre">log_prob()</span></code></a>, usable inside a
+TensorFlow / JAX / PyTorch graph (e.g. gradient-based stimulus
+fitting). <code class="docutils literal notranslate"><span class="pre">residuals</span></code>: tensor (n, V).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.mahalanobis">
+<span class="sig-name descname"><span class="pre">mahalanobis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residuals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise.mahalanobis" title="Link to this definition">¶</a></dt>
+<dd><p>Squared Mahalanobis distance rᵀ Ω⁻¹ r of each row (Woodbury).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise.summary" title="Link to this definition">¶</a></dt>
+<dd><p>Human-readable summary: k, T, ν, and the CV table (if any).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.noise.LowRankNoise.to_dense">
+<span class="sig-name descname"><span class="pre">to_dense</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.LowRankNoise.to_dense" title="Link to this definition">¶</a></dt>
+<dd><p>Dense <code class="docutils literal notranslate"><span class="pre">(omega,</span> <span class="pre">dof)</span></code>, drop-in for <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code> output.</p>
+<p>For code paths that take <code class="docutils literal notranslate"><span class="pre">omega=</span></code> / <code class="docutils literal notranslate"><span class="pre">dof=</span></code>. Note the temperature
+is <em>not</em> part of (omega, dof); pass <code class="docutils literal notranslate"><span class="pre">temperature=noise.temperature</span></code>
+to <code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> as well.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.noise.fit_lowrank_omega">
+<span class="sig-prename descclassname"><span class="pre">braincoder.noise.</span></span><span class="sig-name descname"><span class="pre">fit_lowrank_omega</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residuals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fit'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psi_floor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.noise.fit_lowrank_omega" title="Link to this definition">¶</a></dt>
+<dd><p>Functional / legacy path: dense <code class="docutils literal notranslate"><span class="pre">(omega,</span> <span class="pre">dof)</span></code> of a low-rank fit.</p>
+<p>Drop-in replacement for the <code class="docutils literal notranslate"><span class="pre">(omega,</span> <span class="pre">dof)</span></code> returned by
+<code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code> (pass them as <code class="docutils literal notranslate"><span class="pre">omega=</span></code> / <code class="docutils literal notranslate"><span class="pre">dof=</span></code>). Prefer
+<a class="reference internal" href="#braincoder.noise.LowRankNoise" title="braincoder.noise.LowRankNoise"><code class="xref py py-class docutils literal notranslate"><span class="pre">LowRankNoise</span></code></a> for large V (no dense matrix) and for choosing
+<code class="docutils literal notranslate"><span class="pre">k</span></code> and the temperature by cross-validation.</p>
+</dd></dl>
+
+</section>
+<section id="module-braincoder.utils.calibration">
+<span id="calibration-diagnostics"></span><span id="api-calibration"></span><h2>Calibration diagnostics<a class="headerlink" href="#module-braincoder.utils.calibration" title="Link to this heading">¶</a></h2>
+<p>Calibration metrics for grid posteriors (e.g. from <code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>).</p>
+<p>All functions take a posterior DataFrame — rows = trials, columns = grid
+stimuli — and the true stimulus of every trial. Rows are renormalised to sum
+to one (discrete masses over the grid), so both the trapezoid-normalised 1-D
+densities and the max-normalised multi-dimensional output of
+<code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> can be passed directly.</p>
+<p>A calibrated posterior gives</p>
+<ul class="simple">
+<li><p>randomised PIT values ~ Uniform(0, 1) (1-D only; SD ≈ 0.289, slightly less
+on a coarse discrete grid), U-shaped = overconfident, ∩-shaped =
+underconfident;</p></li>
+<li><p>randomised HPD levels of the truth ~ Uniform(0, 1), i.e. the q-HDI
+contains the truth on a fraction q of trials (any dimensionality);</p></li>
+<li><p>a log score that is not below that of a flat posterior.</p></li>
+</ul>
+<p>Randomisation (a uniform draw within the probability mass of the true grid
+cell) makes the statistics exactly uniform for a calibrated discrete
+posterior instead of biased by ties and grid coarseness.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.calibration_summary">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">calibration_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.95)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.calibration_summary" title="Link to this definition">¶</a></dt>
+<dd><p>One-row summary: log score vs uniform, HDI coverage, PIT SD (1-D),
+posterior mean r / MAE / posterior SD (1-D).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.hdi_coverage">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">hdi_coverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.95)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.hdi_coverage" title="Link to this definition">¶</a></dt>
+<dd><p>Fraction of trials whose q-HDI contains the truth, for each q.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.hpd_level">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">hpd_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.hpd_level" title="Link to this definition">¶</a></dt>
+<dd><p>Randomised level of the smallest HDI that contains the truth.</p>
+<p>h = P(p(s) &gt; p(s*)) + U · P(p(s) = p(s*)). The q-HDI covers the truth
+iff h &lt; q. Works for any dimensionality.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.log_score">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">log_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_to_uniform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.log_score" title="Link to this definition">¶</a></dt>
+<dd><p>Per-trial log posterior mass of the true grid cell.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">relative_to_uniform</span></code> (default) <code class="docutils literal notranslate"><span class="pre">log(1/n_stimuli)</span></code> is subtracted,
+so 0 = as good as a flat posterior and &gt; 0 = informative and calibrated
+enough to beat it.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.marginalize">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">marginalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.marginalize" title="Link to this definition">¶</a></dt>
+<dd><p>Marginal posterior over one stimulus dimension (int or level name).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.pit">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">pit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.pit" title="Link to this definition">¶</a></dt>
+<dd><p>Randomised probability integral transform (1-D posteriors).</p>
+<p>F(s* − 1) + U · p(s*), U ~ U(0, 1). For a multi-dimensional posterior,
+first <a class="reference internal" href="#braincoder.utils.calibration.marginalize" title="braincoder.utils.calibration.marginalize"><code class="xref py py-func docutils literal notranslate"><span class="pre">marginalize()</span></code></a> it.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.plot_calibration">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">plot_calibration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.05,</span> <span class="pre">0.1,</span> <span class="pre">0.15,</span> <span class="pre">0.2,</span> <span class="pre">0.25,</span> <span class="pre">0.3,</span> <span class="pre">0.35,</span> <span class="pre">0.4,</span> <span class="pre">0.45,</span> <span class="pre">0.5,</span> <span class="pre">0.55,</span> <span class="pre">0.6,</span> <span class="pre">0.65,</span> <span class="pre">0.7,</span> <span class="pre">0.75,</span> <span class="pre">0.8,</span> <span class="pre">0.85,</span> <span class="pre">0.9,</span> <span class="pre">0.95])</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.plot_calibration" title="Link to this definition">¶</a></dt>
+<dd><p>Two-panel diagnostic: coverage vs nominal HDI level, and PIT histogram
+(1-D) or HPD-level histogram (multi-D). Returns the axes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.posterior_grid">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">posterior_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.posterior_grid" title="Link to this definition">¶</a></dt>
+<dd><p>(P, grid): row-normalised masses (n_trials, n_stimuli) and the grid.</p>
+<p><code class="docutils literal notranslate"><span class="pre">grid</span></code> is taken from the columns (numeric Index or MultiIndex) unless
+passed explicitly (needed when <code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> was called on a
+multi-dimensional grid without <code class="docutils literal notranslate"><span class="pre">include_multidimensional_stimulus_index</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.utils.calibration.true_stimulus_index">
+<span class="sig-prename descclassname"><span class="pre">braincoder.utils.calibration.</span></span><span class="sig-name descname"><span class="pre">true_stimulus_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">true_stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.utils.calibration.true_stimulus_index" title="Link to this definition">¶</a></dt>
+<dd><p>Index of the nearest grid point for every true stimulus.</p>
+</dd></dl>
+
 </section>
 </section>
 
@@ -456,14 +868,14 @@ over the last <code class="docutils literal notranslate"><span class="pre">lag</
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="fisher_information.html">
+          <a class="prev-page" href="noise_models.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Fisher information and expected uncertainty</div>
+                <div class="title">Noise models for decoding: low-rank Ω and temperature</div>
                 
               </div>
             </a>
@@ -502,7 +914,9 @@ over the last <code class="docutils literal notranslate"><span class="pre">lag</
 <li><a class="reference internal" href="#braincoder.models.EncodingModel"><code class="docutils literal notranslate"><span class="pre">EncodingModel</span></code></a><ul>
 <li><a class="reference internal" href="#braincoder.models.EncodingModel.get_paradigm"><code class="docutils literal notranslate"><span class="pre">EncodingModel.get_paradigm()</span></code></a></li>
 <li><a class="reference internal" href="#braincoder.models.EncodingModel.get_parameter_labels"><code class="docutils literal notranslate"><span class="pre">EncodingModel.get_parameter_labels()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.EncodingModel.get_stimulus_pdf"><code class="docutils literal notranslate"><span class="pre">EncodingModel.get_stimulus_pdf()</span></code></a></li>
 <li><a class="reference internal" href="#braincoder.models.EncodingModel.predict"><code class="docutils literal notranslate"><span class="pre">EncodingModel.predict()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.EncodingModel.predict_stimulus_grid"><code class="docutils literal notranslate"><span class="pre">EncodingModel.predict_stimulus_grid()</span></code></a></li>
 <li><a class="reference internal" href="#braincoder.models.EncodingModel.simulate"><code class="docutils literal notranslate"><span class="pre">EncodingModel.simulate()</span></code></a></li>
 </ul>
 </li>
@@ -525,6 +939,45 @@ over the last <code class="docutils literal notranslate"><span class="pre">lag</
 <li><a class="reference internal" href="#braincoder.optimize.ParameterFitter.fit"><code class="docutils literal notranslate"><span class="pre">ParameterFitter.fit()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#braincoder.optimize.ResidualFitter"><code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code></a><ul>
+<li><a class="reference internal" href="#braincoder.optimize.ResidualFitter.fit"><code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#noise-models-for-decoding">Noise models for decoding</a><ul>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise"><code class="docutils literal notranslate"><span class="pre">LowRankNoise</span></code></a><ul>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.k"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.k</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.temperature"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.temperature</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.dof"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.dof</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.scale"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.scale</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.factors"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.factors</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.psi"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.psi</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.voxels"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.voxels</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.cv_scores_"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.cv_scores_</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.fit"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.fit()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.from_residuals"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.from_residuals()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.grid_log_likelihood"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.grid_log_likelihood()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.log_prob"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.log_prob()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.log_prob_backend"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.log_prob_backend()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.mahalanobis"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.mahalanobis()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.summary"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.summary()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.noise.LowRankNoise.to_dense"><code class="docutils literal notranslate"><span class="pre">LowRankNoise.to_dense()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#braincoder.noise.fit_lowrank_omega"><code class="docutils literal notranslate"><span class="pre">fit_lowrank_omega()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-braincoder.utils.calibration">Calibration diagnostics</a><ul>
+<li><a class="reference internal" href="#braincoder.utils.calibration.calibration_summary"><code class="docutils literal notranslate"><span class="pre">calibration_summary()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.utils.calibration.hdi_coverage"><code class="docutils literal notranslate"><span class="pre">hdi_coverage()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.utils.calibration.hpd_level"><code class="docutils literal notranslate"><span class="pre">hpd_level()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.utils.calibration.log_score"><code class="docutils literal notranslate"><span class="pre">log_score()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.utils.calibration.marginalize"><code class="docutils literal notranslate"><span class="pre">marginalize()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.utils.calibration.pit"><code class="docutils literal notranslate"><span class="pre">pit()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.utils.calibration.plot_calibration"><code class="docutils literal notranslate"><span class="pre">plot_calibration()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.utils.calibration.posterior_grid"><code class="docutils literal notranslate"><span class="pre">posterior_grid()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.utils.calibration.true_stimulus_index"><code class="docutils literal notranslate"><span class="pre">true_stimulus_index()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -538,9 +991,10 @@ over the last <code class="docutils literal notranslate"><span class="pre">lag</
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
     </body>
 </html>

@@ -64,7 +64,7 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x179935250>
+    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x30ecfb4a0>
     ['x (radians)', 'amplitude']
 
 
@@ -97,8 +97,8 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    init_tau: 0.4727478325366974, 0.5595152378082275
-    WWT max: 15.28452205657959
+    init_tau: 0.450548380613327, 0.5757042169570923
+    WWT max: 16.359237670898438
 
 
 
@@ -160,7 +160,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x17992e870>
+    <seaborn.axisgrid.FacetGrid object at 0x30f05b320>
 
 
 
@@ -312,7 +312,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x1795def30>
+    <seaborn.axisgrid.FacetGrid object at 0x30abb0080>
 
 
 
@@ -352,8 +352,12 @@ such as expectation and attention.
 
  .. code-block:: none
 
+    /private/tmp/claude-1763273667/-Users-gdehol-git-retinonumeral/3d3d2794-a70f-4e6c-9121-c4c2af92cc53/scratchpad/bc_docs/examples/00_encodingdecoding/decode2d.py:180: FutureWarning: The previous implementation of stack is deprecated and will be removed in a future version of pandas. See the What's New notes for pandas 2.1.0 for details. Specify future_stack=True to adopt the new implementation and silence this warning.
+      conditional_orientation_ll = pd.concat((ll.stack().xs('attended', 0, 'condition').xs(1.5, 0, 'amplitude'),
+    /private/tmp/claude-1763273667/-Users-gdehol-git-retinonumeral/3d3d2794-a70f-4e6c-9121-c4c2af92cc53/scratchpad/bc_docs/examples/00_encodingdecoding/decode2d.py:181: FutureWarning: The previous implementation of stack is deprecated and will be removed in a future version of pandas. See the What's New notes for pandas 2.1.0 for details. Specify future_stack=True to adopt the new implementation and silence this warning.
+      ll.stack().xs('unattended', 0, 'condition').xs(0.5, 0, 'amplitude')),
 
-    <seaborn.axisgrid.FacetGrid object at 0x177e51970>
+    <seaborn.axisgrid.FacetGrid object at 0x30f407e60>
 
 
 
@@ -474,13 +478,13 @@ such as expectation and attention.
       <tbody>
         <tr>
           <th>attended</th>
-          <td>0.869551</td>
-          <td>1.522951e-13</td>
+          <td>0.746378</td>
+          <td>4.305981e-10</td>
         </tr>
         <tr>
           <th>unattended</th>
-          <td>0.372083</td>
-          <td>2.915933e-04</td>
+          <td>0.421687</td>
+          <td>5.707121e-05</td>
         </tr>
       </tbody>
     </table>
@@ -561,14 +565,14 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x17cd8aae0>
+    <seaborn.axisgrid.FacetGrid object at 0x30ebec260>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 15.907 seconds)
+   **Total running time of the script:** (0 minutes 14.787 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_decode2d.py:

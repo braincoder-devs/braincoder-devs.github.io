@@ -107,8 +107,8 @@ Same voxel-selection step as the first two examples — kept self-contained.
 
  .. code-block:: none
 
-    Kept 294 voxels (within-sample R² ≥ 0.041)
-    Data: (240, 294) (trials × voxels)
+    Kept 155 voxels (within-sample R² ≥ 0.085)
+    Data: (240, 155) (trials × voxels)
 
 
 
@@ -152,8 +152,8 @@ calculation only needs ``parameters`` and the noise model.
 
  .. code-block:: none
 
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 14.08it/s]
-    Train R² — median 0.079, p90 0.154
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 50.58it/s]
+    Train R² — median 0.137, p90 0.198
 
 
 
@@ -200,8 +200,8 @@ requires it to be initialised before any decoding call.
 
  .. code-block:: none
 
-    init_tau: 0.884789764881134, 0.9915053248405457
-    Fitted dof: 5.0
+    init_tau: 0.8408144116401672, 0.9756162762641907
+    Fitted dof: 6.1
 
 
 
@@ -247,11 +247,11 @@ aggregates per true stimulus. It returns a DataFrame with
       [stim 0:31/31] 6200 simulated trials
            mean_E  var_E  mean_error  mean_abs_error  n_sims  std_decoded
     value                                                                
-    10.0   10.220  0.113       0.220           0.220     200        0.337
-    11.0   11.155  0.194       0.155           0.303     200        0.441
-    12.0   12.183  0.276       0.183           0.379     200        0.526
-    13.0   13.024  0.482       0.024           0.441     200        0.694
-    14.0   13.968  0.364      -0.032           0.412     200        0.604
+    10.0   10.138  0.070       0.138           0.138     200        0.265
+    11.0   11.043  0.065       0.043           0.133     200        0.254
+    12.0   12.010  0.137       0.010           0.223     200        0.369
+    13.0   13.143  0.295       0.143           0.338     200        0.544
+    14.0   14.172  0.354       0.172           0.450     200        0.595
 
 
 
@@ -359,7 +359,7 @@ textbook signatures of a log-Gaussian numerosity code:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 29.618 seconds)
+   **Total running time of the script:** (0 minutes 20.403 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_03_expected_uncertainty.py:

@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Lesson 5: Decoding noisy neural data" href="lesson5.html"><link rel="prev" title="Lesson 3: Building the likelihood (by fitting the covariance matrix)" href="lesson3.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Lesson 4: From neural responses to stimulus features - Braincoder documentation</title>
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
+        <title>Lesson 4: From neural responses to stimulus features - Braincoder 0.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Braincoder  documentation</div></a>
+      <a href="../index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Braincoder  documentation</span>
+  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,9 +201,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fisher_information.html">Fisher information and expected uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="lesson1.html">Lesson 1: Encoding models</a></li>
@@ -226,8 +228,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/fisher_information.html">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/fit_prf.html">Different flavors of visual population receptive field models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/00_encodingdecoding/fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
@@ -236,6 +238,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_examples/01_decoding_pipeline/index.html">End-to-end decoding pipeline on real data</a><input aria-label="Toggle navigation of End-to-end decoding pipeline on real data" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_examples/01_decoding_pipeline/04_lowrank_noise_calibration.html">Calibrated decoding with a low-rank noise model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_examples/01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
@@ -315,7 +318,7 @@ than 0.2:</p>
 <strong><img alt="rf_activation" src="../_images/sphx_glr_invert_model_001.png" /></strong></p><p>We can now set up a likelihood function and find which stimuli are consistent with
 this activation pattern as follows.</p>
 <p>First set up the model..</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">:</span><span class="mf">1.</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">'mu'</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">'kappa'</span><span class="p">:</span><span class="mf">1.</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">VonMisesPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
@@ -330,12 +333,12 @@ this activation pattern as follows.</p>
 
 <span class="c1"># And plot it..</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{1}{2}</span><span class="s1">\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{3}{2}</span><span class="s1">\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$2\pi$&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="sa">r</span><span class="s1">'0'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\frac</span><span class="si">{1}{2}</span><span class="s1">\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\frac</span><span class="si">{3}{2}</span><span class="s1">\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$2\pi$'</span><span class="p">])</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Orientation&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Orientation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Likelihood'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="centered">
@@ -344,8 +347,8 @@ this activation pattern as follows.</p>
 two points in stimulus space are identical!</p>
 <p>If we have two RFs, the situation becomes unambiguous:</p>
 <p class="centered">
-<strong><img alt="rf_activation2" src="../_images/sphx_glr_invert_model_003.png" /></strong></p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">:</span><span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
-                           <span class="p">{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">1.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">:</span><span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<strong><img alt="rf_activation2" src="../_images/sphx_glr_invert_model_003.png" /></strong></p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">'mu'</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">'kappa'</span><span class="p">:</span><span class="mf">.5</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
+                           <span class="p">{</span><span class="s1">'mu'</span><span class="p">:</span><span class="mf">1.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">'kappa'</span><span class="p">:</span><span class="mf">.5</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">VonMisesPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
 <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -360,12 +363,12 @@ two points in stimulus space are identical!</p>
 
 <span class="n">likelihood</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{1}{2}</span><span class="s1">\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{3}{2}</span><span class="s1">\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$2\pi$&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="sa">r</span><span class="s1">'0'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\frac</span><span class="si">{1}{2}</span><span class="s1">\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\frac</span><span class="si">{3}{2}</span><span class="s1">\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$2\pi$'</span><span class="p">])</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Orientation&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Orientation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Likelihood'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="centered">
@@ -451,10 +454,11 @@ decode data in a more natural setting.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     </body>
 </html>

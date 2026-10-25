@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_00_encodingdecoding_fit_residuals.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -63,13 +63,6 @@ simulated data from a ``VonMisesPRF``-model.
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /Users/gdehol/mambaforge/lib/python3.10/site-packages/scipy/stats/_multivariate.py:758: RuntimeWarning: covariance is not symmetric positive-semidefinite.
-      out = random_state.multivariate_normal(mean, cov, size)
-
 
 
 
@@ -97,11 +90,11 @@ simulated data from a ``VonMisesPRF``-model.
 
  .. code-block:: none
 
-    init_tau: 0.5883835554122925, 0.9530800580978394
+    init_tau: 0.6531668305397034, 0.7926375865936279
     WWT max: 4.0
-    [[0.3484391  0.05987196 0.07491002]
-     [0.05987195 0.60535425 0.09866075]
-     [0.07491002 0.09866075 0.9463547 ]]
+    [[0.43467134 0.0421816  0.04330837]
+     [0.0421816  0.61340094 0.05137456]
+     [0.04330837 0.05137456 0.6449303 ]]
 
 
 
@@ -109,7 +102,7 @@ simulated data from a ``VonMisesPRF``-model.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.791 seconds)
+   **Total running time of the script:** (0 minutes 10.802 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fit_residuals.py:
@@ -125,6 +118,10 @@ simulated data from a ``VonMisesPRF``-model.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: fit_residuals.py <fit_residuals.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: fit_residuals.zip <fit_residuals.zip>`
 
 
 .. only:: html

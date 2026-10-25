@@ -64,7 +64,7 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x158babd70>
+    <matplotlib.legend.Legend object at 0x30d9b7d40>
 
 
 
@@ -124,7 +124,7 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    Text(16.347222222222214, 0.5, 'Likelihood')
+    Text(15.972222222222216, 0.5, 'Likelihood')
 
 
 
@@ -172,7 +172,7 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x177c83230>
+    <matplotlib.legend.Legend object at 0x30d7475c0>
 
 
 
@@ -218,14 +218,14 @@ Here we invert different encoding models
  .. code-block:: none
 
 
-    Text(25.097222222222214, 0.5, 'Likelihood')
+    Text(24.847222222222214, 0.5, 'Likelihood')
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.903 seconds)
+   **Total running time of the script:** (0 minutes 0.181 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_invert_model.py:

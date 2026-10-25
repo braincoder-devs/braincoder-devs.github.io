@@ -5,6 +5,10 @@ Examples
 =============================================
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -23,6 +27,10 @@ Examples
 ########
 
 Some introduction to the encoding/decoding framework.
+
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
 
 
 .. raw:: html
@@ -135,23 +143,6 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Recontruct a 2D visual stimulus from real fMRI data">
-
-.. only:: html
-
-  .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode_v1_thumb.png
-    :alt:
-
-  :doc:`/auto_examples/00_encodingdecoding/decode_v1`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Recontruct a 2D visual stimulus from real fMRI data</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Here we fit a 2D PRF model to data from the Szinte (2024)-dataset.">
 
 .. only:: html
@@ -164,6 +155,23 @@ Some introduction to the encoding/decoding framework.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Fit a 2D PRF model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Recontruct a 2D visual stimulus from real fMRI data">
+
+.. only:: html
+
+  .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode_v1_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/00_encodingdecoding/decode_v1`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Recontruct a 2D visual stimulus from real fMRI data</div>
     </div>
 
 
@@ -238,10 +246,17 @@ right numerosity-tuned parietal cortex):
    covariance is regularised by *geodesic* distance on the cortical surface.
 3. Quantify *expected* decoding uncertainty by simulating from the fitted
    model and re-decoding.
+4. Calibrate decoding posteriors with a low-rank noise model whose rank and
+   likelihood temperature are chosen by nested cross-validation
+   (``braincoder.noise.LowRankNoise``; simulated data).
 
 Each example is self-contained but share the same demo dataset, which is
 downloaded on first run via ``braincoder.utils.data.load_dehollander2024_npc``.
 
+
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
 
 
 .. raw:: html
@@ -249,6 +264,23 @@ downloaded on first run via ``braincoder.utils.data.load_dehollander2024_npc``.
     <div class="sphx-glr-thumbnails">
 
 .. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Decoding posteriors are only as good as the noise model. On real single-trial fMRI data the residuals of an encoding model share many components across voxels (on 7T numerosity data: ~40 factors), whereas ResidualFitter models one shared factor plus a tuning-similarity term. The result is a likelihood that is far too confident.">
+
+.. only:: html
+
+  .. image:: /auto_examples/01_decoding_pipeline/images/thumb/sphx_glr_04_lowrank_noise_calibration_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/01_decoding_pipeline/04_lowrank_noise_calibration`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Calibrated decoding with a low-rank noise model</div>
+    </div>
+
 
 .. raw:: html
 

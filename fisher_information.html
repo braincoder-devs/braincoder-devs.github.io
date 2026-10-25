@@ -3,13 +3,13 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API Reference" href="api_reference.html"><link rel="prev" title="Concepts &amp; Architecture" href="concepts.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Noise models for decoding: low-rank Ω and temperature" href="noise_models.html"><link rel="prev" title="Concepts &amp; Architecture" href="concepts.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Fisher information and expected uncertainty - Braincoder documentation</title>
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
+        <title>Fisher information and expected uncertainty - Braincoder 0.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder  documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Braincoder  documentation</span>
+  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,9 +201,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s new</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Fisher information and expected uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -226,8 +228,8 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fisher_information.html">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html">Different flavors of visual population receptive field models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
@@ -236,6 +238,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/01_decoding_pipeline/index.html">End-to-end decoding pipeline on real data</a><input aria-label="Toggle navigation of End-to-end decoding pipeline on real data" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/04_lowrank_noise_calibration.html">Calibrated decoding with a low-rank noise model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
@@ -472,12 +475,12 @@ heavy-tailed noise carries less information per voxel.</p>
 
 <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">pars</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;mode&quot;</span><span class="p">:</span>      <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
-    <span class="s2">&quot;fwhm&quot;</span><span class="p">:</span>      <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
-    <span class="s2">&quot;amplitude&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
-    <span class="s2">&quot;baseline&quot;</span><span class="p">:</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+    <span class="s2">"mode"</span><span class="p">:</span>      <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+    <span class="s2">"fwhm"</span><span class="p">:</span>      <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+    <span class="s2">"amplitude"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+    <span class="s2">"baseline"</span><span class="p">:</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
 <span class="p">})</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">LogGaussianPRF</span><span class="p">(</span><span class="n">parameterisation</span><span class="o">=</span><span class="s2">&quot;mode_fwhm_natural&quot;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogGaussianPRF</span><span class="p">(</span><span class="n">parameterisation</span><span class="o">=</span><span class="s2">"mode_fwhm_natural"</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">)</span>
 <span class="n">omega</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.25</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="n">stim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
@@ -487,7 +490,7 @@ heavy-tailed noise carries less information per voxel.</p>
     <span class="n">stim</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">n_simulations</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">batch_stimuli</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
 <span class="c1"># `out` is a DataFrame with mean_E, var_E, mean_error, mean_abs_error</span>
-<span class="c1"># indexed by true stimulus. 1/out[&quot;var_E&quot;] ≈ fi_t for an unbiased</span>
+<span class="c1"># indexed by true stimulus. 1/out["var_E"] ≈ fi_t for an unbiased</span>
 <span class="c1"># decoder away from the grid boundary.</span>
 </pre></div>
 </div>
@@ -546,12 +549,12 @@ relationship, batched vs. unbatched <code class="docutils literal notranslate"><
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="api_reference.html">
+          <a class="next-page" href="noise_models.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">API Reference</div>
+                <div class="title">Noise models for decoding: low-rank Ω and temperature</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -614,10 +617,11 @@ relationship, batched vs. unbatched <code class="docutils literal notranslate"><
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     </body>
 </html>

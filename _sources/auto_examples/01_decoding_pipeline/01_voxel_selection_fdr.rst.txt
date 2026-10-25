@@ -358,7 +358,7 @@ you'd typically pickle / write a TSV with the selected voxel ids:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.229 seconds)
+   **Total running time of the script:** (0 minutes 1.000 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_01_voxel_selection_fdr.py:

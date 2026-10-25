@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_00_encodingdecoding_encoding_model.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -86,7 +86,7 @@ We also simulate data and then estimate back the generating parameters.
  .. code-block:: none
 
 
-    <Axes: xlabel='frame'>
+    <Axes: xlabel='stimulus'>
 
 
 
@@ -124,9 +124,7 @@ We also simulate data and then estimate back the generating parameters.
 
  .. code-block:: none
 
-    Working with chunk size of 3333333
-    Using correlation cost!
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 11.42it/s]
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 109.34it/s]
 
 
 .. raw:: html
@@ -211,7 +209,7 @@ We also simulate data and then estimate back the generating parameters.
 
 
 .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_003.png
-   :alt: R2 = 0.68
+   :alt: R2 = 0.67
    :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_003.png
    :class: sphx-glr-single-img
 
@@ -221,7 +219,7 @@ We also simulate data and then estimate back the generating parameters.
  .. code-block:: none
 
 
-    Text(0.5, 1.0, 'R2 = 0.68')
+    Text(0.5, 1.0, 'R2 = 0.67')
 
 
 
@@ -245,7 +243,7 @@ We also simulate data and then estimate back the generating parameters.
 
 
 .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_004.png
-   :alt: R2 = 0.76
+   :alt: R2 = 0.74
    :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_004.png
    :class: sphx-glr-single-img
 
@@ -254,17 +252,15 @@ We also simulate data and then estimate back the generating parameters.
 
  .. code-block:: none
 
-    Number of problematic voxels (mask): 0
-    Number of voxels remaining (mask): 2
 
-    Text(0.5, 1.0, 'R2 = 0.76')
+    Text(0.5, 1.0, 'R2 = 0.74')
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 6.255 seconds)
+   **Total running time of the script:** (0 minutes 2.393 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_encoding_model.py:
@@ -280,6 +276,10 @@ We also simulate data and then estimate back the generating parameters.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: encoding_model.py <encoding_model.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: encoding_model.zip <encoding_model.zip>`
 
 
 .. only:: html

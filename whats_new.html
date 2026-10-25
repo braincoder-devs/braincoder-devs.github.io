@@ -1,0 +1,714 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Installation" href="installation.html"><link rel="prev" title="Braincoder documentation" href="index.html">
+
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
+        <title>What’s new - Braincoder 0.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=c83e6b79" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson2.html">Lesson 2: Linear encoding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson3.html">Lesson 3: Building the likelihood (by fitting the covariance matrix)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson4.html">Lesson 4: From neural responses to stimulus features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson5.html">Lesson 5: Decoding noisy neural data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html">Lesson 6: Decoding two-dimensional stimulus spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-marginal-probability-distribution">Decode the marginal probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson7.html">Lesson 7: Fitting PRF models to visual space</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="auto_examples/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/00_encodingdecoding/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_residuals.html">Fit the residual covariance matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/masked_stimulus_decoding.html">Stimulus decoding using stimulus mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/linear_encoding_model.html">Linear encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fisher_information.html">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html">Different flavors of visual population receptive field models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html#decoded-stimulus-dn-model">Decoded stimulus: DN model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode2d.html">Decoding 2D stimuli from neural data</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/01_decoding_pipeline/index.html">End-to-end decoding pipeline on real data</a><input aria-label="Toggle navigation of End-to-end decoding pipeline on real data" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/04_lowrank_noise_calibration.html">Calibrated decoding with a low-rank noise model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">General bibliography</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/whats_new.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="what-s-new">
+<h1>What’s new<a class="headerlink" href="#what-s-new" title="Link to this heading">¶</a></h1>
+<section id="highlights-2026-10-25">
+<h2>0.6.0 highlights (2026-10-25)<a class="headerlink" href="#highlights-2026-10-25" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Calibrated decoding.</strong> <a class="reference internal" href="api_reference.html#braincoder.noise.LowRankNoise" title="braincoder.noise.LowRankNoise"><code class="xref py py-class docutils literal notranslate"><span class="pre">braincoder.noise.LowRankNoise</span></code></a> models the
+noise covariance as low-rank + diagonal (Student-t or Gaussian) and tempers
+the likelihood; rank <em>k</em> and temperature <em>T</em> are chosen by nested,
+run-grouped cross-validation on the decoding objective. Use it with
+<code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf(...,</span> <span class="pre">noise_model=noise)</span></code> (or <code class="docutils literal notranslate"><span class="pre">temperature=</span></code> with a dense
+<code class="docutils literal notranslate"><span class="pre">omega=</span></code>). Guide: <a class="reference internal" href="noise_models.html"><span class="std std-doc">Noise models for decoding</span></a>; worked
+example: <a class="reference internal" href="auto_examples/01_decoding_pipeline/04_lowrank_noise_calibration.html"><span class="std std-doc">example 04</span></a>.</p></li>
+<li><p><strong>Calibration tools.</strong> <a class="reference internal" href="api_reference.html#module-braincoder.utils.calibration" title="braincoder.utils.calibration"><code class="xref py py-mod docutils literal notranslate"><span class="pre">braincoder.utils.calibration</span></code></a>: HDI coverage,
+randomised PIT, HPD level of the truth, log score vs. a flat posterior,
+<code class="docutils literal notranslate"><span class="pre">calibration_summary</span></code> and <code class="docutils literal notranslate"><span class="pre">plot_calibration</span></code>, for any <code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>
+output (<a class="reference internal" href="api_reference.html"><span class="std std-doc">API</span></a>).</p></li>
+<li><p><strong>New fitting options.</strong> <code class="docutils literal notranslate"><span class="pre">ParameterFitter(noise_model='gaussian')</span></code>
+(per-voxel Gaussian likelihood; default stays <code class="docutils literal notranslate"><span class="pre">'ssq'</span></code>), <code class="docutils literal notranslate"><span class="pre">r2_history_</span></code> /
+<code class="docutils literal notranslate"><span class="pre">loss_history_</span></code>, a GP spatial prior (<code class="docutils literal notranslate"><span class="pre">GeodesicGPPrior</span></code>,
+<code class="docutils literal notranslate"><span class="pre">BayesianParameterFitter</span></code>), R² mixture / FDR voxel-selection helpers
+(<a class="reference internal" href="auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html"><span class="std std-doc">example 01</span></a>),
+analytical Student-t Fisher information and <code class="docutils literal notranslate"><span class="pre">get_expected_uncertainty</span></code>
+(<a class="reference internal" href="fisher_information.html"><span class="std std-doc">Fisher information</span></a>).</p></li>
+<li><p><strong>Key fixes.</strong> <code class="docutils literal notranslate"><span class="pre">safe_cholesky</span></code> (adaptive jitter, NaN check);
+<code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code> no longer swallows errors; differentiable <code class="docutils literal notranslate"><span class="pre">_lgamma</span></code>
+(Student-t ν was biased low on TF and never fitted on JAX — refit Ω/ν
+from older checkouts); TF <code class="docutils literal notranslate"><span class="pre">compute_jacobian</span></code> int32 overflow; MC Fisher
+information on JAX / torch; NumPy 2 <code class="docutils literal notranslate"><span class="pre">trapezoid</span></code>.</p></li>
+<li><p><strong>Documented caveat.</strong> <code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code>’s one-factor Ω underestimates
+held-out noise on single-trial fMRI; prefer <code class="docutils literal notranslate"><span class="pre">LowRankNoise</span></code> for decoding
+(see <a class="reference internal" href="noise_models.html"><span class="std std-doc">Noise models for decoding</span></a>).</p></li>
+</ul>
+</section>
+<section id="full-changelog">
+<h2>Full changelog<a class="headerlink" href="#full-changelog" title="Link to this heading">¶</a></h2>
+<section id="id1">
+<h3>0.6.0 (2026-10-25)<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>The headline of 0.6 is a new <strong>per-voxel Gaussian likelihood</strong> option in
+<code class="docutils literal notranslate"><span class="pre">ParameterFitter</span></code>, opt-in here and the default in 0.7. Same fixed points
+as the existing sum-of-squares loss, much faster convergence under
+heteroskedastic noise — which is to say, on every real fMRI dataset.</p>
+<p>The second headline is <strong>calibrated decoding</strong>: <code class="docutils literal notranslate"><span class="pre">braincoder.noise.LowRankNoise</span></code>
+(low-rank + diagonal noise covariance with cross-validated rank and
+likelihood temperature) and <code class="docutils literal notranslate"><span class="pre">braincoder.utils.calibration</span></code>.</p>
+<p>The rest of 0.6 is a substantial set of stability fixes, a new GP-prior
+fitter, and a per-fold voxel-selection helper.</p>
+<section id="default-fitter-changes-heads-up-for-downstream-projects">
+<h4>Default fitter changes (heads-up for downstream projects)<a class="headerlink" href="#default-fitter-changes-heads-up-for-downstream-projects" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ParameterFitter(noise_model={'ssq',</span> <span class="pre">'gaussian'})</span></code></strong> — new knob.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'ssq'</span></code> (default in 0.6): unweighted sum-of-squared-residuals.
+Equivalent to MLE under homoscedastic Gaussian noise. Same as 0.5.x.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'gaussian'</span></code> (new): per-voxel Gaussian negative log-likelihood with
+a free per-voxel σ²ᵥ. The θ-gradient is <code class="docutils literal notranslate"><span class="pre">(1/σ²ᵥ)·∂SSQᵥ/∂θᵥ</span></code>, so
+each voxel makes comparable progress under the shared Adam optimizer
+regardless of its noise level. Converges to the same per-voxel θ
+at high iterations — but does so much faster in practice on real
+data, where noise varies wildly across voxels.</p></li>
+</ul>
+</li>
+<li><p><strong>Synthetic verification</strong>: at <code class="docutils literal notranslate"><span class="pre">max_n_iterations=20_000</span></code> both modes
+agree on per-voxel θ to &lt;1e-3 normalized RMSE. At <code class="docutils literal notranslate"><span class="pre">2_000</span></code> iters
+Gaussian mode is at its asymptote; SSQ mode is still ~5× further
+out. See <code class="docutils literal notranslate"><span class="pre">gp_prior_fmri/notes/analyses/classical_vs_ml_convergence/</span></code>
+for the full convergence study.</p></li>
+<li><p><strong>0.7 will flip the default to <code class="docutils literal notranslate"><span class="pre">'gaussian'</span></code></strong>. If you need exact
+reproduction of pre-0.6 fits, pin <code class="docutils literal notranslate"><span class="pre">noise_model='ssq'</span></code> explicitly.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ParameterFitter.r2_history_</span></code> / <code class="docutils literal notranslate"><span class="pre">loss_history_</span></code></strong> — the R² and loss
+trajectories of the last <code class="docutils literal notranslate"><span class="pre">fit()</span></code> call are now stored on the fitter.</p></li>
+</ul>
+</section>
+<section id="calibrated-decoding-low-rank-noise-model-with-cv-rank-temperature">
+<h4>Calibrated decoding: low-rank noise model with CV rank + temperature<a class="headerlink" href="#calibrated-decoding-low-rank-noise-model-with-cv-rank-temperature" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">braincoder.noise.LowRankNoise</span></code></strong> (also <code class="docutils literal notranslate"><span class="pre">braincoder.LowRankNoise</span></code>) —
+noise covariance Ω = D (F Fᵀ + Ψ) D: <code class="docutils literal notranslate"><span class="pre">k</span></code> principal factors of the residual
+correlation plus diagonal uniquenesses (floored), Student-t (ν by ML) or
+Gaussian. Stored and evaluated in factored form (Woodbury + determinant
+lemma; no dense V × V inverse), so it scales to thousands of voxels.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">LowRankNoise.fit(model,</span> <span class="pre">data,</span> <span class="pre">paradigm,</span> <span class="pre">parameters,</span> <span class="pre">stimulus_range=grid,</span> <span class="pre">groups=runs)</span></code></strong> chooses the rank <code class="docutils literal notranslate"><span class="pre">k</span></code> and a likelihood <strong>temperature</strong> <code class="docutils literal notranslate"><span class="pre">T</span></code>
+(posterior ∝ likelihood^(1/T)) jointly by nested, group-wise CV <em>within the
+training data</em> on the decoding objective (held-out log posterior of the
+true stimulus). Fixed <code class="docutils literal notranslate"><span class="pre">k=</span></code> / <code class="docutils literal notranslate"><span class="pre">temperature=</span></code> also accepted. Encoding
+parameters are held fixed in the inner folds by default;
+<code class="docutils literal notranslate"><span class="pre">inner_parameters=</span></code> takes per-group parameters (dict) or a refit callable.
+<code class="docutils literal notranslate"><span class="pre">noise.summary()</span></code> / <code class="docutils literal notranslate"><span class="pre">noise.cv_scores_</span></code> report the choice.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf(...,</span> <span class="pre">noise_model=,</span> <span class="pre">temperature=)</span></code></strong> — new optional
+arguments (also on <code class="docutils literal notranslate"><span class="pre">EncodingRegressionModel</span></code>). Defaults unchanged: without
+them the output is identical to 0.5.x. <code class="docutils literal notranslate"><span class="pre">temperature</span></code> also works with a
+dense <code class="docutils literal notranslate"><span class="pre">omega=</span></code>. New helper <code class="docutils literal notranslate"><span class="pre">EncodingModel.predict_stimulus_grid</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">braincoder.noise.fit_lowrank_omega(residuals,</span> <span class="pre">k)</span></code></strong> → dense
+<code class="docutils literal notranslate"><span class="pre">(omega,</span> <span class="pre">dof)</span></code> for code that passes <code class="docutils literal notranslate"><span class="pre">omega=</span></code> / <code class="docutils literal notranslate"><span class="pre">dof=</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">braincoder.utils.calibration</span></code></strong> — randomised PIT, HPD level of the
+truth, HDI coverage, log score vs uniform, <code class="docutils literal notranslate"><span class="pre">marginalize</span></code>,
+<code class="docutils literal notranslate"><span class="pre">calibration_summary</span></code>, <code class="docutils literal notranslate"><span class="pre">plot_calibration</span></code>; works on any
+<code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> DataFrame.</p></li>
+<li><p>Docs: new page <code class="docutils literal notranslate"><span class="pre">docs/noise_models.rst</span></code>, example
+<code class="docutils literal notranslate"><span class="pre">examples/01_decoding_pipeline/04_lowrank_noise_calibration.py</span></code>.</p></li>
+<li><p><strong>Warnings documented there</strong> (from 7T single-trial numerosity data):
+<code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code>’s one-factor Ω underestimates held-out noise (Mahalanobis
+~4× too large; posteriors overconfident, all 38 participant × ROI worse
+than flat); <code class="docutils literal notranslate"><span class="pre">lambd</span></code> shrinkage is unsafe when voxels &gt; trials; the
+pseudo-WWᵀ from <code class="docutils literal notranslate"><span class="pre">init_pseudoWWT</span></code> is uncentred (dominated by the
+common-mode response). <code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code> itself is unchanged.</p></li>
+<li><p>Tests: <code class="docutils literal notranslate"><span class="pre">tests/test_noise_models.py</span></code> (Woodbury vs dense, CV recovery of k,
+calibrated coverage, T ≈ 1 when correct and &gt; 1 when tuning is
+misspecified, backward compatibility, all backends).</p></li>
+</ul>
+</section>
+<section id="hierarchical-bayesian-gp-prior">
+<h4>Hierarchical Bayesian / GP prior<a class="headerlink" href="#hierarchical-bayesian-gp-prior" title="Link to this heading">¶</a></h4>
+<p>A new hierarchical-Bayesian fitter for any encoding model, with a
+Gaussian-Process prior over cortical geodesic distance.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">GeodesicGPPrior</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">braincoder.optimize.gp_prior</span></code>): RBF kernel
+over a precomputed pairwise distance matrix. Adaptive jitter for
+Cholesky stability; classical MDS embedding so the kernel is PSD
+even on non-Euclidean graph distances (Schoenberg 1938); Cholesky
+and triangular solves in float64.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">BayesianParameterFitter</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">braincoder.optimize.bayesian_fitter</span></code>):
+three-stage empirical-Bayes (classical → hyperparams via MLE → MAP),
+with options for <strong>type-II joint MAP</strong> (<code class="docutils literal notranslate"><span class="pre">joint_hyperparams=True</span></code>,
+co-fits hyperparameters in stage 3), <strong>shared lengthscale across
+priors</strong> (<code class="docutils literal notranslate"><span class="pre">shared_lengthscale=True</span></code>), and <strong>frozen Cholesky in MAP</strong>
+to keep TF’s <code class="docutils literal notranslate"><span class="pre">CholeskyGrad</span></code> out of the backward graph.</p></li>
+</ul>
+</section>
+<section id="voxel-selection-fdr-utilities">
+<h4>Voxel selection / FDR utilities<a class="headerlink" href="#voxel-selection-fdr-utilities" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">fit_r2_mixture</span></code> / <code class="docutils literal notranslate"><span class="pre">r2_fdr_threshold</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">braincoder.utils.stats</span></code>) —
+2-Gaussian mixture on <code class="docutils literal notranslate"><span class="pre">logit(R²)</span></code> with a tail-FDR threshold for
+empirical-null voxel selection.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">r2_posterior_signal</span></code> / <code class="docutils literal notranslate"><span class="pre">r2_p_signal_threshold</span></code></strong> — per-voxel
+posterior <code class="docutils literal notranslate"><span class="pre">P(signal</span> <span class="pre">|</span> <span class="pre">R²)</span></code> and the R² at which it crosses a chosen
+probability. More forgiving than tail-FDR on small/degenerate ROIs.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">plot_r2_mixture</span></code></strong> — diagnostic plot of the mixture fit + threshold.</p></li>
+</ul>
+</section>
+<section id="fisher-information-expected-uncertainty">
+<h4>Fisher information &amp; expected uncertainty<a class="headerlink" href="#fisher-information-expected-uncertainty" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Analytical Fisher information for multivariate Student-t noise.</strong>
+<code class="docutils literal notranslate"><span class="pre">EncodingModel.get_fisher_information(...,</span> <span class="pre">analytical=True)</span></code> now
+accepts <code class="docutils literal notranslate"><span class="pre">dof</span></code> and applies the closed-form prefactor
+<code class="docutils literal notranslate"><span class="pre">(ν</span> <span class="pre">+</span> <span class="pre">p)</span> <span class="pre">/</span> <span class="pre">(ν</span> <span class="pre">+</span> <span class="pre">p</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">·</span> <span class="pre">Jᵀ</span> <span class="pre">Ω⁻¹</span> <span class="pre">J</span></code>. Previously this combination
+raised <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> and forced users to the Monte-Carlo path; MC
+was both noisier (~12% RMS at n=200) and prone to int32 overflow in
+<code class="docutils literal notranslate"><span class="pre">UnsortedSegmentSum</span></code> at <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">×</span> <span class="pre">n_vox</span> <span class="pre">×</span> <span class="pre">n_stim</span> <span class="pre">≈</span> <span class="pre">5e7</span></code>. The analytical
+path is now exact for any ν and recovers the Gaussian formula as
+ν → ∞.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">EncodingModel.get_expected_uncertainty(stimuli,</span> <span class="pre">omega,</span> <span class="pre">dof,</span> <span class="pre">...)</span></code></strong>
+— new convenience wrapper. Simulates <code class="docutils literal notranslate"><span class="pre">n_simulations</span></code> noisy responses
+per stimulus from <code class="docutils literal notranslate"><span class="pre">(parameters,</span> <span class="pre">omega,</span> <span class="pre">dof)</span></code>, decodes each via
+<code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>, and returns a DataFrame indexed by stimulus
+value with <code class="docutils literal notranslate"><span class="pre">mean_E,</span> <span class="pre">var_E,</span> <span class="pre">mean_error,</span> <span class="pre">mean_abs_error,</span> <span class="pre">n_sims</span></code>.
+<code class="docutils literal notranslate"><span class="pre">batch_stimuli</span></code> lets you bound memory at large grid sizes.</p></li>
+<li><p><strong>Tests</strong>: <code class="docutils literal notranslate"><span class="pre">tests/test_fisher_information.py</span></code> (9 tests): Student-t
+prefactor, dof → ∞ recovery of Gaussian, MC ↔ analytical agreement,
+and the FI ↔ 1/var_E relationship.</p></li>
+<li><p><strong>Docs</strong>: new <code class="docutils literal notranslate"><span class="pre">docs/fisher_information.rst</span></code> page with the two-API
+story, the “is spikiness real?” diagnostic, and a worked example.</p></li>
+</ul>
+</section>
+<section id="cortical-surface-helpers">
+<h4>Cortical surface helpers<a class="headerlink" href="#cortical-surface-helpers" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">braincoder.utils.cortex.geodesic_distance_matrix</span></code></strong> — Dijkstra-based
+pairwise geodesic distance on a triangulated mesh, restricted to a
+set of source vertices (typical use: project EPI-mask centroids to
+nearest vertex then run Dijkstra on the matched set).</p></li>
+</ul>
+</section>
+<section id="robustness-fixes">
+<h4>Robustness fixes<a class="headerlink" href="#robustness-fixes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">safe_cholesky(M,</span> <span class="pre">jitter=1e-4)</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">braincoder.utils.backend</span></code>) —
+symmetrise + adaptive-jitter wrapper for <code class="docutils literal notranslate"><span class="pre">ops.cholesky</span></code> with a
+retry-on-NaN at 10× jitter. Wired into <code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>, Fisher
+information, both <code class="docutils literal notranslate"><span class="pre">_simulate</span></code> noise paths, and the residual fitter
+likelihood. Eliminates the <code class="docutils literal notranslate"><span class="pre">Cholesky</span> <span class="pre">:</span> <span class="pre">Tensor</span> <span class="pre">had</span> <span class="pre">NaN</span> <span class="pre">values</span></code> class
+of crashes that hit ~10–20% of subjects on production fits.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit(use_wwt=True)</span></code></strong> — when <code class="docutils literal notranslate"><span class="pre">False</span></code>, strips the
+<code class="docutils literal notranslate"><span class="pre">σ²·WᵀW</span></code> tuning-similarity term from Ω. Diagnostic; default
+unchanged.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">BayesianParameterFitter.fit_map</span></code></strong> uses a manual NaN-safe global-
+norm gradient clip instead of <code class="docutils literal notranslate"><span class="pre">keras.optimizers.Adam(clipnorm=...)</span></code>,
+which under PyTorch would poison Adam’s moment buffers with NaN if
+any single gradient went non-finite.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code> no longer swallows every exception.</strong> It used
+to catch any exception, record cost=inf, back off the learning rate
+and carry on, so a fit that failed at every step (e.g. the old
+<code class="docutils literal notranslate"><span class="pre">_lgamma</span></code> under JAX) returned the <em>initial</em> Ω and dof as if it had
+converged. Now: programming errors (<code class="docutils literal notranslate"><span class="pre">TypeError</span></code>, which includes JAX
+tracer-conversion errors, plus <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code>, <code class="docutils literal notranslate"><span class="pre">NameError</span></code>, …) are
+re-raised immediately; numerical failures (exceptions such as a
+Cholesky failure, non-finite cost or gradients) are still rolled back
+with a 10% learning-rate cut, but <code class="docutils literal notranslate"><span class="pre">max_consecutive_failures=50</span></code> in a
+row raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>, and so does a fit that never reaches a
+finite cost. A step with non-finite gradients is no longer applied
+(previously NaN gradients could poison the variables). Failed steps
+emit a <code class="docutils literal notranslate"><span class="pre">RuntimeWarning</span></code> and are counted in <code class="docutils literal notranslate"><span class="pre">fitter.n_failed_steps</span></code>.
+The stored best values now correspond to the parameters at which the
+best cost was evaluated (previously the post-update values were
+stored, one Adam step past the best cost).</p></li>
+</ul>
+</section>
+<section id="backend-layer-fixes-tf-jax-torch-parity">
+<h4>Backend layer fixes (TF / JAX / torch parity)<a class="headerlink" href="#backend-layer-fixes-tf-jax-torch-parity" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>TF <code class="docutils literal notranslate"><span class="pre">compute_jacobian</span></code> uses <code class="docutils literal notranslate"><span class="pre">tf.while_loop</span></code> instead of <code class="docutils literal notranslate"><span class="pre">pfor</span></code>, which
+overflowed int32 indexing on large (trials × voxels × parameters) problems.</p></li>
+<li><p>Monte-Carlo Fisher information sums the log-probability before taking the
+gradient, so <code class="docutils literal notranslate"><span class="pre">analytical=False</span></code> works under JAX / torch (previously it
+raised on the non-scalar loss; TF summed it silently).</p></li>
+<li><p>JAX <code class="docutils literal notranslate"><span class="pre">compute_gradients</span></code> runs inside a <code class="docutils literal notranslate"><span class="pre">StatelessScope</span></code> so
+<code class="docutils literal notranslate"><span class="pre">keras.Variable</span></code> reads inside <code class="docutils literal notranslate"><span class="pre">value_and_grad</span></code> don’t leak tracers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample_mvt</span></code> / <code class="docutils literal notranslate"><span class="pre">sample_student_t</span></code> derive independent sub-seeds for
+the χ² and normal components.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_lgamma</span></code> routes through differentiable backend-native
+lgamma (<code class="docutils literal notranslate"><span class="pre">tf.math.lgamma</span></code> / <code class="docutils literal notranslate"><span class="pre">jax.scipy.special.gammaln</span></code> /
+<code class="docutils literal notranslate"><span class="pre">torch.lgamma</span></code>) instead of the non-differentiable scipy fallback.
+<strong>Downstream impact:</strong> Student-t <code class="docutils literal notranslate"><span class="pre">dof</span></code> fitted on TF before this fix
+is biased low (the gradient was missing
+<code class="docutils literal notranslate"><span class="pre">0.5[ψ((ν+k)/2)</span> <span class="pre">−</span> <span class="pre">ψ(ν/2)]</span></code> per observation); on JAX the residual
+fit silently never ran. Refit Ω/dof for any decoding results that
+used <code class="docutils literal notranslate"><span class="pre">method='t'</span></code> with an older checkout.</p></li>
+<li><p>torch <code class="docutils literal notranslate"><span class="pre">compute_gradients</span></code> uses <code class="docutils literal notranslate"><span class="pre">torch.autograd.grad</span></code> instead of
+reading <code class="docutils literal notranslate"><span class="pre">.grad</span></code> off each variable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> converts user data arrays to tensors before
+<code class="docutils literal notranslate"><span class="pre">_likelihood</span></code> (avoids numpy-on-MPS device-mismatch errors).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">safe_cholesky</span></code> explicitly checks for NaN in the output, since some
+backends return NaN silently rather than raising.</p></li>
+</ul>
+</section>
+<section id="tests-ci">
+<h4>Tests &amp; CI<a class="headerlink" href="#tests-ci" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>New test files: <code class="docutils literal notranslate"><span class="pre">test_gp_prior.py</span></code> (+360 lines), <code class="docutils literal notranslate"><span class="pre">test_safe_cholesky.py</span></code>
+(+174), <code class="docutils literal notranslate"><span class="pre">test_backend_multibackend.py</span></code> (+376), additions to
+<code class="docutils literal notranslate"><span class="pre">test_utils.py</span></code> (+168).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> now declared as a runtime dep (used by
+<code class="docutils literal notranslate"><span class="pre">fit_r2_mixture</span></code>).</p></li>
+<li><p>TFP-dependent import test is skipped when <code class="docutils literal notranslate"><span class="pre">tensorflow_probability</span></code> is
+not installed.</p></li>
+</ul>
+</section>
+<section id="compatibility">
+<h4>Compatibility<a class="headerlink" href="#compatibility" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy.trapz</span></code> (deprecated in NumPy 2.0) replaced with
+<code class="docutils literal notranslate"><span class="pre">numpy.trapezoid</span></code> via a shim.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h3>0.5.1 (2026-05-04)<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Fix invalid <code class="docutils literal notranslate"><span class="pre">isRelatedTo</span></code> relation in <code class="docutils literal notranslate"><span class="pre">.zenodo.json</span></code> (Zenodo schema requires <code class="docutils literal notranslate"><span class="pre">references</span></code> instead). The 0.5.0 GitHub release failed to deposit on Zenodo because of this; 0.5.1 contains no code changes, only the metadata fix.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>0.5.0 (2026-05-04)<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>The headline change is a full <strong>Keras 3 port</strong>: braincoder is now backend-agnostic and runs on TensorFlow, JAX, or PyTorch (including Apple Silicon MPS). The codebase has been refactored into subpackages, the test suite has grown from a handful of integration tests to 170 passing tests across all three backends, and a long list of bugs has been fixed.</p>
+<section id="backend-infrastructure">
+<h4>Backend &amp; infrastructure<a class="headerlink" href="#backend-infrastructure" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Keras 3 multi-backend port</strong>: all core code now uses <code class="docutils literal notranslate"><span class="pre">keras.ops.*</span></code> instead of TensorFlow primitives. TF, JAX, and PyTorch backends are all CI-tested.</p></li>
+<li><p><strong>Subpackage refactor</strong>: the monolithic <code class="docutils literal notranslate"><span class="pre">models.py</span></code> and <code class="docutils literal notranslate"><span class="pre">optimize.py</span></code> are split into <code class="docutils literal notranslate"><span class="pre">braincoder/models/</span></code> (<code class="docutils literal notranslate"><span class="pre">base</span></code>, <code class="docutils literal notranslate"><span class="pre">linear</span></code>, <code class="docutils literal notranslate"><span class="pre">prf_1d</span></code>, <code class="docutils literal notranslate"><span class="pre">prf_2d</span></code>) and <code class="docutils literal notranslate"><span class="pre">braincoder/optimize/</span></code> (<code class="docutils literal notranslate"><span class="pre">parameter_fitter</span></code>, <code class="docutils literal notranslate"><span class="pre">weight_fitter</span></code>, <code class="docutils literal notranslate"><span class="pre">residual_fitter</span></code>, <code class="docutils literal notranslate"><span class="pre">stimulus_fitter</span></code>).</p></li>
+<li><p><strong>GitHub Actions CI</strong> runs the full suite on every push.</p></li>
+<li><p><strong>Test suite</strong> expanded to 170 tests covering models, HRFs, optimizers, stimuli, and utilities.</p></li>
+<li><p><strong>NumPy 2.0 / pandas 3.x compatibility</strong>: <code class="docutils literal notranslate"><span class="pre">np.trapz</span></code> → <code class="docutils literal notranslate"><span class="pre">np.trapezoid</span></code>, <code class="docutils literal notranslate"><span class="pre">Series[:,</span> <span class="pre">np.newaxis]</span></code> workaround, <code class="docutils literal notranslate"><span class="pre">groupby(axis=1)</span></code> removed.</p></li>
+</ul>
+</section>
+<section id="new-models">
+<h4>New models<a class="headerlink" href="#new-models" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">AxialVonMisesPRF</span></code></strong> — π-periodic von Mises PRF for orientation data.</p></li>
+<li><p><strong>Gaussian Mixture PRFs</strong> (<code class="docutils literal notranslate"><span class="pre">GaussianMixturePRF2D</span></code>).</p></li>
+<li><p><strong>Difference-of-Gaussians PRFs</strong> (<code class="docutils literal notranslate"><span class="pre">DifferenceOfGaussiansPRF2D</span></code>, <code class="docutils literal notranslate"><span class="pre">DifferenceOfGaussiansPRF2DWithHRF</span></code>).</p></li>
+<li><p><strong>Divisive Normalization PRFs</strong> (<code class="docutils literal notranslate"><span class="pre">DivisiveNormalizationGaussianPRF2D</span></code>, <code class="docutils literal notranslate"><span class="pre">DivisiveNormalizationGaussianPRF2DWithHRF</span></code>).</p></li>
+</ul>
+</section>
+<section id="new-features">
+<h4>New features<a class="headerlink" href="#new-features" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">subtract_baseline=True</span></code> option in <code class="docutils literal notranslate"><span class="pre">GaussianPRF.init_pseudoWWT</span></code> removes per-voxel baseline contamination from the WWT covariance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lambd</span></code> (convex blending between parametric and empirical covariance) is now actually wired into <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit()</span></code> (previously stored but ignored).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shared_pars</span></code> / <code class="docutils literal notranslate"><span class="pre">fixed_pars</span></code> keep parameters constant across voxels — useful for hard-to-estimate parameters and future attention-field models.</p></li>
+<li><p>Multi-dimensional stimulus support, <code class="docutils literal notranslate"><span class="pre">correlated_response</span></code> option, multiple repeats in <code class="docutils literal notranslate"><span class="pre">simulate()</span></code>, configurable HRF parameter ranges.</p></li>
+</ul>
+</section>
+<section id="bug-fixes">
+<h4>Bug fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ResidualFitter.lambd</span></code></strong> was silently ignored (closure called the wrong helper).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code> λ=1 edge case</strong>: zero-gradient parametric vars; switched to dof-only short-circuit + adaptive jitter (<code class="docutils literal notranslate"><span class="pre">1e-4</span> <span class="pre">×</span> <span class="pre">mean_diag</span> <span class="pre">+</span> <span class="pre">1e-9</span></code>) for Cholesky stability.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code></strong>: pass Cholesky of omega, not omega itself, to <code class="docutils literal notranslate"><span class="pre">_likelihood</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">get_fisher_information</span></code></strong>: add diagonal jitter before Cholesky.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">VonMisesPRF._get_stimulus</span></code></strong> and <strong><code class="docutils literal notranslate"><span class="pre">GaussianPRFWithHRF</span></code> MRO</strong> init bugs.</p></li>
+<li><p><strong>HRF</strong>: convolution uses <code class="docutils literal notranslate"><span class="pre">ops.flip</span></code> (MPS-compatible); upsample to <code class="docutils literal notranslate"><span class="pre">highres_dt</span></code> for creation; SPM HRF defaults fixed.</p></li>
+<li><p>Various amplitude/baseline rescaling, <code class="docutils literal notranslate"><span class="pre">aggressive_softplus</span></code> for <code class="docutils literal notranslate"><span class="pre">RegressionGaussianPRF</span></code>, DN HRF formula correction.</p></li>
+</ul>
+</section>
+<section id="cleanup">
+<h4>Cleanup<a class="headerlink" href="#cleanup" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Removed dead modules: <code class="docutils literal notranslate"><span class="pre">braincoder/estimators.py</span></code>, <code class="docutils literal notranslate"><span class="pre">braincoder/tests/</span></code>, stub <code class="docutils literal notranslate"><span class="pre">CustomHRFModel</span></code>.</p></li>
+<li><p>Removed 5 legacy test files that referenced removed classes.</p></li>
+<li><p>Switched from <code class="docutils literal notranslate"><span class="pre">pkg_resources</span></code> to <code class="docutils literal notranslate"><span class="pre">importlib</span></code>.</p></li>
+</ul>
+</section>
+<section id="migration-notes">
+<h4>Migration notes<a class="headerlink" href="#migration-notes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Most user-facing imports are unchanged; subpackage refactor is internal.</p></li>
+<li><p>If you were using the old-style monolithic <code class="docutils literal notranslate"><span class="pre">braincoder.models</span></code> module path (e.g. <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">braincoder.models</span> <span class="pre">import</span> <span class="pre">GaussianPRF</span></code>), this still works — the names are re-exported.</p></li>
+<li><p>For PyTorch on Apple Silicon, set <code class="docutils literal notranslate"><span class="pre">PYTORCH_ENABLE_MPS_FALLBACK=1</span></code> (required by <code class="docutils literal notranslate"><span class="pre">ops.lstsq</span></code> / <code class="docutils literal notranslate"><span class="pre">ops.solve</span></code>).</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="installation.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Installation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Gilles de Hollander
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">What’s new</a><ul>
+<li><a class="reference internal" href="#highlights-2026-10-25">0.6.0 highlights (2026-10-25)</a></li>
+<li><a class="reference internal" href="#full-changelog">Full changelog</a><ul>
+<li><a class="reference internal" href="#id1">0.6.0 (2026-10-25)</a><ul>
+<li><a class="reference internal" href="#default-fitter-changes-heads-up-for-downstream-projects">Default fitter changes (heads-up for downstream projects)</a></li>
+<li><a class="reference internal" href="#calibrated-decoding-low-rank-noise-model-with-cv-rank-temperature">Calibrated decoding: low-rank noise model with CV rank + temperature</a></li>
+<li><a class="reference internal" href="#hierarchical-bayesian-gp-prior">Hierarchical Bayesian / GP prior</a></li>
+<li><a class="reference internal" href="#voxel-selection-fdr-utilities">Voxel selection / FDR utilities</a></li>
+<li><a class="reference internal" href="#fisher-information-expected-uncertainty">Fisher information &amp; expected uncertainty</a></li>
+<li><a class="reference internal" href="#cortical-surface-helpers">Cortical surface helpers</a></li>
+<li><a class="reference internal" href="#robustness-fixes">Robustness fixes</a></li>
+<li><a class="reference internal" href="#backend-layer-fixes-tf-jax-torch-parity">Backend layer fixes (TF / JAX / torch parity)</a></li>
+<li><a class="reference internal" href="#tests-ci">Tests &amp; CI</a></li>
+<li><a class="reference internal" href="#compatibility">Compatibility</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">0.5.1 (2026-05-04)</a></li>
+<li><a class="reference internal" href="#id3">0.5.0 (2026-05-04)</a><ul>
+<li><a class="reference internal" href="#backend-infrastructure">Backend &amp; infrastructure</a></li>
+<li><a class="reference internal" href="#new-models">New models</a></li>
+<li><a class="reference internal" href="#new-features">New features</a></li>
+<li><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
+<li><a class="reference internal" href="#cleanup">Cleanup</a></li>
+<li><a class="reference internal" href="#migration-notes">Migration notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=8fa8b3e9"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
+    </body>
+</html>

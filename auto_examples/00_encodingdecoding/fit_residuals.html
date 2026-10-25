@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Stimulus decoding using stimulus mask" href="masked_stimulus_decoding.html"><link rel="prev" title="Examples" href="index.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Fit the residual covariance matrix - Braincoder documentation</title>
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
+        <title>Fit the residual covariance matrix - Braincoder 0.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Braincoder  documentation</div></a>
+      <a href="../../index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
-  <span class="sidebar-brand-text">Braincoder  documentation</span>
+  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,9 +201,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -226,8 +228,8 @@
 <li class="toctree-l3"><a class="reference internal" href="encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invert_model.html">Invert encoding model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decode.html">Decoding of stimuli from neural data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fisher_information.html">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fit_prf.html">Different flavors of visual population receptive field models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
@@ -236,6 +238,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../01_decoding_pipeline/index.html">End-to-end decoding pipeline on real data</a><input aria-label="Toggle navigation of End-to-end decoding pipeline on real data" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/04_lowrank_noise_calibration.html">Calibrated decoding with a low-rank noise model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
@@ -285,75 +288,72 @@
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-00-encodingdecoding-fit-residuals-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="fit-the-residual-covariance-matrix">
 <span id="sphx-glr-auto-examples-00-encodingdecoding-fit-residuals-py"></span><h1>Fit the residual covariance matrix<a class="headerlink" href="#fit-the-residual-covariance-matrix" title="Link to this heading">¶</a></h1>
 <p>In this example, we fit a residual noise covariance matrix to
 simulated data from a <code class="docutils literal notranslate"><span class="pre">VonMisesPRF</span></code>-model.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We set up a simple VonMisesPRF model</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">VonMisesPRF</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-
-<span class="c1"># Set up six evenly spaced von Mises PRFs</span>
-<span class="n">centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="n">centers</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">:</span><span class="mf">1.</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
-                          <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;Voxel </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;voxel&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-
-<span class="c1"># We have only 3 voxels, each with a linear combination of the 6 von Mises functions:</span>
-<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">VonMisesPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
-
-<span class="c1"># 50 random orientations</span>
-<span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span>
-
-<span class="c1"># Arbitrary covariance matrix</span>
-<span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
-       <span class="p">[</span><span class="mf">.25</span><span class="p">,</span> <span class="mf">.75</span><span class="p">,</span> <span class="mf">.25</span><span class="p">],</span>
-       <span class="p">[</span><span class="mf">.25</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.75</span><span class="p">]])</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/gdehol/mambaforge/lib/python3.10/site-packages/scipy/stats/_multivariate.py:758: RuntimeWarning: covariance is not symmetric positive-semidefinite.
-  out = random_state.multivariate_normal(mean, cov, size)
-</pre></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import ResidualFitter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResidualFitter</span>
-
-<span class="n">fitter</span> <span class="o">=</span> <span class="n">ResidualFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
-
-<span class="c1"># omega is the covariance matrix, dof can be estimated when a</span>
-<span class="c1"># multivariate t-distribution (rather than a normal distribution)</span>
-<span class="c1"># is used</span>
-<span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span>
-
-<span class="c1"># %%</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.5883835554122925, 0.9530800580978394
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># We set up a simple VonMisesPRF model</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder</span><span class="nn">.</span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class reference internal" href="../../api_reference.html#braincoder.models.EncodingModel" title="braincoder.EncodingModel"><span class="n">VonMisesPRF</span></a><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Set up six evenly spaced von Mises PRFs</span><span class="w">
+</span><span class="n">centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="w">
+</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="p">{</span><span class="s1">'</span><span class="s1">mu</span><span class="s1">'</span><span class="p">:</span><span class="n">centers</span><span class="p">,</span> <span class="s1">'</span><span class="s1">kappa</span><span class="s1">'</span><span class="p">:</span><span class="mf">1.</span><span class="p">,</span> <span class="s1">'</span><span class="s1">amplitude</span><span class="s1">'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'</span><span class="s1">baseline</span><span class="s1">'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>                          <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="s1">Voxel </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="p">]</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'</span><span class="s1">voxel</span><span class="s1">'</span><span class="p">)</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># We have only 3 voxels, each with a linear combination of the 6 von Mises functions:</span><span class="w">
+</span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="p">[</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="p">]</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">model</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class reference internal" href="../../api_reference.html#braincoder.models.EncodingModel" title="braincoder.EncodingModel"><span class="n">VonMisesPRF</span></a><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># 50 random orientations</span><span class="w">
+</span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Arbitrary covariance matrix</span><span class="w">
+</span><span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="p">[</span><span class="p">[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>       <span class="p">[</span><span class="mf">.25</span><span class="p">,</span> <span class="mf">.75</span><span class="p">,</span> <span class="mf">.25</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>       <span class="p">[</span><span class="mf">.25</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.75</span><span class="p">]</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">data</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-method reference internal" href="../../api_reference.html#braincoder.models.EncodingModel.simulate" title="braincoder.EncodingModel.simulate"><span class="n">model</span><span class="o">.</span><span class="n">simulate</span></a><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Import ResidualFitter</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder</span><span class="nn">.</span><span class="nn">optimize</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class reference internal" href="../../api_reference.html#braincoder.optimize.ResidualFitter" title="braincoder.ResidualFitter"><span class="n">ResidualFitter</span></a><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../../api_reference.html#braincoder.optimize.ResidualFitter" title="braincoder.ResidualFitter"><span class="n">fitter</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-class reference internal" href="../../api_reference.html#braincoder.optimize.ResidualFitter" title="braincoder.ResidualFitter"><span class="n">ResidualFitter</span></a><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># omega is the covariance matrix, dof can be estimated when a</span><span class="w">
+</span><span class="c1"># multivariate t-distribution (rather than a normal distribution)</span><span class="w">
+</span><span class="c1"># is used</span><span class="w">
+</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <a class="sphx-glr-backref-module-braincoder sphx-glr-backref-type-py-method reference internal" href="../../api_reference.html#braincoder.optimize.ResidualFitter.fit" title="braincoder.ResidualFitter.fit"><span class="n">fitter</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># %%</span><span class="w">
+</span></pre></div></div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.6531668305397034, 0.7926375865936279
 WWT max: 4.0
-[[0.3484391  0.05987196 0.07491002]
- [0.05987195 0.60535425 0.09866075]
- [0.07491002 0.09866075 0.9463547 ]]
+[[0.43467134 0.0421816  0.04330837]
+ [0.0421816  0.61340094 0.05137456]
+ [0.04330837 0.05137456 0.6449303 ]]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.791 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 10.802 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-fit-residuals-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/69c405747c5ab974b7ab0da6efaca9db/fit_residuals.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">fit_residuals.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/1a5bef78d57436785824d111286836f2/fit_residuals.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">fit_residuals.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/5ee9bcc2a33f267ce99afd41beb1caae/fit_residuals.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">fit_residuals.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -408,9 +408,10 @@ WWT max: 4.0
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+</div><script src="../../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
     </body>
 </html>

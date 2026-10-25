@@ -180,7 +180,7 @@ numerosity), sd (tuning width), amplitude, baseline.
 
  .. code-block:: none
 
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 31.19it/s]
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 46.06it/s]
     Train R² — median 0.115, p90 0.174
 
 
@@ -488,7 +488,7 @@ show high correlations regardless of distance.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 44.455 seconds)
+   **Total running time of the script:** (0 minutes 36.688 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_02_geodesic_decoder.py:

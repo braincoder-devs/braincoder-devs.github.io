@@ -8,6 +8,10 @@ Examples
 
 Some introduction to the encoding/decoding framework.
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -119,23 +123,6 @@ Some introduction to the encoding/decoding framework.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Recontruct a 2D visual stimulus from real fMRI data">
-
-.. only:: html
-
-  .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode_v1_thumb.png
-    :alt:
-
-  :doc:`/auto_examples/00_encodingdecoding/decode_v1`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Recontruct a 2D visual stimulus from real fMRI data</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Here we fit a 2D PRF model to data from the Szinte (2024)-dataset.">
 
 .. only:: html
@@ -148,6 +135,23 @@ Some introduction to the encoding/decoding framework.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Fit a 2D PRF model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Recontruct a 2D visual stimulus from real fMRI data">
+
+.. only:: html
+
+  .. image:: /auto_examples/00_encodingdecoding/images/thumb/sphx_glr_decode_v1_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/00_encodingdecoding/decode_v1`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Recontruct a 2D visual stimulus from real fMRI data</div>
     </div>
 
 
@@ -218,8 +222,8 @@ Some introduction to the encoding/decoding framework.
    /auto_examples/00_encodingdecoding/encoding_model
    /auto_examples/00_encodingdecoding/invert_model
    /auto_examples/00_encodingdecoding/decode
-   /auto_examples/00_encodingdecoding/decode_v1
    /auto_examples/00_encodingdecoding/decode_visual
+   /auto_examples/00_encodingdecoding/decode_v1
    /auto_examples/00_encodingdecoding/fisher_information
    /auto_examples/00_encodingdecoding/fit_prf
    /auto_examples/00_encodingdecoding/decode2d

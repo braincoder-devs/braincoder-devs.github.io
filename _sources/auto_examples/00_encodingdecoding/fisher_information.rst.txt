@@ -107,7 +107,7 @@ the quantiles of a *uniform prior distribution*
 
  .. code-block:: none
 
-    /Users/gdehol/git/braincoder/examples/00_encodingdecoding/fisher_information.py:58: UserWarning: 
+    /private/tmp/claude-1763273667/-Users-gdehol-git-retinonumeral/3d3d2794-a70f-4e6c-9121-c4c2af92cc53/scratchpad/bc_docs/examples/00_encodingdecoding/fisher_information.py:58: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       sns.lineplot(data=data.reset_index(), x='stimulus', y='strength', hue='rf', palette=['k'], alpha=0.5, legend=False)
 
@@ -379,20 +379,20 @@ Let's calculate the Fisher information for different RF structures
 
  .. code-block:: none
 
-    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    /Users/gdehol/mambaforge/envs/retinonumeral_v1/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    /Users/gdehol/mambaforge/envs/retinonumeral_v1/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    /Users/gdehol/mambaforge/envs/retinonumeral_v1/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    /Users/gdehol/mambaforge/envs/retinonumeral_v1/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
 
-    <seaborn.axisgrid.FacetGrid object at 0x30d000d40>
+    <seaborn.axisgrid.FacetGrid object at 0x30f3aeb40>
 
 
 
@@ -534,7 +534,7 @@ stimulus value.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 29.429 seconds)
+   **Total running time of the script:** (1 minutes 18.988 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fisher_information.py:
