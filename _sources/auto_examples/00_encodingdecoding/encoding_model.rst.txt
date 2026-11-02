@@ -124,7 +124,7 @@ We also simulate data and then estimate back the generating parameters.
 
  .. code-block:: none
 
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 109.34it/s]
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 94.04it/s]
 
 
 .. raw:: html
@@ -172,7 +172,7 @@ We also simulate data and then estimate back the generating parameters.
         <tr>
           <th>voxel 2</th>
           <td>-1.666667</td>
-          <td>1.733333</td>
+          <td>1.188889</td>
           <td>1.0</td>
           <td>0.0</td>
         </tr>
@@ -209,7 +209,7 @@ We also simulate data and then estimate back the generating parameters.
 
 
 .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_003.png
-   :alt: R2 = 0.67
+   :alt: R2 = 0.75
    :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_003.png
    :class: sphx-glr-single-img
 
@@ -219,7 +219,7 @@ We also simulate data and then estimate back the generating parameters.
  .. code-block:: none
 
 
-    Text(0.5, 1.0, 'R2 = 0.67')
+    Text(0.5, 1.0, 'R2 = 0.75')
 
 
 
@@ -243,7 +243,7 @@ We also simulate data and then estimate back the generating parameters.
 
 
 .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_004.png
-   :alt: R2 = 0.74
+   :alt: R2 = 0.80
    :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_004.png
    :class: sphx-glr-single-img
 
@@ -253,14 +253,14 @@ We also simulate data and then estimate back the generating parameters.
  .. code-block:: none
 
 
-    Text(0.5, 1.0, 'R2 = 0.74')
+    Text(0.5, 1.0, 'R2 = 0.80')
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.393 seconds)
+   **Total running time of the script:** (0 minutes 3.192 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_encoding_model.py:

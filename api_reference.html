@@ -6,10 +6,10 @@
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Tutorial" href="tutorial/index.html"><link rel="prev" title="Noise models for decoding: low-rank Ω and temperature" href="noise_models.html">
 
     <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>API Reference - Braincoder 0.6.0 documentation</title>
+        <title>API Reference - Braincoder 0.6.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=c83e6b79" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
+  <span class="sidebar-brand-text">Braincoder 0.6.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -318,12 +318,14 @@ hood.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>DataFrame</em><em> or </em><em>array</em><em> (</em><em>n_timepoints</em><em>, </em><em>n_voxels</em><em>)</em>)</p></li>
 <li><p><strong>stimulus_range</strong> (<em>array</em><em> (</em><em>n_stimuli</em><em>,</em><em>) or </em><em>(</em><em>n_stimuli</em><em>, </em><em>n_dims</em><em>)</em>) – Grid of candidate stimuli (flat prior over the grid).</p></li>
-<li><p><strong>omega</strong> (<em>array</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Dense noise covariance and Student-t degrees of freedom (<code class="docutils literal notranslate"><span class="pre">dof=None</span></code>
-= Gaussian), e.g. from <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code>. Ignored when
-<code class="docutils literal notranslate"><span class="pre">noise_model</span></code> is given.</p></li>
-<li><p><strong>dof</strong> (<em>array</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Dense noise covariance and Student-t degrees of freedom (<code class="docutils literal notranslate"><span class="pre">dof=None</span></code>
-= Gaussian), e.g. from <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code>. Ignored when
-<code class="docutils literal notranslate"><span class="pre">noise_model</span></code> is given.</p></li>
+<li><p><strong>omega</strong> (<em>array</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Dense noise covariance and Student-t degrees of freedom, e.g. from
+<code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code>. Without <code class="docutils literal notranslate"><span class="pre">omega</span></code>, both come from the model
+(<code class="docutils literal notranslate"><span class="pre">model.omega</span></code>, <code class="docutils literal notranslate"><span class="pre">model.dof</span></code>). With <code class="docutils literal notranslate"><span class="pre">omega</span></code>, <code class="docutils literal notranslate"><span class="pre">dof=None</span></code> means
+Gaussian. Ignored when <code class="docutils literal notranslate"><span class="pre">noise_model</span></code> is given.</p></li>
+<li><p><strong>dof</strong> (<em>array</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Dense noise covariance and Student-t degrees of freedom, e.g. from
+<code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code>. Without <code class="docutils literal notranslate"><span class="pre">omega</span></code>, both come from the model
+(<code class="docutils literal notranslate"><span class="pre">model.omega</span></code>, <code class="docutils literal notranslate"><span class="pre">model.dof</span></code>). With <code class="docutils literal notranslate"><span class="pre">omega</span></code>, <code class="docutils literal notranslate"><span class="pre">dof=None</span></code> means
+Gaussian. Ignored when <code class="docutils literal notranslate"><span class="pre">noise_model</span></code> is given.</p></li>
 <li><p><strong>noise_model</strong> (<a class="reference internal" href="#braincoder.noise.LowRankNoise" title="braincoder.noise.LowRankNoise"><em>braincoder.noise.LowRankNoise</em></a><em>, </em><em>optional</em>) – Factored noise model (low-rank + diagonal Ω, Gaussian or
 Student-t). The likelihood is evaluated with the Woodbury identity
 (no dense V × V matrix). Its <code class="docutils literal notranslate"><span class="pre">temperature</span></code> is applied unless
@@ -407,8 +409,28 @@ batching as <a class="reference internal" href="#braincoder.models.EncodingModel
 to measured data, optionally with L2 regularization via <code class="docutils literal notranslate"><span class="pre">alpha</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="braincoder.optimize.WeightFitter.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.optimize.WeightFitter.fit" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.optimize.WeightFitter.fit" title="Link to this definition">¶</a></dt>
 <dd><p>Solve for weights using least squares with optional L2 regularization.</p>
+<p><code class="docutils literal notranslate"><span class="pre">fit_intercept=True</span></code> prepends a column of ones to the basis design
+matrix and solves for a per-voxel intercept <em>jointly</em> with the
+weights, in the same closed-form regression. This is the general fix
+for basis models (e.g. <code class="docutils literal notranslate"><span class="pre">LinearModelWithBaseline</span></code>, or any model
+whose <code class="docutils literal notranslate"><span class="pre">_basis_predictions</span></code> ignores <code class="docutils literal notranslate"><span class="pre">parameters</span></code>) that declare a
+baseline/offset without folding it into the fit: without an
+intercept term, <code class="docutils literal notranslate"><span class="pre">WeightFitter</span></code> regresses data on the raw basis
+<em>through the origin</em>, which only recovers the correct slope when the
+basis already happens to be mean-zero — otherwise the fitted weight
+is biased by whatever DC level the basis has. Returns
+<code class="docutils literal notranslate"><span class="pre">(weights,</span> <span class="pre">intercept)</span></code> instead of plain <code class="docutils literal notranslate"><span class="pre">weights</span></code> when enabled.
+The intercept column is excluded from the L2 penalty when
+<code class="docutils literal notranslate"><span class="pre">alpha&gt;0</span></code> (standard ridge convention — the offset isn’t shrunk).</p>
+<p>Mutually exclusive with the <code class="docutils literal notranslate"><span class="pre">LinearModelWithBaseline</span></code> fixed-known-
+baseline path below (that path already subtracts a supplied
+<code class="docutils literal notranslate"><span class="pre">parameters['baseline']</span></code> from the data before the regression;
+jointly fitting an intercept on top of an already-baseline-removed
+target is redundant / ill-posed). Pass <code class="docutils literal notranslate"><span class="pre">parameters=None</span></code> when
+constructing the fitter if you want <code class="docutils literal notranslate"><span class="pre">fit_intercept</span></code> to estimate
+the baseline itself instead of supplying one.</p>
 </dd></dl>
 
 </dd></dl>
@@ -467,7 +489,9 @@ over the last <code class="docutils literal notranslate"><span class="pre">lag</
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Per-voxel parameter estimates, indexed by voxel.</p>
+<dd class="field-even"><p>Per-voxel parameter estimates, indexed by voxel. Voxels that
+contain any NaN or have zero variance cannot be fitted: they get
+a warning, and NaN in both the parameters and <code class="docutils literal notranslate"><span class="pre">self.r2</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
@@ -883,7 +907,7 @@ multi-dimensional grid without <code class="docutils literal notranslate"><span 
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2023, Gilles de Hollander
+                Copyright &#169; 2023-2026, Gilles de Hollander
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -991,10 +1015,9 @@ multi-dimensional grid without <code class="docutils literal notranslate"><span 
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=8fa8b3e9"></script>
+</div><script src="_static/documentation_options.js?v=1c28bd9a"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
-    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
     </body>
 </html>

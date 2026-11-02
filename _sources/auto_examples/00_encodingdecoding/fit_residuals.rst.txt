@@ -90,11 +90,11 @@ simulated data from a ``VonMisesPRF``-model.
 
  .. code-block:: none
 
-    init_tau: 0.6531668305397034, 0.7926375865936279
+    init_tau: 0.6555058360099792, 0.854982852935791
     WWT max: 4.0
-    [[0.43467134 0.0421816  0.04330837]
-     [0.0421816  0.61340094 0.05137456]
-     [0.04330837 0.05137456 0.6449303 ]]
+    [[0.48622778 0.06353537 0.04894173]
+     [0.06353538 0.7367014  0.06018658]
+     [0.04894173 0.06018658 0.4363768 ]]
 
 
 
@@ -102,7 +102,7 @@ simulated data from a ``VonMisesPRF``-model.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.802 seconds)
+   **Total running time of the script:** (0 minutes 13.943 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fit_residuals.py:

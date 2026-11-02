@@ -8,10 +8,6 @@ Examples
 
 Some introduction to the encoding/decoding framework.
 
-.. raw:: html
-
-  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
-
 
 .. raw:: html
 

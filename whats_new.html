@@ -6,10 +6,10 @@
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Installation" href="installation.html"><link rel="prev" title="Braincoder documentation" href="index.html">
 
     <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>What’s new - Braincoder 0.6.0 documentation</title>
+        <title>What’s new - Braincoder 0.6.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=c83e6b79" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder 0.6.0 documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Braincoder 0.6.0 documentation</span>
+  <span class="sidebar-brand-text">Braincoder 0.6.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -287,6 +287,14 @@
         <article role="main" id="furo-main-content">
           <section id="what-s-new">
 <h1>What’s new<a class="headerlink" href="#what-s-new" title="Link to this heading">¶</a></h1>
+<section id="highlights-2026-11-02">
+<h2>0.6.2 highlights (2026-11-02)<a class="headerlink" href="#highlights-2026-11-02" title="Link to this heading">¶</a></h2>
+<p>Bug-fix release. Inputs that gave plausible-looking wrong results now give the right result
+or a clear error. <strong>Recompute</strong> cvR² from frames with different indices (R² could be exactly
+1), <strong>refit</strong> if <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">paradigm</span></code> had different indices, and <strong>re-decode</strong> anything
+decoded with a <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> model. Voxels that cannot be fitted now return NaN rather than
+zeros and <code class="docutils literal notranslate"><span class="pre">r2</span> <span class="pre">==</span> <span class="pre">-1000</span></code>. Details are in the changelog below.</p>
+</section>
 <section id="highlights-2026-10-25">
 <h2>0.6.0 highlights (2026-10-25)<a class="headerlink" href="#highlights-2026-10-25" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -321,7 +329,84 @@ held-out noise on single-trial fMRI; prefer <code class="docutils literal notran
 <section id="full-changelog">
 <h2>Full changelog<a class="headerlink" href="#full-changelog" title="Link to this heading">¶</a></h2>
 <section id="id1">
-<h3>0.6.0 (2026-10-25)<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<h3>0.6.2 (2026-11-02)<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Bug-fix release: inputs that gave plausible-looking wrong results now give the right
+result or a clear error. Some of these change what existing scripts do, so read the
+heads-up below.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">get_rsq</span></code> raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> when row or column labels differ.</strong> Without overlapping
+rows, it returned R² = 1.0 for every voxel, because a sum skips the NaN that pandas
+filled in. <strong>If your cvR² came from frames with different indices, recompute it.</strong> A
+residual that is entirely NaN now gives NaN.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ParameterFitter</span></code> pairs <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">paradigm</span></code> by position throughout.</strong> <code class="docutils literal notranslate"><span class="pre">fit</span></code> always
+did, but <code class="docutils literal notranslate"><span class="pre">refine_baseline_and_amplitude</span></code> and <code class="docutils literal notranslate"><span class="pre">get_rsq</span></code> paired by label, so an off-by-one
+index compared shifted timeseries: refined amplitudes were wrong, with no error. The
+paradigm now takes the index of the data, with a warning if a labelled index differed.
+<strong>Refit if this applied to you.</strong> A different number of rows raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></li>
+<li><p><strong>Voxels with any NaN, or zero variance, now return NaN</strong> (parameters and <code class="docutils literal notranslate"><span class="pre">fitter.r2</span></code>),
+with a warning, instead of all-zero parameters and <code class="docutils literal notranslate"><span class="pre">r2</span> <span class="pre">==</span> <span class="pre">-1000</span></code>. <code class="docutils literal notranslate"><span class="pre">fitter.r2.mean()</span></code>
+therefore stays meaningful. Such voxels also no longer poison <code class="docutils literal notranslate"><span class="pre">shared_pars</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> and <code class="docutils literal notranslate"><span class="pre">predict_stimulus_grid</span></code> raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> on non-finite
+parameters.</strong> A single such row used to make every posterior NaN.</p></li>
+<li><p><strong>Decoding with <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> models now ignores the HRF, with a warning.</strong> Each candidate
+stimulus was treated as a one-sample timeseries, which scaled the tuning curve by the first
+HRF samples: about 1/17 at a TR of 1.6 s, making posteriors about 5× too wide in a test.
+<strong>Re-decode if you decoded with a <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> model.</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_fisher_information</span></code> and <code class="docutils literal notranslate"><span class="pre">get_expected_uncertainty</span></code> raise <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> on
+<code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> models, which would convolve the stimuli as one timeseries.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> uses <code class="docutils literal notranslate"><span class="pre">model.dof</span></code> when it also uses <code class="docutils literal notranslate"><span class="pre">model.omega</span></code>.</strong> It previously
+fell back to a Gaussian likelihood. With an explicit <code class="docutils literal notranslate"><span class="pre">omega=</span></code>, <code class="docutils literal notranslate"><span class="pre">dof=None</span></code> still means
+Gaussian.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code></strong> pairs residuals by position, reorders voxels if needed, and gives
+clear errors for NaN residuals, an empty voxel selection or different voxels.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">WeightFitter.fit(fit_intercept=True)</span></code></strong> fits a per-voxel intercept and returns
+<code class="docutils literal notranslate"><span class="pre">(weights,</span> <span class="pre">intercept)</span></code>. <code class="docutils literal notranslate"><span class="pre">WeightFitter</span></code> with <code class="docutils literal notranslate"><span class="pre">LinearModelWithBaseline</span></code> now subtracts the
+known baseline first: an all-positive feature otherwise absorbed the offset, and decoding
+could fall to r≈0.</p></li>
+<li><p><strong>DN with a negative <code class="docutils literal notranslate"><span class="pre">rf_amplitude</span></code>:</strong> the denominator used the signed amplitude, so it
+shrank and could cross zero, giving poles in the prediction. It now uses <code class="docutils literal notranslate"><span class="pre">|rf_amplitude|</span></code>, as the
+TensorFlow-era line did and as Aqil et al. (2021) define it. Positive amplitudes are unchanged.
+<strong>Refit DN models where negative amplitudes occurred.</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">refine_baseline_and_amplitude</span></code>: clear error for zero amplitudes (TF raised
+“not invertible”, JAX returned junk); <code class="docutils literal notranslate"><span class="pre">n_iterations</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> keeps <code class="docutils literal notranslate"><span class="pre">positive_amplitude</span></code> and
+<code class="docutils literal notranslate"><span class="pre">l2_alpha</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_rf(parameters=...)</span></code> no longer ignores its argument.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_linear_model()</span></code> on <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> models raised <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>. It now works, and
+<code class="docutils literal notranslate"><span class="pre">LinearModelWithBaselineHRF</span></code> adds the baseline after convolution, so it matches the PRF model.</p></li>
+<li><p>A flexible-HRF model given <code class="docutils literal notranslate"><span class="pre">parameters=</span></code> in its constructor raised <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LinearModel.simulate()</span></code> without parameters raised <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code>.</p></li>
+<li><p>Passing <code class="docutils literal notranslate"><span class="pre">omega=</span></code> to a constructor uses <code class="docutils literal notranslate"><span class="pre">safe_cholesky</span></code>, as decoding does, instead of raising
+<code class="docutils literal notranslate"><span class="pre">LinAlgError</span></code> on a slightly non-PSD matrix.</p></li>
+<li><p>A missing TensorFlow or TFP now gives an explanatory <code class="docutils literal notranslate"><span class="pre">ImportError</span></code> for <code class="docutils literal notranslate"><span class="pre">StimulusFitter</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">braincoder.optimize</span> <span class="pre">import</span> <span class="pre">*</span></code> no longer fails.</p></li>
+<li><p>Torch on MPS: fixed device errors in <code class="docutils literal notranslate"><span class="pre">get_rf</span></code> and the DN <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> model.</p></li>
+<li><p>Docs: braincoder is not on PyPI, so the install page now uses tagged git URLs. Added citation,
+license, related software (prfmodel) and the Claude Code skill. <code class="docutils literal notranslate"><span class="pre">.zenodo.json</span></code>: corrected
+ORCIDs and no longer describes the package as TensorFlow-based.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>0.6.1 (2026-11-02)<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Bug-fix release.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">DivisiveNormalizationGaussianPRF2DWithHRF</span></code> with <code class="docutils literal notranslate"><span class="pre">flexible_hrf_parameters=True</span></code>:</strong> the
+forward parameter transform passed <code class="docutils literal notranslate"><span class="pre">bold_baseline</span></code> and <code class="docutils literal notranslate"><span class="pre">hrf_delay</span></code> to the HRF model instead
+of <code class="docutils literal notranslate"><span class="pre">hrf_delay</span></code> and <code class="docutils literal notranslate"><span class="pre">hrf_dispersion</span></code>. The fitted HRF delay was therefore a fixed function of
+the BOLD baseline (<code class="docutils literal notranslate"><span class="pre">delay</span> <span class="pre">=</span> <span class="pre">range·sigmoid(bold_baseline)</span> <span class="pre">+</span> <span class="pre">min</span></code>) and the dispersion was driven
+by the raw delay; backward/forward did not round-trip. <strong>Refit any DN model fitted with a
+flexible HRF.</strong></p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">DifferenceOfGaussiansPRF2D</span></code>:</strong> had no transforms of its own, so it inherited the
+5-column Gaussian ones and dropped <code class="docutils literal notranslate"><span class="pre">srf_amplitude</span></code> / <code class="docutils literal notranslate"><span class="pre">srf_size</span></code>. It now transforms all 7
+columns (<code class="docutils literal notranslate"><span class="pre">srf_amplitude</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">srf_size</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>).</p></li>
+<li><p><strong>New <code class="docutils literal notranslate"><span class="pre">rf_normalization</span></code> option</strong> on <code class="docutils literal notranslate"><span class="pre">GaussianPRF2D</span></code> and all subclasses:
+<code class="docutils literal notranslate"><span class="pre">'legacy'</span></code> (default, unchanged: Gaussian divided by <code class="docutils literal notranslate"><span class="pre">σ·√(2π)/pixel_area</span></code>), <code class="docutils literal notranslate"><span class="pre">'peak'</span></code>
+(peak 1, as prfpy’s <code class="docutils literal notranslate"><span class="pre">normalize_RFs=False</span></code>) and <code class="docutils literal notranslate"><span class="pre">'area'</span></code> (integral 1). The three are exact
+reparameterisations of the amplitudes; existing fits are unaffected.</p></li>
+<li><p>Tests: parameter-transform round trips for all <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> 2D PRF models; normalisation scales.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>0.6.0 (2026-10-25)<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <p>The headline of 0.6 is a new <strong>per-voxel Gaussian likelihood</strong> option in
 <code class="docutils literal notranslate"><span class="pre">ParameterFitter</span></code>, opt-in here and the default in 0.7. Same fixed points
 as the existing sum-of-squares loss, much faster convergence under
@@ -542,14 +627,14 @@ not installed.</p></li>
 </section>
 </section>
 <hr class="docutils" />
-<section id="id2">
-<h3>0.5.1 (2026-05-04)<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<section id="id4">
+<h3>0.5.1 (2026-05-04)<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fix invalid <code class="docutils literal notranslate"><span class="pre">isRelatedTo</span></code> relation in <code class="docutils literal notranslate"><span class="pre">.zenodo.json</span></code> (Zenodo schema requires <code class="docutils literal notranslate"><span class="pre">references</span></code> instead). The 0.5.0 GitHub release failed to deposit on Zenodo because of this; 0.5.1 contains no code changes, only the metadata fix.</p></li>
 </ul>
 </section>
-<section id="id3">
-<h3>0.5.0 (2026-05-04)<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<section id="id5">
+<h3>0.5.0 (2026-05-04)<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <p>The headline change is a full <strong>Keras 3 port</strong>: braincoder is now backend-agnostic and runs on TensorFlow, JAX, or PyTorch (including Apple Silicon MPS). The codebase has been refactored into subpackages, the test suite has grown from a handful of integration tests to 170 passing tests across all three backends, and a long list of bugs has been fixed.</p>
 <section id="backend-infrastructure">
 <h4>Backend &amp; infrastructure<a class="headerlink" href="#backend-infrastructure" title="Link to this heading">¶</a></h4>
@@ -640,7 +725,7 @@ not installed.</p></li>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2023, Gilles de Hollander
+                Copyright &#169; 2023-2026, Gilles de Hollander
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -667,9 +752,12 @@ not installed.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">What’s new</a><ul>
+<li><a class="reference internal" href="#highlights-2026-11-02">0.6.2 highlights (2026-11-02)</a></li>
 <li><a class="reference internal" href="#highlights-2026-10-25">0.6.0 highlights (2026-10-25)</a></li>
 <li><a class="reference internal" href="#full-changelog">Full changelog</a><ul>
-<li><a class="reference internal" href="#id1">0.6.0 (2026-10-25)</a><ul>
+<li><a class="reference internal" href="#id1">0.6.2 (2026-11-02)</a></li>
+<li><a class="reference internal" href="#id2">0.6.1 (2026-11-02)</a></li>
+<li><a class="reference internal" href="#id3">0.6.0 (2026-10-25)</a><ul>
 <li><a class="reference internal" href="#default-fitter-changes-heads-up-for-downstream-projects">Default fitter changes (heads-up for downstream projects)</a></li>
 <li><a class="reference internal" href="#calibrated-decoding-low-rank-noise-model-with-cv-rank-temperature">Calibrated decoding: low-rank noise model with CV rank + temperature</a></li>
 <li><a class="reference internal" href="#hierarchical-bayesian-gp-prior">Hierarchical Bayesian / GP prior</a></li>
@@ -682,8 +770,8 @@ not installed.</p></li>
 <li><a class="reference internal" href="#compatibility">Compatibility</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">0.5.1 (2026-05-04)</a></li>
-<li><a class="reference internal" href="#id3">0.5.0 (2026-05-04)</a><ul>
+<li><a class="reference internal" href="#id4">0.5.1 (2026-05-04)</a></li>
+<li><a class="reference internal" href="#id5">0.5.0 (2026-05-04)</a><ul>
 <li><a class="reference internal" href="#backend-infrastructure">Backend &amp; infrastructure</a></li>
 <li><a class="reference internal" href="#new-models">New models</a></li>
 <li><a class="reference internal" href="#new-features">New features</a></li>
@@ -705,10 +793,9 @@ not installed.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=8fa8b3e9"></script>
+</div><script src="_static/documentation_options.js?v=1c28bd9a"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
-    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
     </body>
 </html>

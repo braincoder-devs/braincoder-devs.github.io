@@ -171,7 +171,7 @@ Three noise models
 
  .. code-block:: none
 
-    init_tau: 0.5257055759429932, 1.4947460889816284
+    init_tau: 0.5257056355476379, 1.4947458505630493
     USING A PSEUDO-WWT!
     WWT max: 1.7025845050811768
     LowRankNoise: 80 voxels, k = 5, temperature T = 1.68179, dof = 2.88e+03
@@ -268,7 +268,7 @@ asking for more factors while decoding gets worse.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.053 seconds)
+   **Total running time of the script:** (0 minutes 13.972 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_04_lowrank_noise_calibration.py:

@@ -24,10 +24,6 @@ Each example is self-contained but share the same demo dataset, which is
 downloaded on first run via ``braincoder.utils.data.load_dehollander2024_npc``.
 
 
-.. raw:: html
-
-  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
-
 
 .. raw:: html
 
