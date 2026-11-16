@@ -38,12 +38,15 @@ adds a distance-modulated component:
 .. math::
 
     \Omega = \rho\,\bigl[\alpha \cdot
-    (e^{-\beta D} \odot \tau\tau^T) + (1 - \alpha) \cdot \tau\tau^T \bigr]
+    (e^{-\beta \tilde D} \odot \tau\tau^T) + (1 - \alpha) \cdot \tau\tau^T \bigr]
     + (1 - \rho)\,\mathrm{diag}(\tau^2)
     + \sigma^2 W W^T
 
-where :math:`D` is voxel-to-voxel distance, and :math:`\alpha,\beta`
-are learned from data. Plug in **geodesic** distance on the cortical
+where :math:`\tilde D` is the classical-MDS Euclidean embedding of the
+voxel-to-voxel distance matrix :math:`D`, which makes :math:`\Omega` positive
+definite by construction, and :math:`\alpha \in (0, 1), \beta > 0` are learned
+from data. At :math:`\alpha = 0` this is the model of van Bergen et al. (2015).
+Plug in **geodesic** distance on the cortical
 mesh (rather than Euclidean) and you respect the fact that two voxels
 sitting on opposite banks of a sulcus are close in 3D but functionally
 far apart.
@@ -52,7 +55,7 @@ This example fits a numerosity tuning model in right parietal cortex
 (NPCr), then compares decoding with isotropic-ish vs.
 geodesic-regularised :math:`\Omega`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-50
+.. GENERATED FROM PYTHON SOURCE LINES 39-53
 
 .. code-block:: Python
 
@@ -77,7 +80,7 @@ geodesic-regularised :math:`\Omega`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-57
+.. GENERATED FROM PYTHON SOURCE LINES 54-60
 
 Load the demo bundle and select responsive voxels
 -----------------------------------------------------------------
@@ -86,7 +89,7 @@ notebooks are independent. We then keep only voxels with
 :math:`P(\\text{signal} \\mid r^2) \\ge 0.8` and restrict to one
 stimulus range (``wide``) to keep the model simple.
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-79
+.. GENERATED FROM PYTHON SOURCE LINES 60-82
 
 .. code-block:: Python
 
@@ -126,14 +129,14 @@ stimulus range (``wide``) to keep the model simple.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-84
+.. GENERATED FROM PYTHON SOURCE LINES 83-87
 
 Fit a Log-Gaussian PRF per voxel
 -----------------------------------------------------------------
 The encoding model has 4 parameters per voxel — mu (preferred
 numerosity), sd (tuning width), amplitude, baseline.
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-119
+.. GENERATED FROM PYTHON SOURCE LINES 87-122
 
 .. code-block:: Python
 
@@ -180,13 +183,13 @@ numerosity), sd (tuning width), amplitude, baseline.
 
  .. code-block:: none
 
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 34.35it/s]
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 68.19it/s]
     Train R² — median 0.115, p90 0.174
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-174
+.. GENERATED FROM PYTHON SOURCE LINES 123-177
 
 From an fmriprep folder to a geodesic distance matrix
 -----------------------------------------------------------------
@@ -243,7 +246,7 @@ pre-cropped right-hemisphere patch (so we don't have to lug around
 a ~150 k-vertex full hemisphere) together with the per-voxel mm
 coordinates — but otherwise the steps are exactly the same.
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-181
+.. GENERATED FROM PYTHON SOURCE LINES 179-184
 
 Build the geodesic distance matrix (against the bundled patch)
 -----------------------------------------------------------------
@@ -251,7 +254,7 @@ We re-do steps 3 and 4 from the recipe above against the bundle's
 data, so this is real, runnable code that mirrors what you'd do on
 your own fmriprep outputs.
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-205
+.. GENERATED FROM PYTHON SOURCE LINES 184-208
 
 .. code-block:: Python
 
@@ -293,14 +296,14 @@ your own fmriprep outputs.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 206-210
+.. GENERATED FROM PYTHON SOURCE LINES 209-213
 
 Fit two noise models
 -----------------------------------------------------------------
 Each :class:`ResidualFitter` is fit to the same residuals; the only
 difference is whether we pass the geodesic distance matrix.
 
-.. GENERATED FROM PYTHON SOURCE LINES 210-239
+.. GENERATED FROM PYTHON SOURCE LINES 213-242
 
 .. code-block:: Python
 
@@ -313,20 +316,20 @@ difference is whether we pass the geodesic distance matrix.
     # once over a dense stimulus grid and reuse it for both fits below.
     stim_grid_fit = pd.DataFrame({'n': np.linspace(10, 40, 31)})
     stim_grid_fit.index.name = 'stimulus'
-    model.init_pseudoWWT(stim_grid_fit, pars)
+    WWT = model.get_pseudoWWT(stim_grid_fit, pars)
 
     print('Fitting Ω without distance regularisation …')
     rf_std = ResidualFitter(model, data.iloc[train_idx],
                              paradigm[['n']].iloc[train_idx],
                              parameters=pars)
-    omega_std, dof_std = rf_std.fit(method='t', init_dof=10.0,
+    omega_std, dof_std = rf_std.fit(method='t', init_dof=10.0, WWT=WWT,
                                       max_n_iterations=400, progressbar=False)
 
     print('Fitting Ω with geodesic-distance regularisation …')
     rf_geo = ResidualFitter(model, data.iloc[train_idx],
                              paradigm[['n']].iloc[train_idx],
                              parameters=pars)
-    omega_geo, dof_geo = rf_geo.fit(method='t', init_dof=10.0,
+    omega_geo, dof_geo = rf_geo.fit(method='t', init_dof=10.0, WWT=WWT,
                                       D=D, init_alpha=0.5, init_beta=0.05,
                                       max_n_iterations=400, progressbar=False)
     print(f'  fitted dof:  std={dof_std:.1f}, geo={dof_geo:.1f}')
@@ -342,20 +345,16 @@ difference is whether we pass the geodesic distance matrix.
  .. code-block:: none
 
     Fitting Ω without distance regularisation …
-    init_tau: 0.8757237792015076, 1.0135356187820435
-    USING A PSEUDO-WWT!
     WWT max: 69.62195587158203
     Fitting Ω with geodesic-distance regularisation …
-    init_tau: 0.8757237792015076, 1.0135356187820435
-    USING A PSEUDO-WWT!
     WWT max: 69.62195587158203
       fitted dof:  std=6.8, geo=10.8
-      fitted α/β:  α=0.93, β=0.088
+      fitted α/β:  α=0.96, β=0.039
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-246
+.. GENERATED FROM PYTHON SOURCE LINES 243-249
 
 Decode the held-out trials with each Ω
 -----------------------------------------------------------------
@@ -364,7 +363,7 @@ over a stimulus grid, given the data, fitted parameters, and noise
 model. We compute it for each held-out trial under both Ωs and
 compare the posterior means.
 
-.. GENERATED FROM PYTHON SOURCE LINES 246-273
+.. GENERATED FROM PYTHON SOURCE LINES 249-276
 
 .. code-block:: Python
 
@@ -403,17 +402,17 @@ compare the posterior means.
 
  .. code-block:: none
 
-    Test posterior-mean RMSE  std: 9.69, geo: 8.32
+    Test posterior-mean RMSE  std: 9.69, geo: 8.76
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 274-276
+.. GENERATED FROM PYTHON SOURCE LINES 277-279
 
 Visualise
 -----------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 276-291
+.. GENERATED FROM PYTHON SOURCE LINES 279-294
 
 .. code-block:: Python
 
@@ -444,7 +443,7 @@ Visualise
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 292-298
+.. GENERATED FROM PYTHON SOURCE LINES 295-301
 
 Inspect Ω structure
 -----------------------------------------------------------------
@@ -453,7 +452,7 @@ the implied covariance row. The geodesic-regularised :math:`\\Omega`
 should drop off smoothly with distance, while the standard fit can
 show high correlations regardless of distance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 298-314
+.. GENERATED FROM PYTHON SOURCE LINES 301-317
 
 .. code-block:: Python
 
@@ -488,7 +487,7 @@ show high correlations regardless of distance.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 42.358 seconds)
+   **Total running time of the script:** (0 minutes 35.012 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_02_geodesic_decoder.py:

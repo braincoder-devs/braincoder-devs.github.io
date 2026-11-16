@@ -3,10 +3,12 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Installation" href="installation.html"><link rel="prev" title="Braincoder documentation" href="index.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Migrating to 0.7" href="migration.html"><link rel="prev" title="Braincoder documentation" href="index.html">
+        <link rel="prefetch" href="_static/logo.png" as="image">
+        <link rel="prefetch" href="_static/logo_dark.png" as="image">
 
-    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>What’s new - Braincoder 0.6.2 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>What’s new - Braincoder 0.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=16a9891c" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -44,8 +46,7 @@
       }
     }
   }
-</style><link rel="shortcut icon" href="_static/favicon.png">
-</head>
+</style></head>
   <body>
     
     <script>
@@ -172,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,11 +193,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="_static/logo.png" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="_static/logo_dark.png" alt="Dark Logo"/>
   </div>
+  
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,6 +207,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migrating to 0.7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
@@ -291,8 +293,35 @@
         <article role="main" id="furo-main-content">
           <section id="what-s-new">
 <h1>What’s new<a class="headerlink" href="#what-s-new" title="Link to this heading">¶</a></h1>
+<section id="highlights-2026-11-16">
+<h2>0.7.1 highlights (2026-11-16)<a class="headerlink" href="#highlights-2026-11-16" title="Link to this heading">¶</a></h2>
+<p>Bug-fix release. <strong>Refit</strong> if you used either of the first two:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">SPMHRFModel</span></code> is now SPM’s canonical HRF</strong>, peaking at 5 s (it peaked at 6 s) and sampled
+exactly one TR apart (samples were <code class="docutils literal notranslate"><span class="pre">32</span> <span class="pre">/</span> <span class="pre">(n</span> <span class="pre">-</span> <span class="pre">1)</span></code> s apart). This changes the fitted values of
+any <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> model built with <code class="docutils literal notranslate"><span class="pre">hrf_model=SPMHRFModel(...)</span></code>. Bounds on a fitted <code class="docutils literal notranslate"><span class="pre">hrf_delay</span></code> move to 4-8 so
+the range of peak times is unchanged.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit(D=...)</span></code></strong>: β is constrained positive and Ω is positive definite by
+construction (the kernel uses the classical-MDS Euclidean embedding of <code class="docutils literal notranslate"><span class="pre">D</span></code>, and no jitter).
+<code class="docutils literal notranslate"><span class="pre">D</span></code> with <code class="docutils literal notranslate"><span class="pre">lambd</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">spherical=True</span></code> now raises.</p></li>
+<li><p><strong>Torch:</strong> <code class="docutils literal notranslate"><span class="pre">ParameterFitter.fit</span></code> no longer accumulates an autograd graph every iteration,
+which ran large fits out of GPU memory.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">gamma_pdf</span></code></strong> no longer returns NaN for gamma shapes above about 35.</p></li>
+</ul>
+</section>
 <section id="highlights-2026-11-02">
-<h2>0.6.2 highlights (2026-11-02)<a class="headerlink" href="#highlights-2026-11-02" title="Link to this heading">¶</a></h2>
+<h2>0.7.0 highlights (2026-11-02)<a class="headerlink" href="#highlights-2026-11-02" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Models no longer hold data or fitted values.</strong> Pass <code class="docutils literal notranslate"><span class="pre">paradigm</span></code>, <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, <code class="docutils literal notranslate"><span class="pre">weights</span></code>,
+<code class="docutils literal notranslate"><span class="pre">omega</span></code> and <code class="docutils literal notranslate"><span class="pre">dof</span></code> to each method. See the <a class="reference internal" href="migration.html"><span class="std std-doc">migration guide</span></a>.</p></li>
+<li><p><strong>New <code class="docutils literal notranslate"><span class="pre">ParameterFitter.fit</span></code> default:</strong> <code class="docutils literal notranslate"><span class="pre">r2_atol=1e-4</span></code>. <code class="docutils literal notranslate"><span class="pre">noise_model</span></code> stays <code class="docutils literal notranslate"><span class="pre">'ssq'</span></code>, contrary to what 0.6
+announced: see the changelog below.</p></li>
+<li><p><strong>On PyPI:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;braincoder[tensorflow]&quot;</span></code>.</p></li>
+<li><p><strong>Torch on Apple GPUs</strong> now runs the whole library.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>0.6.2 highlights (2026-11-02)<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <p>Bug-fix release. Inputs that gave plausible-looking wrong results now give the right result
 or a clear error. <strong>Recompute</strong> cvR² from frames with different indices (R² could be exactly
 1), <strong>refit</strong> if <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">paradigm</span></code> had different indices, and <strong>re-decode</strong> anything
@@ -332,8 +361,137 @@ held-out noise on single-trial fMRI; prefer <code class="docutils literal notran
 </section>
 <section id="full-changelog">
 <h2>Full changelog<a class="headerlink" href="#full-changelog" title="Link to this heading">¶</a></h2>
-<section id="id1">
-<h3>0.6.2 (2026-11-02)<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<section id="id2">
+<h3>0.7.1 (2026-11-16)<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Bug-fix release. Two of the fixes change fitted values: <strong>refit</strong> anything fitted with
+<code class="docutils literal notranslate"><span class="pre">SPMHRFModel</span></code> / <code class="docutils literal notranslate"><span class="pre">SPMHRFDerivativeModel</span></code> (the usual <code class="docutils literal notranslate"><span class="pre">hrf_model</span></code> of the <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> models), and anything
+fitted with <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit(D=...)</span></code>.</p>
+<section id="behaviour-change-spmhrfmodel-is-spm-s-canonical-hrf">
+<h4>Behaviour change: <code class="docutils literal notranslate"><span class="pre">SPMHRFModel</span></code> is SPM’s canonical HRF<a class="headerlink" href="#behaviour-change-spmhrfmodel-is-spm-s-canonical-hrf" title="Link to this heading">¶</a></h4>
+<p><strong>Changes fitted values for anyone using <code class="docutils literal notranslate"><span class="pre">SPMHRFModel</span></code>, <code class="docutils literal notranslate"><span class="pre">SPMHRFDerivativeModel</span></code> or <code class="docutils literal notranslate"><span class="pre">spm_hrf</span></code>.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">SPMHRFModel</span></code> now gives SPM’s canonical HRF. Two things were different:</p>
+<ul class="simple">
+<li><p><strong>It peaked at 6 s instead of 5 s.</strong> The response gamma had shape <code class="docutils literal notranslate"><span class="pre">delay</span> <span class="pre">/</span> <span class="pre">dispersion</span> <span class="pre">+</span> <span class="pre">1</span></code>, not
+<code class="docutils literal notranslate"><span class="pre">delay</span> <span class="pre">/</span> <span class="pre">dispersion</span></code>. <code class="docutils literal notranslate"><span class="pre">delay=6</span></code> still means what it does in SPM, so the default now peaks at 5 s.</p></li>
+<li><p><strong>Samples weren’t one TR apart.</strong> They came from <code class="docutils literal notranslate"><span class="pre">linspace(1e-4,</span> <span class="pre">32,</span> <span class="pre">n)</span></code>, so the spacing was
+<code class="docutils literal notranslate"><span class="pre">32</span> <span class="pre">/</span> <span class="pre">(n</span> <span class="pre">-</span> <span class="pre">1)</span></code>: 1.6 s at a TR of 1.5 s, for example. Convolution assumes one TR, which
+compressed the HRF by a few percent. Samples are now exactly one TR apart, from 0.</p></li>
+</ul>
+<p>The bounds on a fitted <code class="docutils literal notranslate"><span class="pre">hrf_delay</span></code> move from 3-7 to 4-8, so the range of fitted peak times stays the
+same. To reproduce an older fit, use <code class="docutils literal notranslate"><span class="pre">SPMHRFModel(tr=tr,</span> <span class="pre">delay=7.)</span></code> for about the old peak time; the
+sampling change can’t be undone.</p>
+</section>
+<section id="distance-dependent-noise-model">
+<h4>Distance-dependent noise model<a class="headerlink" href="#distance-dependent-noise-model" title="Link to this heading">¶</a></h4>
+<p>Fixes to the distance-dependent noise model, <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit(D=...)</span></code>:
+Ω = ρ[α(e^{−βD̃} ∘ ττᵀ) + (1−α)ττᵀ] + (1−ρ)diag(τ²) + σ²WWᵀ. <strong>Refit anything fitted with <code class="docutils literal notranslate"><span class="pre">D=</span></code>
+before this.</strong></p>
+<ul class="simple">
+<li><p><strong>β is constrained positive</strong> (softplus). It was an unconstrained variable, so a step to
+β &lt; 0 made the kernel grow with distance. The default <code class="docutils literal notranslate"><span class="pre">init_beta</span></code> changes from 0, which is
+no longer in the domain, to 1 / median(off-diagonal D̃); an <code class="docutils literal notranslate"><span class="pre">init_beta</span></code> ≤ 0 raises. Without
+<code class="docutils literal notranslate"><span class="pre">D</span></code>, nothing changes.</p></li>
+<li><p><strong>Ω is positive definite by construction.</strong> The kernel is now computed on D̃, the
+classical-MDS Euclidean embedding of <code class="docutils literal notranslate"><span class="pre">D</span></code> (the embedding <code class="docutils literal notranslate"><span class="pre">GeodesicGPPrior</span></code> already used), not
+on raw graph distances, where an exponential kernel need not be PSD. <code class="docutils literal notranslate"><span class="pre">psd_correction='none'</span></code>
+keeps <code class="docutils literal notranslate"><span class="pre">D</span></code> as given, for distances known to be Euclidean. MDS lengthens non-Euclidean
+distances, so β is on the scale of D̃: compare <code class="docutils literal notranslate"><span class="pre">fitter.distance_matrix_embedded_</span></code> with <code class="docutils literal notranslate"><span class="pre">D</span></code>,
+and see <code class="docutils literal notranslate"><span class="pre">fitter.mds_info_['negative_eigenvalue_fraction']</span></code>.</p></li>
+<li><p><strong>No jitter with <code class="docutils literal notranslate"><span class="pre">D</span></code>.</strong> New <code class="docutils literal notranslate"><span class="pre">cholesky='strict'|'safe'</span></code> argument, default <code class="docutils literal notranslate"><span class="pre">'strict'</span></code> with <code class="docutils literal notranslate"><span class="pre">D</span></code>
+and <code class="docutils literal notranslate"><span class="pre">'safe'</span></code> (unchanged) without it. <code class="docutils literal notranslate"><span class="pre">safe_cholesky</span></code> always adds at least
+1e-4 · mean(diag Ω), so the fitted likelihood was that of a different matrix from the one
+returned. A numerical failure is now a rolled-back step, counted in <code class="docutils literal notranslate"><span class="pre">n_failed_steps</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">fitter.omega_min_eigenvalue_</span></code> reports the returned Ω. Pass <code class="docutils literal notranslate"><span class="pre">cholesky='strict'</span></code> to a fit without
+<code class="docutils literal notranslate"><span class="pre">D</span></code> as well when comparing the two, so that the kernel is the only difference.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">D</span></code> combined with <code class="docutils literal notranslate"><span class="pre">lambd</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">spherical=True</span></code> now raises.</strong> <code class="docutils literal notranslate"><span class="pre">lambd</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> silently dropped
+<code class="docutils literal notranslate"><span class="pre">D</span></code>; <code class="docutils literal notranslate"><span class="pre">spherical=True</span></code> crashed with an unrelated error. A non-finite <code class="docutils literal notranslate"><span class="pre">D</span></code> (unreachable vertices
+on a disconnected patch) raises as well.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fitted_omega_parameters['beta']</span></code> is now the constrained value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mds_embed_distances</span></code> (<code class="docutils literal notranslate"><span class="pre">braincoder.optimize.gp_prior</span></code>) is public, can return diagnostics, and
+uses O(n²) memory instead of an n × n × r difference tensor, which needed about 4 GB at
+n = 800 and about 64 GB at n = 2000. <code class="docutils literal notranslate"><span class="pre">GeodesicGPPrior</span></code> output is unchanged.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">init_tau</span></code> is cast to float32, so float64 residuals work on torch with MPS.</p></li>
+</ul>
+</section>
+<section id="other-fixes">
+<h4>Other fixes<a class="headerlink" href="#other-fixes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Torch: <code class="docutils literal notranslate"><span class="pre">ParameterFitter.fit</span></code> no longer leaks memory.</strong> The forward pass that tracks R²
+between gradient steps ran with autograd on, and the best-so-far R² and parameters kept that
+graph alive, so voxels × pixels tensors piled up every iteration until the GPU ran out of
+memory (on CPU, 3,000 voxels × 961 pixels: about 2.2 GB of live tensors after 40 iterations,
+0 MB now, same loss). Results are unchanged; TensorFlow and JAX were not affected.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">gamma_pdf</span></code> is computed in log space.</strong> <code class="docutils literal notranslate"><span class="pre">t**(a-1)</span></code> and <code class="docutils literal notranslate"><span class="pre">d**a</span> <span class="pre">·</span> <span class="pre">Γ(a)</span></code> overflowed float32 for
+shapes above about 35, so very narrow gamma HRFs gave NaN. Values for ordinary shapes are
+unchanged up to float32 rounding.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ParameterFitter.fit</span></code> with <code class="docutils literal notranslate"><span class="pre">fixed_pars</span></code> on regression models</strong> no longer crashes while
+logging (their parameter labels are tuples).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code></strong> raises a clear error on data with 0 voxels and fits a single voxel with
+<code class="docutils literal notranslate"><span class="pre">spherical=True</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id3">
+<h3>0.7.0 (2026-11-02)<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p><strong>Breaking.</strong> Models no longer hold data or fitted values. See the
+<a class="reference external" href="https://braincoder-devs.github.io/migration.html">migration guide</a>; most scripts need only
+a few mechanical edits, and old constructor arguments raise an error that points to it.</p>
+<section id="models-hold-configuration-only">
+<h4>Models hold configuration only<a class="headerlink" href="#models-hold-configuration-only" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Constructors no longer take <code class="docutils literal notranslate"><span class="pre">paradigm</span></code>, <code class="docutils literal notranslate"><span class="pre">data</span></code>, <code class="docutils literal notranslate"><span class="pre">parameters</span></code>, <code class="docutils literal notranslate"><span class="pre">weights</span></code> or <code class="docutils literal notranslate"><span class="pre">omega</span></code>, and models
+have no such attributes. Pass them to each method: <code class="docutils literal notranslate"><span class="pre">model.predict(paradigm,</span> <span class="pre">parameters)</span></code>.</p></li>
+<li><p>Fitters no longer write to the model. <code class="docutils literal notranslate"><span class="pre">ResidualFitter</span></code> used to overwrite <code class="docutils literal notranslate"><span class="pre">model.parameters</span></code> and
+<code class="docutils literal notranslate"><span class="pre">model.weights</span></code>, and <code class="docutils literal notranslate"><span class="pre">StimulusFitter</span></code> <code class="docutils literal notranslate"><span class="pre">model.omega</span></code> and <code class="docutils literal notranslate"><span class="pre">model.dof</span></code>, so a model reused across
+cross-validation folds could silently decode with the last fold’s parameters. That can no
+longer happen: leaving out <code class="docutils literal notranslate"><span class="pre">parameters</span></code> raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code> needs <code class="docutils literal notranslate"><span class="pre">omega</span></code> or <code class="docutils literal notranslate"><span class="pre">noise_model</span></code>, and never reads a stored <code class="docutils literal notranslate"><span class="pre">dof</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">init_pseudoWWT</span></code> + <code class="docutils literal notranslate"><span class="pre">get_pseudoWWT()</span></code> become <code class="docutils literal notranslate"><span class="pre">get_pseudoWWT(stimulus_range,</span> <span class="pre">parameters)</span></code>, which
+returns the matrix. <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit</span></code> takes <code class="docutils literal notranslate"><span class="pre">stimulus_range=</span></code> or <code class="docutils literal notranslate"><span class="pre">WWT=</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_WWT(weights)</span></code> and <code class="docutils literal notranslate"><span class="pre">get_rf(parameters,</span> <span class="pre">...)</span></code> take their inputs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_linear_model(parameters)</span></code> returns <code class="docutils literal notranslate"><span class="pre">(model,</span> <span class="pre">parameters,</span> <span class="pre">weights)</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">to_xy_model(parameters)</span></code> returns <code class="docutils literal notranslate"><span class="pre">(model,</span> <span class="pre">parameters)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RegressionGaussianPRF</span></code> and friends take <code class="docutils literal notranslate"><span class="pre">design_data=</span></code> (it only defines the design) and build
+their design matrices from the paradigm of each call. <code class="docutils literal notranslate"><span class="pre">set_paradigm</span></code> is gone.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CustomStimulusFitter</span></code> and <code class="docutils literal notranslate"><span class="pre">BarStimulusFitter</span></code> take <code class="docutils literal notranslate"><span class="pre">parameters=</span></code> and <code class="docutils literal notranslate"><span class="pre">weights=</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HRFModel</span></code> is no longer changed by the model using it: <code class="docutils literal notranslate"><span class="pre">unique_hrfs</span></code> and <code class="docutils literal notranslate"><span class="pre">set_unique_hrfs</span></code> are
+gone, and the HRF’s shape decides how it is applied.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GaussianPRF2D</span></code> needs <code class="docutils literal notranslate"><span class="pre">grid_coordinates</span></code>. It used to guess them from a 3D paradigm.</p></li>
+<li><p>Removed: <code class="docutils literal notranslate"><span class="pre">apply_mask</span></code>, and <code class="docutils literal notranslate"><span class="pre">to_discrete_model</span></code>, which could not run. <code class="docutils literal notranslate"><span class="pre">DiscreteModel</span></code> takes
+<code class="docutils literal notranslate"><span class="pre">stimulus_values</span></code>.</p></li>
+</ul>
+<p>Fitters keep their results as attributes (<code class="docutils literal notranslate"><span class="pre">fitter.r2</span></code>, <code class="docutils literal notranslate"><span class="pre">fitter.estimated_parameters</span></code>,
+<code class="docutils literal notranslate"><span class="pre">fitter.r2_history_</span></code>). A fitter represents one fit; a model is reusable.</p>
+</section>
+<section id="parameterfitter-fit">
+<h4><code class="docutils literal notranslate"><span class="pre">ParameterFitter.fit</span></code><a class="headerlink" href="#parameterfitter-fit" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>New default <code class="docutils literal notranslate"><span class="pre">r2_atol=1e-4</span></code></strong> (was 1e-6). On large real data, 1e-6 was unreachable within 10,000
+iterations, and 1e-4 was about 3x faster for under 0.001 of R² in the paper benchmark. Pass
+<code class="docutils literal notranslate"><span class="pre">r2_atol=1e-6</span></code> for a tighter fit.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">noise_model</span></code> stays <code class="docutils literal notranslate"><span class="pre">'ssq'</span></code> by default, contrary to what 0.6 announced.</strong> New tests do not support
+the stated reason for switching. Adam scales each parameter’s steps by its own gradient history, so
+a constant per-voxel rescaling of the loss changes almost nothing: a sum-of-R² loss follows the SSQ
+path. From a good grid start <code class="docutils literal notranslate"><span class="pre">'gaussian'</span></code> gave the same fit at about 25% more time per iteration.
+From a poor start it did reach the optimum in fewer iterations (about 2-5x smaller remaining R² gap
+at 3,000 iterations), but as much with equal noise across voxels as with unequal noise. The
+explanation in the 0.6 notes, that it balances noisy voxels, is not correct.</p></li>
+</ul>
+</section>
+<section id="other-changes">
+<h4>Other changes<a class="headerlink" href="#other-changes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Available on PyPI:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;braincoder[tensorflow]&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">[jax]</span></code> or <code class="docutils literal notranslate"><span class="pre">[torch]</span></code>.</p></li>
+<li><p><strong>Torch on Apple GPUs (MPS):</strong> the GP prior and <code class="docutils literal notranslate"><span class="pre">safe_cholesky</span></code> with float64 input now work. MPS has
+no float64, so those steps run on the CPU and the rest stays on the GPU.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fit()</span></code> without <code class="docutils literal notranslate"><span class="pre">init_pars</span></code> no longer crashes in <code class="docutils literal notranslate"><span class="pre">GaussianPRF.get_init_pars</span></code>, and a fit with a
+regression model no longer crashes in its logging.</p></li>
+<li><p>Models with a stimulus amplitude no longer fail on a 2-column numpy paradigm.</p></li>
+</ul>
+</section>
+</section>
+<section id="id4">
+<h3>0.6.2 (2026-11-02)<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
 <p>Bug-fix release: inputs that gave plausible-looking wrong results now give the right
 result or a clear error. Some of these change what existing scripts do, so read the
 heads-up below.</p>
@@ -389,8 +547,8 @@ license, related software (prfmodel) and the Claude Code skill. <code class="doc
 ORCIDs and no longer describes the package as TensorFlow-based.</p></li>
 </ul>
 </section>
-<section id="id2">
-<h3>0.6.1 (2026-11-02)<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<section id="id5">
+<h3>0.6.1 (2026-11-02)<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <p>Bug-fix release.</p>
 <ul class="simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">DivisiveNormalizationGaussianPRF2DWithHRF</span></code> with <code class="docutils literal notranslate"><span class="pre">flexible_hrf_parameters=True</span></code>:</strong> the
@@ -409,8 +567,8 @@ reparameterisations of the amplitudes; existing fits are unaffected.</p></li>
 <li><p>Tests: parameter-transform round trips for all <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> 2D PRF models; normalisation scales.</p></li>
 </ul>
 </section>
-<section id="id3">
-<h3>0.6.0 (2026-10-25)<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<section id="id6">
+<h3>0.6.0 (2026-10-25)<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <p>The headline of 0.6 is a new <strong>per-voxel Gaussian likelihood</strong> option in
 <code class="docutils literal notranslate"><span class="pre">ParameterFitter</span></code>, opt-in here and the default in 0.7. Same fixed points
 as the existing sum-of-squares loss, much faster convergence under
@@ -631,14 +789,14 @@ not installed.</p></li>
 </section>
 </section>
 <hr class="docutils" />
-<section id="id4">
-<h3>0.5.1 (2026-05-04)<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<section id="id7">
+<h3>0.5.1 (2026-05-04)<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fix invalid <code class="docutils literal notranslate"><span class="pre">isRelatedTo</span></code> relation in <code class="docutils literal notranslate"><span class="pre">.zenodo.json</span></code> (Zenodo schema requires <code class="docutils literal notranslate"><span class="pre">references</span></code> instead). The 0.5.0 GitHub release failed to deposit on Zenodo because of this; 0.5.1 contains no code changes, only the metadata fix.</p></li>
 </ul>
 </section>
-<section id="id5">
-<h3>0.5.0 (2026-05-04)<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<section id="id8">
+<h3>0.5.0 (2026-05-04)<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
 <p>The headline change is a full <strong>Keras 3 port</strong>: braincoder is now backend-agnostic and runs on TensorFlow, JAX, or PyTorch (including Apple Silicon MPS). The codebase has been refactored into subpackages, the test suite has grown from a handful of integration tests to 170 passing tests across all three backends, and a long list of bugs has been fixed.</p>
 <section id="backend-infrastructure">
 <h4>Backend &amp; infrastructure<a class="headerlink" href="#backend-infrastructure" title="Link to this heading">¶</a></h4>
@@ -705,12 +863,12 @@ not installed.</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="installation.html">
+          <a class="next-page" href="migration.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Installation</div>
+                <div class="title">Migrating to 0.7</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -756,12 +914,26 @@ not installed.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">What’s new</a><ul>
-<li><a class="reference internal" href="#highlights-2026-11-02">0.6.2 highlights (2026-11-02)</a></li>
+<li><a class="reference internal" href="#highlights-2026-11-16">0.7.1 highlights (2026-11-16)</a></li>
+<li><a class="reference internal" href="#highlights-2026-11-02">0.7.0 highlights (2026-11-02)</a></li>
+<li><a class="reference internal" href="#id1">0.6.2 highlights (2026-11-02)</a></li>
 <li><a class="reference internal" href="#highlights-2026-10-25">0.6.0 highlights (2026-10-25)</a></li>
 <li><a class="reference internal" href="#full-changelog">Full changelog</a><ul>
-<li><a class="reference internal" href="#id1">0.6.2 (2026-11-02)</a></li>
-<li><a class="reference internal" href="#id2">0.6.1 (2026-11-02)</a></li>
-<li><a class="reference internal" href="#id3">0.6.0 (2026-10-25)</a><ul>
+<li><a class="reference internal" href="#id2">0.7.1 (2026-11-16)</a><ul>
+<li><a class="reference internal" href="#behaviour-change-spmhrfmodel-is-spm-s-canonical-hrf">Behaviour change: <code class="docutils literal notranslate"><span class="pre">SPMHRFModel</span></code> is SPM’s canonical HRF</a></li>
+<li><a class="reference internal" href="#distance-dependent-noise-model">Distance-dependent noise model</a></li>
+<li><a class="reference internal" href="#other-fixes">Other fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">0.7.0 (2026-11-02)</a><ul>
+<li><a class="reference internal" href="#models-hold-configuration-only">Models hold configuration only</a></li>
+<li><a class="reference internal" href="#parameterfitter-fit"><code class="docutils literal notranslate"><span class="pre">ParameterFitter.fit</span></code></a></li>
+<li><a class="reference internal" href="#other-changes">Other changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">0.6.2 (2026-11-02)</a></li>
+<li><a class="reference internal" href="#id5">0.6.1 (2026-11-02)</a></li>
+<li><a class="reference internal" href="#id6">0.6.0 (2026-10-25)</a><ul>
 <li><a class="reference internal" href="#default-fitter-changes-heads-up-for-downstream-projects">Default fitter changes (heads-up for downstream projects)</a></li>
 <li><a class="reference internal" href="#calibrated-decoding-low-rank-noise-model-with-cv-rank-temperature">Calibrated decoding: low-rank noise model with CV rank + temperature</a></li>
 <li><a class="reference internal" href="#hierarchical-bayesian-gp-prior">Hierarchical Bayesian / GP prior</a></li>
@@ -774,8 +946,8 @@ not installed.</p></li>
 <li><a class="reference internal" href="#compatibility">Compatibility</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">0.5.1 (2026-05-04)</a></li>
-<li><a class="reference internal" href="#id5">0.5.0 (2026-05-04)</a><ul>
+<li><a class="reference internal" href="#id7">0.5.1 (2026-05-04)</a></li>
+<li><a class="reference internal" href="#id8">0.5.0 (2026-05-04)</a><ul>
 <li><a class="reference internal" href="#backend-infrastructure">Backend &amp; infrastructure</a></li>
 <li><a class="reference internal" href="#new-models">New models</a></li>
 <li><a class="reference internal" href="#new-features">New features</a></li>
@@ -797,7 +969,7 @@ not installed.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=1c28bd9a"></script>
+</div><script src="_static/documentation_options.js?v=5a057da9"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

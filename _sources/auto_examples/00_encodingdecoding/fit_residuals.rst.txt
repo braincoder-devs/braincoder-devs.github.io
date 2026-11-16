@@ -47,7 +47,7 @@ simulated data from a ``VonMisesPRF``-model.
                         [0, 0, 1],
                         [0, 0, 1]]).astype(np.float32)
 
-    model = VonMisesPRF(parameters=parameters, weights=weights)
+    model = VonMisesPRF()
 
     # 50 random orientations
     paradigm = np.random.rand(50) * np.pi*2
@@ -57,7 +57,7 @@ simulated data from a ``VonMisesPRF``-model.
            [.25, .75, .25],
            [.25, .25, .75]])
 
-    data = model.simulate(noise=cov, weights=weights, paradigm=paradigm)
+    data = model.simulate(paradigm, parameters, weights, noise=cov)
 
 
 
@@ -90,11 +90,10 @@ simulated data from a ``VonMisesPRF``-model.
 
  .. code-block:: none
 
-    init_tau: 0.6555058360099792, 0.854982852935791
     WWT max: 4.0
-    [[0.48622778 0.06353537 0.04894173]
-     [0.06353538 0.7367014  0.06018658]
-     [0.04894173 0.06018658 0.4363768 ]]
+    [[0.4405323  0.19227521 0.176136  ]
+     [0.1922752  0.9396301  0.25719234]
+     [0.17613599 0.25719234 0.78825325]]
 
 
 
@@ -102,7 +101,7 @@ simulated data from a ``VonMisesPRF``-model.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 13.943 seconds)
+   **Total running time of the script:** (0 minutes 13.498 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fit_residuals.py:

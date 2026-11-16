@@ -45,10 +45,10 @@ We also simulate data and then estimate back the generating parameters.
     paradigm = np.linspace(-5, 5, 100)
 
     # Set up the model.
-    model = GaussianPRF(paradigm=paradigm, parameters=parameters)
+    model = GaussianPRF()
 
     # Extract and plot the predictions
-    predictions = model.predict()
+    predictions = model.predict(paradigm, parameters)
     predictions.index = pd.Index(paradigm, name='Stimulus value')
     ax = predictions.plot()
 
@@ -70,7 +70,7 @@ We also simulate data and then estimate back the generating parameters.
 
 
     # We simulate data with a bit of noise
-    data = model.simulate(noise=0.2)
+    data = model.simulate(paradigm, parameters, noise=0.2)
     data.plot()
 
 
@@ -124,7 +124,7 @@ We also simulate data and then estimate back the generating parameters.
 
  .. code-block:: none
 
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 94.04it/s]
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 105.81it/s]
 
 
 .. raw:: html
@@ -172,7 +172,7 @@ We also simulate data and then estimate back the generating parameters.
         <tr>
           <th>voxel 2</th>
           <td>-1.666667</td>
-          <td>1.188889</td>
+          <td>1.733333</td>
           <td>1.0</td>
           <td>0.0</td>
         </tr>
@@ -195,7 +195,7 @@ We also simulate data and then estimate back the generating parameters.
     import matplotlib.pyplot as plt
     import seaborn as sns
     palette = sns.color_palette()
-    grid_pred = model.predict(parameters=grid_pars)
+    grid_pred = model.predict(paradigm, grid_pars)
 
     # See how well the predictions align with the data
     # using the explained variance statistic
@@ -209,7 +209,7 @@ We also simulate data and then estimate back the generating parameters.
 
 
 .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_003.png
-   :alt: R2 = 0.75
+   :alt: R2 = 0.70
    :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_003.png
    :class: sphx-glr-single-img
 
@@ -219,7 +219,7 @@ We also simulate data and then estimate back the generating parameters.
  .. code-block:: none
 
 
-    Text(0.5, 1.0, 'R2 = 0.75')
+    Text(0.5, 1.0, 'R2 = 0.70')
 
 
 
@@ -230,7 +230,7 @@ We also simulate data and then estimate back the generating parameters.
 
     # Final optimisation using gradient descent:
     gd_pars = optimizer.fit(init_pars=grid_pars, progressbar=False)
-    gd_pred = model.predict(parameters=gd_pars)
+    gd_pred = model.predict(paradigm, gd_pars)
 
     r2_gd = get_rsq(data, gd_pred)
 
@@ -243,7 +243,7 @@ We also simulate data and then estimate back the generating parameters.
 
 
 .. image-sg:: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_004.png
-   :alt: R2 = 0.80
+   :alt: R2 = 0.78
    :srcset: /auto_examples/00_encodingdecoding/images/sphx_glr_encoding_model_004.png
    :class: sphx-glr-single-img
 
@@ -253,14 +253,14 @@ We also simulate data and then estimate back the generating parameters.
  .. code-block:: none
 
 
-    Text(0.5, 1.0, 'R2 = 0.80')
+    Text(0.5, 1.0, 'R2 = 0.78')
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.192 seconds)
+   **Total running time of the script:** (0 minutes 2.800 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_encoding_model.py:

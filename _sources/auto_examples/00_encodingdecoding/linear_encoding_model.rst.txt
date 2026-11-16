@@ -52,7 +52,7 @@ Here we explore such an approach.
                         [0, 0, 1],
                         [0, 0, 1]]).astype(np.float32)
 
-    model = VonMisesPRF(parameters=parameters, weights=weights)
+    model = VonMisesPRF()
 
 
 
@@ -92,7 +92,7 @@ Here we explore such an approach.
 
     # Plot the predicted responses for the 3 voxels
     # Each voxel timeseries is a weighted sum of the six basis functions
-    pred = model.predict(paradigm=orientations)
+    pred = model.predict(orientations, parameters, weights)
     _ = plt.plot(orientations, pred)
 
 
@@ -117,14 +117,14 @@ Here we explore such an approach.
     from braincoder.utils import get_rsq
 
     # Simulate data
-    data = model.simulate(paradigm=orientations, noise=0.1)
+    data = model.simulate(orientations, parameters, weights, noise=0.1)
 
     # Fit the weights
     weight_fitter = WeightFitter(model, parameters, data, orientations)
     estimated_weights = weight_fitter.fit(alpha=0.1)
 
     # Get predictions for the fitted weights
-    pred = model.predict(paradigm=orientations, weights=estimated_weights)
+    pred = model.predict(orientations, parameters, estimated_weights)
     r2 = get_rsq(data, pred)
 
     # Plot the data and the predictions
@@ -153,7 +153,7 @@ Here we explore such an approach.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.118 seconds)
+   **Total running time of the script:** (0 minutes 0.116 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_linear_encoding_model.py:

@@ -152,13 +152,13 @@ calculation only needs ``parameters`` and the noise model.
 
  .. code-block:: none
 
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 30.17it/s]
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 41.79it/s]
     Train R² — median 0.137, p90 0.198
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-109
+.. GENERATED FROM PYTHON SOURCE LINES 92-105
 
 Fit the noise model
 -----------------------------------------------------------------
@@ -174,18 +174,13 @@ alone* can support stimulus decoding. See notebook 2 for the
 trade-off in the other direction (structured Ω with geodesic
 regularisation when you need cross-voxel correlations).
 
-``init_pseudoWWT`` is still called: even though the spherical
-variant doesn't use WWᵀ in the loss, the underlying model API
-requires it to be initialised before any decoding call.
-
-.. GENERATED FROM PYTHON SOURCE LINES 109-119
+.. GENERATED FROM PYTHON SOURCE LINES 105-114
 
 .. code-block:: Python
 
 
     stim_grid = pd.DataFrame({'n': np.arange(10, 41, 1, dtype=np.float32)})
     stim_grid.index.name = 'stimulus'
-    model.init_pseudoWWT(stim_grid, pars)
 
     resid_fitter = ResidualFitter(model, data, paradigm[['n']], parameters=pars)
     omega, dof = resid_fitter.fit(method='t', spherical=True, init_dof=10.0,
@@ -200,13 +195,12 @@ requires it to be initialised before any decoding call.
 
  .. code-block:: none
 
-    init_tau: 0.8408144116401672, 0.9756162762641907
     Fitted dof: 6.1
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-129
+.. GENERATED FROM PYTHON SOURCE LINES 115-124
 
 Simulate, decode, and aggregate in one call
 -----------------------------------------------------------------
@@ -218,7 +212,7 @@ pipeline — for every stimulus in ``stim_grid`` it (1) simulates
 aggregates per true stimulus. It returns a DataFrame with
 ``mean_E, var_E, mean_error, mean_abs_error, n_sims``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-142
+.. GENERATED FROM PYTHON SOURCE LINES 124-137
 
 .. code-block:: Python
 
@@ -247,16 +241,16 @@ aggregates per true stimulus. It returns a DataFrame with
       [stim 0:31/31] 6200 simulated trials
            mean_E  var_E  mean_error  mean_abs_error  n_sims  std_decoded
     value                                                                
-    10.0   10.097  0.035       0.097           0.097     200        0.186
-    11.0   11.040  0.087       0.040           0.153     200        0.294
-    12.0   12.018  0.116       0.018           0.205     200        0.341
-    13.0   13.089  0.189       0.089           0.312     200        0.434
-    14.0   14.128  0.415       0.128           0.462     200        0.644
+    10.0   10.111  0.047       0.111           0.111     200        0.216
+    11.0   11.038  0.096       0.038           0.166     200        0.310
+    12.0   12.030  0.132       0.030           0.241     200        0.364
+    13.0   13.059  0.283       0.059           0.308     200        0.532
+    14.0   14.144  0.591       0.144           0.421     200        0.768
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-148
+.. GENERATED FROM PYTHON SOURCE LINES 138-143
 
 Plot bias + expected uncertainty
 -----------------------------------------------------------------
@@ -264,7 +258,7 @@ Per true numerosity: the bias of the posterior-mean estimator
 (``mean_E - true``) and the spread of the posterior mean across
 repeats (``√var_E``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-180
+.. GENERATED FROM PYTHON SOURCE LINES 143-175
 
 .. code-block:: Python
 
@@ -312,7 +306,7 @@ repeats (``√var_E``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-222
+.. GENERATED FROM PYTHON SOURCE LINES 176-217
 
 Interpretation
 -----------------------------------------------------------------
@@ -359,7 +353,7 @@ textbook signatures of a log-Gaussian numerosity code:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 25.709 seconds)
+   **Total running time of the script:** (0 minutes 18.851 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_03_expected_uncertainty.py:

@@ -46,7 +46,7 @@ Usage is three lines::
 
     noise = LowRankNoise.fit(model, train_data, train_paradigm, parameters,
                              stimulus_range=grid, groups=train_runs)
-    pdf = model.get_stimulus_pdf(test_data, grid, noise_model=noise)
+    pdf = model.get_stimulus_pdf(test_data, grid, parameters=pars, noise_model=noise)
     print(noise.summary())
 
 Here we simulate a population with 4 shared noise factors and a slightly
@@ -100,7 +100,7 @@ independent voxel noise, voxel-specific scale.
     L *= np.sqrt(.6 / (L ** 2).sum(1, keepdims=True))
     psi = 1 - (L ** 2).sum(1)
     scale = rng.uniform(.5, 1.5, V)
-    model = GaussianPRF(parameters=true_pars)
+    model = GaussianPRF()
 
 
     def simulate(n_runs):
@@ -139,9 +139,9 @@ Three noise models
 .. code-block:: Python
 
 
-    model.init_pseudoWWT(grid, pars)
     omega, dof = ResidualFitter(model, train_data, train_paradigm,
                                 parameters=pars).fit(method='t', init_dof=10.,
+                                                     stimulus_range=grid,
                                                      max_n_iterations=500,
                                                      progressbar=False)
 
@@ -171,8 +171,6 @@ Three noise models
 
  .. code-block:: none
 
-    init_tau: 0.5257056355476379, 1.4947458505630493
-    USING A PSEUDO-WWT!
     WWT max: 1.7025845050811768
     LowRankNoise: 80 voxels, k = 5, temperature T = 1.68179, dof = 2.88e+03
       mean shared (factor) variance fraction = 0.636; psi at floor: 0.0%
@@ -268,7 +266,7 @@ asking for more factors while decoding gets worse.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 13.972 seconds)
+   **Total running time of the script:** (0 minutes 10.840 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_04_lowrank_noise_calibration.py:

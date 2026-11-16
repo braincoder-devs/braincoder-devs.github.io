@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Lesson 5: Decoding noisy neural data" href="lesson5.html"><link rel="prev" title="Lesson 3: Building the likelihood (by fitting the covariance matrix)" href="lesson3.html">
+        <link rel="prefetch" href="../_static/logo.png" as="image">
+        <link rel="prefetch" href="../_static/logo_dark.png" as="image">
 
-    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>Lesson 4: From neural responses to stimulus features - Braincoder 0.6.2 documentation</title>
+    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Lesson 4: From neural responses to stimulus features - Braincoder 0.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=16a9891c" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -44,8 +46,7 @@
       }
     }
   }
-</style><link rel="shortcut icon" href="../_static/favicon.png">
-</head>
+</style></head>
   <body>
     
     <script>
@@ -172,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
+      <a href="../index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,11 +193,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="../_static/logo.png" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="../_static/logo_dark.png" alt="Dark Logo"/>
   </div>
+  
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,6 +207,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration.html">Migrating to 0.7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fisher_information.html">Fisher information and expected uncertainty</a></li>
@@ -322,10 +324,10 @@ than 0.2:</p>
 <strong><img alt="rf_activation" src="../_images/sphx_glr_invert_model_001.png" /></strong></p><p>We can now set up a likelihood function and find which stimuli are consistent with
 this activation pattern as follows.</p>
 <p>First set up the model..</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">'mu'</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">'kappa'</span><span class="p">:</span><span class="mf">1.</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">:</span><span class="mf">1.</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">VonMisesPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">VonMisesPRF</span><span class="p">()</span>
 <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -337,12 +339,12 @@ this activation pattern as follows.</p>
 
 <span class="c1"># And plot it..</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="sa">r</span><span class="s1">'0'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\frac</span><span class="si">{1}{2}</span><span class="s1">\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\frac</span><span class="si">{3}{2}</span><span class="s1">\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$2\pi$'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{1}{2}</span><span class="s1">\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{3}{2}</span><span class="s1">\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$2\pi$&#39;</span><span class="p">])</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Orientation'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Likelihood'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Orientation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="centered">
@@ -351,10 +353,10 @@ this activation pattern as follows.</p>
 two points in stimulus space are identical!</p>
 <p>If we have two RFs, the situation becomes unambiguous:</p>
 <p class="centered">
-<strong><img alt="rf_activation2" src="../_images/sphx_glr_invert_model_003.png" /></strong></p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">'mu'</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">'kappa'</span><span class="p">:</span><span class="mf">.5</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
-                           <span class="p">{</span><span class="s1">'mu'</span><span class="p">:</span><span class="mf">1.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">'kappa'</span><span class="p">:</span><span class="mf">.5</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<strong><img alt="rf_activation2" src="../_images/sphx_glr_invert_model_003.png" /></strong></p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">:</span><span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
+                           <span class="p">{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">1.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">:</span><span class="mf">.5</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">VonMisesPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">VonMisesPRF</span><span class="p">()</span>
 <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="n">dist1</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">vonmises</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">kappa</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
@@ -367,12 +369,12 @@ two points in stimulus space are identical!</p>
 
 <span class="n">likelihood</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="sa">r</span><span class="s1">'0'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\frac</span><span class="si">{1}{2}</span><span class="s1">\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$\frac</span><span class="si">{3}{2}</span><span class="s1">\pi$'</span><span class="p">,</span> <span class="sa">r</span><span class="s1">'$2\pi$'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">],</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{1}{2}</span><span class="s1">\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{3}{2}</span><span class="s1">\pi$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$2\pi$&#39;</span><span class="p">])</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Orientation'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Likelihood'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Orientation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="centered">
@@ -458,7 +460,7 @@ decode data in a more natural setting.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=1c28bd9a"></script>
+</div><script src="../_static/documentation_options.js?v=5a057da9"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

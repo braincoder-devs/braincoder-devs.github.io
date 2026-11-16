@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Fit a 2D PRF model" href="decode_visual.html"><link rel="prev" title="Invert encoding model" href="invert_model.html">
+        <link rel="prefetch" href="../../_static/logo.png" as="image">
+        <link rel="prefetch" href="../../_static/logo_dark.png" as="image">
 
-    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>Decoding of stimuli from neural data - Braincoder 0.6.2 documentation</title>
+    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Decoding of stimuli from neural data - Braincoder 0.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=16a9891c" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -44,8 +46,7 @@
       }
     }
   }
-</style><link rel="shortcut icon" href="../../_static/favicon.png">
-</head>
+</style></head>
   <body>
     
     <script>
@@ -172,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,11 +193,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="../../_static/logo.png" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="../../_static/logo_dark.png" alt="Dark Logo"/>
   </div>
+  
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,6 +207,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migration.html">Migrating to 0.7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
@@ -316,13 +318,13 @@ to download the full example code.</p>
 <span class="n">amplitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span>
 <span class="n">baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
 
-<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'mu'</span><span class="p">:</span><span class="n">mu</span><span class="p">,</span> <span class="s1">'sd'</span><span class="p">:</span><span class="n">sd</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="n">amplitude</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="n">baseline</span><span class="p">})</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="n">mu</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="n">sd</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="n">amplitude</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="n">baseline</span><span class="p">})</span>
 
 <span class="c1"># We have a paradigm of random numbers between 0 and 100</span>
 <span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_trials</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we fit back the PRF parameters</span>
@@ -334,70 +336,67 @@ to download the full example code.</p>
 <span class="n">grid_pars</span> <span class="o">=</span> <span class="n">fitter</span><span class="o">.</span><span class="n">fit_grid</span><span class="p">(</span><span class="n">mu_grid</span><span class="p">,</span> <span class="n">sd_grid</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">use_correlation_cost</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">grid_pars</span> <span class="o">=</span> <span class="n">fitter</span><span class="o">.</span><span class="n">refine_baseline_and_amplitude</span><span class="p">(</span><span class="n">grid_pars</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'mu'</span><span class="p">,</span> <span class="s1">'sd'</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Correlation grid-fitted parameter and ground truth for *</span><span class="si">{</span><span class="n">par</span><span class="si">}</span><span class="s1">*: </span><span class="si">{</span><span class="n">ss</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">grid_pars</span><span class="p">[</span><span class="n">par</span><span class="p">],</span><span class="w"> </span><span class="n">parameters</span><span class="p">[</span><span class="n">par</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Correlation grid-fitted parameter and ground truth for *</span><span class="si">{</span><span class="n">par</span><span class="si">}</span><span class="s1">*: </span><span class="si">{</span><span class="n">ss</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">grid_pars</span><span class="p">[</span><span class="n">par</span><span class="p">],</span><span class="w"> </span><span class="n">parameters</span><span class="p">[</span><span class="n">par</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="n">gd_pars</span> <span class="o">=</span> <span class="n">fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'mu'</span><span class="p">,</span> <span class="s1">'sd'</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Correlation gradient descent-fitted parameter and ground truth for *</span><span class="si">{</span><span class="n">par</span><span class="si">}</span><span class="s1">*: </span><span class="si">{</span><span class="n">ss</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">grid_pars</span><span class="p">[</span><span class="n">par</span><span class="p">],</span><span class="w"> </span><span class="n">parameters</span><span class="p">[</span><span class="n">par</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Correlation gradient descent-fitted parameter and ground truth for *</span><span class="si">{</span><span class="n">par</span><span class="si">}</span><span class="s1">*: </span><span class="si">{</span><span class="n">ss</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">grid_pars</span><span class="p">[</span><span class="n">par</span><span class="p">],</span><span class="w"> </span><span class="n">parameters</span><span class="p">[</span><span class="n">par</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00, 241.20it/s]
-Correlation grid-fitted parameter and ground truth for *mu*: 0.78
-Correlation grid-fitted parameter and ground truth for *sd*: 0.56
+100%|██████████| 1/1 [00:00&lt;00:00, 296.84it/s]
+Correlation grid-fitted parameter and ground truth for *mu*: 0.91
+Correlation grid-fitted parameter and ground truth for *sd*: 0.41
 Correlation grid-fitted parameter and ground truth for *amplitude*: 0.91
-Correlation grid-fitted parameter and ground truth for *baseline*: 0.67
-Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.78
-Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.56
+Correlation grid-fitted parameter and ground truth for *baseline*: 0.83
+Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.91
+Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.41
 Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.91
-Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.67
+Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.83
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we fit the covariance matrix</span>
 <span class="n">stimulus_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
-<span class="n">model</span><span class="o">.</span><span class="n">init_pseudoWWT</span><span class="p">(</span><span class="n">stimulus_range</span><span class="o">=</span><span class="n">stimulus_range</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">gd_pars</span><span class="p">)</span>
 <span class="n">resid_fitter</span> <span class="o">=</span> <span class="n">ResidualFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">paradigm</span><span class="p">,</span> <span class="n">gd_pars</span><span class="p">)</span>
-<span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">resid_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">resid_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">stimulus_range</span><span class="o">=</span><span class="n">stimulus_range</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>init_tau: 0.815586507320404, 1.12924063205719
-USING A PSEUDO-WWT!
-WWT max: 1894.5828857421875
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>WWT max: 884.5184936523438
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we simulate unseen test data:</span>
 <span class="n">test_paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_trials</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
 
 <span class="c1"># And decode the test paradigm</span>
-<span class="n">posterior</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_stimulus_pdf</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">stimulus_range</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="n">dof</span><span class="p">)</span>
-<span class="c1"># Rename the row index so it doesn't clash with the column index (both default to 'stimulus')</span>
-<span class="n">posterior</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'frame'</span>
+<span class="n">posterior</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_stimulus_pdf</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">stimulus_range</span><span class="p">,</span> <span class="n">gd_pars</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="n">dof</span><span class="p">)</span>
+<span class="c1"># Rename the row index so it doesn&#39;t clash with the column index (both default to &#39;stimulus&#39;)</span>
+<span class="n">posterior</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;frame&#39;</span>
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Finally, we make some plots to see how well the decoder did</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
-<span class="n">tmp</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ground truth'</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">'p'</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ground truth&#39;</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
 
-<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">col</span><span class="o">=</span><span class="s1">'frame'</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
-<span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">,</span> <span class="s1">'stimulus'</span><span class="p">,</span> <span class="s1">'p'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">,</span> <span class="s1">&#39;stimulus&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s1">'ground truth'</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'Stimulus value'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">'Posterior probability density'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s1">&#39;ground truth&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Stimulus value&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Posterior probability density&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode_001.png" srcset="../../_images/sphx_glr_decode_001.png" alt="frame = 0, frame = 1, frame = 2, frame = 3, frame = 4, frame = 5, frame = 6, frame = 7, frame = 8" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x30da078f0&gt;
+<img src="../../_images/sphx_glr_decode_001.png" srcset="../../_images/sphx_glr_decode_001.png" alt="frame = 0, frame = 1, frame = 2, frame = 3, frame = 4, frame = 5, frame = 6, frame = 7, frame = 8" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x16ff248f0&gt;
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let's look at the summary statistics of the posteriors posteriors</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s look at the summary statistics of the posteriors posteriors</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_posterior_stats</span><span class="p">(</span><span class="n">posterior</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">posterior</span><span class="p">,</span> <span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -409,39 +408,39 @@ WWT max: 1894.5828857421875
     <span class="c1"># mean posterior (i.e., standard deviation)</span>
     <span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapezoid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">E</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">-</span> <span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:])</span> <span class="o">*</span> <span class="n">posterior</span><span class="p">,</span> <span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'E'</span><span class="p">:</span><span class="n">E</span><span class="p">,</span> <span class="s1">'sd'</span><span class="p">:</span><span class="n">sd</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">posterior</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;E&#39;</span><span class="p">:</span><span class="n">E</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="n">sd</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">posterior</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">stats</span>
 
 <span class="n">posterior_stats</span> <span class="o">=</span> <span class="n">get_posterior_stats</span><span class="p">(</span><span class="n">posterior</span><span class="p">)</span>
 
-<span class="c1"># Let's see how far the posterior mean is from the ground truth</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">posterior_stats</span><span class="p">[</span><span class="s1">'E'</span><span class="p">],</span><span class="n">posterior_stats</span><span class="p">[</span><span class="s1">'sd'</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+<span class="c1"># Let&#39;s see how far the posterior mean is from the ground truth</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">posterior_stats</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">],</span><span class="n">posterior_stats</span><span class="p">[</span><span class="s1">&#39;sd&#39;</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Ground truth'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Mean posterior'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Ground truth&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Mean posterior&#39;</span><span class="p">)</span>
 
-<span class="c1"># Let's see how the error depends on the standard deviation of the posterior</span>
-<span class="n">error</span> <span class="o">=</span> <span class="n">test_paradigm</span> <span class="o">-</span> <span class="n">posterior_stats</span><span class="p">[</span><span class="s1">'E'</span><span class="p">]</span>
+<span class="c1"># Let&#39;s see how the error depends on the standard deviation of the posterior</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">test_paradigm</span> <span class="o">-</span> <span class="n">posterior_stats</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span>
 <span class="n">error_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-<span class="n">error_abs</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'error'</span>
+<span class="n">error_abs</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;error&#39;</span>
 
-<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'sd'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">posterior_stats</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">error_abs</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">posterior_stats</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">error_abs</span><span class="p">))</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Standard deviation of posterior'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Objective error'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Standard deviation of posterior&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Objective error&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
 <li><img src="../../_images/sphx_glr_decode_002.png" srcset="../../_images/sphx_glr_decode_002.png" alt="decode" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_decode_003.png" srcset="../../_images/sphx_glr_decode_003.png" alt="decode" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(29.0, 0.5, 'Objective error')
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(29.0, 0.5, &#39;Objective error&#39;)
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now, let's try to find the MAP estimate using gradient descent</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now, let&#39;s try to find the MAP estimate using gradient descent</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">StimulusFitter</span>
-<span class="n">stimulus_fitter</span> <span class="o">=</span> <span class="n">StimulusFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">)</span>
+<span class="n">stimulus_fitter</span> <span class="o">=</span> <span class="n">StimulusFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">gd_pars</span><span class="p">)</span>
 
 <span class="c1"># We start with a very coarse grid search, so we are sure we are in the right ballpark</span>
 <span class="n">estimated_stimuli_grid</span> <span class="o">=</span> <span class="n">stimulus_fitter</span><span class="o">.</span><span class="n">fit_grid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -450,42 +449,47 @@ WWT max: 1894.5828857421875
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can then refine the estimate using gradient descent</span>
 <span class="n">estimated_stimuli_gd</span> <span class="o">=</span> <span class="n">stimulus_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">estimated_stimuli_grid</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># Let's see how well we did</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">estimated_stimuli_grid</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'MAP (grid search)'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">estimated_stimuli_gd</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'MAP (gradient descent)'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">posterior_stats</span><span class="p">[</span><span class="s1">'E'</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Mean posterior'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Identity line'</span><span class="p">)</span>
+<span class="c1"># Let&#39;s see how well we did</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">estimated_stimuli_grid</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MAP (grid search)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">estimated_stimuli_gd</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MAP (gradient descent)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test_paradigm</span><span class="p">,</span> <span class="n">posterior_stats</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Mean posterior&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Identity line&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="c1"># %%</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_decode_004.png" srcset="../../_images/sphx_glr_decode_004.png" alt="decode" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1000 [00:00&lt;?, ?it/s]
-  0%|          | 1/1000 [00:00&lt;02:08,  7.76it/s]
-  3%|▎         | 30/1000 [00:00&lt;00:06, 153.58it/s]
-  6%|▌         | 60/1000 [00:00&lt;00:04, 213.67it/s]
-  9%|▉         | 90/1000 [00:00&lt;00:03, 243.98it/s]
- 12%|█▏        | 120/1000 [00:00&lt;00:03, 263.02it/s]
- 15%|█▍        | 149/1000 [00:00&lt;00:03, 271.44it/s]
- 18%|█▊        | 177/1000 [00:00&lt;00:03, 267.34it/s]
- 20%|██        | 205/1000 [00:00&lt;00:03, 257.96it/s]
- 23%|██▎       | 232/1000 [00:01&lt;00:03, 228.75it/s]
- 26%|██▌       | 260/1000 [00:01&lt;00:03, 241.57it/s]
- 29%|██▊       | 287/1000 [00:01&lt;00:02, 246.92it/s]
- 31%|███▏      | 313/1000 [00:01&lt;00:02, 250.29it/s]
- 34%|███▍      | 341/1000 [00:01&lt;00:02, 257.58it/s]
- 37%|███▋      | 370/1000 [00:01&lt;00:02, 264.41it/s]
- 40%|███▉      | 397/1000 [00:01&lt;00:02, 260.20it/s]
- 42%|████▏     | 424/1000 [00:01&lt;00:02, 256.68it/s]
- 45%|████▌     | 451/1000 [00:01&lt;00:02, 259.30it/s]
- 48%|████▊     | 478/1000 [00:01&lt;00:02, 259.97it/s]
- 50%|█████     | 505/1000 [00:02&lt;00:01, 261.31it/s]
- 53%|█████▎    | 532/1000 [00:02&lt;00:01, 263.60it/s]
- 56%|█████▌    | 558/1000 [00:02&lt;00:01, 243.02it/s]
+  0%|          | 1/1000 [00:00&lt;02:00,  8.30it/s]
+  3%|▎         | 34/1000 [00:00&lt;00:05, 181.18it/s]
+  6%|▋         | 65/1000 [00:00&lt;00:03, 234.82it/s]
+ 10%|▉         | 99/1000 [00:00&lt;00:03, 271.69it/s]
+ 13%|█▎        | 129/1000 [00:00&lt;00:03, 281.35it/s]
+ 16%|█▌        | 160/1000 [00:00&lt;00:02, 289.39it/s]
+ 19%|█▉        | 190/1000 [00:00&lt;00:02, 273.40it/s]
+ 22%|██▏       | 222/1000 [00:00&lt;00:02, 286.12it/s]
+ 25%|██▌       | 253/1000 [00:00&lt;00:02, 291.32it/s]
+ 28%|██▊       | 285/1000 [00:01&lt;00:02, 297.91it/s]
+ 32%|███▏      | 315/1000 [00:01&lt;00:02, 297.81it/s]
+ 35%|███▍      | 347/1000 [00:01&lt;00:02, 302.27it/s]
+ 38%|███▊      | 378/1000 [00:01&lt;00:02, 298.61it/s]
+ 41%|████      | 408/1000 [00:01&lt;00:02, 292.92it/s]
+ 44%|████▍     | 438/1000 [00:01&lt;00:01, 285.45it/s]
+ 47%|████▋     | 467/1000 [00:01&lt;00:01, 284.23it/s]
+ 50%|████▉     | 497/1000 [00:01&lt;00:01, 286.16it/s]
+ 53%|█████▎    | 526/1000 [00:01&lt;00:01, 280.32it/s]
+ 56%|█████▌    | 556/1000 [00:02&lt;00:01, 284.80it/s]
+ 59%|█████▊    | 587/1000 [00:02&lt;00:01, 291.58it/s]
+ 62%|██████▏   | 619/1000 [00:02&lt;00:01, 297.35it/s]
+ 65%|██████▌   | 651/1000 [00:02&lt;00:01, 302.25it/s]
+ 68%|██████▊   | 682/1000 [00:02&lt;00:01, 303.52it/s]
+ 71%|███████▏  | 713/1000 [00:02&lt;00:00, 299.39it/s]
+ 74%|███████▍  | 744/1000 [00:02&lt;00:00, 301.78it/s]
+ 76%|███████▋  | 763/1000 [00:02&lt;00:00, 283.90it/s]
 
-&lt;matplotlib.legend.Legend object at 0x31f907a70&gt;
+&lt;matplotlib.legend.Legend object at 0x17dd776e0&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 33.634 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 27.592 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-decode-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6617c088d7d027febee4c331aef6d1fa/decode.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">decode.ipynb</span></code></a></p>
@@ -549,7 +553,7 @@ WWT max: 1894.5828857421875
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=1c28bd9a"></script>
+</div><script src="../../_static/documentation_options.js?v=5a057da9"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

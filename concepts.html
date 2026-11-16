@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Fisher information and expected uncertainty" href="fisher_information.html"><link rel="prev" title="Installation" href="installation.html">
+        <link rel="prefetch" href="_static/logo.png" as="image">
+        <link rel="prefetch" href="_static/logo_dark.png" as="image">
 
-    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>Concepts &amp; Architecture - Braincoder 0.6.2 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Concepts &amp; Architecture - Braincoder 0.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=16a9891c" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -44,8 +46,7 @@
       }
     }
   }
-</style><link rel="shortcut icon" href="_static/favicon.png">
-</head>
+</style></head>
   <body>
     
     <script>
@@ -172,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,11 +193,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="_static/logo.png" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="_static/logo_dark.png" alt="Dark Logo"/>
   </div>
+  
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,6 +207,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migrating to 0.7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
@@ -324,7 +326,7 @@ automatically routes through the matching <code class="docutils literal notransl
 <ul class="simple">
 <li><p>ensure required columns/dimensions are present,</p></li>
 <li><p>optionally clean and normalize user input, and</p></li>
-<li><p>generate tensors that the TensorFlow models expect.</p></li>
+<li><p>generate the tensors that the models expect.</p></li>
 </ul>
 </section>
 <section id="encoding-models">
@@ -334,8 +336,12 @@ which provides:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">predict</span></code> and <code class="docutils literal notranslate"><span class="pre">simulate</span></code> helpers that work with numpy/pandas inputs,</p></li>
 <li><p>automatic broadcasting to batches/voxels, and</p></li>
-<li><p>convenience methods to fetch paradigms, parameters, and gradients.</p></li>
+<li><p>convenience methods to clean paradigms and compute gradients.</p></li>
 </ul>
+<p>Models hold only their configuration, such as <code class="docutils literal notranslate"><span class="pre">grid_coordinates</span></code> or
+<code class="docutils literal notranslate"><span class="pre">hrf_model</span></code>. The paradigm, parameters, weights and noise model are passed to each
+method (<code class="docutils literal notranslate"><span class="pre">model.predict(paradigm,</span> <span class="pre">parameters)</span></code>), and the fitters never change a
+model, so one instance can be reused across cross-validation folds.</p>
 <p>Common subclasses include <code class="docutils literal notranslate"><span class="pre">LinearModel</span></code>,
 <code class="docutils literal notranslate"><span class="pre">LinearModelWithBaseline</span></code>, and HRF-aware versions such as
 <code class="docutils literal notranslate"><span class="pre">LinearModelWithBaselineHRF</span></code>.  Because they share the base API you can swap
@@ -357,8 +363,8 @@ subclass.</p></li>
 <h2>Optimization, fitting, and decoding<a class="headerlink" href="#optimization-fitting-and-decoding" title="Link to this heading">¶</a></h2>
 <p>Use <a class="reference internal" href="api_reference.html#braincoder.optimize.WeightFitter" title="braincoder.optimize.WeightFitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">braincoder.optimize.WeightFitter</span></code></a> for fast linear weight solves or
 <a class="reference internal" href="api_reference.html#braincoder.optimize.ParameterFitter" title="braincoder.optimize.ParameterFitter"><code class="xref py py-class docutils literal notranslate"><span class="pre">braincoder.optimize.ParameterFitter</span></code></a> when you need to estimate model
-parameters themselves.  Both accept pandas inputs, work with TensorFlow
-accelerators, and expose diagnostics such as R² traces and intermediate
+parameters themselves.  Both accept pandas inputs, run on GPUs through their
+backend, and expose diagnostics such as R² traces and intermediate
 parameter snapshots.</p>
 </section>
 <section id="where-to-go-next">
@@ -444,7 +450,7 @@ parameter snapshots.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=1c28bd9a"></script>
+</div><script src="_static/documentation_options.js?v=5a057da9"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

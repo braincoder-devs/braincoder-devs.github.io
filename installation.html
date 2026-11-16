@@ -3,10 +3,12 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Concepts &amp; Architecture" href="concepts.html"><link rel="prev" title="What’s new" href="whats_new.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Concepts &amp; Architecture" href="concepts.html"><link rel="prev" title="Migrating to 0.7" href="migration.html">
+        <link rel="prefetch" href="_static/logo.png" as="image">
+        <link rel="prefetch" href="_static/logo_dark.png" as="image">
 
-    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>Installation - Braincoder 0.6.2 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Installation - Braincoder 0.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=16a9891c" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -44,8 +46,7 @@
       }
     }
   }
-</style><link rel="shortcut icon" href="_static/favicon.png">
-</head>
+</style></head>
   <body>
     
     <script>
@@ -172,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,11 +193,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="_static/logo.png" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="_static/logo_dark.png" alt="Dark Logo"/>
   </div>
+  
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,6 +207,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migrating to 0.7</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
@@ -293,17 +295,17 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
 <p>Braincoder requires Python 3.10+ and <a class="reference external" href="https://keras.io">Keras 3</a> with at least one
 backend (TensorFlow, JAX, or PyTorch).</p>
-<section id="recommended-conda-editable-install">
-<h2>Recommended: conda + editable install<a class="headerlink" href="#recommended-conda-editable-install" title="Link to this heading">¶</a></h2>
-<p>This approach gives you a full development environment with TensorFlow as the backend:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Gilles86/braincoder.git
-<span class="nb">cd</span><span class="w"> </span>braincoder
-conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
-conda<span class="w"> </span>activate<span class="w"> </span>braincoder
+<section id="install-with-pip-recommended">
+<h2>Install with pip (recommended)<a class="headerlink" href="#install-with-pip-recommended" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;braincoder[tensorflow]&quot;</span><span class="w">   </span><span class="c1"># TensorFlow backend</span>
+<span class="c1"># or</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;braincoder[jax]&quot;</span><span class="w">          </span><span class="c1"># JAX backend</span>
+<span class="c1"># or</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;braincoder[torch]&quot;</span><span class="w">        </span><span class="c1"># PyTorch backend</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> installs TensorFlow, Keras, and braincoder itself in editable
-mode (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>), so local changes to the source are reflected immediately.</p>
+<p>Pin the version in your project’s environment, e.g. <code class="docutils literal notranslate"><span class="pre">braincoder[tensorflow]==0.7.1</span></code>, so that
+its results stay reproducible.</p>
 </section>
 <section id="choosing-a-backend">
 <h2>Choosing a backend<a class="headerlink" href="#choosing-a-backend" title="Link to this heading">¶</a></h2>
@@ -315,26 +317,24 @@ importing braincoder:</p>
 </pre></div>
 </div>
 <p>Or set it permanently in <code class="docutils literal notranslate"><span class="pre">~/.keras/keras.json</span></code>:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">"backend"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tensorflow"</span><span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;backend&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tensorflow&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Each backend must be installed separately. The <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> includes all three
 (<code class="docutils literal notranslate"><span class="pre">tensorflow</span></code>, <code class="docutils literal notranslate"><span class="pre">jax[cpu]</span></code>, <code class="docutils literal notranslate"><span class="pre">torch</span></code>), but you can install only the one you need.</p>
 </section>
-<section id="pip-only-install">
-<h2>pip-only install<a class="headerlink" href="#pip-only-install" title="Link to this heading">¶</a></h2>
-<p>braincoder is not on PyPI, so install a tagged release from GitHub, together with a
-backend:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"braincoder @ git+https://github.com/Gilles86/braincoder.git@v0.6.2"</span><span class="w"> </span>tensorflow<span class="w">   </span><span class="c1"># TensorFlow</span>
-<span class="c1"># or</span>
-pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"braincoder @ git+https://github.com/Gilles86/braincoder.git@v0.6.2"</span><span class="w"> </span><span class="s2">"jax[cpu]"</span><span class="w">   </span><span class="c1"># JAX</span>
-<span class="c1"># or</span>
-pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"braincoder @ git+https://github.com/Gilles86/braincoder.git@v0.6.2"</span><span class="w"> </span>torch<span class="w">        </span><span class="c1"># PyTorch</span>
+<section id="development-install-conda-editable">
+<h2>Development install (conda + editable)<a class="headerlink" href="#development-install-conda-editable" title="Link to this heading">¶</a></h2>
+<p>For working on braincoder itself, this gives a full development environment with TensorFlow as the backend:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Gilles86/braincoder.git
+<span class="nb">cd</span><span class="w"> </span>braincoder
+conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+conda<span class="w"> </span>activate<span class="w"> </span>braincoder
 </pre></div>
 </div>
-<p>Pin a tag like this in your project’s environment, so that its results stay
-reproducible.</p>
-<p>For a development install from source:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> installs TensorFlow, Keras, and braincoder itself in editable
+mode (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>), so local changes to the source are reflected immediately.</p>
+<p>Or, with pip only:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Gilles86/braincoder.git
 <span class="nb">cd</span><span class="w"> </span>braincoder
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="w"> </span>tensorflow
@@ -352,7 +352,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </section>
 <section id="verifying-the-install">
 <h2>Verifying the install<a class="headerlink" href="#verifying-the-install" title="Link to this heading">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import braincoder; print(braincoder.__version__)"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import braincoder; print(braincoder.__version__)&quot;</span>
 pytest<span class="w"> </span>tests/
 </pre></div>
 </div>
@@ -373,14 +373,14 @@ pytest<span class="w"> </span>tests/
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="whats_new.html">
+          <a class="prev-page" href="migration.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">What’s new</div>
+                <div class="title">Migrating to 0.7</div>
                 
               </div>
             </a>
@@ -415,9 +415,9 @@ pytest<span class="w"> </span>tests/
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
-<li><a class="reference internal" href="#recommended-conda-editable-install">Recommended: conda + editable install</a></li>
+<li><a class="reference internal" href="#install-with-pip-recommended">Install with pip (recommended)</a></li>
 <li><a class="reference internal" href="#choosing-a-backend">Choosing a backend</a></li>
-<li><a class="reference internal" href="#pip-only-install">pip-only install</a></li>
+<li><a class="reference internal" href="#development-install-conda-editable">Development install (conda + editable)</a></li>
 <li><a class="reference internal" href="#additional-dependencies">Additional dependencies</a></li>
 <li><a class="reference internal" href="#verifying-the-install">Verifying the install</a></li>
 </ul>
@@ -431,7 +431,7 @@ pytest<span class="w"> </span>tests/
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=1c28bd9a"></script>
+</div><script src="_static/documentation_options.js?v=5a057da9"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

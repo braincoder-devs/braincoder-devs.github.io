@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="General bibliography" href="../../bibliography.html"><link rel="prev" title="Expected decoding uncertainty via simulate + decode" href="03_expected_uncertainty.html">
+        <link rel="prefetch" href="../../_static/logo.png" as="image">
+        <link rel="prefetch" href="../../_static/logo_dark.png" as="image">
 
-    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>Geodesic-regularised noise model for trial-wise decoding - Braincoder 0.6.2 documentation</title>
+    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Geodesic-regularised noise model for trial-wise decoding - Braincoder 0.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=16a9891c" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -44,8 +46,7 @@
       }
     }
   }
-</style><link rel="shortcut icon" href="../../_static/favicon.png">
-</head>
+</style></head>
   <body>
     
     <script>
@@ -172,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,11 +193,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="../../_static/logo.png" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="../../_static/logo_dark.png" alt="Dark Logo"/>
   </div>
+  
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,6 +207,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migration.html">Migrating to 0.7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
@@ -310,12 +312,15 @@ adds a distance-modulated component:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\Omega = \rho\,\bigl[\alpha \cdot
-(e^{-\beta D} \odot \tau\tau^T) + (1 - \alpha) \cdot \tau\tau^T \bigr]
+(e^{-\beta \tilde D} \odot \tau\tau^T) + (1 - \alpha) \cdot \tau\tau^T \bigr]
 + (1 - \rho)\,\mathrm{diag}(\tau^2)
 + \sigma^2 W W^T\]</div>
 </div>
-<p>where <span class="math notranslate nohighlight">\(D\)</span> is voxel-to-voxel distance, and <span class="math notranslate nohighlight">\(\alpha,\beta\)</span>
-are learned from data. Plug in <strong>geodesic</strong> distance on the cortical
+<p>where <span class="math notranslate nohighlight">\(\tilde D\)</span> is the classical-MDS Euclidean embedding of the
+voxel-to-voxel distance matrix <span class="math notranslate nohighlight">\(D\)</span>, which makes <span class="math notranslate nohighlight">\(\Omega\)</span> positive
+definite by construction, and <span class="math notranslate nohighlight">\(\alpha \in (0, 1), \beta &gt; 0\)</span> are learned
+from data. At <span class="math notranslate nohighlight">\(\alpha = 0\)</span> this is the model of van Bergen et al. (2015).
+Plug in <strong>geodesic</strong> distance on the cortical
 mesh (rather than Euclidean) and you respect the fact that two voxels
 sitting on opposite banks of a sulcus are close in 3D but functionally
 far apart.</p>
@@ -343,25 +348,25 @@ notebooks are independent. We then keep only voxels with
 <span class="math notranslate nohighlight">\(P(\\text{signal} \\mid r^2) \\ge 0.8\)</span> and restrict to one
 stimulus range (<code class="docutils literal notranslate"><span class="pre">wide</span></code>) to keep the model simple.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">bundle</span> <span class="o">=</span> <span class="n">load_pratcarrabin2025_npc</span><span class="p">()</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'r2'</span><span class="p">]</span>
-<span class="n">paradigm_all</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'paradigm'</span><span class="p">]</span>
-<span class="n">data_all</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">]</span>
+<span class="n">paradigm_all</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;paradigm&#39;</span><span class="p">]</span>
+<span class="n">data_all</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
 
-<span class="n">r2_wb</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'r2_wholebrain'</span><span class="p">]</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
-<span class="n">mask_wb</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'brain_mask'</span><span class="p">]</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">r2_wb</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;r2_wholebrain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
+<span class="n">mask_wb</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;brain_mask&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
 <span class="n">fit</span> <span class="o">=</span> <span class="n">fit_r2_mixture</span><span class="p">(</span><span class="n">r2_wb</span><span class="p">[</span><span class="n">mask_wb</span><span class="p">])</span>
 <span class="c1"># Noise μ + 2σ on the logit scale — see example 1 for the rationale.</span>
-<span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">fit</span><span class="p">[</span><span class="s1">'noise_mu'</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">fit</span><span class="p">[</span><span class="s1">'noise_sigma'</span><span class="p">])))</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">fit</span><span class="p">[</span><span class="s1">&#39;noise_mu&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">fit</span><span class="p">[</span><span class="s1">&#39;noise_sigma&#39;</span><span class="p">])))</span>
 <span class="n">keep</span> <span class="o">=</span> <span class="n">r2</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">r2</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Kept </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">keep</span><span class="p">)</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span><span class="si">}</span><span class="s1"> voxels (within-sample R² ≥ </span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Kept </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">keep</span><span class="p">)</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span><span class="si">}</span><span class="s1"> voxels (within-sample R² ≥ </span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
 
-<span class="n">is_wide</span> <span class="o">=</span> <span class="n">paradigm_all</span><span class="p">[</span><span class="s1">'range'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="s1">'wide'</span>
+<span class="n">is_wide</span> <span class="o">=</span> <span class="n">paradigm_all</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="s1">&#39;wide&#39;</span>
 <span class="n">paradigm</span> <span class="o">=</span> <span class="n">paradigm_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">is_wide</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data_all</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">is_wide</span><span class="p">,</span> <span class="n">keep</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="c1"># Per-voxel z-score within the kept set so the model only sees signal scale.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Data: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">  (trials × voxels)'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Data: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">  (trials × voxels)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Kept 155/852 voxels (within-sample R² ≥ 0.085)
@@ -373,21 +378,21 @@ Data: (240, 155)  (trials × voxels)
 <h2>Fit a Log-Gaussian PRF per voxel<a class="headerlink" href="#fit-a-log-gaussian-prf-per-voxel" title="Link to this heading">¶</a></h2>
 <p>The encoding model has 4 parameters per voxel — mu (preferred
 numerosity), sd (tuning width), amplitude, baseline.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">stim</span> <span class="o">=</span> <span class="n">paradigm</span><span class="p">[[</span><span class="s1">'n'</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">stim</span> <span class="o">=</span> <span class="n">paradigm</span><span class="p">[[</span><span class="s1">&#39;n&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">LogGaussianPRF</span><span class="p">(</span><span class="n">parameterisation</span><span class="o">=</span><span class="s1">'mu_sd_natural'</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogGaussianPRF</span><span class="p">(</span><span class="n">parameterisation</span><span class="o">=</span><span class="s1">&#39;mu_sd_natural&#39;</span><span class="p">)</span>
 
 <span class="n">n_train</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.75</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">stim</span><span class="p">))</span>
 <span class="n">train_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_train</span><span class="p">)</span>
 <span class="n">test_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_train</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">stim</span><span class="p">))</span>
 
 <span class="n">fitter</span> <span class="o">=</span> <span class="n">ParameterFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
-                          <span class="n">paradigm</span><span class="p">[[</span><span class="s1">'n'</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">])</span>
+                          <span class="n">paradigm</span><span class="p">[[</span><span class="s1">&#39;n&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">])</span>
 <span class="n">init</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s1">'mu'</span><span class="p">:</span>        <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">25.0</span><span class="p">),</span>
-    <span class="s1">'sd'</span><span class="p">:</span>        <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">10.0</span><span class="p">),</span>
-    <span class="s1">'amplitude'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">),</span>
-    <span class="s1">'baseline'</span><span class="p">:</span>  <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">),</span>
+    <span class="s1">&#39;mu&#39;</span><span class="p">:</span>        <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">25.0</span><span class="p">),</span>
+    <span class="s1">&#39;sd&#39;</span><span class="p">:</span>        <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">10.0</span><span class="p">),</span>
+    <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="s1">&#39;baseline&#39;</span><span class="p">:</span>  <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">),</span>
 <span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="c1"># Coarse grid-init helps the optimiser find a decent starting mu.</span>
@@ -398,18 +403,18 @@ numerosity), sd (tuning width), amplitude, baseline.</p>
 <span class="n">init</span> <span class="o">=</span> <span class="n">fitter</span><span class="o">.</span><span class="n">fit_grid</span><span class="p">(</span><span class="n">mu_grid</span><span class="p">,</span> <span class="n">sd_grid</span><span class="p">,</span> <span class="n">amp_grid</span><span class="p">,</span> <span class="n">base_grid</span><span class="p">)</span>
 
 <span class="n">pars</span> <span class="o">=</span> <span class="n">fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">init_pars</span><span class="o">=</span><span class="n">init</span><span class="p">,</span>
-                   <span class="n">noise_model</span><span class="o">=</span><span class="s1">'gaussian'</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+                   <span class="n">noise_model</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
                    <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">train_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">[[</span><span class="s1">'n'</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
+<span class="n">train_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">[[</span><span class="s1">&#39;n&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
                             <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">)</span>
 <span class="n">train_pred</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
 <span class="n">train_r2</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span> <span class="n">train_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Train R² — median </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">train_r2</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, '</span>
-      <span class="sa">f</span><span class="s1">'p90 </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">train_r2</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Train R² — median </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">train_r2</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;p90 </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">train_r2</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00, 34.35it/s]
+100%|██████████| 1/1 [00:00&lt;00:00, 68.19it/s]
 Train R² — median 0.115, p90 0.174
 </pre></div>
 </div>
@@ -436,15 +441,15 @@ folder so you can lift it into your own project unchanged — is:</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.utils.cortex</span><span class="w"> </span><span class="kn">import</span> <span class="n">geodesic_distance_matrix</span>
 
 <span class="c1"># 1) Load the white-matter surface (right hemi here).</span>
-<span class="n">gii</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'derivatives/fmriprep/sub-XX/anat/'</span>
-               <span class="s1">'sub-XX_hemi-R_white.surf.gii'</span><span class="p">)</span>
+<span class="n">gii</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;derivatives/fmriprep/sub-XX/anat/&#39;</span>
+               <span class="s1">&#39;sub-XX_hemi-R_white.surf.gii&#39;</span><span class="p">)</span>
 <span class="n">vertices</span> <span class="o">=</span> <span class="n">gii</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="n">faces</span>    <span class="o">=</span> <span class="n">gii</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
 
 <span class="c1"># 2) Get voxel-centroid mm coordinates from your ROI mask</span>
 <span class="c1">#    (T1w-space NIfTI; assumes you already have a NiftiMasker</span>
 <span class="c1">#    or just an ROI boolean array + the mask image).</span>
-<span class="n">mask_img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'roi_mask_space-T1w.nii.gz'</span><span class="p">)</span>
+<span class="n">mask_img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;roi_mask_space-T1w.nii.gz&#39;</span><span class="p">)</span>
 <span class="n">ijk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">mask_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">))</span>
 <span class="n">voxel_xyz</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">affines</span><span class="o">.</span><span class="n">apply_affine</span><span class="p">(</span><span class="n">mask_img</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">ijk</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
@@ -471,26 +476,26 @@ data, so this is real, runnable code that mirrors what you’d do on
 your own fmriprep outputs.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial</span><span class="w"> </span><span class="kn">import</span> <span class="n">cKDTree</span>  <span class="c1"># noqa: E402</span>
 
-<span class="n">vertices</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'surface_vertices'</span><span class="p">]</span>  <span class="c1"># (n_patch_vertices × 3) float32, mm</span>
-<span class="n">faces</span>    <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'surface_faces'</span><span class="p">]</span>     <span class="c1"># (n_patch_faces × 3) int32</span>
+<span class="n">vertices</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;surface_vertices&#39;</span><span class="p">]</span>  <span class="c1"># (n_patch_vertices × 3) float32, mm</span>
+<span class="n">faces</span>    <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;surface_faces&#39;</span><span class="p">]</span>     <span class="c1"># (n_patch_faces × 3) int32</span>
 
 <span class="c1"># Voxel-centroid mm coordinates inside NPCr (pre-computed in the bundle,</span>
-<span class="c1"># but the same thing you'd build with apply_affine on your own NIfTI).</span>
-<span class="n">voxel_xyz</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">'voxel_coords_mm'</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">keep</span><span class="p">,</span> <span class="p">[</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># but the same thing you&#39;d build with apply_affine on your own NIfTI).</span>
+<span class="n">voxel_xyz</span> <span class="o">=</span> <span class="n">bundle</span><span class="p">[</span><span class="s1">&#39;voxel_coords_mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">keep</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
 
 <span class="c1"># Snap each NPCr voxel to its nearest white-matter vertex.</span>
 <span class="n">tree</span> <span class="o">=</span> <span class="n">cKDTree</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
 <span class="n">snap_dist</span><span class="p">,</span> <span class="n">nearest_vertex</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">voxel_xyz</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Voxel→vertex snap distance: '</span>
-      <span class="sa">f</span><span class="s1">'median </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">snap_dist</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> mm, '</span>
-      <span class="sa">f</span><span class="s1">'p95 </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">snap_dist</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> mm'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Voxel→vertex snap distance: &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;median </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">snap_dist</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> mm, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;p95 </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">snap_dist</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> mm&#39;</span><span class="p">)</span>
 
 <span class="c1"># Pairwise geodesic distance between the snapped vertices.</span>
 <span class="n">D</span> <span class="o">=</span> <span class="n">geodesic_distance_matrix</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span>
                               <span class="n">source_indices</span><span class="o">=</span><span class="n">nearest_vertex</span><span class="p">,</span>
                               <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Distance matrix: </span><span class="si">{</span><span class="n">D</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, '</span>
-      <span class="sa">f</span><span class="s1">'median pairwise distance </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> mm'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distance matrix: </span><span class="si">{</span><span class="n">D</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;median pairwise distance </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> mm&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Voxel→vertex snap distance: median 1.09 mm, p95 2.63 mm
@@ -508,39 +513,35 @@ difference is whether we pass the geodesic distance matrix.</p>
 <span class="c1"># ``ResidualFitter`` needs a ``W Wᵀ`` template covariance that summarises</span>
 <span class="c1"># how voxel responses co-vary across the stimulus range. We compute it</span>
 <span class="c1"># once over a dense stimulus grid and reuse it for both fits below.</span>
-<span class="n">stim_grid_fit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'n'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">31</span><span class="p">)})</span>
-<span class="n">stim_grid_fit</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'stimulus'</span>
-<span class="n">model</span><span class="o">.</span><span class="n">init_pseudoWWT</span><span class="p">(</span><span class="n">stim_grid_fit</span><span class="p">,</span> <span class="n">pars</span><span class="p">)</span>
+<span class="n">stim_grid_fit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">31</span><span class="p">)})</span>
+<span class="n">stim_grid_fit</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;stimulus&#39;</span>
+<span class="n">WWT</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_pseudoWWT</span><span class="p">(</span><span class="n">stim_grid_fit</span><span class="p">,</span> <span class="n">pars</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Fitting Ω without distance regularisation …'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fitting Ω without distance regularisation …&#39;</span><span class="p">)</span>
 <span class="n">rf_std</span> <span class="o">=</span> <span class="n">ResidualFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
-                         <span class="n">paradigm</span><span class="p">[[</span><span class="s1">'n'</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
+                         <span class="n">paradigm</span><span class="p">[[</span><span class="s1">&#39;n&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
                          <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">)</span>
-<span class="n">omega_std</span><span class="p">,</span> <span class="n">dof_std</span> <span class="o">=</span> <span class="n">rf_std</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'t'</span><span class="p">,</span> <span class="n">init_dof</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+<span class="n">omega_std</span><span class="p">,</span> <span class="n">dof_std</span> <span class="o">=</span> <span class="n">rf_std</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">init_dof</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">WWT</span><span class="o">=</span><span class="n">WWT</span><span class="p">,</span>
                                   <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Fitting Ω with geodesic-distance regularisation …'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fitting Ω with geodesic-distance regularisation …&#39;</span><span class="p">)</span>
 <span class="n">rf_geo</span> <span class="o">=</span> <span class="n">ResidualFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
-                         <span class="n">paradigm</span><span class="p">[[</span><span class="s1">'n'</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
+                         <span class="n">paradigm</span><span class="p">[[</span><span class="s1">&#39;n&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_idx</span><span class="p">],</span>
                          <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">)</span>
-<span class="n">omega_geo</span><span class="p">,</span> <span class="n">dof_geo</span> <span class="o">=</span> <span class="n">rf_geo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'t'</span><span class="p">,</span> <span class="n">init_dof</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+<span class="n">omega_geo</span><span class="p">,</span> <span class="n">dof_geo</span> <span class="o">=</span> <span class="n">rf_geo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">init_dof</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">WWT</span><span class="o">=</span><span class="n">WWT</span><span class="p">,</span>
                                   <span class="n">D</span><span class="o">=</span><span class="n">D</span><span class="p">,</span> <span class="n">init_alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">init_beta</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
                                   <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  fitted dof:  std=</span><span class="si">{</span><span class="n">dof_std</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, geo=</span><span class="si">{</span><span class="n">dof_geo</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  fitted α/β:  α=</span><span class="si">{</span><span class="n">rf_geo</span><span class="o">.</span><span class="n">fitted_omega_parameters</span><span class="p">[</span><span class="s2">"alpha"</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, '</span>
-      <span class="sa">f</span><span class="s1">'β=</span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">rf_geo</span><span class="o">.</span><span class="n">fitted_omega_parameters</span><span class="p">[</span><span class="s2">"beta"</span><span class="p">])</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  fitted dof:  std=</span><span class="si">{</span><span class="n">dof_std</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, geo=</span><span class="si">{</span><span class="n">dof_geo</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  fitted α/β:  α=</span><span class="si">{</span><span class="n">rf_geo</span><span class="o">.</span><span class="n">fitted_omega_parameters</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;β=</span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">rf_geo</span><span class="o">.</span><span class="n">fitted_omega_parameters</span><span class="p">[</span><span class="s2">&quot;beta&quot;</span><span class="p">])</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Fitting Ω without distance regularisation …
-init_tau: 0.8757237792015076, 1.0135356187820435
-USING A PSEUDO-WWT!
 WWT max: 69.62195587158203
 Fitting Ω with geodesic-distance regularisation …
-init_tau: 0.8757237792015076, 1.0135356187820435
-USING A PSEUDO-WWT!
 WWT max: 69.62195587158203
   fitted dof:  std=6.8, geo=10.8
-  fitted α/β:  α=0.93, β=0.088
+  fitted α/β:  α=0.96, β=0.039
 </pre></div>
 </div>
 </section>
@@ -550,8 +551,8 @@ WWT max: 69.62195587158203
 over a stimulus grid, given the data, fitted parameters, and noise
 model. We compute it for each held-out trial under both Ωs and
 compare the posterior means.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">stim_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'n'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">)})</span>
-<span class="n">stim_grid</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'stimulus'</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">stim_grid</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">)})</span>
+<span class="n">stim_grid</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;stimulus&#39;</span>
 
 <span class="n">post_std</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_stimulus_pdf</span><span class="p">(</span>
     <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_idx</span><span class="p">],</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars</span><span class="p">,</span> <span class="n">stimulus_range</span><span class="o">=</span><span class="n">stim_grid</span><span class="p">,</span>
@@ -561,7 +562,7 @@ compare the posterior means.</p>
     <span class="n">omega</span><span class="o">=</span><span class="n">omega_geo</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="n">dof_geo</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">posterior_mean_and_sd</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="s1">'n'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">values</span> <span class="o">/</span> <span class="n">post</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">var</span>  <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -569,31 +570,31 @@ compare the posterior means.</p>
 
 <span class="n">mu_std</span><span class="p">,</span> <span class="n">sd_std</span> <span class="o">=</span> <span class="n">posterior_mean_and_sd</span><span class="p">(</span><span class="n">post_std</span><span class="p">,</span> <span class="n">stim_grid</span><span class="p">)</span>
 <span class="n">mu_geo</span><span class="p">,</span> <span class="n">sd_geo</span> <span class="o">=</span> <span class="n">posterior_mean_and_sd</span><span class="p">(</span><span class="n">post_geo</span><span class="p">,</span> <span class="n">stim_grid</span><span class="p">)</span>
-<span class="n">true_n</span> <span class="o">=</span> <span class="n">paradigm</span><span class="p">[</span><span class="s1">'n'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">true_n</span> <span class="o">=</span> <span class="n">paradigm</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 
 <span class="n">err_std</span> <span class="o">=</span> <span class="n">mu_std</span> <span class="o">-</span> <span class="n">true_n</span>
 <span class="n">err_geo</span> <span class="o">=</span> <span class="n">mu_geo</span> <span class="o">-</span> <span class="n">true_n</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Test posterior-mean RMSE  std: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">err_std</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, '</span>
-      <span class="sa">f</span><span class="s1">'geo: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">err_geo</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test posterior-mean RMSE  std: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">err_std</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;geo: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">err_geo</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Test posterior-mean RMSE  std: 9.69, geo: 8.32
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Test posterior-mean RMSE  std: 9.69, geo: 8.76
 </pre></div>
 </div>
 </section>
 <section id="visualise">
 <h2>Visualise<a class="headerlink" href="#visualise" title="Link to this heading">¶</a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">mu_post</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu_std</span><span class="p">,</span> <span class="s1">'Standard Ω'</span><span class="p">),</span>
-                             <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mu_geo</span><span class="p">,</span> <span class="s1">'Geodesic-regularised Ω'</span><span class="p">)]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">true_n</span><span class="p">,</span> <span class="n">mu_post</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#1f77b4'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">mu_post</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu_std</span><span class="p">,</span> <span class="s1">&#39;Standard Ω&#39;</span><span class="p">),</span>
+                             <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mu_geo</span><span class="p">,</span> <span class="s1">&#39;Geodesic-regularised Ω&#39;</span><span class="p">)]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">true_n</span><span class="p">,</span> <span class="n">mu_post</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">)</span>
     <span class="n">lim</span> <span class="o">=</span> <span class="p">(</span><span class="n">true_n</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">true_n</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lim</span><span class="p">,</span> <span class="n">lim</span><span class="p">,</span> <span class="s1">'k:'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lim</span><span class="p">,</span> <span class="n">lim</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">lim</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">lim</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'True numerosity'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;True numerosity&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Decoded posterior mean'</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">'Held-out trial decoding'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Decoded posterior mean&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Held-out trial decoding&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -609,20 +610,20 @@ show high correlations regardless of distance.</p>
 <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">seed</span><span class="p">])</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="n">order</span><span class="p">],</span> <span class="n">omega_std</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="n">order</span><span class="p">],</span> <span class="s1">'.'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">'Standard Ω'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="n">order</span><span class="p">],</span> <span class="n">omega_geo</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="n">order</span><span class="p">],</span> <span class="s1">'.'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">'Geodesic Ω'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#d62728'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Geodesic distance from voxel </span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s1"> (mm)'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Ω entry'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Covariance falloff with cortical distance'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="n">order</span><span class="p">],</span> <span class="n">omega_std</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="n">order</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Standard Ω&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="n">order</span><span class="p">],</span> <span class="n">omega_geo</span><span class="p">[</span><span class="n">seed</span><span class="p">,</span> <span class="n">order</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Geodesic Ω&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d62728&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Geodesic distance from voxel </span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s1"> (mm)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Ω entry&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Covariance falloff with cortical distance&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_02_geodesic_decoder_002.png" srcset="../../_images/sphx_glr_02_geodesic_decoder_002.png" alt="Covariance falloff with cortical distance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 42.358 seconds)</p>
+<img src="../../_images/sphx_glr_02_geodesic_decoder_002.png" srcset="../../_images/sphx_glr_02_geodesic_decoder_002.png" alt="Covariance falloff with cortical distance" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 35.012 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-01-decoding-pipeline-02-geodesic-decoder-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/86e11760cc7362684e86556351143429/02_geodesic_decoder.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02_geodesic_decoder.ipynb</span></code></a></p>
@@ -713,7 +714,7 @@ show high correlations regardless of distance.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=1c28bd9a"></script>
+</div><script src="../../_static/documentation_options.js?v=5a057da9"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

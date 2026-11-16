@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Examples" href="../auto_examples/index.html"><link rel="prev" title="Lesson 6: Decoding two-dimensional stimulus spaces" href="lesson6.html">
+        <link rel="prefetch" href="../_static/logo.png" as="image">
+        <link rel="prefetch" href="../_static/logo_dark.png" as="image">
 
-    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>Lesson 7: Fitting PRF models to visual space - Braincoder 0.6.2 documentation</title>
+    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Lesson 7: Fitting PRF models to visual space - Braincoder 0.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=16a9891c" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -44,8 +46,7 @@
       }
     }
   }
-</style><link rel="shortcut icon" href="../_static/favicon.png">
-</head>
+</style></head>
   <body>
     
     <script>
@@ -172,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
+      <a href="../index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,11 +193,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="../_static/logo.png" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="../_static/logo_dark.png" alt="Dark Logo"/>
   </div>
+  
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,6 +207,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration.html">Migrating to 0.7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fisher_information.html">Fisher information and expected uncertainty</a></li>
@@ -291,7 +293,7 @@
         <article role="main" id="furo-main-content">
           <section id="lesson-7-fitting-prf-models-to-visual-space">
 <span id="tutorial-lesson7"></span><h1>Lesson 7: Fitting PRF models to visual space<a class="headerlink" href="#lesson-7-fitting-prf-models-to-visual-space" title="Link to this heading">¶</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">"""</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Different flavors of visual population receptive field models</span>
 <span class="sd">==============================================================</span>
 
@@ -299,7 +301,7 @@
 <span class="sd">visual population receptive fields (PRFs). We will start with a simple</span>
 <span class="sd">Gaussian PRF model, and then add more complexity step by step.</span>
 
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># %%</span>
 <span class="c1"># Load data</span>
@@ -314,14 +316,14 @@
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">load_szinte2024</span><span class="p">(</span><span class="n">resize_factor</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">best_voxels</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
-<span class="c1"># This is the visual stimulus ("design matrix")</span>
-<span class="n">paradigm</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'stimulus'</span><span class="p">]</span>
-<span class="n">grid_coordinates</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'grid_coordinates'</span><span class="p">]</span>
+<span class="c1"># This is the visual stimulus (&quot;design matrix&quot;)</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;stimulus&#39;</span><span class="p">]</span>
+<span class="n">grid_coordinates</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;grid_coordinates&#39;</span><span class="p">]</span>
 
 <span class="c1"># This is the fMRI response data</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'v1_timeseries'</span><span class="p">]</span>
-<span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'frame'</span>
-<span class="n">tr</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'tr'</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;v1_timeseries&#39;</span><span class="p">]</span>
+<span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;frame&#39;</span>
+<span class="n">tr</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tr&#39;</span><span class="p">]</span>
 
 
 <span class="c1"># %%</span>
@@ -331,7 +333,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianPRF2DWithHRF</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.hrf</span><span class="w"> </span><span class="kn">import</span> <span class="n">SPMHRFModel</span>
 <span class="n">hrf_model</span> <span class="o">=</span> <span class="n">SPMHRFModel</span><span class="p">(</span><span class="n">tr</span><span class="o">=</span><span class="n">tr</span><span class="p">)</span>
-<span class="n">model_gauss</span> <span class="o">=</span> <span class="n">GaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span> <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="p">)</span>
+<span class="n">model_gauss</span> <span class="o">=</span> <span class="n">GaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span> <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="p">)</span>
 
 <span class="c1"># %%</span>
 <span class="c1"># And a parameter fitter...</span>
@@ -379,12 +381,12 @@
 <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">r2_gauss_gd</span><span class="p">,</span> <span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">r2_gauss_ols</span><span class="p">,</span> <span class="n">r2_gauss_gd</span><span class="p">),</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">'r2_ols'</span><span class="p">,</span> <span class="s1">'r2_gd'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">r2_gauss_ols</span><span class="p">,</span> <span class="n">r2_gauss_gd</span><span class="p">),</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r2_ols&#39;</span><span class="p">,</span> <span class="s1">&#39;r2_gd&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># %%</span>
 <span class="c1"># Clearly, the gradient descent optimization improves the fit substantially.</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'r2_ols'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'r2_gd'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">r2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'scatter'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'k--'</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;r2_ols&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;r2_gd&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">r2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
 <span class="c1">#</span>
 <span class="c1">#  %%</span>
 
@@ -394,23 +396,23 @@
 <span class="c1"># The standard canonical (SPM) HRF we use is often not a great fit to actual</span>
 <span class="c1"># data. To better account for the HRF. We can optimize the HRFs per voxel.</span>
 <span class="c1"># We first initialize a GaussianPRF-model with a flexible HRF.</span>
-<span class="n">model_hrf</span> <span class="o">=</span> <span class="n">GaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
+<span class="n">model_hrf</span> <span class="o">=</span> <span class="n">GaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
                              <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="p">,</span> <span class="n">flexible_hrf_parameters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">par_fitter_hrf</span> <span class="o">=</span> <span class="n">ParameterFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_hrf</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
 
 <span class="c1"># We set hrf_delay and hrf_dispersion to standard values</span>
-<span class="n">pars_gauss_gd</span><span class="p">[</span><span class="s1">'hrf_delay'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">pars_gauss_gd</span><span class="p">[</span><span class="s1">'hrf_dispersion'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">pars_gauss_gd</span><span class="p">[</span><span class="s1">&#39;hrf_delay&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">pars_gauss_gd</span><span class="p">[</span><span class="s1">&#39;hrf_dispersion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="n">pars_gauss_hrf</span> <span class="o">=</span> <span class="n">par_fitter_hrf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">pars_gauss_gd</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
 
 <span class="c1"># %%</span>
 <span class="n">r2_gauss_hrf</span> <span class="o">=</span> <span class="n">par_fitter_hrf</span><span class="o">.</span><span class="n">get_rsq</span><span class="p">(</span><span class="n">pars_gauss_hrf</span><span class="p">)</span>
 
-<span class="n">r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">r2_gauss_gd</span><span class="p">,</span> <span class="n">r2_gauss_hrf</span><span class="p">),</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">'r2_gd'</span><span class="p">,</span> <span class="s1">'r2_hrf'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'r2_gd'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'r2_hrf'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">r2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'scatter'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'k--'</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">r2_gauss_gd</span><span class="p">,</span> <span class="n">r2_gauss_hrf</span><span class="p">),</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r2_gd&#39;</span><span class="p">,</span> <span class="s1">&#39;r2_hrf&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;r2_gd&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;r2_hrf&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">r2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
 
 <span class="c1"># %%</span>
 <span class="c1"># Here we plot the predicted time courses of the original model</span>
@@ -419,13 +421,13 @@
 <span class="c1"># HRFs have shorter delays than the default setting.</span>
 <span class="n">improvement</span> <span class="o">=</span> <span class="n">r2_gauss_hrf</span> <span class="o">-</span> <span class="n">r2_gauss_gd</span>
 <span class="n">largest_improvements</span> <span class="o">=</span> <span class="n">improvement</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span>
-<span class="n">pred_gauss_gd</span> <span class="o">=</span> <span class="n">model_gauss</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">pars_gauss_gd</span><span class="p">)</span>
-<span class="n">pred_gauss_hrf</span> <span class="o">=</span> <span class="n">model_hrf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">pars_gauss_hrf</span><span class="p">)</span>
-<span class="n">pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_gauss_gd</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_gauss_hrf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">'data'</span><span class="p">,</span> <span class="s1">'gauss'</span><span class="p">,</span> <span class="s1">'gauss+hrf'</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">'model'</span><span class="p">])</span>
+<span class="n">pred_gauss_gd</span> <span class="o">=</span> <span class="n">model_gauss</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">pars_gauss_gd</span><span class="p">)</span>
+<span class="n">pred_gauss_hrf</span> <span class="o">=</span> <span class="n">model_hrf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">pars_gauss_hrf</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_gauss_gd</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_gauss_hrf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;gauss&#39;</span><span class="p">,</span> <span class="s1">&#39;gauss+hrf&#39;</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">])</span>
 
 <span class="c1">#</span>
-<span class="n">tmp</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="s1">'model'</span><span class="p">,</span> <span class="s1">'source'</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">'value'</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'frame'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'value'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'model'</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">'source'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'line'</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 
 <span class="c1"># %%</span>
@@ -438,32 +440,32 @@
 <span class="c1"># The inhibitory receptive field is subtracted from the excitatory one.</span>
 <span class="c1"># The resulting receptive field is then convolved with the HRF.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">DifferenceOfGaussiansPRF2DWithHRF</span>
-<span class="n">model_dog</span> <span class="o">=</span> <span class="n">DifferenceOfGaussiansPRF2DWithHRF</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
+<span class="n">model_dog</span> <span class="o">=</span> <span class="n">DifferenceOfGaussiansPRF2DWithHRF</span><span class="p">(</span><span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
                                          <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="p">,</span> <span class="n">flexible_hrf_parameters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">pars_dog_init</span> <span class="o">=</span> <span class="n">pars_gauss_hrf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="c1"># This is the relative amplitude of the inhibitory receptive field</span>
 <span class="c1"># compared to the excitatory one.</span>
-<span class="n">pars_dog_init</span><span class="p">[</span><span class="s1">'srf_amplitude'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">pars_dog_init</span><span class="p">[</span><span class="s1">&#39;srf_amplitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span>
 
 <span class="c1"># This is the relative size of the inhibitory receptive field</span>
 <span class="c1"># compared to the excitatory one.</span>
-<span class="n">pars_dog_init</span><span class="p">[</span><span class="s1">'srf_size'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span>
+<span class="n">pars_dog_init</span><span class="p">[</span><span class="s1">&#39;srf_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span>
 
-<span class="c1"># Let's set up a new parameterfitter </span>
+<span class="c1"># Let&#39;s set up a new parameterfitter </span>
 <span class="n">par_fitter_dog</span> <span class="o">=</span> <span class="n">ParameterFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_dog</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
 
 <span class="c1"># Note how, for now, we are not optimizing the HRF parameters.</span>
 <span class="n">pars_dog</span> <span class="o">=</span> <span class="n">par_fitter_dog</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">pars_dog_init</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>
-                              <span class="n">fixed_pars</span><span class="o">=</span><span class="p">[</span><span class="s1">'hrf_delay'</span><span class="p">,</span> <span class="s1">'hrf_dispersion'</span><span class="p">])</span>
+                              <span class="n">fixed_pars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hrf_delay&#39;</span><span class="p">,</span> <span class="s1">&#39;hrf_dispersion&#39;</span><span class="p">])</span>
 
 <span class="c1"># Now we optimize _with_ the HRF parameters</span>
 <span class="n">pars_dog_hrf</span> <span class="o">=</span> <span class="n">par_fitter_dog</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">pars_dog</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
 
 <span class="n">r2_dog_hrf</span> <span class="o">=</span> <span class="n">par_fitter_dog</span><span class="o">.</span><span class="n">get_rsq</span><span class="p">(</span><span class="n">pars_dog_hrf</span><span class="p">)</span>
 
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'r2_hrf'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'r2_dog_hrf'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">r2_gauss_hrf</span><span class="p">,</span> <span class="n">r2_dog_hrf</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                                       <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">'r2_hrf'</span><span class="p">,</span> <span class="s1">'r2_dog_hrf'</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'scatter'</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;r2_hrf&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;r2_dog_hrf&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">r2_gauss_hrf</span><span class="p">,</span> <span class="n">r2_dog_hrf</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                                       <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r2_hrf&#39;</span><span class="p">,</span> <span class="s1">&#39;r2_dog_hrf&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
 <span class="c1"># %%</span>
 
 
@@ -473,13 +475,13 @@
 <span class="c1"># imoproved the most.</span>
 <span class="n">improvement</span> <span class="o">=</span> <span class="n">r2_dog_hrf</span> <span class="o">-</span> <span class="n">r2_gauss_hrf</span>
 <span class="n">largest_improvements</span> <span class="o">=</span> <span class="n">improvement</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span>
-<span class="n">pred_dog_hrf</span> <span class="o">=</span> <span class="n">model_dog</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">pars_dog_hrf</span><span class="p">)</span>
-<span class="n">pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_gauss_hrf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_dog_hrf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">'data'</span><span class="p">,</span> <span class="s1">'gauss+hrf'</span><span class="p">,</span> <span class="s1">'dog+hrf'</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">'model'</span><span class="p">])</span>
+<span class="n">pred_dog_hrf</span> <span class="o">=</span> <span class="n">model_dog</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">pars_dog_hrf</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_gauss_hrf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_dog_hrf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;gauss+hrf&#39;</span><span class="p">,</span> <span class="s1">&#39;dog+hrf&#39;</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">])</span>
 
-<span class="n">tmp</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="s1">'model'</span><span class="p">,</span> <span class="s1">'source'</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">'value'</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'frame'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'value'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'model'</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">'source'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'line'</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s1">'k'</span><span class="p">]</span> <span class="o">+</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(),</span>
-            <span class="n">hue_order</span><span class="o">=</span><span class="p">[</span><span class="s1">'data'</span><span class="p">,</span> <span class="s1">'gauss+hrf'</span><span class="p">,</span> <span class="s1">'dog+hrf'</span><span class="p">])</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(),</span>
+            <span class="n">hue_order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;gauss+hrf&#39;</span><span class="p">,</span> <span class="s1">&#39;dog+hrf&#39;</span><span class="p">])</span>
 
 
 <span class="c1"># %%</span>
@@ -491,63 +493,58 @@
 <span class="c1"># by the sum of the excitatory and inhibitory receptive fields. </span>
 <span class="c1"># The resulting receptive field is then convolved with the HRF.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">DivisiveNormalizationGaussianPRF2DWithHRF</span>
-<span class="n">model_dn</span> <span class="o">=</span> <span class="n">DivisiveNormalizationGaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span>
-                                              <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span>
-                                              <span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
+<span class="n">model_dn</span> <span class="o">=</span> <span class="n">DivisiveNormalizationGaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
                                               <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="p">,</span>
                                               <span class="n">flexible_hrf_parameters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">pars_dn_init</span> <span class="o">=</span> <span class="n">pars_dog_hrf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">'srf_amplitude'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span>
-<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">'srf_size'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span>
-<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">'baseline'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">'neural_baseline'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">'surround_baseline'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">pars_dn_init</span> <span class="o">=</span> <span class="n">pars_dog_hrf</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;amplitude&#39;</span><span class="p">:</span> <span class="s1">&#39;rf_amplitude&#39;</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;bold_baseline&#39;</span><span class="p">})</span>
+<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">&#39;srf_amplitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">&#39;srf_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span>
+<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">&#39;neural_baseline&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">pars_dn_init</span><span class="p">[</span><span class="s1">&#39;surround_baseline&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
 
 <span class="n">par_fitter_dn</span> <span class="o">=</span> <span class="n">ParameterFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_dn</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">)</span>
 <span class="c1"># Without HRF</span>
-<span class="n">pars_dn</span> <span class="o">=</span> <span class="n">par_fitter_dn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">pars_dn_init</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">fixed_pars</span><span class="o">=</span><span class="p">[</span><span class="s1">'hrf_delay'</span><span class="p">,</span> <span class="s1">'hrf_dispersion'</span><span class="p">])</span>
+<span class="n">pars_dn</span> <span class="o">=</span> <span class="n">par_fitter_dn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">pars_dn_init</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">fixed_pars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hrf_delay&#39;</span><span class="p">,</span> <span class="s1">&#39;hrf_dispersion&#39;</span><span class="p">])</span>
 
 <span class="c1"># With HRF</span>
 <span class="n">pars_dn</span> <span class="o">=</span> <span class="n">par_fitter_dn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">pars_dn</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
 
 <span class="c1"># %%</span>
-<span class="c1"># Again, let's  plot the R2 improvements</span>
+<span class="c1"># Again, let&#39;s  plot the R2 improvements</span>
 <span class="n">r2_dn</span> <span class="o">=</span> <span class="n">par_fitter_dn</span><span class="o">.</span><span class="n">get_rsq</span><span class="p">(</span><span class="n">pars_dn</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'r2_dog_hrf'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'r2_dn'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">r2_dog_hrf</span><span class="p">,</span> <span class="n">r2_dn</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                                       <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">'r2_dog_hrf'</span><span class="p">,</span> <span class="s1">'r2_dn'</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'scatter'</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;r2_dog_hrf&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;r2_dn&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">r2_dog_hrf</span><span class="p">,</span> <span class="n">r2_dn</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                                       <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r2_dog_hrf&#39;</span><span class="p">,</span> <span class="s1">&#39;r2_dn&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'k--'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
 
 <span class="c1"># %%</span>
 <span class="n">improvement</span> <span class="o">=</span> <span class="n">r2_dn</span> <span class="o">-</span> <span class="n">r2_dog_hrf</span>
 <span class="n">largest_improvements</span> <span class="o">=</span> <span class="n">improvement</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span>
 
-<span class="n">pred_dn</span> <span class="o">=</span> <span class="n">model_dn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">pars_dn</span><span class="p">)</span>
-<span class="n">pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_dog_hrf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_dn</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">'data'</span><span class="p">,</span> <span class="s1">'dog+hrf'</span><span class="p">,</span> <span class="s1">'dn+hrf'</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">'model'</span><span class="p">])</span>
+<span class="n">pred_dn</span> <span class="o">=</span> <span class="n">model_dn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">pars_dn</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_dog_hrf</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">],</span> <span class="n">pred_dn</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">largest_improvements</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;dog+hrf&#39;</span><span class="p">,</span> <span class="s1">&#39;dn+hrf&#39;</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">])</span>
 
-<span class="n">tmp</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="s1">'model'</span><span class="p">,</span> <span class="s1">'source'</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">'value'</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'frame'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'value'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'model'</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">'source'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'line'</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s1">'k'</span><span class="p">]</span> <span class="o">+</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(),</span>
-            <span class="n">hue_order</span><span class="o">=</span><span class="p">[</span><span class="s1">'data'</span><span class="p">,</span> <span class="s1">'dog+hrf'</span><span class="p">,</span> <span class="s1">'dn+hrf'</span><span class="p">])</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(),</span>
+            <span class="n">hue_order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;dog+hrf&#39;</span><span class="p">,</span> <span class="s1">&#39;dn+hrf&#39;</span><span class="p">])</span>
 <span class="c1"># %%</span>
 
 
 <span class="c1"># Decoding</span>
 <span class="c1"># --------</span>
 <span class="c1"># We can also use the fitted models to decode the stimulus from the</span>
-<span class="c1"># fMRI response. Let's compare our simplest model versus our most</span>
+<span class="c1"># fMRI response. Let&#39;s compare our simplest model versus our most</span>
 <span class="c1"># complex model.</span>
 
 <span class="c1"># First we fit the noise models</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResidualFitter</span><span class="p">,</span> <span class="n">StimulusFitter</span>
 
-<span class="n">best_voxels_gauss</span> <span class="o">=</span> <span class="n">r2_gauss_gd</span><span class="p">[</span><span class="n">pars_gauss_gd</span><span class="p">[</span><span class="s1">'sd'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">best_voxels_gauss</span> <span class="o">=</span> <span class="n">r2_gauss_gd</span><span class="p">[</span><span class="n">pars_gauss_gd</span><span class="p">[</span><span class="s1">&#39;sd&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
 
-<span class="n">model_gauss</span> <span class="o">=</span> <span class="n">GaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">best_voxels_gauss</span><span class="p">],</span>
-                                   <span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
-                                   <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
-                                   <span class="n">parameters</span><span class="o">=</span><span class="n">pars_gauss_gd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_voxels_gauss</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="n">model_gauss</span> <span class="o">=</span> <span class="n">GaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
+                                   <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
 
 <span class="n">resid_fitter_gauss</span> <span class="o">=</span> <span class="n">ResidualFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_gauss</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">best_voxels_gauss</span><span class="p">],</span>
                                     <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars_gauss_gd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_voxels_gauss</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
@@ -560,12 +557,10 @@
 
 
 <span class="c1"># %%</span>
-<span class="n">best_voxels_dn</span> <span class="o">=</span> <span class="n">r2_dn</span><span class="p">[</span><span class="n">pars_dn</span><span class="p">[</span><span class="s1">'sd'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">best_voxels_dn</span> <span class="o">=</span> <span class="n">r2_dn</span><span class="p">[</span><span class="n">pars_dn</span><span class="p">[</span><span class="s1">&#39;sd&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
 
-<span class="n">model_dn</span> <span class="o">=</span> <span class="n">DivisiveNormalizationGaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">best_voxels_dn</span><span class="p">],</span> 
-                                              <span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
-                                              <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
-                                              <span class="n">parameters</span><span class="o">=</span><span class="n">pars_dn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_voxels_dn</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="n">model_dn</span> <span class="o">=</span> <span class="n">DivisiveNormalizationGaussianPRF2DWithHRF</span><span class="p">(</span><span class="n">hrf_model</span><span class="o">=</span><span class="n">hrf_model</span><span class="p">,</span>
+                                              <span class="n">grid_coordinates</span><span class="o">=</span><span class="n">grid_coordinates</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
 
 <span class="n">resid_fitter_dn</span> <span class="o">=</span> <span class="n">ResidualFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_dn</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">best_voxels_dn</span><span class="p">],</span>
                                     <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">pars_dn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_voxels_dn</span><span class="p">])</span>
@@ -576,7 +571,8 @@
 <span class="c1"># Decoded stimulus: Gaussian model</span>
 <span class="c1"># ===============================</span>
 <span class="c1"># Now we can decode the stimulus from the fMRI responses</span>
-<span class="n">stim_fitter_gauss</span> <span class="o">=</span> <span class="n">StimulusFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_gauss</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">best_voxels_gauss</span><span class="p">],</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega_gauss</span><span class="p">)</span>
+<span class="n">stim_fitter_gauss</span> <span class="o">=</span> <span class="n">StimulusFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_gauss</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">best_voxels_gauss</span><span class="p">],</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega_gauss</span><span class="p">,</span>
+                                   <span class="n">parameters</span><span class="o">=</span><span class="n">pars_gauss_gd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_voxels_gauss</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
 <span class="n">stim_gauss</span> <span class="o">=</span> <span class="n">stim_fitter_gauss</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">l2_norm</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
 
 <span class="c1"># %%</span>
@@ -591,9 +587,9 @@
 
   <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
       <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>  <span class="c1"># Clear the current figure</span>
-      <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">reconstructed_stimulus</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'viridis'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
-      <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
-      <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Frame </span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">reconstructed_stimulus</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+      <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+      <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Frame </span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
   <span class="c1"># Create the animation</span>
   <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -607,7 +603,8 @@
 <span class="c1"># %%</span>
 <span class="c1"># Decoded stimulus: DN model</span>
 <span class="c1"># ==========================</span>
-<span class="n">stim_fitter_dn</span> <span class="o">=</span> <span class="n">StimulusFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_dn</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">best_voxels_dn</span><span class="p">],</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega_dn</span><span class="p">)</span>
+<span class="n">stim_fitter_dn</span> <span class="o">=</span> <span class="n">StimulusFitter</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_dn</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">best_voxels_dn</span><span class="p">],</span> <span class="n">omega</span><span class="o">=</span><span class="n">omega_dn</span><span class="p">,</span>
+                                <span class="n">parameters</span><span class="o">=</span><span class="n">pars_dn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_voxels_dn</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
 <span class="n">stim_dn</span> <span class="o">=</span> <span class="n">stim_fitter_dn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">l2_norm</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
 
 <span class="c1"># %%</span>
@@ -668,7 +665,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=1c28bd9a"></script>
+</div><script src="../_static/documentation_options.js?v=5a057da9"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

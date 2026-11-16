@@ -50,8 +50,8 @@ Here we will simulate neural data given a ground truth encoding model
     # We have a paradigm of random numbers between 0 and 100
     paradigm = np.ceil(np.random.rand(n_trials) * 100)
 
-    model = GaussianPRF(parameters=parameters)
-    data = model.simulate(paradigm=paradigm, noise=noise)
+    model = GaussianPRF()
+    data = model.simulate(paradigm, parameters, noise=noise)
 
 
 
@@ -91,20 +91,20 @@ Here we will simulate neural data given a ground truth encoding model
 
  .. code-block:: none
 
-      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 241.20it/s]
-    Correlation grid-fitted parameter and ground truth for *mu*: 0.78
-    Correlation grid-fitted parameter and ground truth for *sd*: 0.56
+      0%|          | 0/1 [00:00<?, ?it/s]    100%|██████████| 1/1 [00:00<00:00, 296.84it/s]
+    Correlation grid-fitted parameter and ground truth for *mu*: 0.91
+    Correlation grid-fitted parameter and ground truth for *sd*: 0.41
     Correlation grid-fitted parameter and ground truth for *amplitude*: 0.91
-    Correlation grid-fitted parameter and ground truth for *baseline*: 0.67
-    Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.78
-    Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.56
+    Correlation grid-fitted parameter and ground truth for *baseline*: 0.83
+    Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.91
+    Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.41
     Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.91
-    Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.67
+    Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.83
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-62
+.. GENERATED FROM PYTHON SOURCE LINES 54-61
 
 .. code-block:: Python
 
@@ -112,9 +112,8 @@ Here we will simulate neural data given a ground truth encoding model
     # Now we fit the covariance matrix
     stimulus_range = np.arange(1, 100).astype(np.float32)
 
-    model.init_pseudoWWT(stimulus_range=stimulus_range, parameters=gd_pars)
     resid_fitter = ResidualFitter(model, data, paradigm, gd_pars)
-    omega, dof = resid_fitter.fit(progressbar=False)
+    omega, dof = resid_fitter.fit(stimulus_range=stimulus_range, progressbar=False)
 
 
 
@@ -124,24 +123,22 @@ Here we will simulate neural data given a ground truth encoding model
 
  .. code-block:: none
 
-    init_tau: 0.815586507320404, 1.12924063205719
-    USING A PSEUDO-WWT!
-    WWT max: 1894.5828857421875
+    WWT max: 884.5184936523438
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-73
+.. GENERATED FROM PYTHON SOURCE LINES 62-72
 
 .. code-block:: Python
 
 
     # Now we simulate unseen test data:
     test_paradigm = np.ceil(np.random.rand(n_trials) * 100)
-    test_data = model.simulate(paradigm=test_paradigm, noise=noise)
+    test_data = model.simulate(test_paradigm, parameters, noise=noise)
 
     # And decode the test paradigm
-    posterior = model.get_stimulus_pdf(test_data, stimulus_range, model.parameters, omega=omega, dof=dof)
+    posterior = model.get_stimulus_pdf(test_data, stimulus_range, gd_pars, omega=omega, dof=dof)
     # Rename the row index so it doesn't clash with the column index (both default to 'stimulus')
     posterior.index.name = 'frame'
 
@@ -152,7 +149,7 @@ Here we will simulate neural data given a ground truth encoding model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-90
+.. GENERATED FROM PYTHON SOURCE LINES 73-89
 
 .. code-block:: Python
 
@@ -186,11 +183,11 @@ Here we will simulate neural data given a ground truth encoding model
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x30da078f0>
+    <seaborn.axisgrid.FacetGrid object at 0x16ff248f0>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-126
+.. GENERATED FROM PYTHON SOURCE LINES 90-125
 
 .. code-block:: Python
 
@@ -259,7 +256,7 @@ Here we will simulate neural data given a ground truth encoding model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-136
+.. GENERATED FROM PYTHON SOURCE LINES 126-135
 
 .. code-block:: Python
 
@@ -267,7 +264,7 @@ Here we will simulate neural data given a ground truth encoding model
 
     # Now, let's try to find the MAP estimate using gradient descent
     from braincoder.optimize import StimulusFitter
-    stimulus_fitter = StimulusFitter(model=model, data=test_data, omega=omega)
+    stimulus_fitter = StimulusFitter(model=model, data=test_data, omega=omega, parameters=gd_pars)
 
     # We start with a very coarse grid search, so we are sure we are in the right ballpark
     estimated_stimuli_grid = stimulus_fitter.fit_grid(np.arange(1, 100, 5))
@@ -279,7 +276,7 @@ Here we will simulate neural data given a ground truth encoding model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-148
+.. GENERATED FROM PYTHON SOURCE LINES 136-147
 
 .. code-block:: Python
 
@@ -307,16 +304,16 @@ Here we will simulate neural data given a ground truth encoding model
 
  .. code-block:: none
 
-      0%|          | 0/1000 [00:00<?, ?it/s]      0%|          | 1/1000 [00:00<02:08,  7.76it/s]      3%|▎         | 30/1000 [00:00<00:06, 153.58it/s]      6%|▌         | 60/1000 [00:00<00:04, 213.67it/s]      9%|▉         | 90/1000 [00:00<00:03, 243.98it/s]     12%|█▏        | 120/1000 [00:00<00:03, 263.02it/s]     15%|█▍        | 149/1000 [00:00<00:03, 271.44it/s]     18%|█▊        | 177/1000 [00:00<00:03, 267.34it/s]     20%|██        | 205/1000 [00:00<00:03, 257.96it/s]     23%|██▎       | 232/1000 [00:01<00:03, 228.75it/s]     26%|██▌       | 260/1000 [00:01<00:03, 241.57it/s]     29%|██▊       | 287/1000 [00:01<00:02, 246.92it/s]     31%|███▏      | 313/1000 [00:01<00:02, 250.29it/s]     34%|███▍      | 341/1000 [00:01<00:02, 257.58it/s]     37%|███▋      | 370/1000 [00:01<00:02, 264.41it/s]     40%|███▉      | 397/1000 [00:01<00:02, 260.20it/s]     42%|████▏     | 424/1000 [00:01<00:02, 256.68it/s]     45%|████▌     | 451/1000 [00:01<00:02, 259.30it/s]     48%|████▊     | 478/1000 [00:01<00:02, 259.97it/s]     50%|█████     | 505/1000 [00:02<00:01, 261.31it/s]     53%|█████▎    | 532/1000 [00:02<00:01, 263.60it/s]     56%|█████▌    | 558/1000 [00:02<00:01, 243.02it/s]
+      0%|          | 0/1000 [00:00<?, ?it/s]      0%|          | 1/1000 [00:00<02:00,  8.30it/s]      3%|▎         | 34/1000 [00:00<00:05, 181.18it/s]      6%|▋         | 65/1000 [00:00<00:03, 234.82it/s]     10%|▉         | 99/1000 [00:00<00:03, 271.69it/s]     13%|█▎        | 129/1000 [00:00<00:03, 281.35it/s]     16%|█▌        | 160/1000 [00:00<00:02, 289.39it/s]     19%|█▉        | 190/1000 [00:00<00:02, 273.40it/s]     22%|██▏       | 222/1000 [00:00<00:02, 286.12it/s]     25%|██▌       | 253/1000 [00:00<00:02, 291.32it/s]     28%|██▊       | 285/1000 [00:01<00:02, 297.91it/s]     32%|███▏      | 315/1000 [00:01<00:02, 297.81it/s]     35%|███▍      | 347/1000 [00:01<00:02, 302.27it/s]     38%|███▊      | 378/1000 [00:01<00:02, 298.61it/s]     41%|████      | 408/1000 [00:01<00:02, 292.92it/s]     44%|████▍     | 438/1000 [00:01<00:01, 285.45it/s]     47%|████▋     | 467/1000 [00:01<00:01, 284.23it/s]     50%|████▉     | 497/1000 [00:01<00:01, 286.16it/s]     53%|█████▎    | 526/1000 [00:01<00:01, 280.32it/s]     56%|█████▌    | 556/1000 [00:02<00:01, 284.80it/s]     59%|█████▊    | 587/1000 [00:02<00:01, 291.58it/s]     62%|██████▏   | 619/1000 [00:02<00:01, 297.35it/s]     65%|██████▌   | 651/1000 [00:02<00:01, 302.25it/s]     68%|██████▊   | 682/1000 [00:02<00:01, 303.52it/s]     71%|███████▏  | 713/1000 [00:02<00:00, 299.39it/s]     74%|███████▍  | 744/1000 [00:02<00:00, 301.78it/s]     76%|███████▋  | 763/1000 [00:02<00:00, 283.90it/s]
 
-    <matplotlib.legend.Legend object at 0x31f907a70>
+    <matplotlib.legend.Legend object at 0x17dd776e0>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 33.634 seconds)
+   **Total running time of the script:** (0 minutes 27.592 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_decode.py:

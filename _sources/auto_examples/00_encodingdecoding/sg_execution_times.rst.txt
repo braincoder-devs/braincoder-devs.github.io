@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**10:59.603** total execution time for 11 files **from auto_examples/00_encodingdecoding**:
+**13:42.590** total execution time for 11 files **from auto_examples/00_encodingdecoding**:
 
 .. container::
 
@@ -32,36 +32,36 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_v1.py` (``decode_v1.py``)
-     - 04:00.240
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py` (``fit_prf.py``)
+     - 05:17.922
      - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fisher_information.py` (``fisher_information.py``)
-     - 02:07.848
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_v1.py` (``decode_v1.py``)
+     - 03:50.783
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_visual.py` (``decode_visual.py``)
-     - 01:30.419
+     - 01:28.518
      - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py` (``fit_prf.py``)
-     - 01:27.345
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fisher_information.py` (``fisher_information.py``)
+     - 01:26.772
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_masked_stimulus_decoding.py` (``masked_stimulus_decoding.py``)
-     - 00:40.970
+     - 00:37.801
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py` (``decode.py``)
-     - 00:33.634
+     - 00:27.592
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py` (``decode2d.py``)
-     - 00:21.654
+     - 00:16.579
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_residuals.py` (``fit_residuals.py``)
-     - 00:13.943
+     - 00:13.498
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_encoding_model.py` (``encoding_model.py``)
-     - 00:03.192
+     - 00:02.800
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_invert_model.py` (``invert_model.py``)
-     - 00:00.240
+     - 00:00.208
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_linear_encoding_model.py` (``linear_encoding_model.py``)
-     - 00:00.118
+     - 00:00.116
      - 0.0

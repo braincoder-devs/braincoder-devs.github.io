@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Invert encoding model" href="invert_model.html"><link rel="prev" title="Linear encoding model" href="linear_encoding_model.html">
+        <link rel="prefetch" href="../../_static/logo.png" as="image">
+        <link rel="prefetch" href="../../_static/logo_dark.png" as="image">
 
-    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
-        <title>Create a simple Gaussian Prf encoding model - Braincoder 0.6.2 documentation</title>
+    <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Create a simple Gaussian Prf encoding model - Braincoder 0.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=ca2c29f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=16a9891c" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -44,8 +46,7 @@
       }
     }
   }
-</style><link rel="shortcut icon" href="../../_static/favicon.png">
-</head>
+</style></head>
   <body>
     
     <script>
@@ -172,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Braincoder 0.6.2 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,11 +193,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo only-light" src="../../_static/logo.png" alt="Light Logo"/>
     <img class="sidebar-logo only-dark" src="../../_static/logo_dark.png" alt="Dark Logo"/>
   </div>
+  
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,6 +207,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migration.html">Migrating to 0.7</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
@@ -305,29 +307,29 @@ We also simulate data and then estimate back the generating parameters.</p>
 
 <span class="c1"># We set up two PRFS, one centered at 1 and one centered at -2</span>
 <span class="c1"># The first one has a sd of 1 and the second one has a sd of 1.5</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">'mu'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'sd'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
-              <span class="p">{</span><span class="s1">'mu'</span><span class="p">:</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="s1">'sd'</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">'baseline'</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span>
+              <span class="p">{</span><span class="s1">&#39;mu&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">:</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;amplitude&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span>
               <span class="p">]</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'voxel 1'</span><span class="p">,</span> <span class="s1">'voxel 2'</span><span class="p">])</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;voxel 1&#39;</span><span class="p">,</span> <span class="s1">&#39;voxel 2&#39;</span><span class="p">])</span>
 
 <span class="c1"># We have a virtual experimental paradigm where we go from -5 to 5</span>
 <span class="n">paradigm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
 <span class="c1"># Set up the model.</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianPRF</span><span class="p">()</span>
 
 <span class="c1"># Extract and plot the predictions</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
-<span class="n">predictions</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Stimulus value'</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+<span class="n">predictions</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Stimulus value&#39;</span><span class="p">)</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_encoding_model_001.png" srcset="../../_images/sphx_glr_encoding_model_001.png" alt="encoding model" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We simulate data with a bit of noise</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_encoding_model_002.png" srcset="../../_images/sphx_glr_encoding_model_002.png" alt="encoding model" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel='stimulus'&gt;
+<img src="../../_images/sphx_glr_encoding_model_002.png" srcset="../../_images/sphx_glr_encoding_model_002.png" alt="encoding model" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;stimulus&#39;&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import and set up a parameter fitter with the (simulated) data,</span>
@@ -354,7 +356,7 @@ We also simulate data and then estimate back the generating parameters.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00, 94.04it/s]
+100%|██████████| 1/1 [00:00&lt;00:00, 105.81it/s]
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -400,7 +402,7 @@ We also simulate data and then estimate back the generating parameters.</p>
     <tr>
       <th>voxel 2</th>
       <td>-1.666667</td>
-      <td>1.188889</td>
+      <td>1.733333</td>
       <td>1.0</td>
       <td>0.0</td>
     </tr>
@@ -416,36 +418,36 @@ We also simulate data and then estimate back the generating parameters.</p>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()</span>
-<span class="n">grid_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">)</span>
+<span class="n">grid_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pars</span><span class="p">)</span>
 
 <span class="c1"># See how well the predictions align with the data</span>
 <span class="c1"># using the explained variance statistic</span>
 <span class="n">r2_grid</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Grid prediction'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'R2 = </span><span class="si">{</span><span class="n">r2_grid</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Grid prediction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;R2 = </span><span class="si">{</span><span class="n">r2_grid</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_encoding_model_003.png" srcset="../../_images/sphx_glr_encoding_model_003.png" alt="R2 = 0.75" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, 'R2 = 0.75')
+<img src="../../_images/sphx_glr_encoding_model_003.png" srcset="../../_images/sphx_glr_encoding_model_003.png" alt="R2 = 0.70" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;R2 = 0.70&#39;)
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Final optimisation using gradient descent:</span>
 <span class="n">gd_pars</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">grid_pars</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">gd_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">gd_pars</span><span class="p">)</span>
+<span class="n">gd_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">gd_pars</span><span class="p">)</span>
 
 <span class="n">r2_gd</span> <span class="o">=</span> <span class="n">get_rsq</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Grid prediction'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'k'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Gradient descent prediction'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'R2 = </span><span class="si">{</span><span class="n">r2_gd</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">grid_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Grid prediction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">gd_pred</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient descent prediction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;R2 = </span><span class="si">{</span><span class="n">r2_gd</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_encoding_model_004.png" srcset="../../_images/sphx_glr_encoding_model_004.png" alt="R2 = 0.80" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, 'R2 = 0.80')
+<img src="../../_images/sphx_glr_encoding_model_004.png" srcset="../../_images/sphx_glr_encoding_model_004.png" alt="R2 = 0.78" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;R2 = 0.78&#39;)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.192 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.800 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-encoding-model-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/62f752a377c83603bb70034556f1fbb9/encoding_model.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">encoding_model.ipynb</span></code></a></p>
@@ -509,7 +511,7 @@ We also simulate data and then estimate back the generating parameters.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=1c28bd9a"></script>
+</div><script src="../../_static/documentation_options.js?v=5a057da9"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
