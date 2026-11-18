@@ -352,15 +352,15 @@ to download the full example code.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
-100%|██████████| 1/1 [00:00&lt;00:00, 295.25it/s]
-Correlation grid-fitted parameter and ground truth for *mu*: 0.72
-Correlation grid-fitted parameter and ground truth for *sd*: 0.51
-Correlation grid-fitted parameter and ground truth for *amplitude*: 0.78
-Correlation grid-fitted parameter and ground truth for *baseline*: 0.56
-Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.72
-Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.51
-Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.78
-Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.56
+100%|██████████| 1/1 [00:00&lt;00:00, 312.01it/s]
+Correlation grid-fitted parameter and ground truth for *mu*: 0.97
+Correlation grid-fitted parameter and ground truth for *sd*: 0.66
+Correlation grid-fitted parameter and ground truth for *amplitude*: 0.91
+Correlation grid-fitted parameter and ground truth for *baseline*: 0.84
+Correlation gradient descent-fitted parameter and ground truth for *mu*: 0.97
+Correlation gradient descent-fitted parameter and ground truth for *sd*: 0.66
+Correlation gradient descent-fitted parameter and ground truth for *amplitude*: 0.91
+Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0.84
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we fit the covariance matrix</span>
@@ -370,7 +370,7 @@ Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0
 <span class="n">omega</span><span class="p">,</span> <span class="n">dof</span> <span class="o">=</span> <span class="n">resid_fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">stimulus_range</span><span class="o">=</span><span class="n">stimulus_range</span><span class="p">,</span> <span class="n">progressbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>WWT max: 3032.525634765625
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>WWT max: 1448.0950927734375
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we simulate unseen test data:</span>
@@ -399,7 +399,7 @@ Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0
 <span class="n">g</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Stimulus value&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Posterior probability density&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_decode_001.png" srcset="../../_images/sphx_glr_decode_001.png" alt="frame = 0, frame = 1, frame = 2, frame = 3, frame = 4, frame = 5, frame = 6, frame = 7, frame = 8" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x30f88ae40&gt;
+<img src="../../_images/sphx_glr_decode_001.png" srcset="../../_images/sphx_glr_decode_001.png" alt="frame = 0, frame = 1, frame = 2, frame = 3, frame = 4, frame = 5, frame = 6, frame = 7, frame = 8" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid object at 0x1762f3fb0&gt;
 </pre></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s look at the summary statistics of the posteriors posteriors</span>
@@ -465,42 +465,38 @@ Correlation gradient descent-fitted parameter and ground truth for *baseline*: 0
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_decode_004.png" srcset="../../_images/sphx_glr_decode_004.png" alt="decode" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1000 [00:00&lt;?, ?it/s]
-  0%|          | 1/1000 [00:00&lt;02:13,  7.46it/s]
-  3%|▎         | 33/1000 [00:00&lt;00:05, 167.06it/s]
-  6%|▋         | 63/1000 [00:00&lt;00:04, 221.70it/s]
- 10%|▉         | 98/1000 [00:00&lt;00:03, 268.75it/s]
- 13%|█▎        | 131/1000 [00:00&lt;00:03, 287.76it/s]
- 16%|█▋        | 164/1000 [00:00&lt;00:02, 300.11it/s]
- 20%|█▉        | 197/1000 [00:00&lt;00:02, 307.73it/s]
- 23%|██▎       | 229/1000 [00:00&lt;00:02, 310.10it/s]
- 26%|██▌       | 261/1000 [00:00&lt;00:02, 312.29it/s]
- 29%|██▉       | 293/1000 [00:01&lt;00:02, 311.35it/s]
- 33%|███▎      | 327/1000 [00:01&lt;00:02, 317.63it/s]
- 36%|███▋      | 365/1000 [00:01&lt;00:01, 335.07it/s]
- 40%|███▉      | 399/1000 [00:01&lt;00:01, 316.22it/s]
- 44%|████▎     | 435/1000 [00:01&lt;00:01, 327.17it/s]
- 47%|████▋     | 473/1000 [00:01&lt;00:01, 339.85it/s]
- 51%|█████     | 509/1000 [00:01&lt;00:01, 345.08it/s]
- 54%|█████▍    | 544/1000 [00:01&lt;00:01, 345.79it/s]
- 58%|█████▊    | 580/1000 [00:01&lt;00:01, 347.83it/s]
- 62%|██████▏   | 615/1000 [00:01&lt;00:01, 343.78it/s]
- 65%|██████▌   | 650/1000 [00:02&lt;00:01, 344.27it/s]
- 68%|██████▊   | 685/1000 [00:02&lt;00:00, 334.57it/s]
- 72%|███████▏  | 719/1000 [00:02&lt;00:00, 332.08it/s]
- 75%|███████▌  | 754/1000 [00:02&lt;00:00, 336.46it/s]
- 79%|███████▉  | 790/1000 [00:02&lt;00:00, 342.00it/s]
- 83%|████████▎ | 827/1000 [00:02&lt;00:00, 349.88it/s]
- 86%|████████▋ | 864/1000 [00:02&lt;00:00, 354.50it/s]
- 90%|█████████ | 900/1000 [00:02&lt;00:00, 344.82it/s]
- 94%|█████████▎| 935/1000 [00:02&lt;00:00, 310.46it/s]
- 97%|█████████▋| 967/1000 [00:03&lt;00:00, 311.75it/s]
-100%|█████████▉| 999/1000 [00:03&lt;00:00, 313.90it/s]
-100%|██████████| 1000/1000 [00:03&lt;00:00, 315.94it/s]
+  0%|          | 1/1000 [00:00&lt;01:40,  9.91it/s]
+  4%|▍         | 41/1000 [00:00&lt;00:04, 236.32it/s]
+  8%|▊         | 81/1000 [00:00&lt;00:02, 306.61it/s]
+ 11%|█▏        | 113/1000 [00:00&lt;00:02, 310.87it/s]
+ 15%|█▍        | 146/1000 [00:00&lt;00:02, 316.73it/s]
+ 18%|█▊        | 180/1000 [00:00&lt;00:02, 322.18it/s]
+ 22%|██▏       | 217/1000 [00:00&lt;00:02, 334.86it/s]
+ 25%|██▌       | 254/1000 [00:00&lt;00:02, 344.41it/s]
+ 29%|██▉       | 293/1000 [00:00&lt;00:01, 357.22it/s]
+ 33%|███▎      | 334/1000 [00:01&lt;00:01, 370.48it/s]
+ 37%|███▋      | 372/1000 [00:01&lt;00:01, 368.75it/s]
+ 41%|████      | 412/1000 [00:01&lt;00:01, 377.32it/s]
+ 45%|████▌     | 451/1000 [00:01&lt;00:01, 380.11it/s]
+ 49%|████▉     | 491/1000 [00:01&lt;00:01, 385.49it/s]
+ 53%|█████▎    | 531/1000 [00:01&lt;00:01, 388.78it/s]
+ 57%|█████▋    | 571/1000 [00:01&lt;00:01, 390.06it/s]
+ 61%|██████    | 612/1000 [00:01&lt;00:00, 393.22it/s]
+ 65%|██████▌   | 653/1000 [00:01&lt;00:00, 395.77it/s]
+ 69%|██████▉   | 694/1000 [00:01&lt;00:00, 397.14it/s]
+ 73%|███████▎  | 734/1000 [00:02&lt;00:00, 392.67it/s]
+ 78%|███████▊  | 775/1000 [00:02&lt;00:00, 394.86it/s]
+ 82%|████████▏ | 815/1000 [00:02&lt;00:00, 396.17it/s]
+ 86%|████████▌ | 855/1000 [00:02&lt;00:00, 397.22it/s]
+ 90%|████████▉ | 895/1000 [00:02&lt;00:00, 396.44it/s]
+ 94%|█████████▎| 935/1000 [00:02&lt;00:00, 395.78it/s]
+ 98%|█████████▊| 976/1000 [00:02&lt;00:00, 397.21it/s]
+100%|██████████| 1000/1000 [00:02&lt;00:00, 369.74it/s]
 
-&lt;matplotlib.legend.Legend object at 0x31bb654f0&gt;
+&lt;matplotlib.legend.Legend object at 0x17645c230&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 29.128 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 20.973 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-decode-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6617c088d7d027febee4c331aef6d1fa/decode.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">decode.ipynb</span></code></a></p>

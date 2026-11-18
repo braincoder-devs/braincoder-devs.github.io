@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:41.933** total execution time for 1 file **from auto_examples/02_gain_fields**:
+**00:37.261** total execution time for 1 file **from auto_examples/02_gain_fields**:
 
 .. container::
 
@@ -33,5 +33,5 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_02_gain_fields_01_gain_fields.py` (``01_gain_fields.py``)
-     - 00:41.933
+     - 00:37.261
      - 0.0

@@ -318,7 +318,15 @@ at different locations in stimulus space without actually doing any decoding.</p
 <p>Notably, Fisher information also plays a crucial role in efficient coding theory. In general, the expected
 squared error of a likelihood function, given a limited ‘information budget’,
 can be minimized by using a likelihood function where the Fisher information is proportional
-to the derivative of the cummulative prior distribution (<span id="id1"></span>).</p>
+to the derivative of the cumulative prior distribution (Wei and Stocker<a class="footnote-reference brackets" href="#footcite-wei2015bayesian" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
+<div class="docutils container" id="id2">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-wei2015bayesian" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Xue-Xin Wei and Alan A Stocker. A Bayesian observer model constrained by efficient coding can explain ‘anti-Bayesian’ percepts. <em>Nature neuroscience</em>, 18(10):1509–1517, 2015. <a class="reference external" href="https://doi.org/10.1038/nn.4105">doi:10.1038/nn.4105</a>.</p>
+</aside>
+</aside>
+</div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary libraries</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianPRF</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -353,7 +361,7 @@ the quantiles of a <em>uniform prior distribution</em>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_fisher_information_001.png" srcset="../../_images/sphx_glr_fisher_information_001.png" alt="fisher information" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>braincoder/examples/00_encodingdecoding/fisher_information.py:58: UserWarning:
+<img src="../../_images/sphx_glr_fisher_information_001.png" srcset="../../_images/sphx_glr_fisher_information_001.png" alt="fisher information" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>braincoder/examples/00_encodingdecoding/fisher_information.py:60: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   sns.lineplot(data=data.reset_index(), x=&#39;stimulus&#39;, y=&#39;strength&#39;, hue=&#39;rf&#39;, palette=[&#39;k&#39;], alpha=0.5, legend=False)
 </pre></div>
@@ -503,20 +511,20 @@ stimuli.
 <li><img src="../../_images/sphx_glr_fisher_information_007.png" srcset="../../_images/sphx_glr_fisher_information_007.png" alt="Fisher information, Unequally distributed mus, Equally distributed mus, Smaller dispersion, Smaller amplitude (vs noise)" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_fisher_information_008.png" srcset="../../_images/sphx_glr_fisher_information_008.png" alt="fisher information" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>site-packages/seaborn/axisgrid.py:854: UserWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>~/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   func(*plot_args, **plot_kwargs)
-site-packages/seaborn/axisgrid.py:854: UserWarning:
+~/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   func(*plot_args, **plot_kwargs)
-site-packages/seaborn/axisgrid.py:854: UserWarning:
+~/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   func(*plot_args, **plot_kwargs)
-site-packages/seaborn/axisgrid.py:854: UserWarning:
+~/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   func(*plot_args, **plot_kwargs)
 
-&lt;seaborn.axisgrid.FacetGrid object at 0x31c432660&gt;
+&lt;seaborn.axisgrid.FacetGrid object at 0x1764b0ec0&gt;
 </pre></div>
 </div>
 <p>Another intersting phenomenon we can now study is how different
@@ -593,7 +601,7 @@ stimulus value.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;stimulus&#39;, ylabel=&#39;sqrt(fi)&#39;&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 32.044 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 17.880 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-fisher-information-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/63d506f48bb4c5a0da7e8a34c526c251/fisher_information.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">fisher_information.ipynb</span></code></a></p>

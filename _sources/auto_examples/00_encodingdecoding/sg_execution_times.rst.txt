@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**08:48.798** total execution time for 11 files **from auto_examples/00_encodingdecoding**:
+**07:37.847** total execution time for 11 files **from auto_examples/00_encodingdecoding**:
 
 .. container::
 
@@ -32,36 +32,36 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_v1.py` (``decode_v1.py``)
-     - 02:29.174
-     - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_prf.py` (``fit_prf.py``)
-     - 02:27.378
+     - 02:16.149
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_v1.py` (``decode_v1.py``)
+     - 02:10.061
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fisher_information.py` (``fisher_information.py``)
-     - 01:32.044
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_visual.py` (``decode_visual.py``)
-     - 00:42.157
+     - 01:17.880
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_masked_stimulus_decoding.py` (``masked_stimulus_decoding.py``)
-     - 00:35.369
+     - 00:32.462
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode_visual.py` (``decode_visual.py``)
+     - 00:26.884
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode.py` (``decode.py``)
-     - 00:29.128
+     - 00:20.973
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_decode2d.py` (``decode2d.py``)
-     - 00:19.052
+     - 00:16.199
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_fit_residuals.py` (``fit_residuals.py``)
-     - 00:11.557
+     - 00:14.820
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_encoding_model.py` (``encoding_model.py``)
-     - 00:02.649
+     - 00:02.149
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_invert_model.py` (``invert_model.py``)
-     - 00:00.195
+     - 00:00.184
      - 0.0
    * - :ref:`sphx_glr_auto_examples_00_encodingdecoding_linear_encoding_model.py` (``linear_encoding_model.py``)
-     - 00:00.095
+     - 00:00.088
      - 0.0

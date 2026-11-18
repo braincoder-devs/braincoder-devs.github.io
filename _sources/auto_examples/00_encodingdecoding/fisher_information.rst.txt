@@ -38,9 +38,11 @@ at different locations in stimulus space without actually doing any decoding.
 Notably, Fisher information also plays a crucial role in efficient coding theory. In general, the expected
 squared error of a likelihood function, given a limited 'information budget',
 can be minimized by using a likelihood function where the Fisher information is proportional
-to the derivative of the cummulative prior distribution (:cite:t:`wei2015bayesian`).
+to the derivative of the cumulative prior distribution (:footcite:t:`wei2015bayesian`).
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-34
+.. footbibliography::
+
+.. GENERATED FROM PYTHON SOURCE LINES 27-36
 
 .. code-block:: Python
 
@@ -60,7 +62,7 @@ to the derivative of the cummulative prior distribution (:cite:t:`wei2015bayesia
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-42
+.. GENERATED FROM PYTHON SOURCE LINES 37-44
 
 Set up generating model
 -------------------------------------
@@ -70,7 +72,7 @@ the quantiles of a *uniform prior distribution*
 (i.e. the quantiles of a uniform distribution are equally spaced).
 %
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-62
+.. GENERATED FROM PYTHON SOURCE LINES 44-64
 
 .. code-block:: Python
 
@@ -107,14 +109,14 @@ the quantiles of a *uniform prior distribution*
 
  .. code-block:: none
 
-    braincoder/examples/00_encodingdecoding/fisher_information.py:58: UserWarning: 
+    braincoder/examples/00_encodingdecoding/fisher_information.py:60: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       sns.lineplot(data=data.reset_index(), x='stimulus', y='strength', hue='rf', palette=['k'], alpha=0.5, legend=False)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-72
+.. GENERATED FROM PYTHON SOURCE LINES 65-74
 
 Calculate Fisher Information
 ------------------------------
@@ -126,7 +128,7 @@ from the noise distribution defined by `omega` and calculating the second
 derivative of the log-likelihood with respect to the stimulus using autodiff.
 %
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-79
+.. GENERATED FROM PYTHON SOURCE LINES 74-81
 
 .. code-block:: Python
 
@@ -149,7 +151,7 @@ derivative of the log-likelihood with respect to the stimulus using autodiff.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-89
+.. GENERATED FROM PYTHON SOURCE LINES 82-91
 
 We can see that the Fisher information is largest at the center of the PRFs and
 decreases towards the edges. This is because the PRFs are more overlapping at the
@@ -161,13 +163,13 @@ outside of the receptive fields, the likelihood function is flat and the Fisher
 information is 0.
 %%
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-94
+.. GENERATED FROM PYTHON SOURCE LINES 93-96
 
 Note that if we include some correlation in the errors
 of the receptive fields, under some conditions,
 the Fisher information is higher.
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-105
+.. GENERATED FROM PYTHON SOURCE LINES 96-107
 
 .. code-block:: Python
 
@@ -194,7 +196,7 @@ the Fisher information is higher.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-111
+.. GENERATED FROM PYTHON SOURCE LINES 108-113
 
 We can also validate the Fisher information by decoding and looking 
 at the errors of the decoded stimuli. The Fisher information should
@@ -202,7 +204,7 @@ be inversely proportional to the expected squared error of the decoded
 stimuli.
 %%
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-130
+.. GENERATED FROM PYTHON SOURCE LINES 113-132
 
 .. code-block:: Python
 
@@ -243,11 +245,11 @@ stimuli.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-132
+.. GENERATED FROM PYTHON SOURCE LINES 133-134
 
 same goes for the variance of the decoded posterior
 
-.. GENERATED FROM PYTHON SOURCE LINES 132-140
+.. GENERATED FROM PYTHON SOURCE LINES 134-142
 
 .. code-block:: Python
 
@@ -277,14 +279,14 @@ same goes for the variance of the decoded posterior
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-145
+.. GENERATED FROM PYTHON SOURCE LINES 143-147
 
 Fisher information for different RF distributions
 -------------------------------------------------
 Let's calculate the Fisher information for different RF structures
 %
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-204
+.. GENERATED FROM PYTHON SOURCE LINES 147-206
 
 .. code-block:: Python
 
@@ -379,24 +381,24 @@ Let's calculate the Fisher information for different RF structures
 
  .. code-block:: none
 
-    site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    ~/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    ~/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    ~/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    ~/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
 
-    <seaborn.axisgrid.FacetGrid object at 0x31c432660>
+    <seaborn.axisgrid.FacetGrid object at 0x1764b0ec0>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 205-212
+.. GENERATED FROM PYTHON SOURCE LINES 207-214
 
 Another intersting phenomenon we can now study is how different
 basis functions/receptive fields modulate the Fisher information.
@@ -406,7 +408,7 @@ now study how the Fisher information is modulated by the shape of
 the receptive fields.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-238
+.. GENERATED FROM PYTHON SOURCE LINES 214-240
 
 .. code-block:: Python
 
@@ -466,7 +468,7 @@ the receptive fields.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 239-244
+.. GENERATED FROM PYTHON SOURCE LINES 241-246
 
 Somewhat consistent with the literature, the Fisher information
 behaves roughly like 1/x now, where x is the stimulus. This means that the
@@ -474,7 +476,7 @@ precision of the estimated stimulus decreases with increasing
 stimulus value. 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 244-267
+.. GENERATED FROM PYTHON SOURCE LINES 246-269
 
 .. code-block:: Python
 
@@ -534,7 +536,7 @@ stimulus value.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 32.044 seconds)
+   **Total running time of the script:** (1 minutes 17.880 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fisher_information.py:

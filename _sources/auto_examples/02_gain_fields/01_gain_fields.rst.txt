@@ -642,7 +642,7 @@ adds fields to other PRF kernels (e.g. a difference of Gaussians).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 41.933 seconds)
+   **Total running time of the script:** (0 minutes 37.261 seconds)
 
 
 .. _sphx_glr_download_auto_examples_02_gain_fields_01_gain_fields.py:

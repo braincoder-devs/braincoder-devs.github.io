@@ -91,9 +91,9 @@ simulated data from a ``VonMisesPRF``-model.
  .. code-block:: none
 
     WWT max: 4.0
-    [[0.5206337  0.06484459 0.17930438]
-     [0.06484459 0.57701266 0.06919569]
-     [0.17930438 0.06919569 0.8004683 ]]
+    [[0.46355098 0.16757174 0.18342103]
+     [0.16757174 0.6437839  0.21609357]
+     [0.18342103 0.21609357 0.7709338 ]]
 
 
 
@@ -101,7 +101,7 @@ simulated data from a ``VonMisesPRF``-model.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 11.557 seconds)
+   **Total running time of the script:** (0 minutes 14.820 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fit_residuals.py:
