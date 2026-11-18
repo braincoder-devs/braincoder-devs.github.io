@@ -3,12 +3,12 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Tutorial" href="tutorial/index.html"><link rel="prev" title="Noise models for decoding: low-rank Ω and temperature" href="noise_models.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Tutorial" href="tutorial/index.html"><link rel="prev" title="Gain fields (attention fields)" href="gain_fields.html">
         <link rel="prefetch" href="_static/logo.png" as="image">
         <link rel="prefetch" href="_static/logo_dark.png" as="image">
 
     <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>API Reference - Braincoder 0.7.1 documentation</title>
+        <title>API Reference - Braincoder 0.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -173,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.9.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -212,6 +212,7 @@
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gain_fields.html">Gain fields (attention fields)</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -224,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson7.html">Lesson 7: Fitting PRF models to visual space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson8.html">Lesson 8: Gain fields: attention modulates PRFs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="auto_examples/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -248,6 +250,10 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/02_gain_fields/index.html">Gain fields: attention modulates PRFs</a><input aria-label="Toggle navigation of Gain fields: attention modulates PRFs" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/02_gain_fields/01_gain_fields.html">Gain fields: attention modulates population receptive fields</a></li>
 </ul>
 </li>
 </ul>
@@ -923,6 +929,401 @@ multi-dimensional grid without <code class="docutils literal notranslate"><span 
 </dd></dl>
 
 </section>
+<section id="stimulus-parameterisations">
+<span id="api-parametric"></span><h2>Stimulus parameterisations<a class="headerlink" href="#stimulus-parameterisations" title="Link to this heading">¶</a></h2>
+<p>Decode a few stimulus parameters (e.g. a bar’s orientation, position and width)
+instead of an image: a grid over the parameters is an exact posterior per volume,
+and a differentiable rendering gives gradient-based MAP estimates.</p>
+<p id="module-braincoder.parametric">Stimulus parameterisations: decode a few stimulus parameters instead of an image.</p>
+<p>An encoding model <code class="docutils literal notranslate"><span class="pre">f(s;</span> <span class="pre">θ)</span></code> is defined on a stimulus space S, for a pRF model the
+pixels of an image. Many experiments only show a small family of images, which a
+few numbers describe: a moving bar is fixed by the position of its centre line
+along the normal, the orientation of that normal and its width. A
+<em>stimulus parameterisation</em> is the map</p>
+<blockquote>
+<div><p>g: Φ → S,   φ ↦ image,</p>
+</div></blockquote>
+<p>and decoding then targets the posterior over φ instead of over images:</p>
+<blockquote>
+<div><p>p(φ | y) ∝ p(y | f(g(φ); θ)) p(φ).</p>
+</div></blockquote>
+<p>The encoding model is unchanged; only the candidate set (a grid over φ, or a
+continuous φ for gradient methods) is generated through <code class="docutils literal notranslate"><span class="pre">g</span></code>. Over a few
+dimensions the posterior is a low-dimensional integral, so it can be computed
+exactly on a grid, which is what <code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_stimulus_pdf()</span></code> already
+does for a list of candidate images.</p>
+<section id="contents">
+<h3>Contents<a class="headerlink" href="#contents" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ParametricStimulus</dt><dd><p>Base class: named parameters, bounds, a differentiable <code class="docutils literal notranslate"><span class="pre">to_image</span></code> in
+<code class="docutils literal notranslate"><span class="pre">keras.ops</span></code> (TensorFlow, JAX and PyTorch), grids and candidate sets.</p>
+</dd>
+<dt>BarStimulus</dt><dd><p>A bar: hard-edged or soft-edged (differentiable), optional contrast
+(presence), optional aperture mask.</p>
+</dd>
+<dt>get_parametric_stimulus_pdf</dt><dd><p>Grid posterior over φ (plus an optional blank state) through
+<code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>, with a prior.</p>
+</dd>
+<dt>marginalize</dt><dd><p>Marginal posterior over a subset of parameters.</p>
+</dd>
+<dt>forward_backward</dt><dd><p>Exact posterior marginals of a hidden Markov model over a candidate set
+(e.g. φ grid over time, with a Markov prior on the bar’s motion).</p>
+</dd>
+<dt>ParametricStimulusFitter (in <code class="docutils literal notranslate"><span class="pre">braincoder.optimize</span></code>)</dt><dd><p>Gradient-based MAP over φ, per volume or, with a <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> model, for a
+whole time series.</p>
+</dd>
+</dl>
+<p>Orientation convention: <code class="docutils literal notranslate"><span class="pre">orientation</span></code> is the direction of the bar’s <em>normal</em>
+in degrees (0 = vertical bar, moving horizontally), <code class="docutils literal notranslate"><span class="pre">position</span></code> the signed
+distance of the bar’s centre line from the origin along that normal. The bar
+with (orientation + 180, -position) is the same image, so g is two-to-one on
+the full circle. Grids use orientation in [0, 180) with a signed position,
+which has no duplicates; continuous optimisation uses the full circle (no wrap
+boundary) and <a class="reference internal" href="#braincoder.parametric.BarStimulus.canonicalize" title="braincoder.parametric.BarStimulus.canonicalize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BarStimulus.canonicalize()</span></code></a> maps results back.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.parametric.BarStimulus">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.parametric.</span></span><span class="sig-name descname"><span class="pre">BarStimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contrast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aperture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.BarStimulus" title="Link to this definition">¶</a></dt>
+<dd><p>A bar of given orientation, position and width, optionally with a contrast.</p>
+<p><code class="docutils literal notranslate"><span class="pre">image(x,</span> <span class="pre">y)</span> <span class="pre">=</span> <span class="pre">contrast</span> <span class="pre">·</span> <span class="pre">edge(width</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">−</span> <span class="pre">|x</span> <span class="pre">cos</span> <span class="pre">θ</span> <span class="pre">+</span> <span class="pre">y</span> <span class="pre">sin</span> <span class="pre">θ</span> <span class="pre">−</span> <span class="pre">position|)</span> <span class="pre">·</span> <span class="pre">aperture</span></code></p>
+<p>with θ = <code class="docutils literal notranslate"><span class="pre">orientation</span></code> (degrees, direction of the bar’s normal).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid_coordinates</strong> (<em>(</em><em>n_pixels</em><em>, </em><em>2</em><em>)</em>)</p></li>
+<li><p><strong>edge</strong> (<em>'hard'</em><em> or </em><em>'soft'</em>) – ‘hard’: 1 inside the bar, 0 outside (<code class="docutils literal notranslate"><span class="pre">|d|</span> <span class="pre">&lt;=</span> <span class="pre">width</span> <span class="pre">/</span> <span class="pre">2</span></code>, as a binary
+stimulus aperture); piecewise constant, so no useful gradient.
+‘soft’: a logistic edge, <code class="docutils literal notranslate"><span class="pre">sigmoid((width</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">−</span> <span class="pre">|d|)</span> <span class="pre">/</span> <span class="pre">edge_width)</span></code>,
+differentiable in every parameter (<code class="docutils literal notranslate"><span class="pre">|d|</span></code> is smoothed at 0).</p></li>
+<li><p><strong>edge_width</strong> (<em>float</em><em>, </em><em>optional</em>) – Logistic scale of the soft edge in the units of the grid. Default: a
+quarter of the pixel spacing, so the edge is within about one pixel.</p></li>
+<li><p><strong>contrast</strong> (<em>bool</em>) – Add a <code class="docutils literal notranslate"><span class="pre">contrast</span></code> parameter in [0, 1] that multiplies the image. With
+a contrast, “no bar” is the point contrast = 0, where orientation,
+position and width are not identified; a discrete blank state
+(<code class="docutils literal notranslate"><span class="pre">include_blank</span></code> in <code class="xref py py-meth docutils literal notranslate"><span class="pre">candidates()</span></code>) is usually the better model
+of blank frames.</p></li>
+<li><p><strong>aperture</strong> (<em>(</em><em>n_pixels</em><em>,</em><em>) </em><em>array</em><em>, </em><em>optional</em>) – Mask that multiplies the bar (e.g. a bar seen only inside a 4° aperture).</p></li>
+<li><p><strong>max_width</strong> (<em>float</em><em>, </em><em>optional</em>) – Upper bound on width for continuous optimisation (default: the field radius).</p></li>
+<li><p><strong>min_width</strong> (<em>float</em><em>, </em><em>optional</em>) – Lower bound on width for continuous optimisation (default: half a pixel).</p></li>
+<li><p><strong>width_prior</strong> (<a class="reference internal" href="#braincoder.parametric.LogWidthPrior" title="braincoder.parametric.LogWidthPrior"><em>LogWidthPrior</em></a><em> or </em><em>dict</em><em>, </em><em>optional</em>) – A proper prior on the width, bounded away from 0 and from the field (see <a class="reference internal" href="#braincoder.parametric.LogWidthPrior" title="braincoder.parametric.LogWidthPrior"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogWidthPrior</span></code></a>; a dict is
+passed to its constructor). The bounds replace <code class="docutils literal notranslate"><span class="pre">min_width</span></code> and <code class="docutils literal notranslate"><span class="pre">max_width</span></code>, the unconstrained width
+coordinate becomes the prior’s <code class="docutils literal notranslate"><span class="pre">zeta</span></code> (log-scaled logit), and <a class="reference internal" href="#braincoder.parametric.BarStimulus.log_prior_unconstrained" title="braincoder.parametric.BarStimulus.log_prior_unconstrained"><code class="xref py py-meth docutils literal notranslate"><span class="pre">log_prior_unconstrained()</span></code></a> gives the
+log prior in that coordinate for a fitter or sampler.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.BarStimulus.canonicalize">
+<span class="sig-name descname"><span class="pre">canonicalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.BarStimulus.canonicalize" title="Link to this definition">¶</a></dt>
+<dd><p>Orientation into [0, 180), flipping the sign of position where it moved by 180°.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.BarStimulus.centre">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">centre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.BarStimulus.centre" title="Link to this definition">¶</a></dt>
+<dd><p>Foot point of the bar’s centre line, (position cos θ, position sin θ): invariant to the 180° symmetry.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.BarStimulus.from_unconstrained">
+<span class="sig-name descname"><span class="pre">from_unconstrained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.BarStimulus.from_unconstrained" title="Link to this definition">¶</a></dt>
+<dd><p>Unconstrained (tensor, n x n_parameters) → parameters (tensor). Default: identity.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.BarStimulus.log_prior_unconstrained">
+<span class="sig-name descname"><span class="pre">log_prior_unconstrained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.BarStimulus.log_prior_unconstrained" title="Link to this definition">¶</a></dt>
+<dd><p>Log prior of the unconstrained coordinates, summed over rows (keras ops): the width prior’s density in its
+<code class="docutils literal notranslate"><span class="pre">zeta</span></code> coordinate, 0 when no <code class="docutils literal notranslate"><span class="pre">width_prior</span></code> was given (flat in the unconstrained space).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.BarStimulus.to_unconstrained">
+<span class="sig-name descname"><span class="pre">to_unconstrained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.BarStimulus.to_unconstrained" title="Link to this definition">¶</a></dt>
+<dd><p>orientation, position: identity (orientation is periodic in g itself); width: logit between
+min_width and max_width; contrast: logit.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.parametric.LogWidthPrior">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.parametric.</span></span><span class="sig-name descname"><span class="pre">LogWidthPrior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">median</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.LogWidthPrior" title="Link to this definition">¶</a></dt>
+<dd><p>A proper prior on a bar’s width with support bounded away from 0 and from the field.</p>
+<p>Log width <code class="docutils literal notranslate"><span class="pre">u</span></code> is a logit-scaled variable on <code class="docutils literal notranslate"><span class="pre">(log</span> <span class="pre">min_width,</span> <span class="pre">log</span> <span class="pre">max_width)</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="n">min_width</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">max_width</span><span class="p">)</span> <span class="o">-</span> <span class="n">log</span><span class="p">(</span><span class="n">min_width</span><span class="p">))</span> <span class="o">*</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">zeta</span><span class="p">),</span>   <span class="n">zeta</span> <span class="o">~</span> <span class="n">Normal</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">scale</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">m</span></code> puts the prior median at <code class="docutils literal notranslate"><span class="pre">median</span></code> (default: the geometric mean of the bounds). The width is
+therefore strictly inside <code class="docutils literal notranslate"><span class="pre">(min_width,</span> <span class="pre">max_width)</span></code>, the density is smooth (no wall for HMC or NUTS, which
+sample <code class="docutils literal notranslate"><span class="pre">zeta</span></code>), and <code class="docutils literal notranslate"><span class="pre">scale</span></code> sets how concentrated it is: about 1 gives a bell in log width, about 2 or more
+is nearly flat over the interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_width</strong> (<em>float</em>) – Bounds in the units of the stimulus grid. A sensible minimum is one pixel; a sensible maximum is clearly
+below the field (e.g. 1.5 times the widest bar the design shows).</p></li>
+<li><p><strong>max_width</strong> (<em>float</em>) – Bounds in the units of the stimulus grid. A sensible minimum is one pixel; a sensible maximum is clearly
+below the field (e.g. 1.5 times the widest bar the design shows).</p></li>
+<li><p><strong>median</strong> (<em>float</em><em>, </em><em>optional</em>)</p></li>
+<li><p><strong>scale</strong> (<em>float</em>) – SD of <code class="docutils literal notranslate"><span class="pre">zeta</span></code> (default 1).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.LogWidthPrior.cell_log_masses">
+<span class="sig-name descname"><span class="pre">cell_log_masses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.LogWidthPrior.cell_log_masses" title="Link to this definition">¶</a></dt>
+<dd><p>Log prior mass of each candidate width, each owning the cell of log widths nearest to it (cells clipped at the
+bounds); widths outside the bounds get <code class="docutils literal notranslate"><span class="pre">-inf</span></code>. For a grid over widths: a prior that sums to 1 over the candidates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.LogWidthPrior.log_prob">
+<span class="sig-name descname"><span class="pre">log_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.LogWidthPrior.log_prob" title="Link to this definition">¶</a></dt>
+<dd><p>Log density of the width itself (numpy); <code class="docutils literal notranslate"><span class="pre">-inf</span></code> outside the bounds.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.LogWidthPrior.log_prob_log_width">
+<span class="sig-name descname"><span class="pre">log_prob_log_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.LogWidthPrior.log_prob_log_width" title="Link to this definition">¶</a></dt>
+<dd><p>Log density of log width (numpy); <code class="docutils literal notranslate"><span class="pre">-inf</span></code> outside the bounds.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.LogWidthPrior.log_prob_zeta">
+<span class="sig-name descname"><span class="pre">log_prob_zeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zeta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.LogWidthPrior.log_prob_zeta" title="Link to this definition">¶</a></dt>
+<dd><p>Log density of the prior in the unconstrained coordinate (keras ops), the quantity a sampler or MAP uses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.LogWidthPrior.width">
+<span class="sig-name descname"><span class="pre">width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zeta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.LogWidthPrior.width" title="Link to this definition">¶</a></dt>
+<dd><p>Width of an unconstrained coordinate, keras ops (any backend).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.LogWidthPrior.zeta">
+<span class="sig-name descname"><span class="pre">zeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.LogWidthPrior.zeta" title="Link to this definition">¶</a></dt>
+<dd><p>Unconstrained coordinate of a width (numpy).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.parametric.ParametricStimulus">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.parametric.</span></span><span class="sig-name descname"><span class="pre">ParametricStimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aperture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.ParametricStimulus" title="Link to this definition">¶</a></dt>
+<dd><p>A map <code class="docutils literal notranslate"><span class="pre">g</span></code> from a few named parameters to an image on a pixel grid.</p>
+<p>Subclasses set <code class="docutils literal notranslate"><span class="pre">parameter_labels</span></code> and implement <code class="xref py py-meth docutils literal notranslate"><span class="pre">_render()</span></code> (keras ops,
+differentiable where the subclass says so) and, optionally,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">_render_numpy()</span></code> (exact numpy rendering for candidate sets).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid_coordinates</strong> (<em>(</em><em>n_pixels</em><em>, </em><em>2</em><em>) </em><em>array</em><em> or </em><em>DataFrame</em>) – x and y of every pixel, in the same order as the encoding model’s
+<code class="docutils literal notranslate"><span class="pre">grid_coordinates</span></code>.</p></li>
+<li><p><strong>aperture</strong> (<em>(</em><em>n_pixels</em><em>,</em><em>) </em><em>array</em><em>, </em><em>optional</em>) – Multiplies every image (e.g. a circular field, or a 4° aperture).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.ParametricStimulus.candidates">
+<span class="sig-name descname"><span class="pre">candidates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.ParametricStimulus.candidates" title="Link to this definition">¶</a></dt>
+<dd><p>Candidate set (table, images) for decoding from a grid over φ.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<em>DataFrame</em>) – Rows of φ (e.g. from <a class="reference internal" href="#braincoder.parametric.ParametricStimulus.grid" title="braincoder.parametric.ParametricStimulus.grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">grid()</span></code></a>).</p></li>
+<li><p><strong>include_blank</strong> (<em>bool</em>) – Prepend an empty image as row 0, with NaN parameters: the
+presence state “no stimulus”, where φ is undefined.</p></li>
+<li><p><strong>min_area</strong> (<em>float</em><em>, </em><em>optional</em>) – Drop candidates whose image sum is below <code class="docutils literal notranslate"><span class="pre">min_area</span></code> times the
+median image sum (stimuli almost entirely outside the field).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>table</strong> (DataFrame, one row per candidate, columns <code class="docutils literal notranslate"><span class="pre">parameter_labels</span></code>)</p></li>
+<li><p><strong>images</strong> (<em>float32 array (n_candidates, n_pixels)</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.ParametricStimulus.canonicalize">
+<span class="sig-name descname"><span class="pre">canonicalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.ParametricStimulus.canonicalize" title="Link to this definition">¶</a></dt>
+<dd><p>Map equivalent parameter values to one representative. Default: unchanged.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.ParametricStimulus.from_unconstrained">
+<span class="sig-name descname"><span class="pre">from_unconstrained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.ParametricStimulus.from_unconstrained" title="Link to this definition">¶</a></dt>
+<dd><p>Unconstrained (tensor, n x n_parameters) → parameters (tensor). Default: identity.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.ParametricStimulus.grid">
+<span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.ParametricStimulus.grid" title="Link to this definition">¶</a></dt>
+<dd><p>Full factorial grid over φ as a DataFrame with columns <code class="docutils literal notranslate"><span class="pre">parameter_labels</span></code>.</p>
+<p>Every parameter needs a list of values, e.g. <code class="docutils literal notranslate"><span class="pre">grid(orientation=np.arange(0,</span> <span class="pre">180,</span> <span class="pre">15),</span>
+<span class="pre">position=np.arange(-8,</span> <span class="pre">8.01,</span> <span class="pre">.5),</span> <span class="pre">width=[1.,</span> <span class="pre">2.])</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.ParametricStimulus.images">
+<span class="sig-name descname"><span class="pre">images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.ParametricStimulus.images" title="Link to this definition">¶</a></dt>
+<dd><p>Images of <code class="docutils literal notranslate"><span class="pre">phi</span></code> (DataFrame or array) as a float32 numpy array (n, n_pixels).</p>
+<p>NaN rows (a blank, see <a class="reference internal" href="#braincoder.parametric.ParametricStimulus.candidates" title="braincoder.parametric.ParametricStimulus.candidates"><code class="xref py py-meth docutils literal notranslate"><span class="pre">candidates()</span></code></a>) give an empty image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.ParametricStimulus.to_image">
+<span class="sig-name descname"><span class="pre">to_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.ParametricStimulus.to_image" title="Link to this definition">¶</a></dt>
+<dd><p>Images of <code class="docutils literal notranslate"><span class="pre">phi</span></code> (tensor or array, n x n_parameters) as a tensor (n, n_pixels), in keras ops.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.parametric.ParametricStimulus.to_unconstrained">
+<span class="sig-name descname"><span class="pre">to_unconstrained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.ParametricStimulus.to_unconstrained" title="Link to this definition">¶</a></dt>
+<dd><p>Parameters → unconstrained space (numpy). Default: identity.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.parametric.forward_backward">
+<span class="sig-prename descclassname"><span class="pre">braincoder.parametric.</span></span><span class="sig-name descname"><span class="pre">forward_backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_emission</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_transition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.forward_backward" title="Link to this definition">¶</a></dt>
+<dd><p>Exact posterior marginals of a hidden Markov model (log-space forward–backward).</p>
+<p>For a stimulus that changes slowly over time (a sweeping bar), a Markov
+prior over a candidate set turns per-frame evidence into a posterior over
+the whole sequence whose frame marginals this computes exactly, at a cost
+of O(n K²). Use it on emissions that are conditionally independent over
+frames: e.g. per-frame scores of a deconvolved (HRF-removed) image
+sequence, not raw BOLD volumes, whose overlapping HRFs couple frames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_emission</strong> (<em>(</em><em>n</em><em>, </em><em>K</em><em>) </em><em>array</em>) – Log p(evidence_t | state k), up to a constant per frame.</p></li>
+<li><p><strong>log_transition</strong> (<em>(</em><em>K</em><em>, </em><em>K</em><em>) </em><em>array</em>) – Log p(state_{t+1} = j | state_t = i), rows i.</p></li>
+<li><p><strong>log_initial</strong> (<em>(</em><em>K</em><em>,</em><em>) </em><em>array</em><em>, </em><em>optional</em>) – Log prior of the first state (default: stationary-free uniform).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>marginals</strong> (<em>(n, K) array, rows sum to 1</em>)</p></li>
+<li><p><strong>log_evidence</strong> (<em>float, log p(all evidence) up to the per-frame constants</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.parametric.get_parametric_stimulus_pdf">
+<span class="sig-prename descclassname"><span class="pre">braincoder.parametric.</span></span><span class="sig-name descname"><span class="pre">get_parametric_stimulus_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_blank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blank_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.get_parametric_stimulus_pdf" title="Link to this definition">¶</a></dt>
+<dd><p>Posterior over a grid of stimulus parameters, per row of <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<p>The candidate images are <code class="docutils literal notranslate"><span class="pre">stimulus.candidates(grid)</span></code>; the likelihood is
+the one of <code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodingModel.get_stimulus_pdf()</span></code> (same noise models,
+temperature); the prior is <code class="docutils literal notranslate"><span class="pre">log_prior</span></code> over the grid rows (default flat)
+and, with <code class="docutils literal notranslate"><span class="pre">include_blank</span></code>, a discrete blank state with prior
+probability <code class="docutils literal notranslate"><span class="pre">blank_prior</span></code> (the rest spread over the grid by
+<code class="docutils literal notranslate"><span class="pre">log_prior</span></code>). Because the grid enumerates φ, the result is the exact
+posterior on that grid; marginals over parameters are sums
+(<a class="reference internal" href="#braincoder.parametric.marginalize" title="braincoder.parametric.marginalize"><code class="xref py py-func docutils literal notranslate"><span class="pre">marginalize()</span></code></a>).</p>
+<p>Note: a grid is a quadrature of the posterior over continuous φ. Its
+spacing should be small against the posterior width, and a flat prior
+over φ is not flat over images (it is the prior of this parameterisation).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (EncodingModel (not <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code>: decode single responses or betas))</p></li>
+<li><p><strong>data</strong> (<em>(</em><em>n</em><em>, </em><em>n_voxels</em><em>) </em><em>DataFrame</em><em> or </em><em>array</em>)</p></li>
+<li><p><strong>stimulus</strong> (<a class="reference internal" href="#braincoder.parametric.ParametricStimulus" title="braincoder.parametric.ParametricStimulus"><em>ParametricStimulus</em></a>)</p></li>
+<li><p><strong>grid</strong> (<em>DataFrame</em><em> of </em><em>φ rows</em>)</p></li>
+<li><p><strong>log_prior</strong> (<em>(</em><em>n_grid</em><em>,</em><em>) </em><em>array</em><em>, </em><em>optional</em>) – Log prior over the grid rows (need not be normalised).</p></li>
+<li><p><strong>include_blank</strong> (<em>bool</em>)</p></li>
+<li><p><strong>blank_prior</strong> (float in (0, 1), required with <code class="docutils literal notranslate"><span class="pre">include_blank</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>DataFrame (n, n_candidates), rows sum to 1; columns are a MultiIndex of</em></p></li>
+<li><p><em>the parameter values (the blank, if any, first, with NaN values).</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.parametric.marginalize">
+<span class="sig-prename descclassname"><span class="pre">braincoder.parametric.</span></span><span class="sig-name descname"><span class="pre">marginalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.parametric.marginalize" title="Link to this definition">¶</a></dt>
+<dd><p>Marginal posterior over <code class="docutils literal notranslate"><span class="pre">labels</span></code> (a parameter name or a list) from a grid posterior.</p>
+<p>The blank state (NaN parameters) is kept as its own column (NaN).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.optimize.ParametricStimulusFitter">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.optimize.</span></span><span class="sig-name descname"><span class="pre">ParametricStimulusFitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stimulus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.optimize.ParametricStimulusFitter" title="Link to this definition">¶</a></dt>
+<dd><p>MAP of stimulus parameters φ given data, by gradient descent through <code class="docutils literal notranslate"><span class="pre">stimulus.to_image</span></code>.</p>
+<p>Two modes, set by the model:</p>
+<ul class="simple">
+<li><p>a model without HRF (single responses or betas): every row of <code class="docutils literal notranslate"><span class="pre">data</span></code> is
+one independent stimulus, φ_t is fitted per row;</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> model and a BOLD time series: the images of all frames go
+through the HRF together, so the fit is over the whole sequence φ_1..φ_n.
+An optional Gaussian random-walk prior (<code class="docutils literal notranslate"><span class="pre">smoothness</span></code>) couples
+neighbouring frames.</p></li>
+</ul>
+<p>The stimulus must be differentiable (e.g. <code class="docutils literal notranslate"><span class="pre">BarStimulus(edge='soft')</span></code>).
+The objective is <code class="docutils literal notranslate"><span class="pre">-sum_t</span> <span class="pre">log</span> <span class="pre">p(y_t</span> <span class="pre">|</span> <span class="pre">f(g(φ_t)))</span> <span class="pre">/</span> <span class="pre">T</span> <span class="pre">-</span> <span class="pre">log</span> <span class="pre">prior</span></code>; the
+likelihood is the noise model’s (<code class="docutils literal notranslate"><span class="pre">LowRankNoise</span></code> or dense <code class="docutils literal notranslate"><span class="pre">omega</span></code>/<code class="docutils literal notranslate"><span class="pre">dof</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference internal" href="#braincoder.models.EncodingModel" title="braincoder.models.EncodingModel"><em>EncodingModel</em></a>)</p></li>
+<li><p><strong>stimulus</strong> (<a class="reference internal" href="#braincoder.parametric.ParametricStimulus" title="braincoder.parametric.ParametricStimulus"><em>ParametricStimulus</em></a>)</p></li>
+<li><p><strong>data</strong> (<em>(</em><em>n</em><em>, </em><em>n_voxels</em><em>) </em><em>DataFrame</em><em> or </em><em>array</em>)</p></li>
+<li><p><strong>parameters</strong> (encoding parameters (as for <code class="docutils literal notranslate"><span class="pre">predict</span></code>))</p></li>
+<li><p><strong>weights</strong> (encoding parameters (as for <code class="docutils literal notranslate"><span class="pre">predict</span></code>))</p></li>
+<li><p><strong>noise_model</strong> (<a class="reference internal" href="#braincoder.noise.LowRankNoise" title="braincoder.noise.LowRankNoise"><em>LowRankNoise</em></a><em>, </em><em>optional</em>)</p></li>
+<li><p><strong>omega</strong> (<em>dense noise covariance and Student-t dof</em><em>, </em><em>optional</em>)</p></li>
+<li><p><strong>dof</strong> (<em>dense noise covariance and Student-t dof</em><em>, </em><em>optional</em>)</p></li>
+<li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em><em> (</em><em>default: the noise model's</em><em>, </em><em>else 1</em><em>)</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.optimize.ParametricStimulusFitter.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_n_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_n_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progressbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_width_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.optimize.ParametricStimulusFitter.fit" title="Link to this definition">¶</a></dt>
+<dd><p>Gradient descent (Adam) on φ in the stimulus’ unconstrained space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>init_phi</strong> (DataFrame (columns <code class="docutils literal notranslate"><span class="pre">stimulus.parameter_labels</span></code>) or array, one row per frame) – Start, e.g. the grid MAP of <a class="reference internal" href="#braincoder.parametric.get_parametric_stimulus_pdf" title="braincoder.parametric.get_parametric_stimulus_pdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_parametric_stimulus_pdf()</span></code></a>.</p></li>
+<li><p><strong>fixed</strong> (<em>list</em><em> of </em><em>parameter labels</em><em>, </em><em>optional</em>) – Kept at their start values (clamped), e.g. <code class="docutils literal notranslate"><span class="pre">['orientation',</span> <span class="pre">'width']</span></code>.</p></li>
+<li><p><strong>smoothness</strong> (<em>dict label -&gt; SD per frame</em><em>, </em><em>optional</em>) – Gaussian random-walk prior over frames (sequence mode); orientation
+differences are wrapped to ±90°.</p></li>
+<li><p><strong>decay</strong> (<em>bool</em>) – Cosine decay of the learning rate over <code class="docutils literal notranslate"><span class="pre">max_n_iterations</span></code> (default True).</p></li>
+<li><p><strong>use_width_prior</strong> (<em>bool</em>) – Add the stimulus’ <code class="docutils literal notranslate"><span class="pre">width_prior</span></code> (a <a class="reference internal" href="#braincoder.parametric.LogWidthPrior" title="braincoder.parametric.LogWidthPrior"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogWidthPrior</span></code></a>, in its unconstrained
+coordinate) to the objective: a MAP with a proper bounded prior on width instead of a flat one.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame of fitted φ (canonicalized), index as <code class="docutils literal notranslate"><span class="pre">data</span></code>. The loss trace is in <code class="docutils literal notranslate"><span class="pre">self.costs</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.optimize.ParametricStimulusFitter.log_posterior">
+<span class="sig-name descname"><span class="pre">log_posterior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_width_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.optimize.ParametricStimulusFitter.log_posterior" title="Link to this definition">¶</a></dt>
+<dd><p>Objective (log likelihood / T + log prior) at <code class="docutils literal notranslate"><span class="pre">phi</span></code> (DataFrame or array), as a float.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 </section>
 
         </article>
@@ -939,14 +1340,14 @@ multi-dimensional grid without <code class="docutils literal notranslate"><span 
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="noise_models.html">
+          <a class="prev-page" href="gain_fields.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Noise models for decoding: low-rank Ω and temperature</div>
+                <div class="title">Gain fields (attention fields)</div>
                 
               </div>
             </a>
@@ -1051,6 +1452,45 @@ multi-dimensional grid without <code class="docutils literal notranslate"><span 
 <li><a class="reference internal" href="#braincoder.utils.calibration.true_stimulus_index"><code class="docutils literal notranslate"><span class="pre">true_stimulus_index()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#stimulus-parameterisations">Stimulus parameterisations</a><ul>
+<li><a class="reference internal" href="#contents">Contents</a></li>
+<li><a class="reference internal" href="#braincoder.parametric.BarStimulus"><code class="docutils literal notranslate"><span class="pre">BarStimulus</span></code></a><ul>
+<li><a class="reference internal" href="#braincoder.parametric.BarStimulus.canonicalize"><code class="docutils literal notranslate"><span class="pre">BarStimulus.canonicalize()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.BarStimulus.centre"><code class="docutils literal notranslate"><span class="pre">BarStimulus.centre()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.BarStimulus.from_unconstrained"><code class="docutils literal notranslate"><span class="pre">BarStimulus.from_unconstrained()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.BarStimulus.log_prior_unconstrained"><code class="docutils literal notranslate"><span class="pre">BarStimulus.log_prior_unconstrained()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.BarStimulus.to_unconstrained"><code class="docutils literal notranslate"><span class="pre">BarStimulus.to_unconstrained()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#braincoder.parametric.LogWidthPrior"><code class="docutils literal notranslate"><span class="pre">LogWidthPrior</span></code></a><ul>
+<li><a class="reference internal" href="#braincoder.parametric.LogWidthPrior.cell_log_masses"><code class="docutils literal notranslate"><span class="pre">LogWidthPrior.cell_log_masses()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.LogWidthPrior.log_prob"><code class="docutils literal notranslate"><span class="pre">LogWidthPrior.log_prob()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.LogWidthPrior.log_prob_log_width"><code class="docutils literal notranslate"><span class="pre">LogWidthPrior.log_prob_log_width()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.LogWidthPrior.log_prob_zeta"><code class="docutils literal notranslate"><span class="pre">LogWidthPrior.log_prob_zeta()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.LogWidthPrior.width"><code class="docutils literal notranslate"><span class="pre">LogWidthPrior.width()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.LogWidthPrior.zeta"><code class="docutils literal notranslate"><span class="pre">LogWidthPrior.zeta()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#braincoder.parametric.ParametricStimulus"><code class="docutils literal notranslate"><span class="pre">ParametricStimulus</span></code></a><ul>
+<li><a class="reference internal" href="#braincoder.parametric.ParametricStimulus.candidates"><code class="docutils literal notranslate"><span class="pre">ParametricStimulus.candidates()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.ParametricStimulus.canonicalize"><code class="docutils literal notranslate"><span class="pre">ParametricStimulus.canonicalize()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.ParametricStimulus.from_unconstrained"><code class="docutils literal notranslate"><span class="pre">ParametricStimulus.from_unconstrained()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.ParametricStimulus.grid"><code class="docutils literal notranslate"><span class="pre">ParametricStimulus.grid()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.ParametricStimulus.images"><code class="docutils literal notranslate"><span class="pre">ParametricStimulus.images()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.ParametricStimulus.to_image"><code class="docutils literal notranslate"><span class="pre">ParametricStimulus.to_image()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.ParametricStimulus.to_unconstrained"><code class="docutils literal notranslate"><span class="pre">ParametricStimulus.to_unconstrained()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#braincoder.parametric.forward_backward"><code class="docutils literal notranslate"><span class="pre">forward_backward()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.get_parametric_stimulus_pdf"><code class="docutils literal notranslate"><span class="pre">get_parametric_stimulus_pdf()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.parametric.marginalize"><code class="docutils literal notranslate"><span class="pre">marginalize()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.optimize.ParametricStimulusFitter"><code class="docutils literal notranslate"><span class="pre">ParametricStimulusFitter</span></code></a><ul>
+<li><a class="reference internal" href="#braincoder.optimize.ParametricStimulusFitter.fit"><code class="docutils literal notranslate"><span class="pre">ParametricStimulusFitter.fit()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.optimize.ParametricStimulusFitter.log_posterior"><code class="docutils literal notranslate"><span class="pre">ParametricStimulusFitter.log_posterior()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1062,7 +1502,7 @@ multi-dimensional grid without <code class="docutils literal notranslate"><span 
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5a057da9"></script>
+</div><script src="_static/documentation_options.js?v=39bb1c6d"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

@@ -1,0 +1,820 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API Reference" href="api_reference.html"><link rel="prev" title="Noise models for decoding: low-rank Ω and temperature" href="noise_models.html">
+        <link rel="prefetch" href="_static/logo.png" as="image">
+        <link rel="prefetch" href="_static/logo_dark.png" as="image">
+
+    <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Gain fields (attention fields) - Braincoder 0.9.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=16a9891c" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Braincoder 0.9.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/logo.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/logo_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s new</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migrating to 0.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Gain fields (attention fields)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson2.html">Lesson 2: Linear encoding models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson3.html">Lesson 3: Building the likelihood (by fitting the covariance matrix)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson4.html">Lesson 4: From neural responses to stimulus features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson5.html">Lesson 5: Decoding noisy neural data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html">Lesson 6: Decoding two-dimensional stimulus spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-marginal-probability-distribution">Decode the marginal probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson7.html">Lesson 7: Fitting PRF models to visual space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson8.html">Lesson 8: Gain fields: attention modulates PRFs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="auto_examples/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/00_encodingdecoding/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_residuals.html">Fit the residual covariance matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/masked_stimulus_decoding.html">Stimulus decoding using stimulus mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/linear_encoding_model.html">Linear encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/encoding_model.html">Create a simple Gaussian Prf encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/invert_model.html">Invert encoding model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode.html">Decoding of stimuli from neural data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_visual.html">Fit a 2D PRF model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode_v1.html">Recontruct a 2D visual stimulus from real fMRI data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fisher_information.html">Fisher information to estimate precision of encoding parameters across stimulus space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html">Different flavors of visual population receptive field models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html#decoded-stimulus-gaussian-model">Decoded stimulus: Gaussian model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/fit_prf.html#decoded-stimulus-dn-model">Decoded stimulus: DN model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/00_encodingdecoding/decode2d.html">Decoding 2D stimuli from neural data</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/01_decoding_pipeline/index.html">End-to-end decoding pipeline on real data</a><input aria-label="Toggle navigation of End-to-end decoding pipeline on real data" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/04_lowrank_noise_calibration.html">Calibrated decoding with a low-rank noise model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/02_gain_fields/index.html">Gain fields: attention modulates PRFs</a><input aria-label="Toggle navigation of Gain fields: attention modulates PRFs" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/02_gain_fields/01_gain_fields.html">Gain fields: attention modulates population receptive fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">General bibliography</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/gain_fields.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="gain-fields-attention-fields">
+<h1>Gain fields (attention fields)<a class="headerlink" href="#gain-fields-attention-fields" title="Link to this heading">¶</a></h1>
+<p>You have stimulus images on a pixel grid, and on every frame (a TR or a
+trial) some locations are special: attended, salient, rewarded, expected,
+where the target or a distractor is. The question is whether the stimulus
+near those locations drives visual cortex more or less than the same
+stimulus elsewhere. A <em>gain-field</em> PRF model answers it on the stimulus
+grid: a field around each special location multiplies the image before
+every voxel’s ordinary PRF pools it.</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}F_t(g) &amp;= \sum_{\text{fields}} \sum_k \sum_\ell W_{t\ell k}\, \gamma_{k}\, A(g; \ell) \\
+M_t(g) &amp;= \max\bigl(1 + F_t(g),\, 0\bigr) \\
+r_v(t) &amp;= \text{baseline}_v + \text{amplitude}_v \sum_g S_t(g)\, M_t(g)\, \mathrm{RF}_v(g)\end{split}\]</div>
+</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(W_{t\ell k}\)</span> (in the paradigm): weight of gain type <span class="math notranslate nohighlight">\(k\)</span> at
+location <span class="math notranslate nohighlight">\(\ell\)</span> on frame <span class="math notranslate nohighlight">\(t\)</span>, usually 0 or 1.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma_k\)</span>: one gain per gain type, signed (&gt; 0 enhances,
+&lt; 0 suppresses). Shared by all voxels.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A(g;\ell)\)</span>: the field shape centred on location <span class="math notranslate nohighlight">\(\ell\)</span>, peak 1
+(a Gaussian with a shared width <code class="docutils literal notranslate"><span class="pre">sigma</span></code> by default).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathrm{RF}_v\)</span>: the voxel’s receptive field from the model underneath
+(<code class="docutils literal notranslate"><span class="pre">GaussianPRF2D</span></code>, <code class="docutils literal notranslate"><span class="pre">DifferenceOfGaussiansPRF2D</span></code>, …), with the same
+amplitude convention.</p></li>
+</ul>
+<p>With every gain at 0, the model predicts exactly what the PRF model
+underneath predicts. So you can fit the PRFs first and then ask how much the
+gain fields add.</p>
+<p><strong>Tutorial:</strong> <a class="reference internal" href="auto_examples/02_gain_fields/01_gain_fields.html"><span class="doc">Gain fields: attention modulates population receptive fields</span></a> simulates a
+population, fits shared gains with the PRFs fixed, combines two fields and adds
+a field shape of your own (also <a class="reference internal" href="tutorial/lesson8.html#tutorial-lesson8"><span class="std std-ref">Lesson 8: Gain fields: attention modulates PRFs</span></a>).</p>
+<section id="step-1-the-paradigm">
+<h2>Step 1: the paradigm<a class="headerlink" href="#step-1-the-paradigm" title="Link to this heading">¶</a></h2>
+<p>The paradigm holds the images <em>and</em> the per-frame weights.
+<a class="reference internal" href="#braincoder.stimuli.make_gain_field_paradigm" title="braincoder.stimuli.make_gain_field_paradigm"><code class="xref py py-func docutils literal notranslate"><span class="pre">braincoder.stimuli.make_gain_field_paradigm()</span></code></a> (or <code class="docutils literal notranslate"><span class="pre">model.make_paradigm</span></code>)
+builds it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">GainFieldPRF2D</span>
+
+<span class="c1"># Pixel grid: (n_grid, 2) x and y in degrees.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">gx</span><span class="p">,</span> <span class="n">gy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">gx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">gy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()],</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># Every location a field can sit on: any number, anywhere.</span>
+<span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
+<span class="n">field_positions</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles</span><span class="p">)],</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># 8 items at 4 deg</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">GainFieldPRF2D</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">field_positions</span><span class="p">,</span> <span class="n">gain_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;distractor&#39;</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">parameter_labels</span>
+<span class="c1"># [&#39;x&#39;, &#39;y&#39;, &#39;sd&#39;, &#39;baseline&#39;, &#39;amplitude&#39;,</span>
+<span class="c1">#  &#39;field_sigma&#39;, &#39;field_gain_target&#39;, &#39;field_gain_distractor&#39;]</span>
+
+<span class="c1"># images: (n_trials, n_grid) or (n_trials, n_x, n_y), flattened like grid.</span>
+<span class="c1"># One dict per trial: gain label -&gt; location index, (x, y) tuple,</span>
+<span class="c1"># list of locations, or {location: weight}.</span>
+<span class="n">assignments</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;distractor&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+               <span class="p">{</span><span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>                       <span class="c1"># no distractor on this trial</span>
+               <span class="o">...</span><span class="p">]</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">make_paradigm</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">assignments</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">betas</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Columns: <code class="docutils literal notranslate"><span class="pre">('image',</span> <span class="pre">x,</span> <span class="pre">y)</span></code> for every pixel, then
+<code class="docutils literal notranslate"><span class="pre">('field',</span> <span class="pre">gain_label,</span> <span class="pre">location_index)</span></code>. An array
+<code class="docutils literal notranslate"><span class="pre">W</span></code> of shape <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">n_locations,</span> <span class="pre">n_gains)</span></code> works instead of the list
+of dicts, which is handy for fractional weights (e.g. the fraction of a TR a
+distractor was on). If the special things move freely, pass every position
+that occurs as <code class="docutils literal notranslate"><span class="pre">field_positions</span></code>.</p>
+</section>
+<section id="step-2-fit">
+<h2>Step 2: fit<a class="headerlink" href="#step-2-fit" title="Link to this heading">¶</a></h2>
+<p>The field parameters (widths and gains) belong to the model, not to a voxel.
+The parameters DataFrame repeats them on every row, and they must be equal
+across rows. Fit them with <code class="docutils literal notranslate"><span class="pre">shared_pars</span></code>. The robust route is to fit the PRFs
+first with the model underneath, then fit the shared terms with the PRFs held
+fixed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianPRF2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParameterFitter</span>
+
+<span class="c1"># (a) PRFs from the mapping data, as usual, with GaussianPRF2D.</span>
+<span class="n">prf_pars</span> <span class="o">=</span> <span class="o">...</span>                                   <span class="c1"># columns x, y, sd, baseline, amplitude</span>
+
+<span class="c1"># (b) Gain fields with the PRFs fixed. Gains start at 0 (= the PRF model).</span>
+<span class="n">init</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_field_parameters</span><span class="p">(</span><span class="n">prf_pars</span><span class="p">,</span> <span class="n">field_sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">fitter</span> <span class="o">=</span> <span class="n">ParameterFitter</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">betas</span><span class="p">,</span> <span class="n">paradigm</span><span class="p">)</span>
+<span class="n">pars</span> <span class="o">=</span> <span class="n">fitter</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">init_pars</span><span class="o">=</span><span class="n">init</span><span class="p">,</span>
+                  <span class="n">fixed_pars</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">prf_parameter_labels</span><span class="p">(),</span>
+                  <span class="n">shared_pars</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">field_parameter_labels</span><span class="p">(</span><span class="n">include_tied</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                  <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">max_n_iterations</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">r2_atol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
+<span class="n">pars</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">model</span><span class="o">.</span><span class="n">field_parameter_labels</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p>Leave out <code class="docutils literal notranslate"><span class="pre">fixed_pars</span></code> to refine PRFs and gains jointly. Check recovery on
+simulated data at your noise level (<code class="docutils literal notranslate"><span class="pre">model.simulate(paradigm,</span> <span class="pre">pars,</span>
+<span class="pre">noise=...)</span></code>) before trusting a gain: gains and widths trade off when the
+field is much wider or narrower than the items.</p>
+</section>
+<section id="time-courses-with-an-hrf">
+<h2>Time courses with an HRF<a class="headerlink" href="#time-courses-with-an-hrf" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">GainFieldPRF2DWithHRF</span></code> (and <code class="docutils literal notranslate"><span class="pre">GainFieldDoGPRF2DWithHRF</span></code>) apply the
+modulation to the images frame by frame, then the HRF. Several fields can
+act at once. Below, a sustained field marks the location attended in each
+block, with a zero-sum constraint (the gain at the attended location and the
+gain at the 3 others sum to 0, so a uniform change of the whole display is
+left to the PRFs), and a transient field, which shares its width, responds to
+brief onsets. The transient field sits outside the clip at 0. A third term
+scales the drive of the items against a mapping bar, since both are painted
+as 1 in the images:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.hrf</span><span class="w"> </span><span class="kn">import</span> <span class="n">SPMHRFModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">GainFieldDoGPRF2DWithHRF</span><span class="p">,</span> <span class="n">GainField</span>
+
+<span class="n">positions</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">item_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">grid</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">grid</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">item_radius</span>           <span class="c1"># your geometry</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">GainFieldDoGPRF2DWithHRF</span><span class="p">(</span>
+    <span class="n">grid</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;attended&#39;</span><span class="p">,</span> <span class="s1">&#39;unattended&#39;</span><span class="p">,</span> <span class="s1">&#39;onset&#39;</span><span class="p">],</span>
+    <span class="n">hrf_model</span><span class="o">=</span><span class="n">SPMHRFModel</span><span class="p">(</span><span class="n">tr</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="n">GainField</span><span class="p">(</span><span class="s1">&#39;sustained&#39;</span><span class="p">,</span> <span class="n">gain_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;attended&#39;</span><span class="p">,</span> <span class="s1">&#39;unattended&#39;</span><span class="p">]),</span>
+            <span class="n">GainField</span><span class="p">(</span><span class="s1">&#39;transient&#39;</span><span class="p">,</span> <span class="n">gain_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;onset&#39;</span><span class="p">],</span> <span class="n">clamped</span><span class="o">=</span><span class="kc">False</span><span class="p">)],</span>
+    <span class="n">image_scales</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;item_scale&#39;</span><span class="p">:</span> <span class="n">item_mask</span><span class="p">},</span>
+    <span class="n">ties</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sustained_gain_unattended&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;sustained_gain_attended&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">},</span>
+          <span class="s1">&#39;transient_sigma&#39;</span><span class="p">:</span> <span class="s1">&#39;sustained_sigma&#39;</span><span class="p">})</span>
+
+<span class="c1"># W: (n_TRs, 4, 3). Column 0: 1 at the attended location of the block;</span>
+<span class="c1"># column 1: 1 elsewhere; column 2: fraction of the TR an onset was on.</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">make_paradigm</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">bold</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ties</span></code> makes a parameter a function of others: a number (a constant, e.g.
+<code class="docutils literal notranslate"><span class="pre">0.</span></code> to switch a gain off), another label (equal), or <code class="docutils literal notranslate"><span class="pre">{label:</span> <span class="pre">coef}</span></code> (a
+linear combination). Tied parameters are filled in by the model, so
+predictions and fitted values always satisfy the constraint, and you leave
+them out of <code class="docutils literal notranslate"><span class="pre">shared_pars</span></code> (<code class="docutils literal notranslate"><span class="pre">field_parameter_labels(include_tied=False)</span></code>).
+<code class="docutils literal notranslate"><span class="pre">image_scales</span></code> adds a positive model-level parameter per mask; its null
+value is 1.</p>
+</section>
+<section id="extending">
+<h2>Extending<a class="headerlink" href="#extending" title="Link to this heading">¶</a></h2>
+<p><strong>Several fields.</strong> <code class="docutils literal notranslate"><span class="pre">fields</span></code> is a list of <a class="reference internal" href="#braincoder.models.GainField" title="braincoder.models.GainField"><code class="xref py py-class docutils literal notranslate"><span class="pre">GainField</span></code></a>
+(name, shape, gain labels, sign constraint, inside or outside the clip). The
+parameters are named <code class="docutils literal notranslate"><span class="pre">f'{name}_{shape_parameter}'</span></code> and
+<code class="docutils literal notranslate"><span class="pre">f'{name}_gain_{label}'</span></code>.</p>
+<p><strong>A new field shape</strong> is a subclass of <a class="reference internal" href="#braincoder.models.FieldShape" title="braincoder.models.FieldShape"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldShape</span></code></a>
+with parameter labels, their transforms (unconstrained → native) and one
+method, written with <code class="docutils literal notranslate"><span class="pre">keras.ops</span></code> so it runs on every backend:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">keras</span><span class="w"> </span><span class="kn">import</span> <span class="n">ops</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">FieldShape</span><span class="p">,</span> <span class="n">GainField</span><span class="p">,</span> <span class="n">GainFieldPRF2D</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AnnulusField</span><span class="p">(</span><span class="n">FieldShape</span><span class="p">):</span>
+    <span class="n">parameter_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
+    <span class="n">transformations</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;softplus&#39;</span><span class="p">,</span> <span class="s1">&#39;softplus&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+        <span class="c1"># dx, dy: (1, n_locations, n_grid); parameters: (n_batches, 1, 1)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ops</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">radius</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">width</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">GainFieldPRF2D</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;attended&#39;</span><span class="p">],</span>
+                       <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="n">GainField</span><span class="p">(</span><span class="s1">&#39;ring&#39;</span><span class="p">,</span> <span class="n">AnnulusField</span><span class="p">())])</span>
+<span class="c1"># parameters ... &#39;ring_radius&#39;, &#39;ring_width&#39;, &#39;ring_gain_attended&#39;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">GaussianField</span></code> and <code class="docutils literal notranslate"><span class="pre">DoGField</span></code> (centre minus a wider surround) ship with
+braincoder.</p>
+<p><strong>Another combination rule.</strong> Pass <code class="docutils literal notranslate"><span class="pre">combination=f</span></code> with <code class="docutils literal notranslate"><span class="pre">f(images,</span>
+<span class="pre">field_sums)</span> <span class="pre">-&gt;</span> <span class="pre">images</span></code> (one field sum per field, in order), e.g. divisive:
+<code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">S,</span> <span class="pre">F:</span> <span class="pre">S</span> <span class="pre">/</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">ops.softplus(sum(F)))</span></code>; or subclass and override
+<code class="docutils literal notranslate"><span class="pre">_combine</span></code>.</p>
+<p><strong>Another PRF kernel.</strong> Combine <a class="reference internal" href="#braincoder.models.GainFieldMixin" title="braincoder.models.GainFieldMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">GainFieldMixin</span></code></a>
+with any image PRF model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">braincoder.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">GainFieldMixin</span><span class="p">,</span> <span class="n">DivisiveNormalizationGaussianPRF2D</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">GainFieldDNPRF2D</span><span class="p">(</span><span class="n">GainFieldMixin</span><span class="p">,</span> <span class="n">DivisiveNormalizationGaussianPRF2D</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Field parameters are model-level (one value for all voxels in the
+parameters DataFrame). Fit different areas as separate models if their
+fields may differ.</p></li>
+<li><p>Decoding (<code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>) is not meaningful with these models: decode
+with the PRF model underneath.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ParameterFitter</span></code> has no bounds; constrain gains with
+<code class="docutils literal notranslate"><span class="pre">GainField(gains='positive'</span> <span class="pre">|</span> <span class="pre">'negative')</span></code> and widths with
+<code class="docutils literal notranslate"><span class="pre">GaussianField(sigma_min=...)</span></code>.</p></li>
+<li><p>Memory: the modulated images are <code class="docutils literal notranslate"><span class="pre">n_frames</span> <span class="pre">x</span> <span class="pre">n_grid</span></code> (shared fields
+never build a voxels x frames x pixels tensor), so the cost is close to the
+PRF model underneath.</p></li>
+</ul>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.models.GainFieldPRF2D">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.models.</span></span><span class="sig-name descname"><span class="pre">GainFieldPRF2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'multiplicative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_scales</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positive_image_values_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainFieldPRF2D" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#braincoder.models.GainFieldMixin" title="braincoder.models.gain_field.GainFieldMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">GainFieldMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianPRF2D</span></code></p>
+<p>Gaussian 2D PRF with gain fields. See <code class="xref py py-mod docutils literal notranslate"><span class="pre">braincoder.models.gain_field</span></code>.</p>
+<p>One line for the common case (one Gaussian field, signed gains):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">GainFieldPRF2D</span><span class="p">(</span><span class="n">grid_coordinates</span><span class="p">,</span> <span class="n">field_positions</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;attended&#39;</span><span class="p">,</span> <span class="s1">&#39;ignored&#39;</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">parameter_labels</span>
+<span class="c1"># [&#39;x&#39;, &#39;y&#39;, &#39;sd&#39;, &#39;baseline&#39;, &#39;amplitude&#39;,</span>
+<span class="c1">#  &#39;field_sigma&#39;, &#39;field_gain_attended&#39;, &#39;field_gain_ignored&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.models.GainFieldMixin">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.models.</span></span><span class="sig-name descname"><span class="pre">GainFieldMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'multiplicative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_scales</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positive_image_values_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainFieldMixin" title="Link to this definition">¶</a></dt>
+<dd><p>Adds gain fields to any image PRF model (<code class="docutils literal notranslate"><span class="pre">GaussianPRF2D</span></code> and
+subclasses). Put it first in the bases:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">GainFieldDNPRF2D</span><span class="p">(</span><span class="n">GainFieldMixin</span><span class="p">,</span> <span class="n">DivisiveNormalizationGaussianPRF2D</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid_coordinates</strong> (<em>array</em><em> (</em><em>n_grid</em><em>, </em><em>2</em><em>)</em>) – Pixel coordinates, as for <code class="docutils literal notranslate"><span class="pre">GaussianPRF2D</span></code>.</p></li>
+<li><p><strong>field_positions</strong> (<em>array</em><em> (</em><em>n_locations</em><em>, </em><em>2</em><em>)</em>) – Every location a field can be centred on, in grid units. Any number,
+anywhere (they need not lie on the grid).</p></li>
+<li><p><strong>gain_labels</strong> (<em>list</em><em> of </em><em>str</em>) – Names of the gain types, e.g. <code class="docutils literal notranslate"><span class="pre">['attended',</span> <span class="pre">'ignored']</span></code>. The
+paradigm says per frame which location carries which label, with
+which weight.</p></li>
+<li><p><strong>fields</strong> (<em>list</em><em> of </em><a class="reference internal" href="#braincoder.models.GainField" title="braincoder.models.GainField"><em>GainField</em></a><em>, </em><em>optional</em>) – Default: one Gaussian field named <code class="docutils literal notranslate"><span class="pre">'field'</span></code> with signed gains for
+all labels.</p></li>
+<li><p><strong>combination</strong> (<em>'multiplicative'</em><em> or </em><em>callable</em>) – <p><code class="docutils literal notranslate"><span class="pre">'multiplicative'</span></code> (default):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">clamped</span> <span class="n">fields</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">unclamped</span> <span class="n">fields</span><span class="p">)</span>
+<span class="n">S_eff</span> <span class="o">=</span> <span class="n">S</span> <span class="o">*</span> <span class="n">M</span>
+</pre></div>
+</div>
+<p>(without <code class="docutils literal notranslate"><span class="pre">clamp</span></code> the <code class="docutils literal notranslate"><span class="pre">max</span></code> is dropped). A callable gets
+<code class="docutils literal notranslate"><span class="pre">(images,</span> <span class="pre">field_sums)</span></code>, with <code class="docutils literal notranslate"><span class="pre">field_sums</span></code> one <code class="docutils literal notranslate"><span class="pre">(n_batches,</span>
+<span class="pre">n_frames,</span> <span class="pre">n_grid)</span></code> tensor per field in <code class="docutils literal notranslate"><span class="pre">fields</span></code> order, and
+returns the modulated images. Or override <code class="xref py py-meth docutils literal notranslate"><span class="pre">_combine()</span></code>.</p>
+</p></li>
+<li><p><strong>clamp</strong> (<em>bool</em><em>, </em><em>default True</em>) – Clip the clamped part of the modulation at 0, so that strong
+suppression cannot invert the stimulus.</p></li>
+<li><p><strong>image_scales</strong> (<em>dict {name: mask}</em><em>, </em><em>optional</em>) – Extra model-level parameters that scale part of the image before
+the fields act: <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">&lt;-</span> <span class="pre">S</span> <span class="pre">*</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">sum_s</span> <span class="pre">(scale_s</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">*</span> <span class="pre">mask_s)</span></code>.
+<code class="docutils literal notranslate"><span class="pre">mask</span></code> is <code class="docutils literal notranslate"><span class="pre">(n_grid,)</span></code> (bool or weights). Each adds a positive
+parameter <code class="docutils literal notranslate"><span class="pre">name</span></code> (softplus); its null value is 1. Use it when
+two kinds of stimulus share one image but their relative drive is
+unknown (e.g. a mapping bar and task items).</p></li>
+<li><p><strong>ties</strong> (<em>dict {label: tie}</em><em>, </em><em>optional</em>) – Parameters computed from others instead of being free. <code class="docutils literal notranslate"><span class="pre">tie</span></code> is a
+number (constant), another label (equal to it), or <code class="docutils literal notranslate"><span class="pre">{label:</span> <span class="pre">coef}</span></code>
+(linear combination of native values). Examples: a zero-sum pair
+<code class="docutils literal notranslate"><span class="pre">{'field_gain_b':</span> <span class="pre">{'field_gain_a':</span> <span class="pre">-1/3}}</span></code>, two fields with one
+width <code class="docutils literal notranslate"><span class="pre">{'b_sigma':</span> <span class="pre">'a_sigma'}</span></code>, a switched-off gain
+<code class="docutils literal notranslate"><span class="pre">{'field_gain_c':</span> <span class="pre">0.0}</span></code>. Tied columns ignore their raw value (no
+gradient); their native value is filled in by the forward
+transform, so predictions and fitted parameters always satisfy the
+tie.</p></li>
+<li><p><strong>**kwargs</strong> – Passed to the PRF model (e.g. <code class="docutils literal notranslate"><span class="pre">rf_normalization</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.GainFieldMixin.add_field_parameters">
+<span class="sig-name descname"><span class="pre">add_field_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prf_parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainFieldMixin.add_field_parameters" title="Link to this definition">¶</a></dt>
+<dd><p>Append the field columns to per-voxel PRF parameters.</p>
+<p>Gains default to 0 and image scales to 1 (the null model, which
+predicts exactly what the PRF model underneath predicts); shape
+parameters such as widths need a value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pars</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">add_field_parameters</span><span class="p">(</span><span class="n">prf_pars</span><span class="p">,</span> <span class="n">field_sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.GainFieldMixin.apply_ties">
+<span class="sig-name descname"><span class="pre">apply_ties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainFieldMixin.apply_ties" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of a parameter DataFrame with the tied columns filled in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.GainFieldMixin.field_parameter_labels">
+<span class="sig-name descname"><span class="pre">field_parameter_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_tied</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainFieldMixin.field_parameter_labels" title="Link to this definition">¶</a></dt>
+<dd><p>Labels of the model-level parameters (fields, image scales):
+pass them as <code class="docutils literal notranslate"><span class="pre">shared_pars</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.GainFieldMixin.get_modulated_images">
+<span class="sig-name descname"><span class="pre">get_modulated_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paradigm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainFieldMixin.get_modulated_images" title="Link to this definition">¶</a></dt>
+<dd><p>The images as the PRFs see them, <code class="docutils literal notranslate"><span class="pre">S_t(g)</span> <span class="pre">*</span> <span class="pre">M_t(g)</span></code>: DataFrame frames x pixels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.GainFieldMixin.make_paradigm">
+<span class="sig-name descname"><span class="pre">make_paradigm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assignments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainFieldMixin.make_paradigm" title="Link to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#braincoder.stimuli.make_gain_field_paradigm" title="braincoder.stimuli.make_gain_field_paradigm"><code class="xref py py-func docutils literal notranslate"><span class="pre">braincoder.stimuli.make_gain_field_paradigm()</span></code></a> for this model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.GainFieldMixin.prf_parameter_labels">
+<span class="sig-name descname"><span class="pre">prf_parameter_labels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainFieldMixin.prf_parameter_labels" title="Link to this definition">¶</a></dt>
+<dd><p>Labels of the per-voxel PRF parameters.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.models.GainField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.models.</span></span><span class="sig-name descname"><span class="pre">GainField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'field'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'signed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clamped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GainField" title="Link to this definition">¶</a></dt>
+<dd><p>One field: a shape, the gain labels it responds to, its gain sign.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Prefix of its parameter labels (<code class="docutils literal notranslate"><span class="pre">f'{name}_sigma'</span></code>, …).</p></li>
+<li><p><strong>shape</strong> (<a class="reference internal" href="#braincoder.models.FieldShape" title="braincoder.models.FieldShape"><em>FieldShape</em></a><em>, </em><em>default GaussianField</em><em>(</em><em>)</em>)</p></li>
+<li><p><strong>gain_labels</strong> (<em>list</em><em> of </em><em>str</em><em> or </em><em>None</em>) – Which of the model’s gain labels this field responds to (<code class="docutils literal notranslate"><span class="pre">None</span></code> =
+all). Each gives a parameter <code class="docutils literal notranslate"><span class="pre">f'{name}_gain_{label}'</span></code>.</p></li>
+<li><p><strong>gains</strong> (<em>{'signed'</em><em>, </em><em>'positive'</em><em>, </em><em>'negative'}</em>) – Constraint on the gains. <code class="docutils literal notranslate"><span class="pre">'signed'</span></code> (default) leaves them
+unbounded, so the data decide between enhancement (&gt; 0) and
+suppression (&lt; 0). With <code class="docutils literal notranslate"><span class="pre">'positive'</span></code>/<code class="docutils literal notranslate"><span class="pre">'negative'</span></code> do not
+initialise a gain at exactly 0.</p></li>
+<li><p><strong>clamped</strong> (<em>bool</em><em>, </em><em>default True</em>) – With the default combination rule and <code class="docutils literal notranslate"><span class="pre">clamp=True</span></code>, a clamped
+field sits inside the clip <code class="docutils literal notranslate"><span class="pre">max(1</span> <span class="pre">+</span> <span class="pre">F,</span> <span class="pre">0)</span></code>; an unclamped one is
+added outside it (e.g. a brief transient on top of a sustained
+field: <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">max(1</span> <span class="pre">+</span> <span class="pre">F_sustained,</span> <span class="pre">0)</span> <span class="pre">+</span> <span class="pre">F_transient</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.models.FieldShape">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.models.</span></span><span class="sig-name descname"><span class="pre">FieldShape</span></span><a class="headerlink" href="#braincoder.models.FieldShape" title="Link to this definition">¶</a></dt>
+<dd><p>Spatial profile of a field, centred on a field location.</p>
+<p>A new shape is a subclass with</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">parameter_labels</span></code>: names of its parameters (e.g. <code class="docutils literal notranslate"><span class="pre">['sigma']</span></code>);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transformations</span></code>: one per parameter, <code class="docutils literal notranslate"><span class="pre">'identity'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'softplus'</span></code>, <code class="docutils literal notranslate"><span class="pre">'sigmoid'</span></code> or a <code class="docutils literal notranslate"><span class="pre">(forward,</span> <span class="pre">inverse)</span></code> tuple of
+<code class="docutils literal notranslate"><span class="pre">keras.ops</span></code> functions from unconstrained to native values;</p></li>
+<li><p><a class="reference internal" href="#braincoder.models.FieldShape.profile" title="braincoder.models.FieldShape.profile"><code class="xref py py-meth docutils literal notranslate"><span class="pre">profile()</span></code></a>.</p></li>
+</ul>
+<p>Example: an annulus (ring of radius <code class="docutils literal notranslate"><span class="pre">radius</span></code> and width <code class="docutils literal notranslate"><span class="pre">width</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">AnnulusField</span><span class="p">(</span><span class="n">FieldShape</span><span class="p">):</span>
+    <span class="n">parameter_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
+    <span class="n">transformations</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;softplus&#39;</span><span class="p">,</span> <span class="s1">&#39;softplus&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">ops</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ops</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">radius</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">width</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="braincoder.models.FieldShape.profile">
+<span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.FieldShape.profile" title="Link to this definition">¶</a></dt>
+<dd><p>Field value at offsets <code class="docutils literal notranslate"><span class="pre">(dx,</span> <span class="pre">dy)</span></code> from the field location.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dx,</span> <span class="pre">dy</span></code> have shape <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">n_locations,</span> <span class="pre">n_grid)</span></code>; every parameter
+has shape <code class="docutils literal notranslate"><span class="pre">(n_batches,</span> <span class="pre">1,</span> <span class="pre">1)</span></code>. Return <code class="docutils literal notranslate"><span class="pre">(n_batches,</span> <span class="pre">n_locations,</span>
+<span class="pre">n_grid)</span></code>. Peak 1 keeps gains interpretable as the modulation at
+the field centre.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.models.GaussianField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.models.</span></span><span class="sig-name descname"><span class="pre">GaussianField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.GaussianField" title="Link to this definition">¶</a></dt>
+<dd><p>Isotropic Gaussian, peak 1: <code class="docutils literal notranslate"><span class="pre">exp(-d^2</span> <span class="pre">/</span> <span class="pre">(2</span> <span class="pre">sigma^2))</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sigma</span> <span class="pre">=</span> <span class="pre">sigma_min</span> <span class="pre">+</span> <span class="pre">softplus(raw)</span></code>, in grid units.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="braincoder.models.DoGField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">braincoder.models.</span></span><span class="sig-name descname"><span class="pre">DoGField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.models.DoGField" title="Link to this definition">¶</a></dt>
+<dd><p>Difference of Gaussians (“Mexican hat”): a centre of width <code class="docutils literal notranslate"><span class="pre">sigma</span></code>
+minus <code class="docutils literal notranslate"><span class="pre">surround_weight</span></code> times a surround of width
+<code class="docutils literal notranslate"><span class="pre">surround_ratio</span> <span class="pre">*</span> <span class="pre">sigma</span></code>. Peak <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">surround_weight</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sigma</span> <span class="pre">=</span> <span class="pre">sigma_min</span> <span class="pre">+</span> <span class="pre">softplus</span></code>, <code class="docutils literal notranslate"><span class="pre">surround_ratio</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">+</span> <span class="pre">softplus</span></code>
+(surround wider than centre), <code class="docutils literal notranslate"><span class="pre">surround_weight</span> <span class="pre">=</span> <span class="pre">sigmoid</span></code> (0..1).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="braincoder.stimuli.make_gain_field_paradigm">
+<span class="sig-prename descclassname"><span class="pre">braincoder.stimuli.</span></span><span class="sig-name descname"><span class="pre">make_gain_field_paradigm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assignments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#braincoder.stimuli.make_gain_field_paradigm" title="Link to this definition">¶</a></dt>
+<dd><p>Build the paradigm of a gain-field PRF model.</p>
+<p>A gain-field model needs, for every frame (TR or trial), the stimulus
+image <em>and</em> which field locations carry which gain. This function puts
+both in one DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>images</strong> (<em>array</em><em> (</em><em>n_frames</em><em>, </em><em>n_grid</em><em>) or </em><em>(</em><em>n_frames</em><em>, </em><em>n_x</em><em>, </em><em>n_y</em><em>)</em><em>, or </em><em>DataFrame</em>) – Stimulus intensity on the model’s pixel grid, flattened in the same
+order as <code class="docutils literal notranslate"><span class="pre">grid_coordinates</span></code>.</p></li>
+<li><p><strong>assignments</strong> (<em>array</em><em> (</em><em>n_frames</em><em>, </em><em>n_locations</em><em>, </em><em>n_gains</em><em>)</em><em>, or </em><em>list</em><em> of </em><em>dicts</em>) – The weight W[t, l, k] of gain <code class="docutils literal notranslate"><span class="pre">k</span></code> at location <code class="docutils literal notranslate"><span class="pre">l</span></code> on frame <code class="docutils literal notranslate"><span class="pre">t</span></code>
+(usually 0/1). As a list (one entry per frame), each entry maps a
+gain label to a location, a <em>list</em> of locations, or a <code class="docutils literal notranslate"><span class="pre">{location:</span>
+<span class="pre">weight}</span></code> dict. A location is an int index into <code class="docutils literal notranslate"><span class="pre">field_positions</span></code>
+or an <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> <em>tuple</em> that must match one of them. Missing labels and
+<code class="docutils literal notranslate"><span class="pre">None</span></code> mean weight 0 (no modulation on that frame).</p></li>
+<li><p><strong>field_positions</strong> (<em>array</em><em> (</em><em>n_locations</em><em>, </em><em>2</em><em>)</em>) – Every location a field can sit at, in grid units. If the attended or
+salient things move freely, pass all positions that occur.</p></li>
+<li><p><strong>gain_labels</strong> (<em>list</em><em> of </em><em>str</em>) – Names of the gain types, e.g. <code class="docutils literal notranslate"><span class="pre">['attended',</span> <span class="pre">'ignored']</span></code>.</p></li>
+<li><p><strong>grid_coordinates</strong> (<em>array</em><em> (</em><em>n_grid</em><em>, </em><em>2</em><em>)</em><em>, </em><em>optional</em>) – The model’s pixel coordinates, only used to label the image columns
+<code class="docutils literal notranslate"><span class="pre">('image',</span> <span class="pre">x,</span> <span class="pre">y)</span></code>; without it they are <code class="docutils literal notranslate"><span class="pre">('image',</span> <span class="pre">pixel_index,</span> <span class="pre">nan)</span></code>.</p></li>
+<li><p><strong>index</strong> (<em>pandas Index</em><em>, </em><em>optional</em>) – Row index (defaults to the index of <code class="docutils literal notranslate"><span class="pre">images</span></code> if it is a DataFrame,
+else <code class="docutils literal notranslate"><span class="pre">frame</span></code> = 0..n_frames-1). Give it the index of your data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Columns <code class="docutils literal notranslate"><span class="pre">('image',</span> <span class="pre">x,</span> <span class="pre">y)</span></code> for the pixels, then
+<code class="docutils literal notranslate"><span class="pre">('field',</span> <span class="pre">gain_label,</span> <span class="pre">location_index)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame (n_frames, n_grid + n_gains * n_locations)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="api_reference.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API Reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="noise_models.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Noise models for decoding: low-rank Ω and temperature</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023-2026, Gilles de Hollander
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Gain fields (attention fields)</a><ul>
+<li><a class="reference internal" href="#step-1-the-paradigm">Step 1: the paradigm</a></li>
+<li><a class="reference internal" href="#step-2-fit">Step 2: fit</a></li>
+<li><a class="reference internal" href="#time-courses-with-an-hrf">Time courses with an HRF</a></li>
+<li><a class="reference internal" href="#extending">Extending</a></li>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+<li><a class="reference internal" href="#api">API</a><ul>
+<li><a class="reference internal" href="#braincoder.models.GainFieldPRF2D"><code class="docutils literal notranslate"><span class="pre">GainFieldPRF2D</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.GainFieldMixin"><code class="docutils literal notranslate"><span class="pre">GainFieldMixin</span></code></a><ul>
+<li><a class="reference internal" href="#braincoder.models.GainFieldMixin.add_field_parameters"><code class="docutils literal notranslate"><span class="pre">GainFieldMixin.add_field_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.GainFieldMixin.apply_ties"><code class="docutils literal notranslate"><span class="pre">GainFieldMixin.apply_ties()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.GainFieldMixin.field_parameter_labels"><code class="docutils literal notranslate"><span class="pre">GainFieldMixin.field_parameter_labels()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.GainFieldMixin.get_modulated_images"><code class="docutils literal notranslate"><span class="pre">GainFieldMixin.get_modulated_images()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.GainFieldMixin.make_paradigm"><code class="docutils literal notranslate"><span class="pre">GainFieldMixin.make_paradigm()</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.GainFieldMixin.prf_parameter_labels"><code class="docutils literal notranslate"><span class="pre">GainFieldMixin.prf_parameter_labels()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#braincoder.models.GainField"><code class="docutils literal notranslate"><span class="pre">GainField</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.FieldShape"><code class="docutils literal notranslate"><span class="pre">FieldShape</span></code></a><ul>
+<li><a class="reference internal" href="#braincoder.models.FieldShape.profile"><code class="docutils literal notranslate"><span class="pre">FieldShape.profile()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#braincoder.models.GaussianField"><code class="docutils literal notranslate"><span class="pre">GaussianField</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.models.DoGField"><code class="docutils literal notranslate"><span class="pre">DoGField</span></code></a></li>
+<li><a class="reference internal" href="#braincoder.stimuli.make_gain_field_paradigm"><code class="docutils literal notranslate"><span class="pre">make_gain_field_paradigm()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=39bb1c6d"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    </body>
+</html>

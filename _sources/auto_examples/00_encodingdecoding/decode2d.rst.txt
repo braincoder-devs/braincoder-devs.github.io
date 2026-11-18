@@ -64,7 +64,7 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x17cf45a00>
+    <braincoder.stimuli.OneDimensionalRadialStimulusWithAmplitude object at 0x106d93230>
     ['x (radians)', 'amplitude']
 
 
@@ -97,7 +97,7 @@ such as expectation and attention.
 
  .. code-block:: none
 
-    WWT max: 16.592260360717773
+    WWT max: 17.706857681274414
 
 
 
@@ -159,7 +159,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x17cf712e0>
+    <seaborn.axisgrid.FacetGrid object at 0x170d3d160>
 
 
 
@@ -312,7 +312,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x30e33eb10>
+    <seaborn.axisgrid.FacetGrid object at 0x174030590>
 
 
 
@@ -353,7 +353,7 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x17e8d9430>
+    <seaborn.axisgrid.FacetGrid object at 0x106d80500>
 
 
 
@@ -474,13 +474,13 @@ such as expectation and attention.
       <tbody>
         <tr>
           <th>attended</th>
-          <td>0.846134</td>
-          <td>1.246648e-12</td>
+          <td>0.925779</td>
+          <td>2.319899e-14</td>
         </tr>
         <tr>
           <th>unattended</th>
-          <td>0.634140</td>
-          <td>3.269729e-09</td>
+          <td>0.561857</td>
+          <td>9.786050e-08</td>
         </tr>
       </tbody>
     </table>
@@ -561,14 +561,14 @@ such as expectation and attention.
  .. code-block:: none
 
 
-    <seaborn.axisgrid.FacetGrid object at 0x17dca5c70>
+    <seaborn.axisgrid.FacetGrid object at 0x31befcaa0>
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 16.579 seconds)
+   **Total running time of the script:** (0 minutes 19.052 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_decode2d.py:

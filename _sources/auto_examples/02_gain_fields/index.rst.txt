@@ -1,0 +1,49 @@
+
+
+.. _sphx_glr_auto_examples_02_gain_fields:
+
+######################################
+Gain fields: attention modulates PRFs
+######################################
+
+Fit fields around attended, salient or task-relevant locations that change how
+much the stimulus there drives each voxel's population receptive field
+(:doc:`/gain_fields`).
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Does attending to a location, or ignoring a salient distractor there, change how strongly the stimulus at that location drives visual cortex? A gain-field PRF model answers this on the stimulus grid. On every trial a field around each task-relevant location multiplies the image, and each voxel&#x27;s ordinary 2D PRF pools the result:">
+
+.. only:: html
+
+  .. image:: /auto_examples/02_gain_fields/images/thumb/sphx_glr_01_gain_fields_thumb.png
+    :alt:
+
+  :doc:`/auto_examples/02_gain_fields/01_gain_fields`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Gain fields: attention modulates population receptive fields</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/02_gain_fields/01_gain_fields
+

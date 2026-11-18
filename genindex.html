@@ -6,7 +6,7 @@
         <link rel="prefetch" href="_static/logo.png" as="image">
         <link rel="prefetch" href="_static/logo_dark.png" as="image">
 
-    <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 --><title>Index - Braincoder 0.7.1 documentation</title>
+    <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 --><title>Index - Braincoder 0.9.0 documentation</title>
 <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -171,7 +171,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.9.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -210,6 +210,7 @@
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gain_fields.html">Gain fields (attention fields)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -222,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson7.html">Lesson 7: Fitting PRF models to visual space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson8.html">Lesson 8: Gain fields: attention modulates PRFs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="auto_examples/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -246,6 +248,10 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/02_gain_fields/index.html">Gain fields: attention modulates PRFs</a><input aria-label="Toggle navigation of Gain fields: attention modulates PRFs" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/02_gain_fields/01_gain_fields.html">Gain fields: attention modulates population receptive fields</a></li>
 </ul>
 </li>
 </ul>
@@ -286,11 +292,36 @@
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#K"><strong>K</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#V"><strong>V</strong></a> | <a href="#W"><strong>W</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#K"><strong>K</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#V"><strong>V</strong></a> | <a href="#W"><strong>W</strong></a> | <a href="#Z"><strong>Z</strong></a></div>
 </section>
+<section id="A" class="genindex-section">
+  <h2>A</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="gain_fields.html#braincoder.models.GainFieldMixin.add_field_parameters">add_field_parameters() (braincoder.models.GainFieldMixin method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="gain_fields.html#braincoder.models.GainFieldMixin.apply_ties">apply_ties() (braincoder.models.GainFieldMixin method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
 <section id="B" class="genindex-section">
   <h2>B</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api_reference.html#braincoder.parametric.BarStimulus">BarStimulus (class in braincoder.parametric)</a>
+</li>
+        <li>
+    braincoder.parametric
+
+        <ul>
+          <li><a href="api_reference.html#module-braincoder.parametric">module</a>
+</li>
+        </ul></li>
+    </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     braincoder.utils.calibration
@@ -309,8 +340,20 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.utils.calibration.calibration_summary">calibration_summary() (in module braincoder.utils.calibration)</a>
 </li>
+        <li><a href="api_reference.html#braincoder.parametric.ParametricStimulus.candidates">candidates() (braincoder.parametric.ParametricStimulus method)</a>
+</li>
+        <li><a href="api_reference.html#braincoder.parametric.BarStimulus.canonicalize">canonicalize() (braincoder.parametric.BarStimulus method)</a>
+
+        <ul>
+          <li><a href="api_reference.html#braincoder.parametric.ParametricStimulus.canonicalize">(braincoder.parametric.ParametricStimulus method)</a>
+</li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api_reference.html#braincoder.parametric.LogWidthPrior.cell_log_masses">cell_log_masses() (braincoder.parametric.LogWidthPrior method)</a>
+</li>
+        <li><a href="api_reference.html#braincoder.parametric.BarStimulus.centre">centre() (braincoder.parametric.BarStimulus static method)</a>
+</li>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.cv_scores_">cv_scores_ (braincoder.noise.LowRankNoise attribute)</a>
 </li>
     </ul></td>
@@ -322,6 +365,10 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.dof">dof (braincoder.noise.LowRankNoise attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="gain_fields.html#braincoder.models.DoGField">DoGField (class in braincoder.models)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -343,10 +390,16 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.factors">factors (braincoder.noise.LowRankNoise attribute)</a>
 </li>
+        <li><a href="gain_fields.html#braincoder.models.GainFieldMixin.field_parameter_labels">field_parameter_labels() (braincoder.models.GainFieldMixin method)</a>
+</li>
+        <li><a href="gain_fields.html#braincoder.models.FieldShape">FieldShape (class in braincoder.models)</a>
+</li>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.fit">fit() (braincoder.noise.LowRankNoise class method)</a>
 
         <ul>
           <li><a href="api_reference.html#braincoder.optimize.ParameterFitter.fit">(braincoder.optimize.ParameterFitter method)</a>
+</li>
+          <li><a href="api_reference.html#braincoder.optimize.ParametricStimulusFitter.fit">(braincoder.optimize.ParametricStimulusFitter method)</a>
 </li>
           <li><a href="api_reference.html#braincoder.optimize.ResidualFitter.fit">(braincoder.optimize.ResidualFitter method)</a>
 </li>
@@ -357,8 +410,16 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.noise.fit_lowrank_omega">fit_lowrank_omega() (in module braincoder.noise)</a>
 </li>
+        <li><a href="api_reference.html#braincoder.parametric.forward_backward">forward_backward() (in module braincoder.parametric)</a>
+</li>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.from_residuals">from_residuals() (braincoder.noise.LowRankNoise class method)</a>
 </li>
+        <li><a href="api_reference.html#braincoder.parametric.BarStimulus.from_unconstrained">from_unconstrained() (braincoder.parametric.BarStimulus method)</a>
+
+        <ul>
+          <li><a href="api_reference.html#braincoder.parametric.ParametricStimulus.from_unconstrained">(braincoder.parametric.ParametricStimulus method)</a>
+</li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -367,13 +428,27 @@
   <h2>G</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="gain_fields.html#braincoder.models.GainField">GainField (class in braincoder.models)</a>
+</li>
+        <li><a href="gain_fields.html#braincoder.models.GainFieldMixin">GainFieldMixin (class in braincoder.models)</a>
+</li>
+        <li><a href="gain_fields.html#braincoder.models.GainFieldPRF2D">GainFieldPRF2D (class in braincoder.models)</a>
+</li>
+        <li><a href="gain_fields.html#braincoder.models.GaussianField">GaussianField (class in braincoder.models)</a>
+</li>
+        <li><a href="gain_fields.html#braincoder.models.GainFieldMixin.get_modulated_images">get_modulated_images() (braincoder.models.GainFieldMixin method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.models.EncodingModel.get_paradigm">get_paradigm() (braincoder.models.EncodingModel method)</a>
 </li>
         <li><a href="api_reference.html#braincoder.models.EncodingModel.get_parameter_labels">get_parameter_labels() (braincoder.models.EncodingModel method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api_reference.html#braincoder.parametric.get_parametric_stimulus_pdf">get_parametric_stimulus_pdf() (in module braincoder.parametric)</a>
+</li>
         <li><a href="api_reference.html#braincoder.models.EncodingModel.get_stimulus_pdf">get_stimulus_pdf() (braincoder.models.EncodingModel method)</a>
+</li>
+        <li><a href="api_reference.html#braincoder.parametric.ParametricStimulus.grid">grid() (braincoder.parametric.ParametricStimulus method)</a>
 </li>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.grid_log_likelihood">grid_log_likelihood() (braincoder.noise.LowRankNoise method)</a>
 </li>
@@ -397,6 +472,16 @@
   </tr></table>
 </section>
 
+<section id="I" class="genindex-section">
+  <h2>I</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api_reference.html#braincoder.parametric.ParametricStimulus.images">images() (braincoder.parametric.ParametricStimulus method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
 <section id="K" class="genindex-section">
   <h2>K</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
@@ -415,13 +500,27 @@
 </li>
         <li><a href="api_reference.html#braincoder.models.LinearModelWithBaselineHRF">LinearModelWithBaselineHRF (class in braincoder.models)</a>
 </li>
-        <li><a href="api_reference.html#braincoder.noise.LowRankNoise.log_prob">log_prob() (braincoder.noise.LowRankNoise method)</a>
+        <li><a href="api_reference.html#braincoder.optimize.ParametricStimulusFitter.log_posterior">log_posterior() (braincoder.optimize.ParametricStimulusFitter method)</a>
 </li>
+        <li><a href="api_reference.html#braincoder.parametric.BarStimulus.log_prior_unconstrained">log_prior_unconstrained() (braincoder.parametric.BarStimulus method)</a>
+</li>
+        <li><a href="api_reference.html#braincoder.noise.LowRankNoise.log_prob">log_prob() (braincoder.noise.LowRankNoise method)</a>
+
+        <ul>
+          <li><a href="api_reference.html#braincoder.parametric.LogWidthPrior.log_prob">(braincoder.parametric.LogWidthPrior method)</a>
+</li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.log_prob_backend">log_prob_backend() (braincoder.noise.LowRankNoise method)</a>
 </li>
+        <li><a href="api_reference.html#braincoder.parametric.LogWidthPrior.log_prob_log_width">log_prob_log_width() (braincoder.parametric.LogWidthPrior method)</a>
+</li>
+        <li><a href="api_reference.html#braincoder.parametric.LogWidthPrior.log_prob_zeta">log_prob_zeta() (braincoder.parametric.LogWidthPrior method)</a>
+</li>
         <li><a href="api_reference.html#braincoder.utils.calibration.log_score">log_score() (in module braincoder.utils.calibration)</a>
+</li>
+        <li><a href="api_reference.html#braincoder.parametric.LogWidthPrior">LogWidthPrior (class in braincoder.parametric)</a>
 </li>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise">LowRankNoise (class in braincoder.noise)</a>
 </li>
@@ -435,14 +534,24 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.mahalanobis">mahalanobis() (braincoder.noise.LowRankNoise method)</a>
 </li>
-        <li><a href="api_reference.html#braincoder.utils.calibration.marginalize">marginalize() (in module braincoder.utils.calibration)</a>
+        <li><a href="gain_fields.html#braincoder.stimuli.make_gain_field_paradigm">make_gain_field_paradigm() (in module braincoder.stimuli)</a>
 </li>
+        <li><a href="gain_fields.html#braincoder.models.GainFieldMixin.make_paradigm">make_paradigm() (braincoder.models.GainFieldMixin method)</a>
+</li>
+        <li><a href="api_reference.html#braincoder.parametric.marginalize">marginalize() (in module braincoder.parametric)</a>
+
+        <ul>
+          <li><a href="api_reference.html#braincoder.utils.calibration.marginalize">(in module braincoder.utils.calibration)</a>
+</li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     module
 
         <ul>
+          <li><a href="api_reference.html#module-braincoder.parametric">braincoder.parametric</a>
+</li>
           <li><a href="api_reference.html#module-braincoder.utils.calibration">braincoder.utils.calibration</a>
 </li>
         </ul></li>
@@ -456,6 +565,10 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.optimize.ParameterFitter">ParameterFitter (class in braincoder.optimize)</a>
 </li>
+        <li><a href="api_reference.html#braincoder.parametric.ParametricStimulus">ParametricStimulus (class in braincoder.parametric)</a>
+</li>
+        <li><a href="api_reference.html#braincoder.optimize.ParametricStimulusFitter">ParametricStimulusFitter (class in braincoder.optimize)</a>
+</li>
         <li><a href="api_reference.html#braincoder.utils.calibration.pit">pit() (in module braincoder.utils.calibration)</a>
 </li>
         <li><a href="api_reference.html#braincoder.utils.calibration.plot_calibration">plot_calibration() (in module braincoder.utils.calibration)</a>
@@ -467,6 +580,10 @@
         <li><a href="api_reference.html#braincoder.models.EncodingModel.predict">predict() (braincoder.models.EncodingModel method)</a>
 </li>
         <li><a href="api_reference.html#braincoder.models.EncodingModel.predict_stimulus_grid">predict_stimulus_grid() (braincoder.models.EncodingModel method)</a>
+</li>
+        <li><a href="gain_fields.html#braincoder.models.GainFieldMixin.prf_parameter_labels">prf_parameter_labels() (braincoder.models.GainFieldMixin method)</a>
+</li>
+        <li><a href="gain_fields.html#braincoder.models.FieldShape.profile">profile() (braincoder.models.FieldShape method)</a>
 </li>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.psi">psi (braincoder.noise.LowRankNoise attribute)</a>
 </li>
@@ -510,10 +627,18 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.temperature">temperature (braincoder.noise.LowRankNoise attribute)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.noise.LowRankNoise.to_dense">to_dense() (braincoder.noise.LowRankNoise method)</a>
 </li>
+        <li><a href="api_reference.html#braincoder.parametric.ParametricStimulus.to_image">to_image() (braincoder.parametric.ParametricStimulus method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api_reference.html#braincoder.parametric.BarStimulus.to_unconstrained">to_unconstrained() (braincoder.parametric.BarStimulus method)</a>
+
+        <ul>
+          <li><a href="api_reference.html#braincoder.parametric.ParametricStimulus.to_unconstrained">(braincoder.parametric.ParametricStimulus method)</a>
+</li>
+        </ul></li>
         <li><a href="api_reference.html#braincoder.utils.calibration.true_stimulus_index">true_stimulus_index() (in module braincoder.utils.calibration)</a>
 </li>
     </ul></td>
@@ -535,6 +660,20 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api_reference.html#braincoder.optimize.WeightFitter">WeightFitter (class in braincoder.optimize)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api_reference.html#braincoder.parametric.LogWidthPrior.width">width() (braincoder.parametric.LogWidthPrior method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="Z" class="genindex-section">
+  <h2>Z</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api_reference.html#braincoder.parametric.LogWidthPrior.zeta">zeta() (braincoder.parametric.LogWidthPrior method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -572,7 +711,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5a057da9"></script>
+</div><script src="_static/documentation_options.js?v=39bb1c6d"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

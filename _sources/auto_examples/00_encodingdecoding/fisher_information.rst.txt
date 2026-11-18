@@ -107,7 +107,7 @@ the quantiles of a *uniform prior distribution*
 
  .. code-block:: none
 
-    /Users/gdehol/git/braincoder-release-0.7.1/examples/00_encodingdecoding/fisher_information.py:58: UserWarning: 
+    braincoder/examples/00_encodingdecoding/fisher_information.py:58: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       sns.lineplot(data=data.reset_index(), x='stimulus', y='strength', hue='rf', palette=['k'], alpha=0.5, legend=False)
 
@@ -379,20 +379,20 @@ Let's calculate the Fisher information for different RF structures
 
  .. code-block:: none
 
-    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
-    /Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning: 
+    site-packages/seaborn/axisgrid.py:854: UserWarning: 
     The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
       func(*plot_args, **plot_kwargs)
 
-    <seaborn.axisgrid.FacetGrid object at 0x17e635af0>
+    <seaborn.axisgrid.FacetGrid object at 0x31c432660>
 
 
 
@@ -534,7 +534,7 @@ stimulus value.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 26.772 seconds)
+   **Total running time of the script:** (1 minutes 32.044 seconds)
 
 
 .. _sphx_glr_download_auto_examples_00_encodingdecoding_fisher_information.py:

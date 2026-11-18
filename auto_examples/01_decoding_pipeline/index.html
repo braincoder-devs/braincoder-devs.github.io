@@ -8,7 +8,7 @@
         <link rel="prefetch" href="../../_static/logo_dark.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>End-to-end decoding pipeline on real data - Braincoder 0.7.1 documentation</title>
+        <title>End-to-end decoding pipeline on real data - Braincoder 0.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -173,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Braincoder 0.9.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -212,6 +212,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gain_fields.html">Gain fields (attention fields)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -224,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson7.html">Lesson 7: Fitting PRF models to visual space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson8.html">Lesson 8: Gain fields: attention modulates PRFs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Examples</a><input aria-label="Toggle navigation of Examples" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -248,6 +250,10 @@
 <li class="toctree-l3"><a class="reference internal" href="01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../02_gain_fields/index.html">Gain fields: attention modulates PRFs</a><input aria-label="Toggle navigation of Gain fields: attention modulates PRFs" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../02_gain_fields/01_gain_fields.html">Gain fields: attention modulates population receptive fields</a></li>
 </ul>
 </li>
 </ul>
@@ -374,7 +380,7 @@ downloaded on first run via <code class="docutils literal notranslate"><span cla
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5a057da9"></script>
+</div><script src="../../_static/documentation_options.js?v=39bb1c6d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

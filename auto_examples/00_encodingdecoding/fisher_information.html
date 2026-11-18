@@ -8,7 +8,7 @@
         <link rel="prefetch" href="../../_static/logo_dark.png" as="image">
 
     <link rel="shortcut icon" href="../../_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Fisher information to estimate precision of encoding parameters across stimulus space - Braincoder 0.7.1 documentation</title>
+        <title>Fisher information to estimate precision of encoding parameters across stimulus space - Braincoder 0.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -173,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
+      <a href="../../index.html"><div class="brand">Braincoder 0.9.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -212,6 +212,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../fisher_information.html">Fisher information and expected uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gain_fields.html">Gain fields (attention fields)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -224,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson7.html">Lesson 7: Fitting PRF models to visual space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial/lesson8.html">Lesson 8: Gain fields: attention modulates PRFs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Examples</a><input aria-label="Toggle navigation of Examples" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
@@ -248,6 +250,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../02_gain_fields/index.html">Gain fields: attention modulates PRFs</a><input aria-label="Toggle navigation of Gain fields: attention modulates PRFs" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../02_gain_fields/01_gain_fields.html">Gain fields: attention modulates population receptive fields</a></li>
 </ul>
 </li>
 </ul>
@@ -347,7 +353,7 @@ the quantiles of a <em>uniform prior distribution</em>
 <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_fisher_information_001.png" srcset="../../_images/sphx_glr_fisher_information_001.png" alt="fisher information" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/gdehol/git/braincoder-release-0.7.1/examples/00_encodingdecoding/fisher_information.py:58: UserWarning:
+<img src="../../_images/sphx_glr_fisher_information_001.png" srcset="../../_images/sphx_glr_fisher_information_001.png" alt="fisher information" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>braincoder/examples/00_encodingdecoding/fisher_information.py:58: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   sns.lineplot(data=data.reset_index(), x=&#39;stimulus&#39;, y=&#39;strength&#39;, hue=&#39;rf&#39;, palette=[&#39;k&#39;], alpha=0.5, legend=False)
 </pre></div>
@@ -497,20 +503,20 @@ stimuli.
 <li><img src="../../_images/sphx_glr_fisher_information_007.png" srcset="../../_images/sphx_glr_fisher_information_007.png" alt="Fisher information, Unequally distributed mus, Equally distributed mus, Smaller dispersion, Smaller amplitude (vs noise)" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_fisher_information_008.png" srcset="../../_images/sphx_glr_fisher_information_008.png" alt="fisher information" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>site-packages/seaborn/axisgrid.py:854: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   func(*plot_args, **plot_kwargs)
-/Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning:
+site-packages/seaborn/axisgrid.py:854: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   func(*plot_args, **plot_kwargs)
-/Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning:
+site-packages/seaborn/axisgrid.py:854: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   func(*plot_args, **plot_kwargs)
-/Users/gdehol/mambaforge/envs/braincoder/lib/python3.12/site-packages/seaborn/axisgrid.py:854: UserWarning:
+site-packages/seaborn/axisgrid.py:854: UserWarning:
 The palette list has fewer values (1) than needed (8) and will cycle, which may produce an uninterpretable plot.
   func(*plot_args, **plot_kwargs)
 
-&lt;seaborn.axisgrid.FacetGrid object at 0x17e635af0&gt;
+&lt;seaborn.axisgrid.FacetGrid object at 0x31c432660&gt;
 </pre></div>
 </div>
 <p>Another intersting phenomenon we can now study is how different
@@ -587,7 +593,7 @@ stimulus value.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;stimulus&#39;, ylabel=&#39;sqrt(fi)&#39;&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 26.772 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 32.044 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-00-encodingdecoding-fisher-information-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/63d506f48bb4c5a0da7e8a34c526c251/fisher_information.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">fisher_information.ipynb</span></code></a></p>
@@ -673,7 +679,7 @@ stimulus value.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5a057da9"></script>
+</div><script src="../../_static/documentation_options.js?v=39bb1c6d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

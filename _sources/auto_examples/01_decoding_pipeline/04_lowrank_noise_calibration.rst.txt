@@ -266,7 +266,7 @@ asking for more factors while decoding gets worse.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.840 seconds)
+   **Total running time of the script:** (0 minutes 11.798 seconds)
 
 
 .. _sphx_glr_download_auto_examples_01_decoding_pipeline_04_lowrank_noise_calibration.py:

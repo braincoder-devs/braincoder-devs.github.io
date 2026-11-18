@@ -8,7 +8,7 @@
         <link rel="prefetch" href="_static/logo_dark.png" as="image">
 
     <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>What’s new - Braincoder 0.7.1 documentation</title>
+        <title>What’s new - Braincoder 0.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -173,7 +173,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Braincoder 0.7.1 documentation</div></a>
+      <a href="index.html"><div class="brand">Braincoder 0.9.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -212,6 +212,7 @@
 <li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts &amp; Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fisher_information.html">Fisher information and expected uncertainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="noise_models.html">Noise models for decoding: low-rank Ω and temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gain_fields.html">Gain fields (attention fields)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/index.html">Tutorial</a><input aria-label="Toggle navigation of Tutorial" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson1.html">Lesson 1: Encoding models</a></li>
@@ -224,6 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#decode-the-conditional-probability-distribution">Decode the conditional probability distribution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson6.html#the-complex-plane">The complex plane</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/lesson7.html">Lesson 7: Fitting PRF models to visual space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/lesson8.html">Lesson 8: Gain fields: attention modulates PRFs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="auto_examples/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
@@ -248,6 +250,10 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/01_voxel_selection_fdr.html">Voxel selection via a 2-component R² mixture model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/03_expected_uncertainty.html">Expected decoding uncertainty via simulate + decode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_examples/01_decoding_pipeline/02_geodesic_decoder.html">Geodesic-regularised noise model for trial-wise decoding</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="auto_examples/02_gain_fields/index.html">Gain fields: attention modulates PRFs</a><input aria-label="Toggle navigation of Gain fields: attention modulates PRFs" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto_examples/02_gain_fields/01_gain_fields.html">Gain fields: attention modulates population receptive fields</a></li>
 </ul>
 </li>
 </ul>
@@ -293,6 +299,33 @@
         <article role="main" id="furo-main-content">
           <section id="what-s-new">
 <h1>What’s new<a class="headerlink" href="#what-s-new" title="Link to this heading">¶</a></h1>
+<section id="highlights-2026-11-18">
+<h2>0.9.0 highlights (2026-11-18)<a class="headerlink" href="#highlights-2026-11-18" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Gain-field PRF models</strong> (<a class="reference internal" href="gain_fields.html"><span class="doc">Gain fields (attention fields)</span></a>): <code class="docutils literal notranslate"><span class="pre">GainFieldPRF2D</span></code>, <code class="docutils literal notranslate"><span class="pre">GainFieldDoGPRF2D</span></code> and their
+<code class="docutils literal notranslate"><span class="pre">WithHRF</span></code> versions multiply the stimulus by fields around chosen locations (attended, salient,
+target, …) before the PRF pools it. Any number of locations and named gain types, several
+fields of different shapes (<code class="docutils literal notranslate"><span class="pre">GaussianField</span></code>, <code class="docutils literal notranslate"><span class="pre">DoGField</span></code>, or your own <code class="docutils literal notranslate"><span class="pre">FieldShape</span></code>), tied and
+zero-sum parameters, image-scale masks, and <code class="docutils literal notranslate"><span class="pre">GainFieldMixin</span></code> for other PRF kernels. The paradigm
+helper is <code class="docutils literal notranslate"><span class="pre">braincoder.stimuli.make_gain_field_paradigm</span></code>. Tutorial:
+<a class="reference internal" href="auto_examples/02_gain_fields/01_gain_fields.html"><span class="doc">Gain fields: attention modulates population receptive fields</span></a>.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>0.8.0 highlights (2026-11-18)<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">braincoder.parametric</span></code></strong>: write a stimulus class as a map from a few named parameters to an
+image (<code class="docutils literal notranslate"><span class="pre">ParametricStimulus</span></code>; <code class="docutils literal notranslate"><span class="pre">BarStimulus</span></code> with a hard or soft edge, an optional contrast and an
+optional aperture). <code class="docutils literal notranslate"><span class="pre">get_parametric_stimulus_pdf</span></code> gives the exact grid posterior over the parameters
+(with a blank state and a prior) through <code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>; <code class="docutils literal notranslate"><span class="pre">marginalize</span></code> sums it;
+<code class="docutils literal notranslate"><span class="pre">forward_backward</span></code> gives exact HMM marginals over a candidate set for slowly changing stimuli.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">LogWidthPrior</span></code></strong>: a proper, smooth prior on a bar’s width, bounded away from 0 and from the field.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">optimize.ParametricStimulusFitter</span></code></strong>: MAP over the parameters by gradient descent, per volume, or
+for a whole BOLD series with a <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> model and a random-walk prior; parameters can be clamped.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">GeodesicGPPrior(mean=...,</span> <span class="pre">transform=...)</span></code></strong>: a constant (estimated) or fixed prior mean, and a log
+transform. Defaults are unchanged.</p></li>
+</ul>
+</section>
 <section id="highlights-2026-11-16">
 <h2>0.7.1 highlights (2026-11-16)<a class="headerlink" href="#highlights-2026-11-16" title="Link to this heading">¶</a></h2>
 <p>Bug-fix release. <strong>Refit</strong> if you used either of the first two:</p>
@@ -320,8 +353,8 @@ announced: see the changelog below.</p></li>
 <li><p><strong>Torch on Apple GPUs</strong> now runs the whole library.</p></li>
 </ul>
 </section>
-<section id="id1">
-<h2>0.6.2 highlights (2026-11-02)<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<section id="id2">
+<h2>0.6.2 highlights (2026-11-02)<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <p>Bug-fix release. Inputs that gave plausible-looking wrong results now give the right result
 or a clear error. <strong>Recompute</strong> cvR² from frames with different indices (R² could be exactly
 1), <strong>refit</strong> if <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">paradigm</span></code> had different indices, and <strong>re-decode</strong> anything
@@ -361,8 +394,82 @@ held-out noise on single-trial fMRI; prefer <code class="docutils literal notran
 </section>
 <section id="full-changelog">
 <h2>Full changelog<a class="headerlink" href="#full-changelog" title="Link to this heading">¶</a></h2>
-<section id="id2">
-<h3>0.7.1 (2026-11-16)<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<section id="id3">
+<h3>0.9.0 (2026-11-18)<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>New features; no behaviour changes for existing code.</p>
+<section id="gain-field-prf-models-braincoder-models-gain-field">
+<h4>Gain-field PRF models (<code class="docutils literal notranslate"><span class="pre">braincoder.models.gain_field</span></code>)<a class="headerlink" href="#gain-field-prf-models-braincoder-models-gain-field" title="Link to this heading">¶</a></h4>
+<p>Fields around chosen locations (attended, salient, target, distractor, …) multiply the stimulus image
+before each voxel’s PRF pools it. With all gains at 0 the model is exactly the PRF model underneath.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">GainFieldPRF2D</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">GainFieldDoGPRF2D</span></code></strong> and their <strong><code class="docutils literal notranslate"><span class="pre">WithHRF</span></code></strong> versions, for single-trial
+betas and BOLD time courses. <strong><code class="docutils literal notranslate"><span class="pre">GainFieldMixin</span></code></strong> adds fields to any image PRF kernel.</p></li>
+<li><p>Any number of field locations, anywhere, and any number of named gain types. The per-frame role of
+every location (weights, 0/1 or fractional) is part of the paradigm, built with
+<strong><code class="docutils literal notranslate"><span class="pre">braincoder.stimuli.make_gain_field_paradigm</span></code></strong> or <code class="docutils literal notranslate"><span class="pre">model.make_paradigm</span></code>.</p></li>
+<li><p>Several fields per model (<strong><code class="docutils literal notranslate"><span class="pre">GainField</span></code></strong>), each with its own shape (<strong><code class="docutils literal notranslate"><span class="pre">FieldShape</span></code></strong> subclasses:
+<strong><code class="docutils literal notranslate"><span class="pre">GaussianField</span></code></strong>, <strong><code class="docutils literal notranslate"><span class="pre">DoGField</span></code></strong>, or your own), gains (signed, positive or negative), and inside or
+outside the clip at 0. The combination rule is pluggable.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ties</span></code></strong>: parameters fixed to a constant, equal to another, or a linear combination of others
+(zero-sum gains, shared widths). <strong><code class="docutils literal notranslate"><span class="pre">image_scales</span></code></strong>: a model-level factor for part of the image.</p></li>
+<li><p>Field parameters are model-level and fitted with <code class="docutils literal notranslate"><span class="pre">ParameterFitter(...,</span> <span class="pre">shared_pars=...)</span></code>, typically
+with the PRFs fixed. The forward pass costs about as much as the PRF model underneath.</p></li>
+<li><p>Documentation: a gain-field page (<code class="docutils literal notranslate"><span class="pre">docs/gain_fields.rst</span></code>) and a gallery tutorial
+(<code class="docutils literal notranslate"><span class="pre">examples/02_gain_fields</span></code>, lesson 8).</p></li>
+</ul>
+</section>
+<section id="fixes">
+<h4>Fixes<a class="headerlink" href="#fixes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">StimulusFitter</span></code> on images is about 100 times faster.</strong> The L1/L2 penalties looped over every pixel of every
+trial in eager mode, and free decoding passed each pixel as a separate tensor. Results are unchanged.</p></li>
+</ul>
+</section>
+</section>
+<section id="id4">
+<h3>0.8.0 (2026-11-18)<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>New features; no behaviour changes for existing code (all defaults are unchanged).</p>
+<section id="stimulus-parameterisations-braincoder-parametric">
+<h4>Stimulus parameterisations: <code class="docutils literal notranslate"><span class="pre">braincoder.parametric</span></code><a class="headerlink" href="#stimulus-parameterisations-braincoder-parametric" title="Link to this heading">¶</a></h4>
+<p>Decode a few named stimulus parameters (for example the position, width and orientation of a bar)
+instead of a free pixel image.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ParametricStimulus</span></code></strong> is a stimulus class defined as a map from named parameters to an image;
+<strong><code class="docutils literal notranslate"><span class="pre">BarStimulus</span></code></strong> is a bar with a hard or soft edge, an optional contrast and an optional aperture.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">get_parametric_stimulus_pdf</span></code></strong> gives the exact grid posterior over the parameters (with a blank
+state and a prior) through <code class="docutils literal notranslate"><span class="pre">get_stimulus_pdf</span></code>; <strong><code class="docutils literal notranslate"><span class="pre">marginalize</span></code></strong> sums it over parameters;
+<strong><code class="docutils literal notranslate"><span class="pre">forward_backward</span></code></strong> gives exact HMM marginals over a candidate set for slowly changing stimuli.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">LogWidthPrior</span></code></strong> is a proper prior on a bar’s width, bounded away from 0 and from the field.
+Log width is a logit-scaled variable on <code class="docutils literal notranslate"><span class="pre">(log</span> <span class="pre">min_width,</span> <span class="pre">log</span> <span class="pre">max_width)</span></code> with a normal prior on the
+unconstrained scale, so the density is smooth (no wall for HMC or NUTS) and <code class="docutils literal notranslate"><span class="pre">scale</span></code> sets how
+concentrated it is.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">optimize.ParametricStimulusFitter</span></code></strong> finds the MAP over the parameters by gradient descent, per
+volume, or for a whole BOLD series with a <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> model and a random-walk prior. Parameters can be
+clamped.</p></li>
+</ul>
+</section>
+<section id="geodesicgpprior-mean-and-transform">
+<h4><code class="docutils literal notranslate"><span class="pre">GeodesicGPPrior</span></code>: mean and transform<a class="headerlink" href="#geodesicgpprior-mean-and-transform" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">mean=</span></code></strong> <code class="docutils literal notranslate"><span class="pre">'zero'</span></code> (default, unchanged), <code class="docutils literal notranslate"><span class="pre">'constant'</span></code> (a scalar estimated together with the kernel
+hyperparameters: type-II ML in <code class="docutils literal notranslate"><span class="pre">fit_hyperparameters</span></code>, type-II MAP in <code class="docutils literal notranslate"><span class="pre">fit_map(joint_hyperparams=True)</span></code>,
+initialised at the median of the classical estimates) or a fixed number.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">transform=</span></code></strong> <code class="docutils literal notranslate"><span class="pre">'identity'</span></code> (default, unchanged) or <code class="docutils literal notranslate"><span class="pre">'log'</span></code> (the prior is on log theta; the MAP is the
+mode in log coordinates).</p></li>
+<li><p>With the defaults, fits are unchanged. <code class="docutils literal notranslate"><span class="pre">BayesianParameterFitter</span></code> centres a constant-mean
+prior on the classical estimates before stage 2 or 3.</p></li>
+</ul>
+</section>
+<section id="other">
+<h4>Other<a class="headerlink" href="#other" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Documentation: pip-first install instructions; the braincoder skill is shipped in the repository as a
+Claude Code plugin.</p></li>
+</ul>
+</section>
+</section>
+<section id="id5">
+<h3>0.7.1 (2026-11-16)<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <p>Bug-fix release. Two of the fixes change fitted values: <strong>refit</strong> anything fitted with
 <code class="docutils literal notranslate"><span class="pre">SPMHRFModel</span></code> / <code class="docutils literal notranslate"><span class="pre">SPMHRFDerivativeModel</span></code> (the usual <code class="docutils literal notranslate"><span class="pre">hrf_model</span></code> of the <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> models), and anything
 fitted with <code class="docutils literal notranslate"><span class="pre">ResidualFitter.fit(D=...)</span></code>.</p>
@@ -431,8 +538,8 @@ logging (their parameter labels are tuples).</p></li>
 </ul>
 </section>
 </section>
-<section id="id3">
-<h3>0.7.0 (2026-11-02)<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<section id="id6">
+<h3>0.7.0 (2026-11-02)<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <p><strong>Breaking.</strong> Models no longer hold data or fitted values. See the
 <a class="reference external" href="https://braincoder-devs.github.io/migration.html">migration guide</a>; most scripts need only
 a few mechanical edits, and old constructor arguments raise an error that points to it.</p>
@@ -490,8 +597,8 @@ regression model no longer crashes in its logging.</p></li>
 </ul>
 </section>
 </section>
-<section id="id4">
-<h3>0.6.2 (2026-11-02)<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<section id="id7">
+<h3>0.6.2 (2026-11-02)<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <p>Bug-fix release: inputs that gave plausible-looking wrong results now give the right
 result or a clear error. Some of these change what existing scripts do, so read the
 heads-up below.</p>
@@ -547,8 +654,8 @@ license, related software (prfmodel) and the Claude Code skill. <code class="doc
 ORCIDs and no longer describes the package as TensorFlow-based.</p></li>
 </ul>
 </section>
-<section id="id5">
-<h3>0.6.1 (2026-11-02)<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<section id="id8">
+<h3>0.6.1 (2026-11-02)<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
 <p>Bug-fix release.</p>
 <ul class="simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">DivisiveNormalizationGaussianPRF2DWithHRF</span></code> with <code class="docutils literal notranslate"><span class="pre">flexible_hrf_parameters=True</span></code>:</strong> the
@@ -567,8 +674,8 @@ reparameterisations of the amplitudes; existing fits are unaffected.</p></li>
 <li><p>Tests: parameter-transform round trips for all <code class="docutils literal notranslate"><span class="pre">*WithHRF</span></code> 2D PRF models; normalisation scales.</p></li>
 </ul>
 </section>
-<section id="id6">
-<h3>0.6.0 (2026-10-25)<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<section id="id9">
+<h3>0.6.0 (2026-10-25)<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
 <p>The headline of 0.6 is a new <strong>per-voxel Gaussian likelihood</strong> option in
 <code class="docutils literal notranslate"><span class="pre">ParameterFitter</span></code>, opt-in here and the default in 0.7. Same fixed points
 as the existing sum-of-squares loss, much faster convergence under
@@ -789,14 +896,14 @@ not installed.</p></li>
 </section>
 </section>
 <hr class="docutils" />
-<section id="id7">
-<h3>0.5.1 (2026-05-04)<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<section id="id10">
+<h3>0.5.1 (2026-05-04)<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Fix invalid <code class="docutils literal notranslate"><span class="pre">isRelatedTo</span></code> relation in <code class="docutils literal notranslate"><span class="pre">.zenodo.json</span></code> (Zenodo schema requires <code class="docutils literal notranslate"><span class="pre">references</span></code> instead). The 0.5.0 GitHub release failed to deposit on Zenodo because of this; 0.5.1 contains no code changes, only the metadata fix.</p></li>
 </ul>
 </section>
-<section id="id8">
-<h3>0.5.0 (2026-05-04)<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<section id="id11">
+<h3>0.5.0 (2026-05-04)<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
 <p>The headline change is a full <strong>Keras 3 port</strong>: braincoder is now backend-agnostic and runs on TensorFlow, JAX, or PyTorch (including Apple Silicon MPS). The codebase has been refactored into subpackages, the test suite has grown from a handful of integration tests to 170 passing tests across all three backends, and a long list of bugs has been fixed.</p>
 <section id="backend-infrastructure">
 <h4>Backend &amp; infrastructure<a class="headerlink" href="#backend-infrastructure" title="Link to this heading">¶</a></h4>
@@ -914,26 +1021,39 @@ not installed.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">What’s new</a><ul>
+<li><a class="reference internal" href="#highlights-2026-11-18">0.9.0 highlights (2026-11-18)</a></li>
+<li><a class="reference internal" href="#id1">0.8.0 highlights (2026-11-18)</a></li>
 <li><a class="reference internal" href="#highlights-2026-11-16">0.7.1 highlights (2026-11-16)</a></li>
 <li><a class="reference internal" href="#highlights-2026-11-02">0.7.0 highlights (2026-11-02)</a></li>
-<li><a class="reference internal" href="#id1">0.6.2 highlights (2026-11-02)</a></li>
+<li><a class="reference internal" href="#id2">0.6.2 highlights (2026-11-02)</a></li>
 <li><a class="reference internal" href="#highlights-2026-10-25">0.6.0 highlights (2026-10-25)</a></li>
 <li><a class="reference internal" href="#full-changelog">Full changelog</a><ul>
-<li><a class="reference internal" href="#id2">0.7.1 (2026-11-16)</a><ul>
+<li><a class="reference internal" href="#id3">0.9.0 (2026-11-18)</a><ul>
+<li><a class="reference internal" href="#gain-field-prf-models-braincoder-models-gain-field">Gain-field PRF models (<code class="docutils literal notranslate"><span class="pre">braincoder.models.gain_field</span></code>)</a></li>
+<li><a class="reference internal" href="#fixes">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">0.8.0 (2026-11-18)</a><ul>
+<li><a class="reference internal" href="#stimulus-parameterisations-braincoder-parametric">Stimulus parameterisations: <code class="docutils literal notranslate"><span class="pre">braincoder.parametric</span></code></a></li>
+<li><a class="reference internal" href="#geodesicgpprior-mean-and-transform"><code class="docutils literal notranslate"><span class="pre">GeodesicGPPrior</span></code>: mean and transform</a></li>
+<li><a class="reference internal" href="#other">Other</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">0.7.1 (2026-11-16)</a><ul>
 <li><a class="reference internal" href="#behaviour-change-spmhrfmodel-is-spm-s-canonical-hrf">Behaviour change: <code class="docutils literal notranslate"><span class="pre">SPMHRFModel</span></code> is SPM’s canonical HRF</a></li>
 <li><a class="reference internal" href="#distance-dependent-noise-model">Distance-dependent noise model</a></li>
 <li><a class="reference internal" href="#other-fixes">Other fixes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">0.7.0 (2026-11-02)</a><ul>
+<li><a class="reference internal" href="#id6">0.7.0 (2026-11-02)</a><ul>
 <li><a class="reference internal" href="#models-hold-configuration-only">Models hold configuration only</a></li>
 <li><a class="reference internal" href="#parameterfitter-fit"><code class="docutils literal notranslate"><span class="pre">ParameterFitter.fit</span></code></a></li>
 <li><a class="reference internal" href="#other-changes">Other changes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">0.6.2 (2026-11-02)</a></li>
-<li><a class="reference internal" href="#id5">0.6.1 (2026-11-02)</a></li>
-<li><a class="reference internal" href="#id6">0.6.0 (2026-10-25)</a><ul>
+<li><a class="reference internal" href="#id7">0.6.2 (2026-11-02)</a></li>
+<li><a class="reference internal" href="#id8">0.6.1 (2026-11-02)</a></li>
+<li><a class="reference internal" href="#id9">0.6.0 (2026-10-25)</a><ul>
 <li><a class="reference internal" href="#default-fitter-changes-heads-up-for-downstream-projects">Default fitter changes (heads-up for downstream projects)</a></li>
 <li><a class="reference internal" href="#calibrated-decoding-low-rank-noise-model-with-cv-rank-temperature">Calibrated decoding: low-rank noise model with CV rank + temperature</a></li>
 <li><a class="reference internal" href="#hierarchical-bayesian-gp-prior">Hierarchical Bayesian / GP prior</a></li>
@@ -946,8 +1066,8 @@ not installed.</p></li>
 <li><a class="reference internal" href="#compatibility">Compatibility</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7">0.5.1 (2026-05-04)</a></li>
-<li><a class="reference internal" href="#id8">0.5.0 (2026-05-04)</a><ul>
+<li><a class="reference internal" href="#id10">0.5.1 (2026-05-04)</a></li>
+<li><a class="reference internal" href="#id11">0.5.0 (2026-05-04)</a><ul>
 <li><a class="reference internal" href="#backend-infrastructure">Backend &amp; infrastructure</a></li>
 <li><a class="reference internal" href="#new-models">New models</a></li>
 <li><a class="reference internal" href="#new-features">New features</a></li>
@@ -969,7 +1089,7 @@ not installed.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5a057da9"></script>
+</div><script src="_static/documentation_options.js?v=39bb1c6d"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
